@@ -27,27 +27,27 @@ class WeatherGame(object):
         self.SoundWin = pygame.mixer.Sound(self.SoundWinFile)
         self.SoundLoss = pygame.mixer.Sound(self.SoundLossFile)
 
-        self.MySound0 = pygame.mixer.Sound('audio\itscloudy.ogg')
-        self.MySound1 = pygame.mixer.Sound('audio\itscold.ogg')
-        self.MySound2 = pygame.mixer.Sound('audio\itshot.ogg')
-        self.MySound3 = pygame.mixer.Sound('audio\itsfoggy.ogg')
-        self.MySound4 = pygame.mixer.Sound('audio\itsraining.ogg')
-        self.MySound5 = pygame.mixer.Sound('audio\itssunny.ogg')
-        self.MySound6 = pygame.mixer.Sound('audio\itsstormy.ogg')
-        self.MySound7 = pygame.mixer.Sound('audio\itswindy.ogg')
-        self.MySound8 = pygame.mixer.Sound('audio\itssnowing.ogg')
+        self.MySound0 = pygame.mixer.Sound('audio\\itscloudy.ogg')
+        self.MySound1 = pygame.mixer.Sound('audio\\itscold.ogg')
+        self.MySound2 = pygame.mixer.Sound('audio\\itshot.ogg')
+        self.MySound3 = pygame.mixer.Sound('audio\\itsfoggy.ogg')
+        self.MySound4 = pygame.mixer.Sound('audio\\itsraining.ogg')
+        self.MySound5 = pygame.mixer.Sound('audio\\itssunny.ogg')
+        self.MySound6 = pygame.mixer.Sound('audio\\itsstormy.ogg')
+        self.MySound7 = pygame.mixer.Sound('audio\\itswindy.ogg')
+        self.MySound8 = pygame.mixer.Sound('audio\\itssnowing.ogg')
 
         self.MyImage0 = pygame.image.load('images\cloudy.png')
         self.MyImageRect0 = self.MyImage0.get_rect()
-        self.MyImage1 = pygame.image.load('images\cold.png')
-        self.MyImage2 = pygame.image.load('images\hot.png')
-        self.MyImage3 = pygame.image.load('images\foggy.png')
-        self.MyImage4 = pygame.image.load('images\raining.png')
-        self.MyImage5 = pygame.image.load('images\sunny.png')
-        self.MyImage6 = pygame.image.load('images\stormy.png')
-        self.MyImage7 = pygame.image.load('images\windy.png')
-        self.MyImage8 = pygame.image.load('images\snowing.png')
-        self.MyImageVol = pygame.image.load('images\sound.png')
+        self.MyImage1 = pygame.image.load('images\\cold.png')
+        self.MyImage2 = pygame.image.load('images\\hot.png')
+        self.MyImage3 = pygame.image.load('images\\foggy.png')
+        self.MyImage4 = pygame.image.load('images\\raining.png')
+        self.MyImage5 = pygame.image.load('images\\sunny.png')
+        self.MyImage6 = pygame.image.load('images\\stormy.png')
+        self.MyImage7 = pygame.image.load('images\\windy.png')
+        self.MyImage8 = pygame.image.load('images\\snowing.png')
+        self.MyImageVol = pygame.image.load('images\\sound.png')
 
         self.my_font = pygame.font.Font(None, 48)# need to make these relative
         self.my_rect = pygame.Rect((273,268,252,64))
@@ -110,7 +110,7 @@ class WeatherGame(object):
 
     def new_user(self):
 
-        self.irregular_verbs = [
+        self.IrregularVerbs = [
         [self.MyImage0,[["It's cloudy.","a"],["It's cold.","q"],["It's foggy.","q"],["It's raining.","q"]]],
         [self.MyImage1,[["It's cold.","a"],["It's hot.","q"],["It's foggy.","q"],["It's raining.","q"]]],
         [self.MyImage2,[["It's hot.","a"],["It's foggy.","q"],["It's raining.","q"],["It's sunny.","q"]]],
@@ -131,7 +131,7 @@ class WeatherGame(object):
         [self.MySound8,[["It's snowing.","a"],["It's windy.","q"],["It's foggy.","q"],["It's sunny.","q"]]],
         ]
 
-        self.WordList = random.sample(irregular_verbs,1)[0]
+        self.WordList = random.sample(self.IrregularVerbs,1)[0]
         self.answer = self.WordList[1][0][0]
         random.shuffle(self.WordList[1])
 
@@ -151,172 +151,175 @@ class WeatherGame(object):
         else:
             self.display.blit(self.MyImageVol, ((self.display.get_rect().centerx-self.MyImageRect0.width/2),(self.display.get_rect().centery-self.MyImageRect0.height/2)))
             self.WordList[0].play()
-        self.display.blit(rendered_text_frag_1, my_rect_frag_1.topleft)
-        self.display.blit(rendered_text_frag_2, my_rect_frag_2.topleft)
-        self.display.blit(rendered_text_frag_3, my_rect_frag_3.topleft)
-        self.display.blit(rendered_text_frag_4, my_rect_frag_4.topleft)
+        self.display.blit(self.rendered_text_frag_1, self.my_rect_frag_1.topleft)
+        self.display.blit(self.rendered_text_frag_2, self.my_rect_frag_2.topleft)
+        self.display.blit(self.rendered_text_frag_3, self.my_rect_frag_3.topleft)
+        self.display.blit(self.rendered_text_frag_4, self.my_rect_frag_4.topleft)
 
         pygame.display.update()
 
         return
 
-def deactivate_keys(self):
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
-                return
+    def deactivate_keys(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
+                    return
 
-def refresh_screen(self, fragment, player):
-    if fragment == self.answer:#winner!
-        display.fill(self.WHITE)
-        if self.frag0 == fragment and player == 1:
-            rendered_text_word = render_textrect('Player 1 Wins!', my_font, my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.GREEN, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.BLACK, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.BLACK, self.WHITE, 0)
-        elif self.frag1 == fragment and player == 1:
-            rendered_text_word = render_textrect('Player 1 Wins!', my_font, my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.GREEN, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.BLACK, self.WHITE, 0)
-        elif self.frag2 == fragment and player == 1:
-            rendered_text_word = render_textrect('Player 1 Wins!', my_font, my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.BLACK, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.GREEN, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.BLACK, self.WHITE, 0)
-        elif self.frag3 == fragment and player == 1:
-            rendered_text_word = render_textrect('Player 1 Wins!', my_font, my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.BLACK, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.GREEN, self.WHITE, 0)
-        elif self.frag0 == fragment and player == 2:
-            rendered_text_word = render_textrect('Player 2 Wins!', my_font, my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.GREEN, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.BLACK, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.BLACK, self.WHITE, 0)
-        elif self.frag1 == fragment and player == 2:
-            rendered_text_word = render_textrect('Player 2 Wins!', my_font, my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.GREEN, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.BLACK, self.WHITE, 0)
-        elif self.frag2 == fragment and player == 2:
-            rendered_text_word = render_textrect('Player 2 Wins!', my_font, my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.BLACK, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.GREEN, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.BLACK, self.WHITE, 0)
-        elif self.frag3 == fragment and player == 2:
-            rendered_text_word = render_textrect('Player 2 Wins!', my_font, my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.BLACK, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.GREEN, self.WHITE, 0)
+    def refresh_screen(self, fragment, player):
+        if fragment == self.answer:#winner!
+            self.display.fill(self.WHITE)
+            if self.frag0 == fragment and player == 1:
+                self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.GREEN, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+            elif self.frag1 == fragment and player == 1:
+                self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.GREEN, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+            elif self.frag2 == fragment and player == 1:
+                self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.GREEN, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+            elif self.frag3 == fragment and player == 1:
+                self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.GREEN, self.WHITE, 0)
+            elif self.frag0 == fragment and player == 2:
+                self.rendered_text_word = self.render_textrect('Player 2 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.GREEN, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+            elif self.frag1 == fragment and player == 2:
+                self.rendered_text_word = self.render_textrect('Player 2 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.GREEN, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+            elif self.frag2 == fragment and player == 2:
+                self.rendered_text_word = self.render_textrect('Player 2 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.GREEN, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+            elif self.frag3 == fragment and player == 2:
+                self.rendered_text_word = self.render_textrect('Player 2 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.GREEN, self.WHITE, 0)
 
-        display.blit(rendered_text_word, my_rect.topleft)
-        display.blit(rendered_text_frag_1, my_rect_frag_1.topleft)
-        display.blit(rendered_text_frag_2, my_rect_frag_2.topleft)
-        display.blit(rendered_text_frag_3, my_rect_frag_3.topleft)
-        display.blit(rendered_text_frag_4, my_rect_frag_4.topleft)
-        pygame.display.update()
-        soundwin.play()
-        deactivate_keys()
+            self.display.blit(self.rendered_text_word, self.my_rect.topleft)
+            self.display.blit(self.rendered_text_frag_1, self.my_rect_frag_1.topleft)
+            self.display.blit(self.rendered_text_frag_2, self.my_rect_frag_2.topleft)
+            self.display.blit(self.rendered_text_frag_3, self.my_rect_frag_3.topleft)
+            self.display.blit(self.rendered_text_frag_4, self.my_rect_frag_4.topleft)
+            pygame.display.update()
+            self.SoundWin.play()
+            self.deactivate_keys()
 
-    if fragment != self.answer:#loser
-        display.fill(self.WHITE)
-        if self.frag0 == fragment and player == 1:
-            rendered_text_word = render_textrect('Player 1 Loses!', my_font, my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.RED, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.BLACK, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.BLACK, self.WHITE, 0)
-        elif self.frag1 == fragment and player == 1:
-            rendered_text_word = render_textrect('Player 1 Loses!', my_font, my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.RED, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.BLACK, self.WHITE, 0)
-        elif self.frag2 == fragment and player == 1:
-            rendered_text_word = render_textrect('Player 1 Loses!', my_font, my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.BLACK, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.RED, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.BLACK, self.WHITE, 0)
-        elif self.frag3 == fragment and player == 1:
-            rendered_text_word = render_textrect('Player 1 Loses!', my_font, my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.BLACK, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.RED, self.WHITE, 0)
-        elif self.frag0 == fragment and player == 2:
-            rendered_text_word = render_textrect('Player 2 Loses!', my_font, my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.RED, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.BLACK, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.BLACK, self.WHITE, 0)
-        elif self.frag1 == fragment and player == 2:
-            rendered_text_word = render_textrect('Player 2 Loses!', my_font, my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.RED, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.BLACK, self.WHITE, 0)
-        elif self.frag2 == fragment and player == 2:
-            rendered_text_word = render_textrect('Player 2 Loses!', my_font, my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.BLACK, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.RED, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.BLACK, self.WHITE, 0)
-        elif self.frag3 == fragment and player == 2:
-            rendered_text_word = render_textrect('Player 2 Loses!', my_font, my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, self.BLACK, self.WHITE, 2)
-            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, self.BLACK, self.WHITE, 1)
-            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, self.RED, self.WHITE, 0)
+        if fragment != self.answer:#loser
+            self.display.fill(self.WHITE)
+            if self.frag0 == fragment and player == 1:
+                self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.RED, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+            elif self.frag1 == fragment and player == 1:
+                self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.RED, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+            elif self.frag2 == fragment and player == 1:
+                self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.RED, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+            elif self.frag3 == fragment and player == 1:
+                self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.RED, self.WHITE, 0)
+            elif self.frag0 == fragment and player == 2:
+                self.rendered_text_word = self.render_textrect('Player 2 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.RED, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+            elif self.frag1 == fragment and player == 2:
+                self.rendered_text_word = self.render_textrect('Player 2 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.RED, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+            elif self.frag2 == fragment and player == 2:
+                self.rendered_text_word = self.render_textrect('Player 2 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.RED, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+            elif self.frag3 == fragment and player == 2:
+                self.rendered_text_word = self.render_textrect('Player 2 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.RED, self.WHITE, 0)
 
-        display.blit(rendered_text_word, my_rect.topleft)
-        display.blit(rendered_text_frag_1, my_rect_frag_1.topleft)
-        display.blit(rendered_text_frag_2, my_rect_frag_2.topleft)
-        display.blit(rendered_text_frag_3, my_rect_frag_3.topleft)
-        display.blit(rendered_text_frag_4, my_rect_frag_4.topleft)
-        pygame.display.update()
-        soundloss.play()
-        deactivate_keys()
+            self.display.blit(self.rendered_text_word, self.my_rect.topleft)
+            self.display.blit(self.rendered_text_frag_1, self.my_rect_frag_1.topleft)
+            self.display.blit(self.rendered_text_frag_2, self.my_rect_frag_2.topleft)
+            self.display.blit(self.rendered_text_frag_3, self.my_rect_frag_3.topleft)
+            self.display.blit(self.rendered_text_frag_4, self.my_rect_frag_4.topleft)
+            pygame.display.update()
+            self.SoundLoss.play()
+            self.deactivate_keys()
 
 
-
-while not self.finished:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            self.finished = True
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_SPACE:
-                new_user()
-            if event.key == pygame.K_a:
-                refresh_screen(self.frag0, player=1)
-            elif event.key == pygame.K_e:
-                refresh_screen(self.frag0, player=2)
-            elif event.key == pygame.K_b:
-                refresh_screen(self.frag1, player=1)
-            elif event.key == pygame.K_f:
-                refresh_screen(self.frag1, player=2)
-            elif event.key == pygame.K_c:
-                refresh_screen(self.frag2, player=1)
-            elif event.key == pygame.K_g:
-                refresh_screen(self.frag2, player=2)
-            elif event.key == pygame.K_d:
-                refresh_screen(self.frag3, player=1)
-            elif event.key == pygame.K_h:
-                refresh_screen(self.frag3, player=2)
-            else:
-                pass
-           
-    pygame.display.update()
-    
+    def run(self):
+        while not self.finished:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.finished = True
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_SPACE:
+                        self.new_user()
+                    if event.key == pygame.K_a:
+                        self.refresh_screen(self.frag0, player=1)
+                    elif event.key == pygame.K_e:
+                        self.refresh_screen(self.frag0, player=2)
+                    elif event.key == pygame.K_b:
+                        self.refresh_screen(self.frag1, player=1)
+                    elif event.key == pygame.K_f:
+                        self.refresh_screen(self.frag1, player=2)
+                    elif event.key == pygame.K_c:
+                        self.refresh_screen(self.frag2, player=1)
+                    elif event.key == pygame.K_g:
+                        self.refresh_screen(self.frag2, player=2)
+                    elif event.key == pygame.K_d:
+                        self.refresh_screen(self.frag3, player=1)
+                    elif event.key == pygame.K_h:
+                        self.refresh_screen(self.frag3, player=2)
+                    else:
+                        pass
+                   
+            pygame.display.update()
+        
+if __name__ == '__main__':
+    NewGame = WeatherGame()
+    NewGame.run()
