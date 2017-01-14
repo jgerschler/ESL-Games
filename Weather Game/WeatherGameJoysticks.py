@@ -1,4 +1,4 @@
-import pygame, time, sqlite3, math, random
+import pygame, time, sqlite3, math, random, sys
 import pygame.font
 from pygame.locals import *
 
@@ -9,45 +9,43 @@ class TextRectException:
         return self.message
 
 class WeatherGame(object):
+    WHITE = (255,255,255)# some colors are not currently used, but left for future modification
+    BLACK = (0,0,0)
+    GREEN = (0,128,0)
+    YELLOW = (255,229,51)
+    RED = (255,0,0)
+    BLUE = (0,0,255)
+    BROWN = (97,65,38)
+    PURPLE = (128,0,128)
+
     def __init__(self):
-        self.WHITE = (255,255,255)
-        self.BLACK = (0,0,0)
-        self.GREEN = (0,128,0)
-        self.YELLOW = (255,229,51)
-        self.RED = (255,0,0)
-        self.BLUE = (0,0,255)
-        self.BROWN = (97,65,38)
-        self.PURPLE = (128,0,128)    
-    
         pygame.init()
         pygame.mixer.init()
 
-        self.SoundWinFile = 'ping.ogg'
-        self.SoundLossFile = 'buzzer.ogg'
-        self.SoundWin = pygame.mixer.Sound(self.SoundWinFile)
-        self.SoundLoss = pygame.mixer.Sound(self.SoundLossFile)
+        self.sound_win = pygame.mixer.Sound('audio\\ping.ogg')
+        self.sound_loss = pygame.mixer.Sound('audio\\buzzer.ogg')
 
-        self.MySound0 = pygame.mixer.Sound('audio\\itscloudy.ogg')
-        self.MySound1 = pygame.mixer.Sound('audio\\itscold.ogg')
-        self.MySound2 = pygame.mixer.Sound('audio\\itshot.ogg')
-        self.MySound3 = pygame.mixer.Sound('audio\\itsfoggy.ogg')
-        self.MySound4 = pygame.mixer.Sound('audio\\itsraining.ogg')
-        self.MySound5 = pygame.mixer.Sound('audio\\itssunny.ogg')
-        self.MySound6 = pygame.mixer.Sound('audio\\itsstormy.ogg')
-        self.MySound7 = pygame.mixer.Sound('audio\\itswindy.ogg')
-        self.MySound8 = pygame.mixer.Sound('audio\\itssnowing.ogg')
+        self.my_sound_0 = pygame.mixer.Sound('audio\\itscloudy.ogg')
+        self.my_sound_1 = pygame.mixer.Sound('audio\\itscold.ogg')
+        self.my_sound_2 = pygame.mixer.Sound('audio\\itshot.ogg')
+        self.my_sound_3 = pygame.mixer.Sound('audio\\itsfoggy.ogg')
+        self.my_sound_4 = pygame.mixer.Sound('audio\\itsraining.ogg')
+        self.my_sound_5 = pygame.mixer.Sound('audio\\itssunny.ogg')
+        self.my_sound_6 = pygame.mixer.Sound('audio\\itsstormy.ogg')
+        self.my_sound_7 = pygame.mixer.Sound('audio\\itswindy.ogg')
+        self.my_sound_8 = pygame.mixer.Sound('audio\\itssnowing.ogg')
 
-        self.MyImage0 = pygame.image.load('images\cloudy.png')
-        self.MyImageRect0 = self.MyImage0.get_rect()
-        self.MyImage1 = pygame.image.load('images\\cold.png')
-        self.MyImage2 = pygame.image.load('images\\hot.png')
-        self.MyImage3 = pygame.image.load('images\\foggy.png')
-        self.MyImage4 = pygame.image.load('images\\raining.png')
-        self.MyImage5 = pygame.image.load('images\\sunny.png')
-        self.MyImage6 = pygame.image.load('images\\stormy.png')
-        self.MyImage7 = pygame.image.load('images\\windy.png')
-        self.MyImage8 = pygame.image.load('images\\snowing.png')
-        self.MyImageVol = pygame.image.load('images\\sound.png')
+        self.my_image_0 = pygame.image.load('images\cloudy.png')
+        self.my_image_rect_0 = self.my_image_0.get_rect()
+        self.my_image_1 = pygame.image.load('images\\cold.png')
+        self.my_image_2 = pygame.image.load('images\\hot.png')
+        self.my_image_3 = pygame.image.load('images\\foggy.png')
+        self.my_image_4 = pygame.image.load('images\\raining.png')
+        self.my_image_5 = pygame.image.load('images\\sunny.png')
+        self.my_image_6 = pygame.image.load('images\\stormy.png')
+        self.my_image_7 = pygame.image.load('images\\windy.png')
+        self.my_image_8 = pygame.image.load('images\\snowing.png')
+        self.my_image_vol = pygame.image.load('images\\sound.png')
 
         self.my_font = pygame.font.Font(None, 48)# need to make these relative
         self.my_rect = pygame.Rect((273,268,252,64))
@@ -110,35 +108,35 @@ class WeatherGame(object):
 
     def new_user(self):
 
-        self.IrregularVerbs = [
-        [self.MyImage0,[["It's cloudy.","a"],["It's cold.","q"],["It's foggy.","q"],["It's raining.","q"]]],
-        [self.MyImage1,[["It's cold.","a"],["It's hot.","q"],["It's foggy.","q"],["It's raining.","q"]]],
-        [self.MyImage2,[["It's hot.","a"],["It's foggy.","q"],["It's raining.","q"],["It's sunny.","q"]]],
-        [self.MyImage3,[["It's foggy.","a"],["It's sunny.","q"],["It's stormy.","q"],["It's raining.","q"]]],
-        [self.MyImage4,[["It's raining.","a"],["It's stormy.","q"],["It's sunny.","q"],["It's windy.","q"]]],
-        [self.MyImage5,[["It's sunny.","a"],["It's stormy.","q"],["It's windy.","q"],["It's snowing.","q"]]],
-        [self.MyImage6,[["It's stormy.","a"],["It's windy.","q"],["It's snowing.","q"],["It's cloudy.","q"]]],
-        [self.MyImage7,[["It's windy.","a"],["It's foggy.","q"],["It's sunny.","q"],["It's raining.","q"]]],
-        [self.MyImage8,[["It's snowing.","a"],["It's windy.","q"],["It's foggy.","q"],["It's sunny.","q"]]],
-        [self.MySound0,[["It's cloudy.","a"],["It's cold.","q"],["It's foggy.","q"],["It's raining.","q"]]],
-        [self.MySound1,[["It's cold.","a"],["It's hot.","q"],["It's foggy.","q"],["It's raining.","q"]]],
-        [self.MySound2,[["It's hot.","a"],["It's foggy.","q"],["It's raining.","q"],["It's sunny.","q"]]],
-        [self.MySound3,[["It's foggy.","a"],["It's sunny.","q"],["It's stormy.","q"],["It's raining.","q"]]],
-        [self.MySound4,[["It's raining.","a"],["It's stormy.","q"],["It's sunny.","q"],["It's windy.","q"]]],
-        [self.MySound5,[["It's sunny.","a"],["It's stormy.","q"],["It's windy.","q"],["It's snowing.","q"]]],
-        [self.MySound6,[["It's stormy.","a"],["It's windy.","q"],["It's snowing.","q"],["It's cloudy.","q"]]],
-        [self.MySound7,[["It's windy.","a"],["It's foggy.","q"],["It's sunny.","q"],["It's raining.","q"]]],
-        [self.MySound8,[["It's snowing.","a"],["It's windy.","q"],["It's foggy.","q"],["It's sunny.","q"]]],
+        self.irregular_verbs = [
+        [self.my_image_0,[["It's cloudy.","a"],["It's cold.","q"],["It's foggy.","q"],["It's raining.","q"]]],
+        [self.my_image_1,[["It's cold.","a"],["It's hot.","q"],["It's foggy.","q"],["It's raining.","q"]]],
+        [self.my_image_2,[["It's hot.","a"],["It's foggy.","q"],["It's raining.","q"],["It's sunny.","q"]]],
+        [self.my_image_3,[["It's foggy.","a"],["It's sunny.","q"],["It's stormy.","q"],["It's raining.","q"]]],
+        [self.my_image_4,[["It's raining.","a"],["It's stormy.","q"],["It's sunny.","q"],["It's windy.","q"]]],
+        [self.my_image_5,[["It's sunny.","a"],["It's stormy.","q"],["It's windy.","q"],["It's snowing.","q"]]],
+        [self.my_image_6,[["It's stormy.","a"],["It's windy.","q"],["It's snowing.","q"],["It's cloudy.","q"]]],
+        [self.my_image_7,[["It's windy.","a"],["It's foggy.","q"],["It's sunny.","q"],["It's raining.","q"]]],
+        [self.my_image_8,[["It's snowing.","a"],["It's windy.","q"],["It's foggy.","q"],["It's sunny.","q"]]],
+        [self.my_sound_0,[["It's cloudy.","a"],["It's cold.","q"],["It's foggy.","q"],["It's raining.","q"]]],
+        [self.my_sound_1,[["It's cold.","a"],["It's hot.","q"],["It's foggy.","q"],["It's raining.","q"]]],
+        [self.my_sound_2,[["It's hot.","a"],["It's foggy.","q"],["It's raining.","q"],["It's sunny.","q"]]],
+        [self.my_sound_3,[["It's foggy.","a"],["It's sunny.","q"],["It's stormy.","q"],["It's raining.","q"]]],
+        [self.my_sound_4,[["It's raining.","a"],["It's stormy.","q"],["It's sunny.","q"],["It's windy.","q"]]],
+        [self.my_sound_5,[["It's sunny.","a"],["It's stormy.","q"],["It's windy.","q"],["It's snowing.","q"]]],
+        [self.my_sound_6,[["It's stormy.","a"],["It's windy.","q"],["It's snowing.","q"],["It's cloudy.","q"]]],
+        [self.my_sound_7,[["It's windy.","a"],["It's foggy.","q"],["It's sunny.","q"],["It's raining.","q"]]],
+        [self.my_sound_8,[["It's snowing.","a"],["It's windy.","q"],["It's foggy.","q"],["It's sunny.","q"]]],
         ]
 
-        self.WordList = random.sample(self.IrregularVerbs,1)[0]
-        self.answer = self.WordList[1][0][0]
-        random.shuffle(self.WordList[1])
+        self.word_list = random.sample(self.irregular_verbs,1)[0]
+        self.answer = self.word_list[1][0][0]
+        random.shuffle(self.word_list[1])
 
-        self.frag0 = self.WordList[1][0][0]
-        self.frag1 = self.WordList[1][1][0]
-        self.frag2 = self.WordList[1][2][0]
-        self.frag3 = self.WordList[1][3][0]
+        self.frag0 = self.word_list[1][0][0]
+        self.frag1 = self.word_list[1][1][0]
+        self.frag2 = self.word_list[1][2][0]
+        self.frag3 = self.word_list[1][3][0]
 
         self.display.fill(self.WHITE)
         self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
@@ -146,11 +144,11 @@ class WeatherGame(object):
         self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
         self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
 
-        if self.WordList[0] in (self.MyImage0,self.MyImage1,self.MyImage2,self.MyImage3,self.MyImage4,self.MyImage5,self.MyImage6,self.MyImage7,self.MyImage8):
-            self.display.blit(self.WordList[0], ((self.display.get_rect().centerx-self.MyImageRect0.width/2),(self.display.get_rect().centery-self.MyImageRect0.height/2)))
+        if self.word_list[0] in (self.my_image_0,self.my_image_1,self.my_image_2,self.my_image_3,self.my_image_4,self.my_image_5,self.my_image_6,self.my_image_7,self.my_image_8):
+            self.display.blit(self.word_list[0], ((self.display.get_rect().centerx-self.my_image_rect_0.width/2),(self.display.get_rect().centery-self.my_image_rect_0.height/2)))
         else:
-            self.display.blit(self.MyImageVol, ((self.display.get_rect().centerx-self.MyImageRect0.width/2),(self.display.get_rect().centery-self.MyImageRect0.height/2)))
-            self.WordList[0].play()
+            self.display.blit(self.my_image_vol, ((self.display.get_rect().centerx-self.my_image_rect_0.width/2),(self.display.get_rect().centery-self.my_image_rect_0.height/2)))
+            self.word_list[0].play()
         self.display.blit(self.rendered_text_frag_1, self.my_rect_frag_1.topleft)
         self.display.blit(self.rendered_text_frag_2, self.my_rect_frag_2.topleft)
         self.display.blit(self.rendered_text_frag_3, self.my_rect_frag_3.topleft)
@@ -170,7 +168,7 @@ class WeatherGame(object):
                     return
 
     def refresh_screen(self, fragment, player):
-        if fragment == self.answer:#winner!
+        if fragment == self.answer:# winner!
             self.display.fill(self.WHITE)
             if self.frag0 == fragment and player == 1:
                 self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
@@ -227,10 +225,10 @@ class WeatherGame(object):
             self.display.blit(self.rendered_text_frag_3, self.my_rect_frag_3.topleft)
             self.display.blit(self.rendered_text_frag_4, self.my_rect_frag_4.topleft)
             pygame.display.update()
-            self.SoundWin.play()
+            self.sound_win.play()
             self.deactivate_keys()
 
-        if fragment != self.answer:#loser
+        if fragment != self.answer:# loser
             self.display.fill(self.WHITE)
             if self.frag0 == fragment and player == 1:
                 self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
@@ -287,7 +285,7 @@ class WeatherGame(object):
             self.display.blit(self.rendered_text_frag_3, self.my_rect_frag_3.topleft)
             self.display.blit(self.rendered_text_frag_4, self.my_rect_frag_4.topleft)
             pygame.display.update()
-            self.SoundLoss.play()
+            self.sound_loss.play()
             self.deactivate_keys()
 
 
@@ -321,5 +319,5 @@ class WeatherGame(object):
             pygame.display.update()
         
 if __name__ == '__main__':
-    NewGame = WeatherGame()
-    NewGame.run()
+    new_game = WeatherGame()
+    new_game.run()
