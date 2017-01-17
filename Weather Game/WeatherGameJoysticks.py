@@ -55,6 +55,7 @@ class WeatherGame(object):
         self.my_rect_frag_4 = pygame.Rect((20,268,252,64))
 
         self.display = pygame.display.set_mode((800, 600))# change to desired resolution -- you'll need to modify rect size.
+        pygame.display.set_caption("Weather Game")
         self.display.fill(self.WHITE)
 
         pygame.display.update()
