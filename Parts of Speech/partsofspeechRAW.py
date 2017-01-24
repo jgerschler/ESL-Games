@@ -42,95 +42,38 @@ class PartsOfSpeech(object):
         finished = False
 
 
-def render_textrect(string, font, rect, text_color, background_color, justification=0):
-    
-    final_lines = []
+    def render_textrect(self, string, font, rect, text_color, background_color, justification=0):
+        
+        final_lines = []
 
-    requested_lines = string.splitlines()
+        requested_lines = string.splitlines()
 
-    for requested_line in requested_lines:
-        if font.size(requested_line)[0] > rect.width:
-            words = requested_line.split(' ')
-            for word in words:
-                if font.size(word)[0] >= rect.width:
-                    raise TextRectException, "The word " + word + " is too long to fit in the rect passed."
-            accumulated_line = ""
-            for word in words:
-                test_line = accumulated_line + word + " "   
-                if font.size(test_line)[0] < rect.width:
-                    accumulated_line = test_line 
-                else: 
-                    final_lines.append(accumulated_line) 
-                    accumulated_line = word + " " 
-            final_lines.append(accumulated_line)
-        else: 
-            final_lines.append(requested_line) 
+        for requested_line in requested_lines:
+            if font.size(requested_line)[0] > rect.width:
+                words = requested_line.split(' ')
+                for word in words:
+                    if font.size(word)[0] >= rect.width:
+                        raise TextRectException, "The word " + word + " is too long to fit in the rect passed."
+                accumulated_line = ""
+                for word in words:
+                    test_line = accumulated_line + word + " "   
+                    if font.size(test_line)[0] < rect.width:
+                        accumulated_line = test_line 
+                    else: 
+                        final_lines.append(accumulated_line) 
+                        accumulated_line = word + " " 
+                final_lines.append(accumulated_line)
+            else: 
+                final_lines.append(requested_line) 
 
-    surface = pygame.Surface(rect.size) 
-    surface.fill(background_color) 
+        surface = pygame.Surface(rect.size) 
+        surface.fill(background_color) 
 
-    accumulated_height = 0 
-    for line in final_lines: 
-        if accumulated_height + font.size(line)[1] >= rect.height:
-            raise TextRectException, "Once word-wrapped, the text string was too tall to fit in the rect."
-        if line != "":
-            tempsurface = font.render(line, 1, text_color)
-            if justification == 0:
-                surface.blit(tempsurface, (0, accumulated_height))
-            elif justification == 1:
-                surface.blit(tempsurface, ((rect.width - tempsurface.get_width()) / 2, accumulated_height))
-            elif justification == 2:
-                surface.blit(tempsurface, (rect.width - tempsurface.get_width(), accumulated_height))
-            else:
-                raise TextRectException, "Invalid justification argument: " + str(justification)
-        accumulated_height += font.size(line)[1]
-
-    return surface
-
-def special_render_textrect(string, font, rect, text_color, special_color, background_color, justification=0):#this could be removed but we'll leave it for now for future modification?
-
-    global sentencePOSword
-    
-    final_lines = []
-
-    requested_lines = string.splitlines()
-
-    for requested_line in requested_lines:
-        if font.size(requested_line)[0] > rect.width:
-            words = requested_line.split(' ')#if sentence is too big for rectangle, then split up using spaces into words.
-            for word in words:
-                if font.size(word)[0] >= rect.width:
-                    raise TextRectException, "The word " + word + " is too long to fit in the rect passed."#if the word is still too big for the rect, then raise an exception.
-            accumulated_line = ""
-            for word in words:
-                test_line = accumulated_line + word + " "   
-                if font.size(test_line)[0] < rect.width:
-                    accumulated_line = test_line #make a test line, check if it fits in the rectangle then save and add another word if it fits.
-                else: 
-                    final_lines.append(accumulated_line) #otherwise just add the fragment to the final lines list
-                    accumulated_line = word + " " 
-            final_lines.append(accumulated_line)
-        else: 
-            final_lines.append(requested_line) 
-
-    surface = pygame.Surface(rect.size) 
-    surface.fill(background_color) 
-
-    accumulated_height = 0 
-    for line in final_lines: 
-        if accumulated_height + font.size(line)[1] >= rect.height:
-            raise TextRectException, "Once word-wrapped, the text string was too tall to fit in the rect."
-        if line != "":
-            if sentencePOSword in line:
-                #make surfaces
-                tempsurface = font.render(line[0:line.index(sentencePOSword)], 1, text_color)
-                tempsurface1 = font.render(sentencePOSword, 1, special_color)
-                tempsurface2 = font.render(line[line.index(sentencePOSword)+len(sentencePOSword):-1], 1, text_color)
-                surface.blit(tempsurface, (0, accumulated_height))
-                surface.blit(tempsurface1, (tempsurface.get_width(), accumulated_height))
-                surface.blit(tempsurface2, (tempsurface.get_width()+tempsurface1.get_width(), accumulated_height))
-                        
-            else:
+        accumulated_height = 0 
+        for line in final_lines: 
+            if accumulated_height + font.size(line)[1] >= rect.height:
+                raise TextRectException, 'After word wrap, the text string was too tall to fit in the provided rect.'
+            if line != "":
                 tempsurface = font.render(line, 1, text_color)
                 if justification == 0:
                     surface.blit(tempsurface, (0, accumulated_height))
@@ -140,25 +83,68 @@ def special_render_textrect(string, font, rect, text_color, special_color, backg
                     surface.blit(tempsurface, (rect.width - tempsurface.get_width(), accumulated_height))
                 else:
                     raise TextRectException, "Invalid justification argument: " + str(justification)
-        accumulated_height += font.size(line)[1]
+            accumulated_height += font.size(line)[1]
 
-    return surface
+        return surface
 
-def NewUser():
-    global frag0
-    global frag1
-    global frag2
-    global frag3
-    global username
-    global sentence
-    global plainsentence
-    global POSlist
-    global sentencePOSword
-    global sentencePOSwordIND
+    def special_render_textrect(self, string, font, rect, text_color, special_color, background_color, justification=0):
 
-    POSlist = ["noun","verb","adjective","adverb","conjunction","preposition","proper noun","interjection","possessive pronoun","pronoun"]
+        final_lines = []
 
-    sentencelist = [["The English rock band Pink Floyd released the album Dark Side of the Moon in 1973.",[["band","noun"],["album","noun"],["released","verb"],["Dark","adjective"]]],
+        requested_lines = string.splitlines()
+
+        for requested_line in requested_lines:
+            if font.size(requested_line)[0] > rect.width:
+                words = requested_line.split(' ')
+                for word in words:
+                    if font.size(word)[0] >= rect.width:
+                        raise TextRectException, "The word " + word + " is too long to fit in the rect passed."
+                accumulated_line = ""
+                for word in words:
+                    test_line = accumulated_line + word + " "   
+                    if font.size(test_line)[0] < rect.width:
+                        accumulated_line = test_line 
+                    else: 
+                        final_lines.append(accumulated_line) 
+                        accumulated_line = word + " " 
+                final_lines.append(accumulated_line)
+            else: 
+                final_lines.append(requested_line) 
+
+        surface = pygame.Surface(rect.size) 
+        surface.fill(background_color) 
+
+        accumulated_height = 0 
+        for line in final_lines: 
+            if accumulated_height + font.size(line)[1] >= rect.height:
+                raise TextRectException, 'After word wrap, the text string was too tall to fit in the provided rect.'
+            if line != "":
+                if self.sentence_pos_word in line:
+                    tempsurface = font.render(line[0:line.index(self.sentence_pos_word)], 1, text_color)
+                    tempsurface1 = font.render(self.sentence_pos_word, 1, special_color)
+                    tempsurface2 = font.render(line[line.index(self.sentence_pos_word)+len(self.sentence_pos_word):-1], 1, text_color)
+                    surface.blit(tempsurface, (0, accumulated_height))
+                    surface.blit(tempsurface1, (tempsurface.get_width(), accumulated_height))
+                    surface.blit(tempsurface2, (tempsurface.get_width()+tempsurface1.get_width(), accumulated_height))
+                            
+                else:
+                    tempsurface = font.render(line, 1, text_color)
+                    if justification == 0:
+                        surface.blit(tempsurface, (0, accumulated_height))
+                    elif justification == 1:
+                        surface.blit(tempsurface, ((rect.width - tempsurface.get_width()) / 2, accumulated_height))
+                    elif justification == 2:
+                        surface.blit(tempsurface, (rect.width - tempsurface.get_width(), accumulated_height))
+                    else:
+                        raise TextRectException, 'Invalid justification argument: ' + str(justification)
+            accumulated_height += font.size(line)[1]
+
+        return surface
+
+def new_user():
+    self.pos_list = ["noun","verb","adjective","adverb","conjunction","preposition","proper noun","interjection","possessive pronoun","pronoun"]
+
+    sentence_list = [["The English rock band Pink Floyd released the album Dark Side of the Moon in 1973.",[["band","noun"],["album","noun"],["released","verb"],["Dark","adjective"]]],
                     ["In 1969, NASA astronauts on the Apollo 10 space mission heard what sounded like outer-space music.",[["outer-space","noun"],["sounded","verb"],["on","pre"],["mission","noun"]]],
                     ["Nearly 50 years later, those mysterious noises on Apollo 10 have become a trending topic on social media.",[["topic","noun"],["noises","noun"],["mysterious","adjective"],["trending","adjective"]]],
                     ["In May of 1969, the Apollo 10 crew approached the far side of the moon.",[["crew","noun"],["May","proper noun"],["approached","verb"],["far","adjective"]]],
@@ -199,30 +185,30 @@ def NewUser():
 
     c.execute('select * from users order by random() limit 1;')
     userdata = c.fetchone()
-    username = str(userdata[1])
-    sentence = sentencelist[random.randint(0,len(sentencelist)-1)]
-    plainsentence = sentence[0]
-    sentencePOS = sentence[1][random.randint(0,len(sentencelist[1])-1)]
-    sentencePOSword = sentencePOS[0]
-    sentencePOSwordIND = sentencePOS[1]
-    answerlist = random.sample(POSlist,3)
-    while sentencePOS[1] in answerlist:
-        answerlist = random.sample(POSlist,3)
-    answerlist.append(sentencePOS[1])
+    self.username = str(userdata[1])
+    self.sentence = sentence_list[random.randint(0,len(sentence_list)-1)]
+    self.plain_sentence = sentence[0]
+    sentence_pos = sentence[1][random.randint(0,len(sentence_list[1])-1)]
+    self.sentence_pos_word = sentence_pos[0]
+    self.sentence_pos_wordIND = sentence_pos[1]
+    answerlist = random.sample(self.pos_list,3)
+    while sentence_pos[1] in answerlist:
+        answerlist = random.sample(self.pos_list,3)
+    answerlist.append(sentence_pos[1])
     random.shuffle(answerlist)
     
-    frag0 = answerlist[0]
-    frag1 = answerlist[1]
-    frag2 = answerlist[2]
-    frag3 = answerlist[3]
+    self.frag0 = answerlist[0]
+    self.frag1 = answerlist[1]
+    self.frag2 = answerlist[2]
+    self.frag3 = answerlist[3]
 
-    display.fill(WHITE)
-    rendered_text = special_render_textrect(plainsentence, my_font, my_rect, BLACK, PURPLE, WHITE, 1)#need to figure out how to bold or color the word we want
-    rendered_text_user = render_textrect(username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
-    rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
-    rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, YELLOW, WHITE, 0)
-    rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, GREEN, WHITE, 0)
-    rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLUE, WHITE, 0)
+    self.display.fill(WHITE)
+    self.rendered_text = special_render_textrect(self.plain_sentence, my_font, my_rect, BLACK, PURPLE, WHITE, 1)#need to figure out how to bold or color the word we want
+    self.rendered_text_user = render_textrect(self.username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
+    self.rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
+    self.rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, YELLOW, WHITE, 0)
+    self.rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, GREEN, WHITE, 0)
+    self.rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, BLUE, WHITE, 0)
 
     display.blit(rendered_text, my_rect.topleft)
     display.blit(rendered_text_user, my_rect_user.topleft)
@@ -235,47 +221,36 @@ def NewUser():
 
     return
 
-def RefreshScreen(fragment):
-    global frag0
-    global frag1
-    global frag2
-    global frag3
-    global username
-    global sentence
-    global plainsentence
-    global POSlist
-    global sentencePOSword
-    global sentencePOSwordIND
-
-    if fragment == sentencePOSwordIND:#winner!
+def refresh_screen(fragment):
+    if fragment == self.sentence_pos_wordIND:#winner!
         display.fill(WHITE)
-        rendered_text = special_render_textrect(plainsentence, my_font, my_rect, BLACK, PURPLE, WHITE, 1)#need to figure out how to bold or color the word we want
-        rendered_text_user = render_textrect(username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
-        if frag0 == fragment:
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, GREEN, WHITE, 0)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag1 == fragment:
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, GREEN, WHITE, 0)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag2 == fragment:
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, GREEN, WHITE, 0)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag3 == fragment:
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, GREEN, WHITE, 0)
+        rendered_text = special_render_textrect(self.plain_sentence, my_font, my_rect, BLACK, PURPLE, WHITE, 1)#need to figure out how to bold or color the word we want
+        rendered_text_user = render_textrect(self.username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
+        if self.frag0 == fragment:
+            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, GREEN, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
+        elif self.frag1 == fragment:
+            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, GREEN, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
+        elif self.frag2 == fragment:
+            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, GREEN, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
+        elif self.frag3 == fragment:
+            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, GREEN, WHITE, 0)
         else:
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)     
+            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)     
 
         display.blit(rendered_text, my_rect.topleft)
         display.blit(rendered_text_user, my_rect_user.topleft)
@@ -289,35 +264,35 @@ def RefreshScreen(fragment):
 
         return
 
-    if fragment != sentencePOSwordIND:#loser
+    if fragment != self.sentence_pos_wordIND:#loser
         display.fill(WHITE)
-        rendered_text = special_render_textrect(plainsentence, my_font, my_rect, BLACK, PURPLE, WHITE, 1)#need to figure out how to bold or color the word we want
-        rendered_text_user = render_textrect(username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
-        if frag0 == fragment:
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag1 == fragment:
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, RED, WHITE, 0)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag2 == fragment:
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, RED, WHITE, 0)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag3 == fragment:
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, RED, WHITE, 0)
+        rendered_text = special_render_textrect(self.plain_sentence, my_font, my_rect, BLACK, PURPLE, WHITE, 1)#need to figure out how to bold or color the word we want
+        rendered_text_user = render_textrect(self.username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
+        if self.frag0 == fragment:
+            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
+        elif self.frag1 == fragment:
+            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, RED, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
+        elif self.frag2 == fragment:
+            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, RED, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
+        elif self.frag3 == fragment:
+            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, RED, WHITE, 0)
         else:
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)     
+            rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, BLACK, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, BLACK, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, BLACK, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)     
 
         display.blit(rendered_text, my_rect.topleft)
         display.blit(rendered_text_user, my_rect_user.topleft)
@@ -332,12 +307,12 @@ def RefreshScreen(fragment):
         return
 
     display.fill(WHITE)
-    rendered_text = special_render_textrect(plainsentence, my_font, my_rect, BLACK, PURPLE, WHITE, 1)
-    rendered_text_user = render_textrect(username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
-    rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
-    rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, YELLOW, WHITE, 0)
-    rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, GREEN, WHITE, 0)
-    rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLUE, WHITE, 0)
+    rendered_text = special_render_textrect(self.plain_sentence, my_font, my_rect, BLACK, PURPLE, WHITE, 1)
+    rendered_text_user = render_textrect(self.username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
+    rendered_text_frag_1 = render_textrect(self.frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
+    rendered_text_frag_2 = render_textrect(self.frag1, my_font, my_rect_frag_2, YELLOW, WHITE, 0)
+    rendered_text_frag_3 = render_textrect(self.frag2, my_font, my_rect_frag_3, GREEN, WHITE, 0)
+    rendered_text_frag_4 = render_textrect(self.frag3, my_font, my_rect_frag_4, BLUE, WHITE, 0)
 
     display.blit(rendered_text, my_rect.topleft)
     display.blit(rendered_text_user, my_rect_user.topleft)
@@ -368,25 +343,25 @@ while not finished:
             finished = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE:
-                NewUser()
+                new_user()
             if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
-                if frag0 != "":
-                    RefreshScreen(frag0)
+                if self.frag0 != "":
+                    refresh_screen(self.frag0)
                 else:
                     pass
             if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
-                if frag1 != "":
-                    RefreshScreen(frag1)
+                if self.frag1 != "":
+                    refresh_screen(self.frag1)
                 else:
                     pass
             if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
-                if frag2 != "":
-                    RefreshScreen(frag2)
+                if self.frag2 != "":
+                    refresh_screen(self.frag2)
                 else:
                     pass
             if event.key in (pygame.K_d,pygame.K_h,pygame.K_l,pygame.K_p,pygame.K_t,pygame.K_x):
-                if frag3 != "":
-                    RefreshScreen(frag3)
+                if self.frag3 != "":
+                    refresh_screen(self.frag3)
                 else:
                     pass
             
