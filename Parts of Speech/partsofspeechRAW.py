@@ -2,6 +2,12 @@ import pygame, time, sqlite3, math, random
 import pygame.font
 from pygame.locals import *
 
+class TextRectException:
+    def __init__(self, message = None):
+        self.message = message
+    def __str__(self):
+        return self.message
+
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 GREEN = (0,128,0)
@@ -18,11 +24,7 @@ finished = False
 
 constructedsentence = ""
 
-class TextRectException:
-    def __init__(self, message = None):
-        self.message = message
-    def __str__(self):
-        return self.message
+
 
 def render_textrect(string, font, rect, text_color, background_color, justification=0):
     
