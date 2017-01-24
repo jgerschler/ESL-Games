@@ -94,7 +94,7 @@ class FruitsAndVegetables(object):
 
         self.display = pygame.display.set_mode((800, 600))# change to desired resolution -- you'll need to modify rect size.
         pygame.display.set_caption("Fruits and Vegetables Game")
-        self.display.fill(self.WHITE)
+        self.display.fill(FruitsAndVegetables.WHITE)
 
         pygame.display.update()
 
@@ -216,11 +216,11 @@ class FruitsAndVegetables(object):
         self.frag2 = self.word_list[1][2][0]
         self.frag3 = self.word_list[1][3][0]
 
-        self.display.fill(self.WHITE)
-        self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-        self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-        self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-        self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+        self.display.fill(FruitsAndVegetables.WHITE)
+        self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+        self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+        self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+        self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
 
         self.display.blit(self.word_list[0], ((self.display.get_rect().centerx-self.my_image_rect_0.width/2),(self.display.get_rect().centery-self.my_image_rect_0.height/2)))
         self.display.blit(self.rendered_text_frag_1, self.my_rect_frag_1.topleft)
@@ -243,55 +243,55 @@ class FruitsAndVegetables(object):
 
     def refresh_screen(self, fragment, player):
         if fragment == self.answer:# winner!
-            self.display.fill(self.WHITE)
+            self.display.fill(FruitsAndVegetables.WHITE)
             if self.frag0 == fragment and player == 1:
-                self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.GREEN, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
             elif self.frag1 == fragment and player == 1:
-                self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.GREEN, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
             elif self.frag2 == fragment and player == 1:
-                self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.GREEN, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
             elif self.frag3 == fragment and player == 1:
-                self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.GREEN, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 1 Wins!', self.my_font, self.my_rect, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 0)
             elif self.frag0 == fragment and player == 2:
-                self.rendered_text_word = self.render_textrect('Player 2 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.GREEN, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 2 Wins!', self.my_font, self.my_rect, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
             elif self.frag1 == fragment and player == 2:
-                self.rendered_text_word = self.render_textrect('Player 2 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.GREEN, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 2 Wins!', self.my_font, self.my_rect, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
             elif self.frag2 == fragment and player == 2:
-                self.rendered_text_word = self.render_textrect('Player 2 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.GREEN, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 2 Wins!', self.my_font, self.my_rect, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
             elif self.frag3 == fragment and player == 2:
-                self.rendered_text_word = self.render_textrect('Player 2 Wins!', self.my_font, self.my_rect, self.GREEN, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.GREEN, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 2 Wins!', self.my_font, self.my_rect, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.GREEN, FruitsAndVegetables.WHITE, 0)
 
             self.display.blit(self.rendered_text_word, self.my_rect.topleft)
             self.display.blit(self.rendered_text_frag_1, self.my_rect_frag_1.topleft)
@@ -303,55 +303,55 @@ class FruitsAndVegetables(object):
             self.deactivate_keys()
 
         if fragment != self.answer:# loser
-            self.display.fill(self.WHITE)
+            self.display.fill(FruitsAndVegetables.WHITE)
             if self.frag0 == fragment and player == 1:
-                self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.RED, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
             elif self.frag1 == fragment and player == 1:
-                self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.RED, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
             elif self.frag2 == fragment and player == 1:
-                self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.RED, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
             elif self.frag3 == fragment and player == 1:
-                self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.RED, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 1 Loses!', self.my_font, self.my_rect, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 0)
             elif self.frag0 == fragment and player == 2:
-                self.rendered_text_word = self.render_textrect('Player 2 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.RED, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 2 Loses!', self.my_font, self.my_rect, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
             elif self.frag1 == fragment and player == 2:
-                self.rendered_text_word = self.render_textrect('Player 2 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.RED, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 2 Loses!', self.my_font, self.my_rect, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
             elif self.frag2 == fragment and player == 2:
-                self.rendered_text_word = self.render_textrect('Player 2 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.RED, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.BLACK, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 2 Loses!', self.my_font, self.my_rect, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 0)
             elif self.frag3 == fragment and player == 2:
-                self.rendered_text_word = self.render_textrect('Player 2 Loses!', self.my_font, self.my_rect, self.RED, self.WHITE, 1)#last 0 is to left align
-                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, self.BLACK, self.WHITE, 2)
-                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, self.BLACK, self.WHITE, 1)
-                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, self.RED, self.WHITE, 0)
+                self.rendered_text_word = self.render_textrect('Player 2 Loses!', self.my_font, self.my_rect, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 1)#last 0 is to left align
+                self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, FruitsAndVegetables.BLACK, FruitsAndVegetables.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, FruitsAndVegetables.RED, FruitsAndVegetables.WHITE, 0)
 
             self.display.blit(self.rendered_text_word, self.my_rect.topleft)
             self.display.blit(self.rendered_text_frag_1, self.my_rect_frag_1.topleft)
