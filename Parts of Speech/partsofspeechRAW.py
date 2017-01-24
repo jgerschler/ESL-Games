@@ -21,6 +21,13 @@ class PartsOfSpeech(object):
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
+        
+        try:
+            self.conn = sqlite3.connect('reader.db')# connect to database
+        except:
+            print("Database not found!")
+
+        self.c = self.conn.cursor()
 
         self.sound_win = pygame.mixer.Sound('audio\\ping.ogg')
         self.sound_loss = pygame.mixer.Sound('audio\\buzzer.ogg')        
@@ -35,7 +42,7 @@ class PartsOfSpeech(object):
 
         self. display = pygame.display.set_mode((800, 600))# change to desired resolution -- you'll need to modify rect size.
         pygame.display.set_caption("Parts of Speech Game")
-        self.display.fill(WHITE)
+        self.display.fill(PartsOfSpeech.WHITE)
 
         pygame.display.update()
 
@@ -183,8 +190,8 @@ def new_user(self):
                     ["Wow! In 2012, Sean Penn went to Bolivia to visit a US businessman jailed there.",[["businessman","noun"],["Wow!","interjection"],["Bolivia","proper noun"],["visit","verb"]]],
                     ["Jacob Ostreicher had been jailed for months and never charged with a crime.",[["months","noun"],["jailed","verb"],["Jacob Ostreicher","proper noun"],["with","preposition"]]]]
 
-    c.execute('select * from users order by random() limit 1;')
-    userdata = c.fetchone()
+    self.c.execute('select * from users order by random() limit 1;')
+    userdata = self.c.fetchone()
     self.username = str(userdata[1])
     self.sentence = sentence_list[random.randint(0,len(sentence_list)-1)]
     self.plain_sentence = sentence[0]
@@ -202,13 +209,13 @@ def new_user(self):
     self.frag2 = answerlist[2]
     self.frag3 = answerlist[3]
 
-    self.display.fill(WHITE)
-    self.rendered_text = self.special_render_textrect(self.plain_sentence, self.my_font, my_rect, BLACK, PURPLE, WHITE, 1)#need to figure out how to bold or color the word we want
-    self.rendered_text_user = self.render_textrect(self.username, self.my_font, self.my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
-    self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, RED, WHITE, 0)
-    self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, YELLOW, WHITE, 0)
-    self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, GREEN, WHITE, 0)
-    self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, BLUE, WHITE, 0)
+    self.display.fill(PartsOfSpeech.WHITE)
+    self.rendered_text = self.special_render_textrect(self.plain_sentence, self.my_font, my_rect, PartsOfSpeech.BLACK, PartsOfSpeech.PURPLE, PartsOfSpeech.WHITE, 1)#need to figure out how to bold or color the word we want
+    self.rendered_text_user = self.render_textrect(self.username, self.my_font, self.my_rect_user, PartsOfSpeech.BROWN, PartsOfSpeech.WHITE, 0)#last 0 is to left align
+    self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.RED, PartsOfSpeech.WHITE, 0)
+    self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.YELLOW, PartsOfSpeech.WHITE, 0)
+    self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.GREEN, PartsOfSpeech.WHITE, 0)
+    self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, PartsOfSpeech.BLUE, PartsOfSpeech.WHITE, 0)
 
     self.display.blit(self.rendered_text, self.my_rect.topleft)
     self.display.blit(self.rendered_text_user, self.my_rect_user.topleft)
@@ -223,34 +230,34 @@ def new_user(self):
 
 def refresh_screen(self, fragment):
     if fragment == self.sentence_pos_wordIND:#winner!
-        self.display.fill(WHITE)
-        rendered_text = self.special_render_textrect(self.plain_sentence, self.my_font, my_rect, BLACK, PURPLE, WHITE, 1)#need to figure out how to bold or color the word we want
-        rendered_text_user = self.render_textrect(self.username, self.my_font, self.my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
+        self.display.fill(PartsOfSpeech.WHITE)
+        rendered_text = self.special_render_textrect(self.plain_sentence, self.my_font, my_rect, PartsOfSpeech.BLACK, PartsOfSpeech.PURPLE, PartsOfSpeech.WHITE, 1)#need to figure out how to bold or color the word we want
+        rendered_text_user = self.render_textrect(self.username, self.my_font, self.my_rect_user, PartsOfSpeech.BROWN, PartsOfSpeech.WHITE, 0)#last 0 is to left align
         if self.frag0 == fragment:
-            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, GREEN, WHITE, 0)
-            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, BLACK, WHITE, 0)
-            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, BLACK, WHITE, 0)
-            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, BLACK, WHITE, 0)
+            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.GREEN, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
         elif self.frag1 == fragment:
-            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, BLACK, WHITE, 0)
-            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, GREEN, WHITE, 0)
-            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, BLACK, WHITE, 0)
-            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, BLACK, WHITE, 0)
+            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.GREEN, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
         elif self.frag2 == fragment:
-            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, BLACK, WHITE, 0)
-            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, BLACK, WHITE, 0)
-            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, GREEN, WHITE, 0)
-            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, BLACK, WHITE, 0)
+            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.GREEN, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
         elif self.frag3 == fragment:
-            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, BLACK, WHITE, 0)
-            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, BLACK, WHITE, 0)
-            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, BLACK, WHITE, 0)
-            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, GREEN, WHITE, 0)
+            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, PartsOfSpeech.GREEN, PartsOfSpeech.WHITE, 0)
         else:
-            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, BLACK, WHITE, 0)
-            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, BLACK, WHITE, 0)
-            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, BLACK, WHITE, 0)
-            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, BLACK, WHITE, 0)     
+            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)     
 
         self.display.blit(self.rendered_text, self.my_rect.topleft)
         self.display.blit(self.rendered_text_user, self.my_rect_user.topleft)
@@ -265,106 +272,95 @@ def refresh_screen(self, fragment):
         return
 
     if fragment != self.sentence_pos_wordIND:#loser
-        self.display.fill(WHITE)
-        self.rendered_text = self.special_render_textrect(self.plain_sentence, self.my_font, my_rect, BLACK, PURPLE, WHITE, 1)
-        self.rendered_text_user = self.render_textrect(self.username, self.my_font, self.my_rect_user, BROWN, WHITE, 0)
+        self.display.fill(PartsOfSpeech.WHITE)
+        self.rendered_text = self.special_render_textrect(self.plain_sentence, self.my_font, my_rect, PartsOfSpeech.BLACK, PartsOfSpeech.PURPLE, PartsOfSpeech.WHITE, 1)
+        self.rendered_text_user = self.render_textrect(self.username, self.my_font, self.my_rect_user, PartsOfSpeech.BROWN, PartsOfSpeech.WHITE, 0)
         if self.frag0 == fragment:
-            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, RED, WHITE, 0)
-            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, BLACK, WHITE, 0)
-            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, BLACK, WHITE, 0)
-            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, BLACK, WHITE, 0)
+            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.RED, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
         elif self.frag1 == fragment:
-            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, BLACK, WHITE, 0)
-            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, RED, WHITE, 0)
-            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, BLACK, WHITE, 0)
-            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, BLACK, WHITE, 0)
+            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.RED, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
         elif self.frag2 == fragment:
-            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, BLACK, WHITE, 0)
-            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, BLACK, WHITE, 0)
-            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, RED, WHITE, 0)
-            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, BLACK, WHITE, 0)
+            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.RED, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
         elif self.frag3 == fragment:
-            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, BLACK, WHITE, 0)
-            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, BLACK, WHITE, 0)
-            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, BLACK, WHITE, 0)
-            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, RED, WHITE, 0)
+            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, PartsOfSpeech.RED, PartsOfSpeech.WHITE, 0)
         else:
-            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, BLACK, WHITE, 0)
-            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, BLACK, WHITE, 0)
-            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, BLACK, WHITE, 0)
-            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, BLACK, WHITE, 0)     
+            self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)     
 
-        display.blit(rendered_text, my_rect.topleft)
-        display.blit(rendered_text_user, self.my_rect_user.topleft)
-        display.blit(rendered_text_frag_1, self.my_rect_frag_1.topleft)
-        display.blit(rendered_text_frag_2, self.my_rect_frag_2.topleft)
-        display.blit(rendered_text_frag_3, self.my_rect_frag_3.topleft)
-        display.blit(rendered_text_frag_4, self.my_rect_frag_4.topleft)
+        self.display.blit(rendered_text, my_rect.topleft)
+        self.display.blit(rendered_text_user, self.my_rect_user.topleft)
+        self.display.blit(rendered_text_frag_1, self.my_rect_frag_1.topleft)
+        self.display.blit(rendered_text_frag_2, self.my_rect_frag_2.topleft)
+        self.display.blit(rendered_text_frag_3, self.my_rect_frag_3.topleft)
+        self.display.blit(rendered_text_frag_4, self.my_rect_frag_4.topleft)
 
         pygame.display.update()
         self.sound_loss.play()
 
         return
 
-    display.fill(WHITE)
-    rendered_text = self.special_render_textrect(self.plain_sentence, self.my_font, my_rect, BLACK, PURPLE, WHITE, 1)
-    rendered_text_user = self.render_textrect(self.username, self.my_font, self.my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
-    rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, RED, WHITE, 0)
-    rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, YELLOW, WHITE, 0)
-    rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, GREEN, WHITE, 0)
-    rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, BLUE, WHITE, 0)
+    self.display.fill(PartsOfSpeech.WHITE)
+    self.rendered_text = self.special_render_textrect(self.plain_sentence, self.my_font, my_rect, PartsOfSpeech.BLACK, PartsOfSpeech.PURPLE, PartsOfSpeech.WHITE, 1)
+    self.rendered_text_user = self.render_textrect(self.username, self.my_font, self.my_rect_user, PartsOfSpeech.BROWN, PartsOfSpeech.WHITE, 0)#last 0 is to left align
+    self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.RED, PartsOfSpeech.WHITE, 0)
+    self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.YELLOW, PartsOfSpeech.WHITE, 0)
+    self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.GREEN, PartsOfSpeech.WHITE, 0)
+    self.rendered_text_frag_4 = self.render_textrect(self.frag3, self.my_font, self.my_rect_frag_4, PartsOfSpeech.BLUE, PartsOfSpeech.WHITE, 0)
 
-    display.blit(rendered_text, my_rect.topleft)
-    display.blit(rendered_text_user, self.my_rect_user.topleft)
-    display.blit(rendered_text_frag_1, self.my_rect_frag_1.topleft)
-    display.blit(rendered_text_frag_2, self.my_rect_frag_2.topleft)
-    display.blit(rendered_text_frag_3, self.my_rect_frag_3.topleft)
-    display.blit(rendered_text_frag_4, self.my_rect_frag_4.topleft)
+    self.display.blit(self.rendered_text, my_rect.topleft)
+    self.display.blit(self.rendered_text_user, self.my_rect_user.topleft)
+    self.display.blit(self.rendered_text_frag_1, self.my_rect_frag_1.topleft)
+    self.display.blit(self.rendered_text_frag_2, self.my_rect_frag_2.topleft)
+    self.display.blit(self.rendered_text_frag_3, self.my_rect_frag_3.topleft)
+    self.display.blit(self.rendered_text_frag_4, self.my_rect_frag_4.topleft)
 
     pygame.display.update()
 
     return
 
-#connect to database
-try:
-    conn = sqlite3.connect('reader.db')
-except:
-    print("Database not found!")
-
-c = conn.cursor()
-
-
-
-
-
-while not self.finished:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            self.finished = True
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_SPACE:
-                new_user()
-            if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
-                if self.frag0 != "":
-                    refresh_screen(self.frag0)
-                else:
-                    pass
-            if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
-                if self.frag1 != "":
-                    refresh_screen(self.frag1)
-                else:
-                    pass
-            if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
-                if self.frag2 != "":
-                    refresh_screen(self.frag2)
-                else:
-                    pass
-            if event.key in (pygame.K_d,pygame.K_h,pygame.K_l,pygame.K_p,pygame.K_t,pygame.K_x):
-                if self.frag3 != "":
-                    refresh_screen(self.frag3)
-                else:
-                    pass
-            
-    pygame.display.update()
-
-##conn.close()
+    def run(self):
+    
+        while not self.finished:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.conn.close()
+                    self.finished = True
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_SPACE:
+                        new_user()
+                    if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
+                        if self.frag0 != "":
+                            refresh_screen(self.frag0)
+                        else:
+                            pass
+                    if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
+                        if self.frag1 != "":
+                            refresh_screen(self.frag1)
+                        else:
+                            pass
+                    if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
+                        if self.frag2 != "":
+                            refresh_screen(self.frag2)
+                        else:
+                            pass
+                    if event.key in (pygame.K_d,pygame.K_h,pygame.K_l,pygame.K_p,pygame.K_t,pygame.K_x):
+                        if self.frag3 != "":
+                            refresh_screen(self.frag3)
+                        else:
+                            pass
+                    
+            pygame.display.update()
