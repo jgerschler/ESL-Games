@@ -7,23 +7,39 @@ class TextRectException:
         self.message = message
     def __str__(self):
         return self.message
+        
+class PartsOfSpeech(object):
+    WHITE = (255,255,255)# some colors are not currently used, but left for future modification
+    BLACK = (0,0,0)
+    GREEN = (0,128,0)
+    YELLOW = (255,229,51)
+    RED = (255,0,0)
+    BLUE = (0,0,255)
+    BROWN = (97,65,38)
+    PURPLE = (128,0,128)
+    
+    def __init__(self):
+        pygame.init()
+        pygame.mixer.init()
 
-WHITE = (255,255,255)
-BLACK = (0,0,0)
-GREEN = (0,128,0)
-YELLOW = (255,229,51)
-RED = (255,0,0)
-BLUE = (0,0,255)
-BROWN = (97,65,38)
-PURPLE = (128,0,128)
+        self.sound_win = pygame.mixer.Sound('audio\\ping.ogg')
+        self.sound_loss = pygame.mixer.Sound('audio\\buzzer.ogg')        
 
-soundwinfile = "audio\\ping.ogg"
-soundlossfile = "audio\\buzzer.ogg"
+        my_font = pygame.font.Font(None, 48)
+        my_rect = pygame.Rect((20, 100, 760, 240))
+        my_rect_user = pygame.Rect((20, 20, 760, 80))
+        my_rect_frag_1 = pygame.Rect((20, 340, 760, 65))
+        my_rect_frag_2 = pygame.Rect((20, 405, 760, 65))
+        my_rect_frag_3 = pygame.Rect((20, 470, 760, 65))
+        my_rect_frag_4 = pygame.Rect((20, 535, 760, 65))
 
-finished = False
+        self. display = pygame.display.set_mode((800, 600))# change to desired resolution -- you'll need to modify rect size.
+        pygame.display.set_caption("Parts of Speech Game")
+        self.display.fill(WHITE)
 
-constructedsentence = ""
+        pygame.display.update()
 
+        finished = False
 
 
 def render_textrect(string, font, rect, text_color, background_color, justification=0):
@@ -184,9 +200,6 @@ def NewUser():
     c.execute('select * from users order by random() limit 1;')
     userdata = c.fetchone()
     username = str(userdata[1])
-    #c.execute('select * from sentences order by random() limit 1;')
-    #sentencedata = c.fetchone()
-    #sentence = str(sentencedata[1])
     sentence = sentencelist[random.randint(0,len(sentencelist)-1)]
     plainsentence = sentence[0]
     sentencePOS = sentence[1][random.randint(0,len(sentencelist[1])-1)]
@@ -345,26 +358,9 @@ except:
 
 c = conn.cursor()
 
-pygame.init()
 
-pygame.mixer.init()
 
-soundwin = pygame.mixer.Sound(soundwinfile)
-soundloss = pygame.mixer.Sound(soundlossfile)
 
-display = pygame.display.set_mode((800, 600))
-
-my_font = pygame.font.Font(None, 48)
-my_rect = pygame.Rect((20, 100, 760, 240))
-my_rect_user = pygame.Rect((20, 20, 760, 80))
-my_rect_frag_1 = pygame.Rect((20, 340, 760, 65))
-my_rect_frag_2 = pygame.Rect((20, 405, 760, 65))
-my_rect_frag_3 = pygame.Rect((20, 470, 760, 65))
-my_rect_frag_4 = pygame.Rect((20, 535, 760, 65))
-
-display.fill(WHITE)
-
-pygame.display.update()
 
 while not finished:
     for event in pygame.event.get():
