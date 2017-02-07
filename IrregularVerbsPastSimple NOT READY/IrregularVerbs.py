@@ -1,20 +1,6 @@
-import pygame, time, sqlite3, math, random
+import pygame, time, math, random
 import pygame.font
 from pygame.locals import *
-
-WHITE = (255,255,255)
-BLACK = (0,0,0)
-GREEN = (0,128,0)
-YELLOW = (255,229,51)
-RED = (255,0,0)
-BLUE = (0,0,255)
-BROWN = (97,65,38)
-PURPLE = (128,0,128)
-
-soundwinfile = "ping.ogg"
-soundlossfile = "buzzer.ogg"
-
-finished = False
 
 class TextRectException:
     def __init__(self, message = None):
@@ -22,7 +8,48 @@ class TextRectException:
     def __str__(self):
         return self.message
 
-def render_textrect(string, font, rect, text_color, background_color, justification=0):#leave this verbose in case we want to use this for other purposes
+class IrregularVerbs(object):
+    WHITE = (255,255,255)# some colors are not currently used, but left for future modification
+    BLACK = (0,0,0)
+    GREEN = (0,128,0)
+    YELLOW = (255,229,51)
+    RED = (255,0,0)
+    BLUE = (0,0,255)
+    BROWN = (97,65,38)
+    PURPLE = (128,0,128)
+
+    def __init__(self):
+        pygame.init()
+        pygame.mixer.init()
+        
+        try:
+            self.conn = sqlite3.connect('student.db')# connect to database
+        except:
+            print("Database not found!")
+
+        self.c = self.conn.cursor()
+
+        self.sound_win = pygame.mixer.Sound('audio\\ping.ogg')
+        self.sound_loss = pygame.mixer.Sound('audio\\buzzer.ogg')        
+
+        self.my_font = pygame.font.Font(None, 48)
+        self.my_rect = pygame.Rect((20, 100, 760, 240))
+        self.my_rect_user = pygame.Rect((20, 20, 760, 80))
+        self.my_rect_frag_1 = pygame.Rect((20, 340, 760, 65))
+        self.my_rect_frag_2 = pygame.Rect((20, 405, 760, 65))
+        self.my_rect_frag_3 = pygame.Rect((20, 470, 760, 65))
+        self.my_rect_frag_4 = pygame.Rect((20, 535, 760, 65))
+
+        self. display = pygame.display.set_mode((800, 600))# change to desired resolution -- you'll need to modify rect size.
+        pygame.display.set_caption("Parts of Speech Game")
+        self.display.fill(PartsOfSpeech.WHITE)
+
+        pygame.display.update()
+
+        self.finished = False        
+ 
+
+def render_textrect(self, string, font, rect, text_color, background_color, justification=0):#leave this verbose in case we want to use this for other purposes
     
     final_lines = []
 
