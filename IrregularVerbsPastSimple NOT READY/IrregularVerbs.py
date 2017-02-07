@@ -40,60 +40,53 @@ class IrregularVerbs(object):
 
         self.finished = False        
  
+    def render_textrect(self, string, font, rect, text_color, background_color, justification=0):
+        
+        final_lines = []
 
-def render_textrect(self, string, font, rect, text_color, background_color, justification=0):#leave this verbose in case we want to use this for other purposes
-    
-    final_lines = []
+        requested_lines = string.splitlines()
 
-    requested_lines = string.splitlines()
+        for requested_line in requested_lines:
+            if font.size(requested_line)[0] > rect.width:
+                words = requested_line.split(' ')
+                for word in words:
+                    if font.size(word)[0] >= rect.width:
+                        raise TextRectException, "The word " + word + " is too long to fit in the rect passed."
+                accumulated_line = ""
+                for word in words:
+                    test_line = accumulated_line + word + " "   
+                    if font.size(test_line)[0] < rect.width:
+                        accumulated_line = test_line 
+                    else: 
+                        final_lines.append(accumulated_line) 
+                        accumulated_line = word + " " 
+                final_lines.append(accumulated_line)
+            else: 
+                final_lines.append(requested_line) 
 
-    for requested_line in requested_lines:
-        if font.size(requested_line)[0] > rect.width:
-            words = requested_line.split(' ')
-            for word in words:
-                if font.size(word)[0] >= rect.width:
-                    raise TextRectException, "The word " + word + " is too long to fit in the rect passed."
-            accumulated_line = ""
-            for word in words:
-                test_line = accumulated_line + word + " "   
-                if font.size(test_line)[0] < rect.width:
-                    accumulated_line = test_line 
-                else: 
-                    final_lines.append(accumulated_line) 
-                    accumulated_line = word + " " 
-            final_lines.append(accumulated_line)
-        else: 
-            final_lines.append(requested_line) 
+        surface = pygame.Surface(rect.size) 
+        surface.fill(background_color) 
 
-    surface = pygame.Surface(rect.size) 
-    surface.fill(background_color) 
+        accumulated_height = 0 
+        for line in final_lines: 
+            if accumulated_height + font.size(line)[1] >= rect.height:
+                raise TextRectException, 'After word wrap, the text string was too tall to fit in the provided rect.'
+            if line != "":
+                tempsurface = font.render(line, 1, text_color)
+                if justification == 0:
+                    surface.blit(tempsurface, (0, accumulated_height))
+                elif justification == 1:
+                    surface.blit(tempsurface, ((rect.width - tempsurface.get_width()) / 2, accumulated_height))
+                elif justification == 2:
+                    surface.blit(tempsurface, (rect.width - tempsurface.get_width(), accumulated_height))
+                else:
+                    raise TextRectException, "Invalid justification argument: " + str(justification)
+            accumulated_height += font.size(line)[1]
 
-    accumulated_height = 0 
-    for line in final_lines: 
-        if accumulated_height + font.size(line)[1] >= rect.height:
-            raise TextRectException, "Once word-wrapped, the text string was too tall to fit in the rect."
-        if line != "":
-            tempsurface = font.render(line, 1, text_color)
-            if justification == 0:
-                surface.blit(tempsurface, (0, accumulated_height))
-            elif justification == 1:
-                surface.blit(tempsurface, ((rect.width - tempsurface.get_width()) / 2, accumulated_height))
-            elif justification == 2:
-                surface.blit(tempsurface, (rect.width - tempsurface.get_width(), accumulated_height))
-            else:
-                raise TextRectException, "Invalid justification argument: " + str(justification)
-        accumulated_height += font.size(line)[1]
+        return surface
 
-    return surface
 
-def NewUser():
-    global frag0
-    global frag1
-    global frag2
-    global frag3
-    global wordlist
-    global answer
-
+def new_user(self):
     irregular_verbs = [
     ["be",[["was/were","a"],["been","q"],["being","q"],["is","q"]]],
     ["bear",[["bore","a"],["born","q"],["bears","q"],["bearing","q"]]],
@@ -184,38 +177,38 @@ def NewUser():
     answer = wordlist[1][0][0]
     random.shuffle(wordlist[1])
 
-    frag0 = wordlist[1][0][0]
-    frag1 = wordlist[1][1][0]
-    frag2 = wordlist[1][2][0]
-    frag3 = wordlist[1][3][0]
+    self.frag0 = wordlist[1][0][0]
+    self.frag1 = wordlist[1][1][0]
+    self.frag2 = wordlist[1][2][0]
+    self.frag3 = wordlist[1][3][0]
 
-    display.fill(WHITE)
-    rendered_text_word = render_textrect(wordlist[0], my_font, my_rect, PURPLE, WHITE, 1)
-    rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)#center align
-    rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)#right align
-    rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-    rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
+    self.display.fill(IrregularVerbs.WHITE)
+    self.rendered_text_word = self.render_textrect(wordlist[0], my_font, my_rect, IrregularVerbs.PURPLE, IrregularVerbs.WHITE, 1)
+    self.rendered_text_frag_1 = self.render_textrect(frag0, my_font, my_rect_frag_1, IrregularVerbs.BLACK, IrregularVerbs.WHITE, 1)
+    self.rendered_text_frag_2 = self.render_textrect(frag1, my_font, my_rect_frag_2, IrregularVerbs.BLACK, IrregularVerbs.WHITE, 2)
+    self.rendered_text_frag_3 = self.render_textrect(frag2, my_font, my_rect_frag_3, IrregularVerbs.BLACK, IrregularVerbs.WHITE, 1)
+    self.rendered_text_frag_4 = self.render_textrect(frag3, my_font, my_rect_frag_4, IrregularVerbs.BLACK, IrregularVerbs.WHITE, 0)
 
-    display.blit(rendered_text_word, my_rect.topleft)
-    display.blit(rendered_text_frag_1, my_rect_frag_1.topleft)
-    display.blit(rendered_text_frag_2, my_rect_frag_2.topleft)
-    display.blit(rendered_text_frag_3, my_rect_frag_3.topleft)
-    display.blit(rendered_text_frag_4, my_rect_frag_4.topleft)
+    self.display.blit(self.rendered_text_word, self.my_rect.topleft)
+    self.display.blit(self.rendered_text_frag_1, self.my_rect_frag_1.topleft)
+    self.display.blit(self.rendered_text_frag_2, self.my_rect_frag_2.topleft)
+    self.display.blit(self.rendered_text_frag_3, self.my_rect_frag_3.topleft)
+    self.display.blit(self.rendered_text_frag_4, self.my_rect_frag_4.topleft)
 
     pygame.display.update()
 
     return
 
-def DeactivateKeys():
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
-                return
-
-def RefreshScreen(fragment, player):
+    def DeactivateKeys(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
+                    return
+# CONTINUE HERE!
+def RefreshScreen(self, fragment, player):
     global frag0
     global frag1
     global frag2
@@ -369,7 +362,7 @@ while not finished:
             finished = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE:
-                NewUser()
+                new_user()
             if event.key == pygame.K_a:
                 RefreshScreen(frag0, player=1)
             elif event.key == pygame.K_e:
