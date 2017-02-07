@@ -336,25 +336,6 @@ def RefreshScreen(self, fragment, player):
         soundloss.play()
         DeactivateKeys()
 
-pygame.init()
-
-pygame.mixer.init()
-
-soundwin = pygame.mixer.Sound(soundwinfile)
-soundloss = pygame.mixer.Sound(soundlossfile)
-
-display = pygame.display.set_mode((800, 600))
-
-my_font = pygame.font.Font(None, 48)#need to make these relative
-my_rect = pygame.Rect((273,268,252,64))
-my_rect_frag_1 = pygame.Rect((273,20,252,64))
-my_rect_frag_2 = pygame.Rect((527,268,252,64))
-my_rect_frag_3 = pygame.Rect((273,516,252,64))
-my_rect_frag_4 = pygame.Rect((20,268,252,64))
-
-display.fill(WHITE)
-
-pygame.display.update()
 
 while not finished:
     for event in pygame.event.get():
