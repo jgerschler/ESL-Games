@@ -22,27 +22,19 @@ class IrregularVerbs(object):
         pygame.init()
         pygame.mixer.init()
         
-        try:
-            self.conn = sqlite3.connect('student.db')# connect to database
-        except:
-            print("Database not found!")
-
-        self.c = self.conn.cursor()
-
         self.sound_win = pygame.mixer.Sound('audio\\ping.ogg')
         self.sound_loss = pygame.mixer.Sound('audio\\buzzer.ogg')        
-
+        
         self.my_font = pygame.font.Font(None, 48)
-        self.my_rect = pygame.Rect((20, 100, 760, 240))
-        self.my_rect_user = pygame.Rect((20, 20, 760, 80))
-        self.my_rect_frag_1 = pygame.Rect((20, 340, 760, 65))
-        self.my_rect_frag_2 = pygame.Rect((20, 405, 760, 65))
-        self.my_rect_frag_3 = pygame.Rect((20, 470, 760, 65))
-        self.my_rect_frag_4 = pygame.Rect((20, 535, 760, 65))
+        self.my_rect = pygame.Rect((273,268,252,64))
+        self.my_rect_frag_1 = pygame.Rect((273,20,252,64))
+        self.my_rect_frag_2 = pygame.Rect((527,268,252,64))
+        self.my_rect_frag_3 = pygame.Rect((273,516,252,64))
+        self.my_rect_frag_4 = pygame.Rect((20,268,252,64))
 
-        self. display = pygame.display.set_mode((800, 600))# change to desired resolution -- you'll need to modify rect size.
-        pygame.display.set_caption("Parts of Speech Game")
-        self.display.fill(PartsOfSpeech.WHITE)
+        self.display = pygame.display.set_mode((800, 600))# change to desired resolution -- you'll need to modify rect size.
+        pygame.display.set_caption("Irregular Verbs Game")
+        self.display.fill(IrregularVerbs.WHITE)
 
         pygame.display.update()
 

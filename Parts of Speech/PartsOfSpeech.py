@@ -40,7 +40,7 @@ class PartsOfSpeech(object):
         self.my_rect_frag_3 = pygame.Rect((20, 470, 760, 65))
         self.my_rect_frag_4 = pygame.Rect((20, 535, 760, 65))
 
-        self. display = pygame.display.set_mode((800, 600))# change to desired resolution -- you'll need to modify rect size.
+        self.display = pygame.display.set_mode((800, 600))# change to desired resolution -- you'll need to modify rect size.
         pygame.display.set_caption("Parts of Speech Game")
         self.display.fill(PartsOfSpeech.WHITE)
 
