@@ -207,161 +207,154 @@ def new_user(self):
                     sys.exit()
                 if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
                     return
-# CONTINUE HERE!
-def RefreshScreen(self, fragment, player):
-    global frag0
-    global frag1
-    global frag2
-    global frag3
-    global wordlist
-    global answer
-    
-    if fragment == answer:#winner!
-        display.fill(WHITE)
-        if frag0 == fragment and player == 1:
-            rendered_text_word = render_textrect("Player 1 Wins!", my_font, my_rect, GREEN, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, GREEN, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag1 == fragment and player == 1:
-            rendered_text_word = render_textrect("Player 1 Wins!", my_font, my_rect, GREEN, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, GREEN, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag2 == fragment and player == 1:
-            rendered_text_word = render_textrect("Player 1 Wins!", my_font, my_rect, GREEN, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, GREEN, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag3 == fragment and player == 1:
-            rendered_text_word = render_textrect("Player 1 Wins!", my_font, my_rect, GREEN, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, GREEN, WHITE, 0)
-        elif frag0 == fragment and player == 2:
-            rendered_text_word = render_textrect("Player 2 Wins!", my_font, my_rect, GREEN, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, GREEN, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag1 == fragment and player == 2:
-            rendered_text_word = render_textrect("Player 2 Wins!", my_font, my_rect, GREEN, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, GREEN, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag2 == fragment and player == 2:
-            rendered_text_word = render_textrect("Player 2 Wins!", my_font, my_rect, GREEN, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, GREEN, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag3 == fragment and player == 2:
-            rendered_text_word = render_textrect("Player 2 Wins!", my_font, my_rect, GREEN, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, GREEN, WHITE, 0)
 
-        display.blit(rendered_text_word, my_rect.topleft)
-        display.blit(rendered_text_frag_1, my_rect_frag_1.topleft)
-        display.blit(rendered_text_frag_2, my_rect_frag_2.topleft)
-        display.blit(rendered_text_frag_3, my_rect_frag_3.topleft)
-        display.blit(rendered_text_frag_4, my_rect_frag_4.topleft)
-        pygame.display.update()
-        soundwin.play()
-        DeactivateKeys()
+    def refresh_screen(self, fragment, player):
+        if fragment == answer:#winner!
+            display.fill(IrregularVerbs.WHITE)
+            if frag0 == fragment and player == 1:
+                self.rendered_text_word = self.render_textrect("Player 1 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
+            elif frag1 == fragment and player == 1:
+                self.rendered_text_word = self.render_textrect("Player 1 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
+            elif frag2 == fragment and player == 1:
+                self.rendered_text_word = self.render_textrect("Player 1 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
+            elif frag3 == fragment and player == 1:
+                self.rendered_text_word = self.render_textrect("Player 1 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 0)
+            elif frag0 == fragment and player == 2:
+                self.rendered_text_word = self.render_textrect("Player 2 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
+            elif frag1 == fragment and player == 2:
+                self.rendered_text_word = self.render_textrect("Player 2 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
+            elif frag2 == fragment and player == 2:
+                self.rendered_text_word = self.render_textrect("Player 2 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
+            elif frag3 == fragment and player == 2:
+                self.rendered_text_word = self.render_textrect("Player 2 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
+                self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
+                self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 0)
 
-    if fragment != answer:#loser
-        display.fill(WHITE)
-        if frag0 == fragment and player == 1:
-            rendered_text_word = render_textrect("Player 1 Loses!", my_font, my_rect, RED, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, RED, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag1 == fragment and player == 1:
-            rendered_text_word = render_textrect("Player 1 Loses!", my_font, my_rect, RED, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, RED, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag2 == fragment and player == 1:
-            rendered_text_word = render_textrect("Player 1 Loses!", my_font, my_rect, RED, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, RED, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag3 == fragment and player == 1:
-            rendered_text_word = render_textrect("Player 1 Loses!", my_font, my_rect, RED, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, RED, WHITE, 0)
-        elif frag0 == fragment and player == 2:
-            rendered_text_word = render_textrect("Player 2 Loses!", my_font, my_rect, RED, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, RED, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag1 == fragment and player == 2:
-            rendered_text_word = render_textrect("Player 2 Loses!", my_font, my_rect, RED, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, RED, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag2 == fragment and player == 2:
-            rendered_text_word = render_textrect("Player 2 Loses!", my_font, my_rect, RED, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, RED, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, WHITE, 0)
-        elif frag3 == fragment and player == 2:
-            rendered_text_word = render_textrect("Player 2 Loses!", my_font, my_rect, RED, WHITE, 1)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, WHITE, 1)
-            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, WHITE, 2)
-            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, WHITE, 1)
-            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, RED, WHITE, 0)
+            display.blit(self.rendered_text_word, my_rect.topleft)
+            display.blit(self.rendered_text_frag_1, self.my_rect_frag_1.topleft)
+            display.blit(self.rendered_text_frag_2, self.my_rect_frag_2.topleft)
+            display.blit(self.rendered_text_frag_3, self.my_rect_frag_3.topleft)
+            display.blit(self.rendered_text_frag_4, self.my_rect_frag_4.topleft)
+            pygame.display.update()
+            soundwin.play()
+            self.DeactivateKeys()
 
-        display.blit(rendered_text_word, my_rect.topleft)
-        display.blit(rendered_text_frag_1, my_rect_frag_1.topleft)
-        display.blit(rendered_text_frag_2, my_rect_frag_2.topleft)
-        display.blit(rendered_text_frag_3, my_rect_frag_3.topleft)
-        display.blit(rendered_text_frag_4, my_rect_frag_4.topleft)
-        pygame.display.update()
-        soundloss.play()
-        DeactivateKeys()
+        if fragment != answer:#loser
+            display.fill(IrregularVerbs.WHITE)
+            if frag0 == fragment and player == 1:
+                rendered_text_word = render_textrect("Player 1 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
+                rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
+                rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
+            elif frag1 == fragment and player == 1:
+                rendered_text_word = render_textrect("Player 1 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
+                rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, IrregularVerbs.RED, IrregularVerbs.WHITE, 2)
+                rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
+            elif frag2 == fragment and player == 1:
+                rendered_text_word = render_textrect("Player 1 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
+                rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
+                rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
+            elif frag3 == fragment and player == 1:
+                rendered_text_word = render_textrect("Player 1 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
+                rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
+                rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, IrregularVerbs.RED, IrregularVerbs.WHITE, 0)
+            elif frag0 == fragment and player == 2:
+                rendered_text_word = render_textrect("Player 2 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
+                rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
+                rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
+            elif frag1 == fragment and player == 2:
+                rendered_text_word = render_textrect("Player 2 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
+                rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, IrregularVerbs.RED, IrregularVerbs.WHITE, 2)
+                rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
+            elif frag2 == fragment and player == 2:
+                rendered_text_word = render_textrect("Player 2 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
+                rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
+                rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
+            elif frag3 == fragment and player == 2:
+                rendered_text_word = render_textrect("Player 2 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
+                rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
+                rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
+                rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, IrregularVerbs.RED, IrregularVerbs.WHITE, 0)
 
+            display.blit(rendered_text_word, my_rect.topleft)
+            display.blit(rendered_text_frag_1, my_rect_frag_1.topleft)
+            display.blit(rendered_text_frag_2, my_rect_frag_2.topleft)
+            display.blit(rendered_text_frag_3, my_rect_frag_3.topleft)
+            display.blit(rendered_text_frag_4, my_rect_frag_4.topleft)
+            pygame.display.update()
+            soundloss.play()
+            DeactivateKeys()
 
-while not finished:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            finished = True
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_SPACE:
-                new_user()
-            if event.key == pygame.K_a:
-                RefreshScreen(frag0, player=1)
-            elif event.key == pygame.K_e:
-                RefreshScreen(frag0, player=2)
-            elif event.key == pygame.K_b:
-                RefreshScreen(frag1, player=1)
-            elif event.key == pygame.K_f:
-                RefreshScreen(frag1, player=2)
-            elif event.key == pygame.K_c:
-                RefreshScreen(frag2, player=1)
-            elif event.key == pygame.K_g:
-                RefreshScreen(frag2, player=2)
-            elif event.key == pygame.K_d:
-                RefreshScreen(frag3, player=1)
-            elif event.key == pygame.K_h:
-                RefreshScreen(frag3, player=2)
-            else:
-                pass
-           
-    pygame.display.update()
+    def run(self):
+        while not self.finished:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    finished = True
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_SPACE:
+                        new_user()
+                    if event.key == pygame.K_a:
+                        refresh_screen(frag0, player=1)
+                    elif event.key == pygame.K_e:
+                        refresh_screen(frag0, player=2)
+                    elif event.key == pygame.K_b:
+                        refresh_screen(frag1, player=1)
+                    elif event.key == pygame.K_f:
+                        refresh_screen(frag1, player=2)
+                    elif event.key == pygame.K_c:
+                        refresh_screen(frag2, player=1)
+                    elif event.key == pygame.K_g:
+                        refresh_screen(frag2, player=2)
+                    elif event.key == pygame.K_d:
+                        refresh_screen(frag3, player=1)
+                    elif event.key == pygame.K_h:
+                        refresh_screen(frag3, player=2)
+                    else:
+                        pass
+                   
+            pygame.display.update()
     
