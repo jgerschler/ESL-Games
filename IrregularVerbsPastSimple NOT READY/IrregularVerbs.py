@@ -86,118 +86,118 @@ class IrregularVerbs(object):
         return surface
 
 
-def new_user(self):
-    irregular_verbs = [
-    ["be",[["was/were","a"],["been","q"],["being","q"],["is","q"]]],
-    ["bear",[["bore","a"],["born","q"],["bears","q"],["bearing","q"]]],
-    ["beat",[["beat","a"],["beaten","q"],["beating","q"],["beats","q"]]],
-    ["begin",[["began","a"],["begun","q"],["beginning","q"],["begins","q"]]],
-    ["bite",[["bit","a"],["bitten","q"],["biting","q"],["bite","q"]]],
-    ["blow",[["blew","a"],["blown","q"],["blows","q"],["blowing","q"]]],
-    ["broadcast",[["broadcast","a"],["broadcasting","q"],["broadcasts","q"],["broadcaster","q"]]],
-    ["break",[["broke","a"],["broken","q"],["breaked","q"],["breaking","q"]]],
-    ["bring",[["brought","a"],["bringing","q"],["brings","q"],["brung","q"]]],
-    ["build",[["built","a"],["building","q"],["builded","q"],["builds","q"]]],
-    ["buy",[["bought","a"],["buying","q"],["buys","q"],["buy","q"]]],
-    ["can",[["could","a"],["cans","q"],["canning","q"],["can","q"]]],
-    ["catch",[["caught","a"],["catched","q"],["catches","q"],["catching","q"]]],
-    ["choose",[["chose","a"],["choose","q"],["choosed","q"],["choosing","q"]]],
-    ["come",[["came","a"],["coming","q"],["comed","q"],["comes","q"]]],
-    ["cost",[["cost","a"],["costs","q"],["costed","q"],["costing","q"]]],
-    ["cut",[["cut","a"],["cutted","q"],["cutter","q"],["cutting","q"]]],
-    ["do",[["did","a"],["doing","q"],["doed","q"],["does","q"]]],
-    ["draw",[["drew","a"],["drawn","q"],["draw","q"],["drawing","q"]]],
-    ["drink",[["drank","a"],["drinked","q"],["drink","q"],["drunk","q"]]],
-    ["drive",[["drove","a"],["drives","q"],["driven","q"],["driving","q"]]],
-    ["eat",[["ate","a"],["eaten","q"],["eats","q"],["eating","q"]]],
-    ["fall",[["fell","a"],["fallen","q"],["falls","q"],["fall","q"]]],
-    ["feed",[["fed","a"],["feeding","q"],["feeds","q"],["felt","q"]]],
-    ["feel",[["felt","a"],["feeling","q"],["feels","q"],["feel","q"]]],
-    ["fight",[["fought","a"],["fighting","q"],["fights","q"],["fight","q"]]],
-    ["find",[["found","a"],["finding","q"],["find","q"],["finds","q"]]],
-    ["fly",[["flew","a"],["flown","q"],["flies","q"],["fly","q"]]],
-    ["forget",[["forgot","a"],["forget","q"],["forgotten","q"],["forgets","q"]]],
-    ["freeze",[["froze","a"],["frozen","q"],["freeze","q"],["freezes","q"]]],
-    ["get",[["got","a"],["gotten","q"],["get","q"],["gets","q"]]],
-    ["give",[["gave","a"],["given","q"],["give","q"],["gives","q"]]],
-    ["go",[["went","a"],["gone","q"],["goes","q"],["going","q"]]],
-    ["grow",[["grew","a"],["grown","q"],["grows","q"],["grow","q"]]],
-    ["hang",[["hung","a"],["hangs","q"],["hanging","q"],["hanger","q"]]],
-    ["have",[["had","a"],["have","q"],["has","q"],["halved","q"]]],
-    ["hear",[["heard","a"],["hears","q"],["hearing","q"],["hear","q"]]],
-    ["hide",[["hid","a"],["hidden","q"],["hide","q"],["hides","q"]]],
-    ["hit",[["hit","a"],["hits","q"],["hitting","q"],["hitted","q"]]],
-    ["hold",[["held","a"],["hold","q"],["holds","q"],["holding","q"]]],
-    ["hurt",[["hurt","a"],["hurting","q"],["hurts","q"],["hurted","q"]]],
-    ["keep",[["kept","a"],["keeps","q"],["keep","q"],["keeping","q"]]],
-    ["know",[["knew","a"],["known","q"],["knows","q"],["knowing","q"]]],
-    ["lead",[["led","a"],["leads","q"],["leading","q"],["lead","q"]]],
-    ["leave",[["left","a"],["leaves","q"],["leave","q"],["leaving","q"]]],
-    ["lend",[["lent","a"],["lending","q"],["lend","q"],["lends","q"]]],
-    ["let",[["let","a"],["lets","q"],["letting","q"],["letted","q"]]],
-    ["lose",[["lost","a"],["lose","q"],["loses","q"],["losing","q"]]],
-    ["make",[["made","a"],["make","q"],["maked","q"],["making","q"]]],
-    ["mean",[["meant","a"],["means","q"],["mean","q"],["meaning","q"]]],
-    ["meet",[["met","a"],["meeting","q"],["meet","q"],["meets","q"]]],
-    ["pay",[["paid","a"],["paying","q"],["pay","q"],["pays","q"]]],
-    ["put",[["put","a"],["puts","q"],["putting","q"],["putted","q"]]],
-    ["read",[["read","a"],["reading","q"],["reads","q"],["reader","q"]]],
-    ["ride",[["rode","a"],["ridden","q"],["riding","q"],["ride","q"]]],
-    ["ring",[["rang","a"],["rung","q"],["ring","q"],["ringer","q"]]],
-    ["rise",[["rose","a"],["risen","q"],["rise","q"],["rises","q"]]],
-    ["run",[["ran","a"],["run","q"],["running","q"],["runs","q"]]],
-    ["say",[["said","a"],["says","q"],["say","q"],["saying","q"]]],
-    ["see",[["saw","a"],["seen","q"],["see","q"],["sees","q"]]],
-    ["sell",[["sold","a"],["sell","q"],["sells","q"],["selling","q"]]],
-    ["send",[["sent","a"],["sends","q"],["sending","q"],["send","q"]]],
-    ["set",[["set","a"],["setting","q"],["sets","q"],["setted","q"]]],
-    ["shoot",[["shot","a"],["shooting","q"],["shoot","q"],["shooted","q"]]],
-    ["shut",[["shut","a"],["shutting","q"],["shuts","q"],["shutted","q"]]],
-    ["sing",[["sang","a"],["sung","q"],["sings","q"],["singing","q"]]],
-    ["sit",[["sat","a"],["sits","q"],["sitting","q"],["sitted","q"]]],
-    ["sleep",[["slept","a"],["sleeping","q"],["sleep","q"],["sleeps","q"]]],
-    ["speak",[["spoke","a"],["spoken","q"],["speaks","q"],["speaking","q"]]],
-    ["spend",[["spent","a"],["spend","q"],["spending","q"],["spends","q"]]],
-    ["stand",[["stood","a"],["stands","q"],["stand","q"],["standing","q"]]],
-    ["steal",[["stole","a"],["stolen","q"],["steal","q"],["steals","q"]]],
-    ["stick",[["stuck","a"],["sticked","q"],["sticking","q"],["stick","q"]]],
-    ["swim",[["swam","a"],["swum","q"],["swim","q"],["swimming","q"]]],
-    ["take",[["took","a"],["taken","q"],["takes","q"],["take","q"]]],
-    ["teach",[["taught","a"],["teached","q"],["teach","q"],["teaches","q"]]],
-    ["tell",[["told","a"],["tells","q"],["telling","q"],["telled","q"]]],
-    ["think",[["thought","a"],["thinks","q"],["think","q"],["thinked","q"]]],
-    ["throw",[["threw","a"],["thrown","q"],["throw","q"],["throws","q"]]],
-    ["wake",[["woke","a"],["woken","q"],["wake","q"],["waked","q"]]],
-    ["wear",[["wore","a"],["worn","q"],["wear","q"],["wears","q"]]],
-    ["win",[["won","a"],["wins","q"],["win","q"],["winning","q"]]],
-    ["write",[["wrote","a"],["written","q"],["write","q"],["writes","q"]]]
-    ]
+    def new_user(self):
+        irregular_verbs = [
+        ["be",[["was/were","a"],["been","q"],["being","q"],["is","q"]]],
+        ["bear",[["bore","a"],["born","q"],["bears","q"],["bearing","q"]]],
+        ["beat",[["beat","a"],["beaten","q"],["beating","q"],["beats","q"]]],
+        ["begin",[["began","a"],["begun","q"],["beginning","q"],["begins","q"]]],
+        ["bite",[["bit","a"],["bitten","q"],["biting","q"],["bite","q"]]],
+        ["blow",[["blew","a"],["blown","q"],["blows","q"],["blowing","q"]]],
+        ["broadcast",[["broadcast","a"],["broadcasting","q"],["broadcasts","q"],["broadcaster","q"]]],
+        ["break",[["broke","a"],["broken","q"],["breaked","q"],["breaking","q"]]],
+        ["bring",[["brought","a"],["bringing","q"],["brings","q"],["brung","q"]]],
+        ["build",[["built","a"],["building","q"],["builded","q"],["builds","q"]]],
+        ["buy",[["bought","a"],["buying","q"],["buys","q"],["buy","q"]]],
+        ["can",[["could","a"],["cans","q"],["canning","q"],["can","q"]]],
+        ["catch",[["caught","a"],["catched","q"],["catches","q"],["catching","q"]]],
+        ["choose",[["chose","a"],["choose","q"],["choosed","q"],["choosing","q"]]],
+        ["come",[["came","a"],["coming","q"],["comed","q"],["comes","q"]]],
+        ["cost",[["cost","a"],["costs","q"],["costed","q"],["costing","q"]]],
+        ["cut",[["cut","a"],["cutted","q"],["cutter","q"],["cutting","q"]]],
+        ["do",[["did","a"],["doing","q"],["doed","q"],["does","q"]]],
+        ["draw",[["drew","a"],["drawn","q"],["draw","q"],["drawing","q"]]],
+        ["drink",[["drank","a"],["drinked","q"],["drink","q"],["drunk","q"]]],
+        ["drive",[["drove","a"],["drives","q"],["driven","q"],["driving","q"]]],
+        ["eat",[["ate","a"],["eaten","q"],["eats","q"],["eating","q"]]],
+        ["fall",[["fell","a"],["fallen","q"],["falls","q"],["fall","q"]]],
+        ["feed",[["fed","a"],["feeding","q"],["feeds","q"],["felt","q"]]],
+        ["feel",[["felt","a"],["feeling","q"],["feels","q"],["feel","q"]]],
+        ["fight",[["fought","a"],["fighting","q"],["fights","q"],["fight","q"]]],
+        ["find",[["found","a"],["finding","q"],["find","q"],["finds","q"]]],
+        ["fly",[["flew","a"],["flown","q"],["flies","q"],["fly","q"]]],
+        ["forget",[["forgot","a"],["forget","q"],["forgotten","q"],["forgets","q"]]],
+        ["freeze",[["froze","a"],["frozen","q"],["freeze","q"],["freezes","q"]]],
+        ["get",[["got","a"],["gotten","q"],["get","q"],["gets","q"]]],
+        ["give",[["gave","a"],["given","q"],["give","q"],["gives","q"]]],
+        ["go",[["went","a"],["gone","q"],["goes","q"],["going","q"]]],
+        ["grow",[["grew","a"],["grown","q"],["grows","q"],["grow","q"]]],
+        ["hang",[["hung","a"],["hangs","q"],["hanging","q"],["hanger","q"]]],
+        ["have",[["had","a"],["have","q"],["has","q"],["halved","q"]]],
+        ["hear",[["heard","a"],["hears","q"],["hearing","q"],["hear","q"]]],
+        ["hide",[["hid","a"],["hidden","q"],["hide","q"],["hides","q"]]],
+        ["hit",[["hit","a"],["hits","q"],["hitting","q"],["hitted","q"]]],
+        ["hold",[["held","a"],["hold","q"],["holds","q"],["holding","q"]]],
+        ["hurt",[["hurt","a"],["hurting","q"],["hurts","q"],["hurted","q"]]],
+        ["keep",[["kept","a"],["keeps","q"],["keep","q"],["keeping","q"]]],
+        ["know",[["knew","a"],["known","q"],["knows","q"],["knowing","q"]]],
+        ["lead",[["led","a"],["leads","q"],["leading","q"],["lead","q"]]],
+        ["leave",[["left","a"],["leaves","q"],["leave","q"],["leaving","q"]]],
+        ["lend",[["lent","a"],["lending","q"],["lend","q"],["lends","q"]]],
+        ["let",[["let","a"],["lets","q"],["letting","q"],["letted","q"]]],
+        ["lose",[["lost","a"],["lose","q"],["loses","q"],["losing","q"]]],
+        ["make",[["made","a"],["make","q"],["maked","q"],["making","q"]]],
+        ["mean",[["meant","a"],["means","q"],["mean","q"],["meaning","q"]]],
+        ["meet",[["met","a"],["meeting","q"],["meet","q"],["meets","q"]]],
+        ["pay",[["paid","a"],["paying","q"],["pay","q"],["pays","q"]]],
+        ["put",[["put","a"],["puts","q"],["putting","q"],["putted","q"]]],
+        ["read",[["read","a"],["reading","q"],["reads","q"],["reader","q"]]],
+        ["ride",[["rode","a"],["ridden","q"],["riding","q"],["ride","q"]]],
+        ["ring",[["rang","a"],["rung","q"],["ring","q"],["ringer","q"]]],
+        ["rise",[["rose","a"],["risen","q"],["rise","q"],["rises","q"]]],
+        ["run",[["ran","a"],["run","q"],["running","q"],["runs","q"]]],
+        ["say",[["said","a"],["says","q"],["say","q"],["saying","q"]]],
+        ["see",[["saw","a"],["seen","q"],["see","q"],["sees","q"]]],
+        ["sell",[["sold","a"],["sell","q"],["sells","q"],["selling","q"]]],
+        ["send",[["sent","a"],["sends","q"],["sending","q"],["send","q"]]],
+        ["set",[["set","a"],["setting","q"],["sets","q"],["setted","q"]]],
+        ["shoot",[["shot","a"],["shooting","q"],["shoot","q"],["shooted","q"]]],
+        ["shut",[["shut","a"],["shutting","q"],["shuts","q"],["shutted","q"]]],
+        ["sing",[["sang","a"],["sung","q"],["sings","q"],["singing","q"]]],
+        ["sit",[["sat","a"],["sits","q"],["sitting","q"],["sitted","q"]]],
+        ["sleep",[["slept","a"],["sleeping","q"],["sleep","q"],["sleeps","q"]]],
+        ["speak",[["spoke","a"],["spoken","q"],["speaks","q"],["speaking","q"]]],
+        ["spend",[["spent","a"],["spend","q"],["spending","q"],["spends","q"]]],
+        ["stand",[["stood","a"],["stands","q"],["stand","q"],["standing","q"]]],
+        ["steal",[["stole","a"],["stolen","q"],["steal","q"],["steals","q"]]],
+        ["stick",[["stuck","a"],["sticked","q"],["sticking","q"],["stick","q"]]],
+        ["swim",[["swam","a"],["swum","q"],["swim","q"],["swimming","q"]]],
+        ["take",[["took","a"],["taken","q"],["takes","q"],["take","q"]]],
+        ["teach",[["taught","a"],["teached","q"],["teach","q"],["teaches","q"]]],
+        ["tell",[["told","a"],["tells","q"],["telling","q"],["telled","q"]]],
+        ["think",[["thought","a"],["thinks","q"],["think","q"],["thinked","q"]]],
+        ["throw",[["threw","a"],["thrown","q"],["throw","q"],["throws","q"]]],
+        ["wake",[["woke","a"],["woken","q"],["wake","q"],["waked","q"]]],
+        ["wear",[["wore","a"],["worn","q"],["wear","q"],["wears","q"]]],
+        ["win",[["won","a"],["wins","q"],["win","q"],["winning","q"]]],
+        ["write",[["wrote","a"],["written","q"],["write","q"],["writes","q"]]]
+        ]
 
-    wordlist = random.sample(irregular_verbs,1)[0]
-    answer = wordlist[1][0][0]
-    random.shuffle(wordlist[1])
+        wordlist = random.sample(irregular_verbs,1)[0]
+        answer = wordlist[1][0][0]
+        random.shuffle(wordlist[1])
 
-    self.frag0 = wordlist[1][0][0]
-    self.frag1 = wordlist[1][1][0]
-    self.frag2 = wordlist[1][2][0]
-    self.frag3 = wordlist[1][3][0]
+        self.frag0 = wordlist[1][0][0]
+        self.frag1 = wordlist[1][1][0]
+        self.frag2 = wordlist[1][2][0]
+        self.frag3 = wordlist[1][3][0]
 
-    self.display.fill(IrregularVerbs.WHITE)
-    self.rendered_text_word = self.render_textrect(wordlist[0], my_font, my_rect, IrregularVerbs.PURPLE, IrregularVerbs.WHITE, 1)
-    self.rendered_text_frag_1 = self.render_textrect(frag0, my_font, my_rect_frag_1, IrregularVerbs.BLACK, IrregularVerbs.WHITE, 1)
-    self.rendered_text_frag_2 = self.render_textrect(frag1, my_font, my_rect_frag_2, IrregularVerbs.BLACK, IrregularVerbs.WHITE, 2)
-    self.rendered_text_frag_3 = self.render_textrect(frag2, my_font, my_rect_frag_3, IrregularVerbs.BLACK, IrregularVerbs.WHITE, 1)
-    self.rendered_text_frag_4 = self.render_textrect(frag3, my_font, my_rect_frag_4, IrregularVerbs.BLACK, IrregularVerbs.WHITE, 0)
+        self.display.fill(IrregularVerbs.WHITE)
+        self.rendered_text_word = self.render_textrect(wordlist[0], my_font, my_rect, IrregularVerbs.PURPLE, IrregularVerbs.WHITE, 1)
+        self.rendered_text_frag_1 = self.render_textrect(frag0, my_font, my_rect_frag_1, IrregularVerbs.BLACK, IrregularVerbs.WHITE, 1)
+        self.rendered_text_frag_2 = self.render_textrect(frag1, my_font, my_rect_frag_2, IrregularVerbs.BLACK, IrregularVerbs.WHITE, 2)
+        self.rendered_text_frag_3 = self.render_textrect(frag2, my_font, my_rect_frag_3, IrregularVerbs.BLACK, IrregularVerbs.WHITE, 1)
+        self.rendered_text_frag_4 = self.render_textrect(frag3, my_font, my_rect_frag_4, IrregularVerbs.BLACK, IrregularVerbs.WHITE, 0)
 
-    self.display.blit(self.rendered_text_word, self.my_rect.topleft)
-    self.display.blit(self.rendered_text_frag_1, self.my_rect_frag_1.topleft)
-    self.display.blit(self.rendered_text_frag_2, self.my_rect_frag_2.topleft)
-    self.display.blit(self.rendered_text_frag_3, self.my_rect_frag_3.topleft)
-    self.display.blit(self.rendered_text_frag_4, self.my_rect_frag_4.topleft)
+        self.display.blit(self.rendered_text_word, self.my_rect.topleft)
+        self.display.blit(self.rendered_text_frag_1, self.my_rect_frag_1.topleft)
+        self.display.blit(self.rendered_text_frag_2, self.my_rect_frag_2.topleft)
+        self.display.blit(self.rendered_text_frag_3, self.my_rect_frag_3.topleft)
+        self.display.blit(self.rendered_text_frag_4, self.my_rect_frag_4.topleft)
 
-    pygame.display.update()
+        pygame.display.update()
 
-    return
+        return
 
     def DeactivateKeys(self):
         while True:
@@ -211,49 +211,49 @@ def new_user(self):
     def refresh_screen(self, fragment, player):
         if fragment == answer:#winner!
             display.fill(IrregularVerbs.WHITE)
-            if frag0 == fragment and player == 1:
+            if self.frag0 == fragment and player == 1:
                 self.rendered_text_word = self.render_textrect("Player 1 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
                 self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
-            elif frag1 == fragment and player == 1:
+            elif self.frag1 == fragment and player == 1:
                 self.rendered_text_word = self.render_textrect("Player 1 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 2)
                 self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
-            elif frag2 == fragment and player == 1:
+            elif self.frag2 == fragment and player == 1:
                 self.rendered_text_word = self.render_textrect("Player 1 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
                 self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
-            elif frag3 == fragment and player == 1:
+            elif self.frag3 == fragment and player == 1:
                 self.rendered_text_word = self.render_textrect("Player 1 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
                 self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 0)
-            elif frag0 == fragment and player == 2:
+            elif self.frag0 == fragment and player == 2:
                 self.rendered_text_word = self.render_textrect("Player 2 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
                 self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
-            elif frag1 == fragment and player == 2:
+            elif self.frag1 == fragment and player == 2:
                 self.rendered_text_word = self.render_textrect("Player 2 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 2)
                 self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
-            elif frag2 == fragment and player == 2:
+            elif self.frag2 == fragment and player == 2:
                 self.rendered_text_word = self.render_textrect("Player 2 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
                 self.rendered_text_frag_3 = self.render_textrect(frag2, self.my_font, self.my_rect_frag_3, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_4 = self.render_textrect(frag3, self.my_font, self.my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
-            elif frag3 == fragment and player == 2:
+            elif self.frag3 == fragment and player == 2:
                 self.rendered_text_word = self.render_textrect("Player 2 Wins!", self.my_font, my_rect, IrregularVerbs.GREEN, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_1 = self.render_textrect(frag0, self.my_font, self.my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
                 self.rendered_text_frag_2 = self.render_textrect(frag1, self.my_font, self.my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
@@ -271,49 +271,49 @@ def new_user(self):
 
         if fragment != answer:#loser
             display.fill(IrregularVerbs.WHITE)
-            if frag0 == fragment and player == 1:
+            if self.frag0 == fragment and player == 1:
                 rendered_text_word = render_textrect("Player 1 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
                 rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
                 rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
-            elif frag1 == fragment and player == 1:
+            elif self.frag1 == fragment and player == 1:
                 rendered_text_word = render_textrect("Player 1 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
                 rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, IrregularVerbs.RED, IrregularVerbs.WHITE, 2)
                 rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
-            elif frag2 == fragment and player == 1:
+            elif self.frag2 == fragment and player == 1:
                 rendered_text_word = render_textrect("Player 1 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
                 rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
                 rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
-            elif frag3 == fragment and player == 1:
+            elif self.frag3 == fragment and player == 1:
                 rendered_text_word = render_textrect("Player 1 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
                 rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
                 rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, IrregularVerbs.RED, IrregularVerbs.WHITE, 0)
-            elif frag0 == fragment and player == 2:
+            elif self.frag0 == fragment and player == 2:
                 rendered_text_word = render_textrect("Player 2 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
                 rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
                 rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
-            elif frag1 == fragment and player == 2:
+            elif self.frag1 == fragment and player == 2:
                 rendered_text_word = render_textrect("Player 2 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
                 rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, IrregularVerbs.RED, IrregularVerbs.WHITE, 2)
                 rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, BLACK, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
-            elif frag2 == fragment and player == 2:
+            elif self.frag2 == fragment and player == 2:
                 rendered_text_word = render_textrect("Player 2 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
                 rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
                 rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLACK, IrregularVerbs.WHITE, 0)
-            elif frag3 == fragment and player == 2:
+            elif self.frag3 == fragment and player == 2:
                 rendered_text_word = render_textrect("Player 2 Loses!", my_font, my_rect, IrregularVerbs.RED, IrregularVerbs.WHITE, 1)#last 0 is to left align
                 rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, BLACK, IrregularVerbs.WHITE, 1)
                 rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, BLACK, IrregularVerbs.WHITE, 2)
@@ -358,3 +358,6 @@ def new_user(self):
                    
             pygame.display.update()
     
+if __name__ == '__main__':
+    new_game = IrregularVerbs()
+    new_game.run()
