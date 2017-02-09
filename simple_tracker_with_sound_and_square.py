@@ -59,7 +59,7 @@ while not finished:
         if event.type == pygame.MOUSEBUTTONUP:
             sound_shot.play()
     gameDisplay.fill(white)
-    pygame.draw.rect(gameDisplay, black, (10, 10, 20, 20), 3)
+    pygame.draw.rect(gameDisplay, black, (280, 210, 40, 30), 2)
     try:
         pygame.draw.circle(gameDisplay,black,(int(x),int(y)),10)
     except:
