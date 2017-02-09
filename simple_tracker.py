@@ -12,8 +12,8 @@ white = (255,255,255)
 
 finished = False
 
-greenLower = (24, 162, 73)
-greenUpper = (35, 255, 231)
+objectLower = (0, 112, 208)
+objectUpper = (19, 255, 255)
 
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Object Tracker')
@@ -29,7 +29,7 @@ while not finished:
         # blurred = cv2.GaussianBlur(frame, (11, 11), 0)
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-        mask = cv2.inRange(hsv, greenLower, greenUpper)
+        mask = cv2.inRange(hsv, objectLower, objectUpper)
         mask = cv2.erode(mask, None, iterations=2)
         mask = cv2.dilate(mask, None, iterations=2)
 
