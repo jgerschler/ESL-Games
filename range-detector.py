@@ -18,7 +18,6 @@ from operator import xor
 def callback(value):
     pass
 
-
 def setup_trackbars(range_filter):
     cv2.namedWindow("Trackbars", 0)
 
@@ -27,29 +26,6 @@ def setup_trackbars(range_filter):
 
         for j in range_filter:
             cv2.createTrackbar("%s_%s" % (j, i), "Trackbars", v, 255, callback)
-
-
-def get_arguments():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('-f', '--filter', required=True,
-                    help='Range filter. RGB or HSV')
-    ap.add_argument('-i', '--image', required=False,
-                    help='Path to the image')
-    ap.add_argument('-w', '--webcam', required=False,
-                    help='Use webcam', action='store_true')
-    ap.add_argument('-p', '--preview', required=False,
-                    help='Show a preview of the image after applying the mask',
-                    action='store_true')
-    args = vars(ap.parse_args())
-
-    if not xor(bool(args['image']), bool(args['webcam'])):
-        ap.error("Please specify only one image source")
-
-    if not args['filter'].upper() in ['RGB', 'HSV']:
-        ap.error("Please speciy a correct filter.")
-
-    return args
-
 
 def get_trackbar_values(range_filter):
     values = []
@@ -61,21 +37,10 @@ def get_trackbar_values(range_filter):
 
     return values
 
-
 def main():
-    args = get_arguments()
+    range_filter = 'HSV'
 
-    range_filter = args['filter'].upper()
-
-    if args['image']:
-        image = cv2.imread(args['image'])
-
-        if range_filter == 'RGB':
-            frame_to_thresh = image.copy()
-        else:
-            frame_to_thresh = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    else:
-        camera = cv2.VideoCapture(0)
+    camera = cv2.VideoCapture(0)
 
     setup_trackbars(range_filter)
 
