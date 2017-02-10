@@ -25,6 +25,16 @@ pygame.display.set_caption('Object Tracker')
 gameDisplay.fill(white)
 pygame.display.update()
 
+def text_objects(self, text, font):
+    self.text_surface = font.render(text, True, PointsGame.BLACK)
+    return self.text_surface, self.text_surface.get_rect()
+
+def message_display(self, text):
+    self.large_text = pygame.font.Font('arial.ttf',180)
+    self.text_surf, self.text_rect = self.text_objects(text, self.large_text)
+    self.text_rect.center = ((self.actual_display_width/2),(self.actual_display_height/2))
+    self.game_display.blit(self.text_surf, self.text_rect)
+
 camera = cv2.VideoCapture(0)
 
 while not finished:
