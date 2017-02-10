@@ -13,6 +13,7 @@ display_height = 450
 
 black = (0,0,0)
 white = (255,255,255)
+red = (255,0,0)
 
 finished = False
 
@@ -43,9 +44,10 @@ while not finished:
     if len(cnts) > 0:
         c = max(cnts, key=cv2.contourArea)
         ((x, y), radius) = cv2.minEnclosingCircle(c)
+        int_x, int_y = int(x), int(y)
         if radius > 10:
             # draw the circle and centroid on the frame,
-            cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
+            cv2.circle(frame, (int_x, int_y), int(radius), (0, 255, 255), 2)
             # print int(x), int(y)
             # centroid:
             # cv2.circle(frame, center, 5, (0, 0, 255), -1)
@@ -61,7 +63,10 @@ while not finished:
     gameDisplay.fill(white)
     pygame.draw.rect(gameDisplay, black, (280, 210, 40, 30), 2)
     try:
-        pygame.draw.circle(gameDisplay,black,(int(x),int(y)),10)
+        if 280 <= int_x <= 320 and 210 <= int_y <= 240:
+            pygame.draw.circle(gameDisplay, red,(int_x, int_y), 10)
+        else:
+            pygame.draw.circle(gameDisplay, black,(int_x, int_y), 10)
     except:
         pass
     pygame.display.update()
