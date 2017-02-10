@@ -8,8 +8,8 @@ pygame.mixer.init()
 
 sound_shot = pygame.mixer.Sound('audio\\shot.ogg')
 
-display_width = 600
-display_height = 450
+display_width = 800
+display_height = 600
 
 black = (0,0,0)
 white = (255,255,255)
@@ -25,22 +25,22 @@ pygame.display.set_caption('Object Tracker')
 gameDisplay.fill(white)
 pygame.display.update()
 
-def text_objects(self, text, font):
-    self.text_surface = font.render(text, True, PointsGame.BLACK)
-    return self.text_surface, self.text_surface.get_rect()
+def text_objects(text, font):
+    text_surface = font.render(text, True, black)
+    return text_surface, text_surface.get_rect()
 
-def message_display(self, text):
-    self.large_text = pygame.font.Font('arial.ttf',180)
-    self.text_surf, self.text_rect = self.text_objects(text, self.large_text)
-    self.text_rect.center = ((self.actual_display_width/2),(self.actual_display_height/2))
-    self.game_display.blit(self.text_surf, self.text_rect)
+def message_display(text, tuple_center):
+    large_text = pygame.font.Font('arial.ttf',18)
+    text_surf, text_rect = text_objects(text, large_text)
+    text_rect.center = tuple_center
+    gameDisplay.blit(text_surf, text_rect)
 
 camera = cv2.VideoCapture(0)
 
 while not finished:
     (grabbed, frame) = camera.read()
 
-    frame = imutils.resize(frame, width=600)
+    frame = imutils.resize(frame, width=800)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     mask = cv2.inRange(hsv, objectLower, objectUpper)
@@ -63,6 +63,7 @@ while not finished:
             sound_shot.play()
     gameDisplay.fill(white)
     pygame.draw.rect(gameDisplay, black, (280, 210, 40, 30), 2)
+    message_display("cars", (50, 50))
     try:
         if 280 <= int_x <= 320 and 210 <= int_y <= 240:
             pygame.draw.circle(gameDisplay, red,(int_x, int_y), 10)
