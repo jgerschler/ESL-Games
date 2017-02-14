@@ -1,7 +1,7 @@
 from collections import deque
 from pygame.locals import *
 import numpy as np
-import argparse, imutils, cv2, pygame, time
+import argparse, imutils, cv2, pygame, time, random
 
 pygame.init()
 pygame.mixer.init()
