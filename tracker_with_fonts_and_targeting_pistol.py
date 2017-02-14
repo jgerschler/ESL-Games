@@ -4,43 +4,43 @@ import numpy as np
 import argparse, imutils, cv2, pygame, time, random
 
 class PistolGame(object):
+    DISPLAY_WIDTH = 800
+    DISPLAY_HEIGHT = 600
+
+    BLACK = (0,0,0)
+    WHITE = (255,255,255)
+    RED = (255,0,0)
+    
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
 
         sound_shot = pygame.mixer.Sound('audio\\shot.ogg')
 
-        display_width = 800
-        display_height = 600
-
-        black = (0,0,0)
-        white = (255,255,255)
-        red = (255,0,0)
-
-        objectLower = (0, 112, 208)
-        objectUpper = (19, 255, 255)
+        object_lower = (0, 112, 208)# HSV color range for object to be tracked
+        object_upper = (19, 255, 255)
 
         verbs = ['eat','walk','talk','run','speak','read','be','watch','see','hear','listen','allow','permit']
         adjectives = ['red','green','blue','furry','hairy','happy']
 
         finished = False
 
-        gameDisplay = pygame.display.set_mode((display_width, display_height))
-        pygame.display.set_caption('Object Tracker')
-        gameDisplay.fill(white)
+        self.game_display = pygame.display.set_mode((PistolGame.DISPLAY_WIDTH, PistolGame.DISPLAY_HEIGHT))
+        pygame.display.set_caption('Pistolero Game')
+        self.game_display.fill(PistolGame.WHITE)
         pygame.display.update()
 
     def text_objects(self, text, font):
-        text_surface = font.render(text, True, black)
+        text_surface = font.render(text, True, PistolGame.BLACK)
         return text_surface, text_surface.get_rect()
 
     def message_display(self, text, tuple_center):
         large_text = pygame.font.Font('arial.ttf',18)
         text_surf, text_rect = text_objects(text, large_text)
         text_rect.center = tuple_center
-        gameDisplay.blit(text_surf, text_rect)
+        self.game_display.blit(text_surf, text_rect)
 
-    def shot():
+    def shot(self):
         
 
 
@@ -54,7 +54,7 @@ class PistolGame(object):
             frame = imutils.resize(frame, width=800)
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-            mask = cv2.inRange(hsv, objectLower, objectUpper)
+            mask = cv2.inRange(hsv, object_lower, object_upper)
             mask = cv2.erode(mask, None, iterations=2)
             mask = cv2.dilate(mask, None, iterations=2)
 
@@ -72,14 +72,14 @@ class PistolGame(object):
                     finished = True
                 if event.type == pygame.MOUSEBUTTONUP:
                     sound_shot.play()
-            gameDisplay.fill(white)
-            pygame.draw.rect(gameDisplay, black, (280, 210, 40, 30), 2)
+            self.game_display.fill(PistolGame.WHITE)
+            pygame.draw.rect(self.game_display, PistolGame.BLACK, (280, 210, 40, 30), 2)
             message_display("cars", (50, 50))
             try:
                 if 280 <= int_x <= 320 and 210 <= int_y <= 240:
-                    pygame.draw.circle(gameDisplay, red,(int_x, int_y), 10)
+                    pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
                 else:
-                    pygame.draw.circle(gameDisplay, black,(int_x, int_y), 10)
+                    pygame.draw.circle(self.game_display, PistolGame.BLACK,(int_x, int_y), 10)
             except:
                 pass
             pygame.display.update()
