@@ -65,7 +65,7 @@ class PistolGame(object):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.finished = True
-                if event.type == pygame.MOUSEBUTTONUP:
+                if event.type == pygame.MOUSEBUTTONUP:# event.type == pygame.KEYUP, event.key == pygame.K_a
                     sound_shot.play()
             self.game_display.fill(PistolGame.WHITE)
             pygame.draw.rect(self.game_display, PistolGame.BLACK, (280, 210, 40, 30), 2)
