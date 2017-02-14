@@ -15,8 +15,8 @@ black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
 
-verbs = []
-adjectives = []
+verbs = ['eat','walk','talk','run','speak','read','be','watch','see','hear','listen','allow','permit']
+adjectives = ['red','green','blue','furry','hairy','happy']
 
 finished = False
 
