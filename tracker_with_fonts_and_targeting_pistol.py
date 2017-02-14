@@ -15,6 +15,9 @@ black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
 
+verbs = []
+adjectives = []
+
 finished = False
 
 objectLower = (0, 112, 208)
