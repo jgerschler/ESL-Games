@@ -15,15 +15,15 @@ class PistolGame(object):
         pygame.init()
         pygame.mixer.init()
 
-        sound_shot = pygame.mixer.Sound('audio\\shot.ogg')
+        self.sound_shot = pygame.mixer.Sound('audio\\shot.ogg')
 
-        object_lower = (0, 112, 208)# HSV color range for object to be tracked
-        object_upper = (19, 255, 255)
+        self.object_lower = (0, 112, 208)# HSV color range for object to be tracked
+        self.object_upper = (19, 255, 255)
 
-        verbs = ['eat','walk','talk','run','speak','read','be','watch','see','hear','listen','allow','permit']
-        adjectives = ['red','green','blue','furry','hairy','happy']
+        self.verbs = ['eat','walk','talk','run','speak','read','be','watch','see','hear','listen','allow','permit']
+        self.adjectives = ['red','green','blue','furry','hairy','happy']
 
-        finished = False
+        self.finished = False
 
         self.game_display = pygame.display.set_mode((PistolGame.DISPLAY_WIDTH, PistolGame.DISPLAY_HEIGHT))
         pygame.display.set_caption('Pistolero Game')
@@ -36,25 +36,20 @@ class PistolGame(object):
 
     def message_display(self, text, tuple_center):
         large_text = pygame.font.Font('arial.ttf',18)
-        text_surf, text_rect = text_objects(text, large_text)
+        text_surf, text_rect = self.text_objects(text, large_text)
         text_rect.center = tuple_center
         self.game_display.blit(text_surf, text_rect)
-
-    def shot(self):
-        
-
-
 
     def run(self):
         camera = cv2.VideoCapture(0)
         
-        while not finished:
+        while not self.finished:
             (grabbed, frame) = camera.read()
 
             frame = imutils.resize(frame, width=800)
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-            mask = cv2.inRange(hsv, object_lower, object_upper)
+            mask = cv2.inRange(hsv, self.object_lower, self.object_upper)
             mask = cv2.erode(mask, None, iterations=2)
             mask = cv2.dilate(mask, None, iterations=2)
 
@@ -69,12 +64,12 @@ class PistolGame(object):
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    finished = True
+                    self.finished = True
                 if event.type == pygame.MOUSEBUTTONUP:
                     sound_shot.play()
             self.game_display.fill(PistolGame.WHITE)
             pygame.draw.rect(self.game_display, PistolGame.BLACK, (280, 210, 40, 30), 2)
-            message_display("cars", (50, 50))
+            self.message_display("cars", (50, 50))
             try:
                 if 280 <= int_x <= 320 and 210 <= int_y <= 240:
                     pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
@@ -86,3 +81,7 @@ class PistolGame(object):
 
         camera.release()
         cv2.destroyAllWindows()
+        
+if __name__ == '__main__':
+    pg = PistolGame()
+    pg.run()
