@@ -94,18 +94,16 @@ class PistolGame(object):
                         pygame.display.update()
                         time.sleep(0.5)
                         self.new_round()
+                        time.sleep(1)
                         #if inside of correct box remove text and blow up
                     #elif #if inside wrong box
                     else:
                         self.sound_shot.play()
             self.game_display.fill(PistolGame.WHITE)
             pygame.draw.rect(self.game_display, PistolGame.BLACK, (280, 210, 40, 30), 2)
-            self.message_display_left("cars", (50, 50))
+            # self.message_display_left("cars", (50, 50))
             try:
-                if 280 <= int_x <= 320 and 210 <= int_y <= 240:
-                    pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
-                else:
-                    pygame.draw.circle(self.game_display, PistolGame.BLACK,(int_x, int_y), 10)
+                pygame.draw.circle(self.game_display, PistolGame.BLACK,(int_x, int_y), 10)
             except:
                 pass
             pygame.display.update()
