@@ -35,10 +35,10 @@ class PistolGame(object):
         text_surface = font.render(text, True, PistolGame.BLACK)
         return text_surface, text_surface.get_rect()
 
-    def message_display(self, text, tuple_center):
+    def message_display(self, text, tuple_topleft):
         large_text = pygame.font.Font('arial.ttf',18)
         text_surf, text_rect = self.text_objects(text, large_text)
-        text_rect.center = tuple_center
+        text_rect.topleft = tuple_topleft
         self.game_display.blit(text_surf, text_rect)
 
     def run(self):
