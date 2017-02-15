@@ -50,7 +50,7 @@ class PistolGame(object):
     def new_round(self):
         word_list = random.sample(self.verbs, 3)
         word_list.append(random.sample(self.adjectives, 1))
-        word_list.shuffle()
+        random.shuffle(word_list)
         
         self.game_display.fill(PistolGame.WHITE)
         
