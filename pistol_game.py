@@ -35,10 +35,16 @@ class PistolGame(object):
         text_surface = font.render(text, True, PistolGame.BLACK)
         return text_surface, text_surface.get_rect()
 
-    def message_display(self, text, tuple_topleft):
+    def message_display_left(self, text, tuple_topleft):
         large_text = pygame.font.Font('arial.ttf',18)
         text_surf, text_rect = self.text_objects(text, large_text)
         text_rect.topleft = tuple_topleft
+        self.game_display.blit(text_surf, text_rect)
+        
+    def message_display_right(self, text, tuple_topright):
+        large_text = pygame.font.Font('arial.ttf',18)
+        text_surf, text_rect = self.text_objects(text, large_text)
+        text_rect.topright = tuple_topright
         self.game_display.blit(text_surf, text_rect)
 
     def run(self):
@@ -78,7 +84,7 @@ class PistolGame(object):
                         self.sound_shot.play()
             self.game_display.fill(PistolGame.WHITE)
             pygame.draw.rect(self.game_display, PistolGame.BLACK, (280, 210, 40, 30), 2)
-            self.message_display("cars", (50, 50))
+            self.message_display_left("cars", (50, 50))
             try:
                 if 280 <= int_x <= 320 and 210 <= int_y <= 240:
                     pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
