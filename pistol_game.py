@@ -71,6 +71,7 @@ class PistolGame(object):
                         self.sound_shot.play()
                         self.game_display.blit(self.image_shot, (280, 210))
                         pygame.display.update()
+                        time.sleep(1)
                         #if inside of correct box remove text and blow up
                     #elif #if inside wrong box
                     else:
