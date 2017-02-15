@@ -16,6 +16,7 @@ class PistolGame(object):
         pygame.mixer.init()
 
         self.sound_shot = pygame.mixer.Sound('audio\\shot.ogg')
+        self.image_shot = pygame.image.load('images\\bang.png')
 
         self.object_lower = (0, 112, 208)# HSV color range for object to be tracked
         self.object_upper = (19, 255, 255)
@@ -66,7 +67,14 @@ class PistolGame(object):
                 if event.type == pygame.QUIT:
                     self.finished = True
                 if event.type == pygame.MOUSEBUTTONUP:# event.type == pygame.KEYUP, event.key == pygame.K_a
-                    sound_shot.play()
+                    if 280 <= int_x <= 320 and 210 <= int_y <= 240:
+                        self.sound_shot.play()
+                        self.game_display.blit(self.image_shot, (280, 210))
+                        pygame.display.update()
+                        #if inside of correct box remove text and blow up
+                    #elif #if inside wrong box
+                    else:
+                        self.sound_shot.play()
             self.game_display.fill(PistolGame.WHITE)
             pygame.draw.rect(self.game_display, PistolGame.BLACK, (280, 210, 40, 30), 2)
             self.message_display("cars", (50, 50))
