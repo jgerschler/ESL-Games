@@ -46,6 +46,20 @@ class PistolGame(object):
         text_surf, text_rect = self.text_objects(text, large_text)
         text_rect.topright = tuple_topright
         self.game_display.blit(text_surf, text_rect)
+        
+    def new_round(self):
+        word_list = random.sample(self.verbs, 3)
+        word_list.append(random.sample(self.adjectives, 1))
+        word_list.shuffle()
+        
+        self.game_display.fill(PistolGame.WHITE)
+        
+        self.message_display_left(wordlist[0], (50, 50))
+        self.message_display_left(wordlist[1], (50, PistolGame.DISPLAY_HEIGHT - 50))
+        self.message_display_right(wordlist[2], (PistolGame.DISPLAY_WIDTH - 50, 50))
+        self.message_display_right(wordlist[3], (PistolGame.DISPLAY_WIDTH - 50, PistolGame.DISPLAY_HEIGHT - 50))
+        
+        pygame.display.update()
 
     def run(self):
         camera = cv2.VideoCapture(0)
@@ -78,6 +92,7 @@ class PistolGame(object):
                         self.game_display.blit(self.image_shot, (280, 210))
                         pygame.display.update()
                         time.sleep(0.5)
+                        self.new_round()
                         #if inside of correct box remove text and blow up
                     #elif #if inside wrong box
                     else:
