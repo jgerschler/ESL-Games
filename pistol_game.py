@@ -49,15 +49,16 @@ class PistolGame(object):
         
     def new_round(self):
         word_list = random.sample(self.verbs, 3)
-        word_list.append(random.sample(self.adjectives, 1))
+        word_list.append(random.sample(self.adjectives, 1)[0])
         random.shuffle(word_list)
+        print(word_list)
         
         self.game_display.fill(PistolGame.WHITE)
         
-        self.message_display_left(wordlist[0], (50, 50))
-        self.message_display_left(wordlist[1], (50, PistolGame.DISPLAY_HEIGHT - 50))
-        self.message_display_right(wordlist[2], (PistolGame.DISPLAY_WIDTH - 50, 50))
-        self.message_display_right(wordlist[3], (PistolGame.DISPLAY_WIDTH - 50, PistolGame.DISPLAY_HEIGHT - 50))
+        self.message_display_left(word_list[0], (50, 50))
+        self.message_display_left(word_list[1], (50, PistolGame.DISPLAY_HEIGHT - 50))
+        self.message_display_right(word_list[2], (PistolGame.DISPLAY_WIDTH - 50, 50))
+        self.message_display_right(word_list[3], (PistolGame.DISPLAY_WIDTH - 50, PistolGame.DISPLAY_HEIGHT - 50))
         
         pygame.display.update()
 
