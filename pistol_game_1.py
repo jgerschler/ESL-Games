@@ -16,6 +16,7 @@ class PistolGame(object):
         pygame.mixer.init()
 
         self.sound_shot = pygame.mixer.Sound('audio\\shot.ogg')
+        self.image_shot = pygame.image.load('images\\bang.png')
 
         self.object_lower = (0, 112, 208)# HSV color range for object to be tracked
         self.object_upper = (19, 255, 255)
@@ -34,14 +35,29 @@ class PistolGame(object):
         text_surface = font.render(text, True, PistolGame.BLACK)
         return text_surface, text_surface.get_rect()
 
-    def message_display(self, text, tuple_center):
+    def message_display_left(self, text, tuple_topleft):
         large_text = pygame.font.Font('arial.ttf',18)
         text_surf, text_rect = self.text_objects(text, large_text)
-        text_rect.center = tuple_center
+        text_rect.topleft = tuple_topleft
         self.game_display.blit(text_surf, text_rect)
+        
+    def message_display_right(self, text, tuple_topright):
+        large_text = pygame.font.Font('arial.ttf',18)
+        text_surf, text_rect = self.text_objects(text, large_text)
+        text_rect.topright = tuple_topright
+        self.game_display.blit(text_surf, text_rect)
+        
+    def new_round(self):
+        self.word_list = random.sample(self.verbs, 3)
+        self.word_list.append(random.sample(self.adjectives, 1)[0])
+        random.shuffle(self.word_list)
 
     def run(self):
         camera = cv2.VideoCapture(0)
+        
+        self.word_list = random.sample(self.verbs, 3)
+        self.word_list.append(random.sample(self.adjectives, 1)[0])
+        random.shuffle(self.word_list)
         
         while not self.finished:
             (grabbed, frame) = camera.read()
@@ -66,17 +82,21 @@ class PistolGame(object):
                 if event.type == pygame.QUIT:
                     self.finished = True
                 if event.type == pygame.MOUSEBUTTONUP:# event.type == pygame.KEYUP, event.key == pygame.K_a
-                    sound_shot.play()
-            self.game_display.fill(PistolGame.WHITE)
-            pygame.draw.rect(self.game_display, PistolGame.BLACK, (280, 210, 40, 30), 2)
-            self.message_display("cars", (50, 50))
+                    self.sound_shot.play()
+                    self.game_display.blit(self.image_shot, (280, 210))
+                    pygame.display.update()
+                    time.sleep(0.5)
+                    self.new_round()
+
             try:
-                if 280 <= int_x <= 320 and 210 <= int_y <= 240:
-                    pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
-                else:
-                    pygame.draw.circle(self.game_display, PistolGame.BLACK,(int_x, int_y), 10)
+                self.game_display.fill(PistolGame.WHITE)
+                self.message_display_left(self.word_list[0], (50, 50))
+                self.message_display_left(self.word_list[1], (50, PistolGame.DISPLAY_HEIGHT - 50))
+                self.message_display_right(self.word_list[2], (PistolGame.DISPLAY_WIDTH - 50, 50))
+                self.message_display_right(self.word_list[3], (PistolGame.DISPLAY_WIDTH - 50, PistolGame.DISPLAY_HEIGHT - 50))
+                pygame.draw.circle(self.game_display, PistolGame.BLACK,(int_x, int_y), 10)
             except:
-                pass
+                pass# temporary! add error handling!
             pygame.display.update()
 
         camera.release()
