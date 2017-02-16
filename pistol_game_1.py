@@ -36,14 +36,12 @@ class PistolGame(object):
         return text_surface, text_surface.get_rect()
 
     def message_display_left(self, text, tuple_topleft):
-        large_text = pygame.font.Font('arial.ttf',18)
-        text_surf, text_rect = self.text_objects(text, large_text)
+        text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', 32))
         text_rect.topleft = tuple_topleft
         self.game_display.blit(text_surf, text_rect)
         
     def message_display_right(self, text, tuple_topright):
-        large_text = pygame.font.Font('arial.ttf',18)
-        text_surf, text_rect = self.text_objects(text, large_text)
+        text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', 32))
         text_rect.topright = tuple_topright
         self.game_display.blit(text_surf, text_rect)
         
@@ -82,10 +80,11 @@ class PistolGame(object):
                 if event.type == pygame.QUIT:
                     self.finished = True
                 if event.type == pygame.MOUSEBUTTONUP:# event.type == pygame.KEYUP, event.key == pygame.K_a
-                    self.sound_shot.play()
-                    self.game_display.blit(self.image_shot, (280, 210))
+                    if int_x int_y
+                    self.sound_shot.play()# check to see if you are inside rect, and if it is the correct rect!
+                    self.game_display.blit(self.image_shot, (280, 210))#update scoring
                     pygame.display.update()
-                    time.sleep(0.5)
+                    time.sleep(0.5)# change to use pygame
                     self.new_round()
 
             try:
