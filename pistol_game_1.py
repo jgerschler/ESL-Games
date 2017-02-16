@@ -60,14 +60,14 @@ class PistolGame(object):
         return text_rect
         
     def new_round(self):
-        self.word_list = random.sample(self.verbs, 3)
+        self.word_list = random.sample(self.verbs, 3)# update this with dictionary
         self.word_list.append(random.sample(self.adjectives, 1)[0])
         random.shuffle(self.word_list)
 
     def run(self):
         camera = cv2.VideoCapture(0)
         
-        self.word_list = random.sample(self.verbs, 3)
+        self.word_list = random.sample(self.verbs, 3)# update this with dictionary
         self.word_list.append(random.sample(self.adjectives, 1)[0])
         random.shuffle(self.word_list)
         
