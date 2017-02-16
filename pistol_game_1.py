@@ -35,15 +35,17 @@ class PistolGame(object):
         text_surface = font.render(text, True, PistolGame.BLACK)
         return text_surface, text_surface.get_rect()
 
-    def message_display_left(self, text, tuple_topleft):
+    def message_display_left(self, text, tuple_topleft):# subdivide these into topleft, topright...etc
         text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', 32))
         text_rect.topleft = tuple_topleft
         self.game_display.blit(text_surf, text_rect)
+        return text_rect
         
     def message_display_right(self, text, tuple_topright):
         text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', 32))
         text_rect.topright = tuple_topright
         self.game_display.blit(text_surf, text_rect)
+        return text_rect
         
     def new_round(self):
         self.word_list = random.sample(self.verbs, 3)
@@ -75,27 +77,33 @@ class PistolGame(object):
                 if radius > 10:
                     cv2.circle(frame, (int_x, int_y), int(radius), (0, 255, 255), 2)
             cv2.imshow("Frame", frame)
+            
+            try:
+                self.game_display.fill(PistolGame.WHITE)
+                rect1 = self.message_display_left(self.word_list[0], (50, 50))
+                rect2 = self.message_display_left(self.word_list[1], (50, PistolGame.DISPLAY_HEIGHT - 50))
+                rect3 = self.message_display_right(self.word_list[2], (PistolGame.DISPLAY_WIDTH - 50, 50))
+                rect4 = self.message_display_right(self.word_list[3], (PistolGame.DISPLAY_WIDTH - 50, PistolGame.DISPLAY_HEIGHT - 50))
+                if rect1.collidepoint(int_x, int_y):
+                    pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
+                else:
+                    pygame.draw.circle(self.game_display, PistolGame.BLACK,(int_x, int_y), 10)
+                
+            except:
+                pass# temporary! add error handling!
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.finished = True
                 if event.type == pygame.MOUSEBUTTONUP:# event.type == pygame.KEYUP, event.key == pygame.K_a
-                    if int_x int_y
+                    #if int_x int_y
                     self.sound_shot.play()# check to see if you are inside rect, and if it is the correct rect!
                     self.game_display.blit(self.image_shot, (280, 210))#update scoring
                     pygame.display.update()
                     time.sleep(0.5)# change to use pygame
                     self.new_round()
 
-            try:
-                self.game_display.fill(PistolGame.WHITE)
-                self.message_display_left(self.word_list[0], (50, 50))
-                self.message_display_left(self.word_list[1], (50, PistolGame.DISPLAY_HEIGHT - 50))
-                self.message_display_right(self.word_list[2], (PistolGame.DISPLAY_WIDTH - 50, 50))
-                self.message_display_right(self.word_list[3], (PistolGame.DISPLAY_WIDTH - 50, PistolGame.DISPLAY_HEIGHT - 50))
-                pygame.draw.circle(self.game_display, PistolGame.BLACK,(int_x, int_y), 10)
-            except:
-                pass# temporary! add error handling!
+
             pygame.display.update()
 
         camera.release()
