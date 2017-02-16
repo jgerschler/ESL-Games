@@ -48,16 +48,16 @@ class PistolGame(object):
         self.game_display.blit(text_surf, text_rect)
         
     def new_round(self):
-        word_list = random.sample(self.verbs, 3)
-        word_list.append(random.sample(self.adjectives, 1)[0])
-        random.shuffle(word_list)
+        self.word_list = random.sample(self.verbs, 3)
+        self.word_list.append(random.sample(self.adjectives, 1)[0])
+        random.shuffle(self.word_list)
 
     def run(self):
         camera = cv2.VideoCapture(0)
         
-        word_list = random.sample(self.verbs, 3)
-        word_list.append(random.sample(self.adjectives, 1)[0])
-        random.shuffle(word_list)
+        self.word_list = random.sample(self.verbs, 3)
+        self.word_list.append(random.sample(self.adjectives, 1)[0])
+        random.shuffle(self.word_list)
         
         while not self.finished:
             (grabbed, frame) = camera.read()
@@ -86,17 +86,17 @@ class PistolGame(object):
                     self.game_display.blit(self.image_shot, (280, 210))
                     pygame.display.update()
                     time.sleep(0.5)
-                    new_round()
+                    self.new_round()
 
             try:
                 self.game_display.fill(PistolGame.WHITE)
-                self.message_display_left(word_list[0], (50, 50))
-                self.message_display_left(word_list[1], (50, PistolGame.DISPLAY_HEIGHT - 50))
-                self.message_display_right(word_list[2], (PistolGame.DISPLAY_WIDTH - 50, 50))
-                self.message_display_right(word_list[3], (PistolGame.DISPLAY_WIDTH - 50, PistolGame.DISPLAY_HEIGHT - 50))
+                self.message_display_left(self.word_list[0], (50, 50))
+                self.message_display_left(self.word_list[1], (50, PistolGame.DISPLAY_HEIGHT - 50))
+                self.message_display_right(self.word_list[2], (PistolGame.DISPLAY_WIDTH - 50, 50))
+                self.message_display_right(self.word_list[3], (PistolGame.DISPLAY_WIDTH - 50, PistolGame.DISPLAY_HEIGHT - 50))
                 pygame.draw.circle(self.game_display, PistolGame.BLACK,(int_x, int_y), 10)
             except:
-                pass
+                pass# temporary! add error handling!
             pygame.display.update()
 
         camera.release()
