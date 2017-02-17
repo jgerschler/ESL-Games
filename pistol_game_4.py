@@ -91,7 +91,7 @@ class PistolGame(object):
                 c = max(cnts, key=cv2.contourArea)
                 ((x, y), radius) = cv2.minEnclosingCircle(c)
                 int_x, int_y = PistolGame.DISPLAY_WIDTH - int(x), PistolGame.DISPLAY_HEIGHT - int(y)
-                # if radius > 10:
+                # if radius > 10:# left here for troubleshooting purposes
                     # cv2.circle(frame, (int_x, int_y), int(radius), (0, 255, 255), 2)
             # cv2.imshow("Frame", frame)
             
@@ -113,7 +113,7 @@ class PistolGame(object):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.finished = True
-                if event.type == pygame.MOUSEBUTTONUP:# event.type == pygame.KEYUP, event.key == pygame.K_a
+                if event.type == pygame.KEYUP and event.key == pygame.K_a:
                     # update to use dictionary here?
                     if (rect0.collidepoint(int_x, int_y) and self.word_list[0] in self.adjectives):
                         self.sound_shot.play()
