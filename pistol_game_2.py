@@ -113,31 +113,50 @@ class PistolGame(object):
                     self.finished = True
                 if event.type == pygame.MOUSEBUTTONUP:# event.type == pygame.KEYUP, event.key == pygame.K_a
                     #update to use dictionary here
-                    if ((rect0.collidepoint(int_x, int_y) and self.word_list[0] in self.adjectives) or (rect1.collidepoint(int_x, int_y) and self.word_list[1] in self.adjectives) or
-                        (rect2.collidepoint(int_x, int_y) and self.word_list[2] in self.adjectives) or (rect3.collidepoint(int_x, int_y) and self.word_list[3] in self.adjectives)):
-                        #winner -- show shot, add point and switch to next set
+                    if (rect0.collidepoint(int_x, int_y) and self.word_list[0] in self.adjectives):
                         self.sound_shot.play()
-                        self.game_display.blit(self.image_shot, (280, 210))#update scoring
+                        self.game_display.blit(self.image_shot, rect0.topleft)
                         pygame.display.update()
                         pygame.time.delay(300)
-                        print("winner!")
-                    elif rect0.collidepoint(int_x, int_y) or rect1.collidepoint(int_x, int_y) or rect2.collidepoint(int_x, int_y) or rect3.collidepoint(int_x, int_y):
-                        #loser -- show shot, subtract point and switch to next set
+                    elif (rect1.collidepoint(int_x, int_y) and self.word_list[1] in self.adjectives):
                         self.sound_shot.play()
-                        self.game_display.blit(self.image_shot, (280, 210))#update scoring
+                        self.game_display.blit(self.image_shot, rect1.topleft)
                         pygame.display.update()
                         pygame.time.delay(300)
-                        print("loser")
+                    elif (rect2.collidepoint(int_x, int_y) and self.word_list[2] in self.adjectives):
+                        self.sound_shot.play()
+                        self.game_display.blit(self.image_shot, rect2.topleft)
+                        pygame.display.update()
+                        pygame.time.delay(300)
+                    elif (rect3.collidepoint(int_x, int_y) and self.word_list[3] in self.adjectives):
+                        self.sound_shot.play()
+                        self.game_display.blit(self.image_shot, rect3.topleft)
+                        pygame.display.update()
+                        pygame.time.delay(300)
+                    elif (rect0.collidepoint(int_x, int_y) and self.word_list[0] in self.verbs):
+                        self.sound_shot.play()
+                        self.game_display.blit(self.image_shot, rect0.topleft)
+                        pygame.display.update()
+                        pygame.time.delay(300)
+                    elif (rect1.collidepoint(int_x, int_y) and self.word_list[1] in self.verbs):
+                        self.sound_shot.play()
+                        self.game_display.blit(self.image_shot, rect1.topleft)
+                        pygame.display.update()
+                        pygame.time.delay(300)
+                    elif (rect2.collidepoint(int_x, int_y) and self.word_list[2] in self.verbs):
+                        self.sound_shot.play()
+                        self.game_display.blit(self.image_shot, rect2.topleft)
+                        pygame.display.update()
+                        pygame.time.delay(300)
+                    elif (rect3.collidepoint(int_x, int_y) and self.word_list[3] in self.verbs):
+                        self.sound_shot.play()
+                        self.game_display.blit(self.image_shot, rect3.topleft)
+                        pygame.display.update()
+                        pygame.time.delay(300)
                     else:
                         self.sound_shot.play()
-                        
-                        
-                        
-                    # self.game_display.blit(self.image_shot, (280, 210))#update scoring
-                    # pygame.display.update()
-                    # pygame.time.delay(300)
-                    self.new_round()
 
+                    self.new_round()
 
             pygame.display.update()
 
