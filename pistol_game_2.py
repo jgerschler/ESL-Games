@@ -7,6 +7,8 @@ class PistolGame(object):
     DISPLAY_WIDTH = 800
     DISPLAY_HEIGHT = 600
 
+    FONT_SIZE = 64
+
     BLACK = (0,0,0)
     WHITE = (255,255,255)
     RED = (255,0,0)
@@ -37,25 +39,25 @@ class PistolGame(object):
         return text_surface, text_surface.get_rect()
 
     def message_display_topleft(self, text, tuple_topleft):# subdivide these into topleft, topright...etc
-        text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', 32))
+        text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', PistolGame.FONT_SIZE))
         text_rect.topleft = tuple_topleft
         self.game_display.blit(text_surf, text_rect)
         return text_rect
        
     def message_display_bottomleft(self, text, tuple_bottomleft):# subdivide these into topleft, topright...etc
-        text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', 32))
+        text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', PistolGame.FONT_SIZE))
         text_rect.bottomleft = tuple_bottomleft
         self.game_display.blit(text_surf, text_rect)
         return text_rect
         
     def message_display_topright(self, text, tuple_topright):
-        text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', 32))
+        text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', PistolGame.FONT_SIZE))
         text_rect.topright = tuple_topright
         self.game_display.blit(text_surf, text_rect)
         return text_rect
         
     def message_display_bottomright(self, text, tuple_bottomright):
-        text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', 32))
+        text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', PistolGame.FONT_SIZE))
         text_rect.bottomright = tuple_bottomright
         self.game_display.blit(text_surf, text_rect)
         return text_rect
@@ -95,10 +97,10 @@ class PistolGame(object):
             
             try:
                 self.game_display.fill(PistolGame.WHITE)
-                rect0 = self.message_display_topleft(self.word_list[0], (50, 50))
-                rect1 = self.message_display_bottomleft(self.word_list[1], (50, PistolGame.DISPLAY_HEIGHT - 50))
-                rect2 = self.message_display_topright(self.word_list[2], (PistolGame.DISPLAY_WIDTH - 50, 50))
-                rect3 = self.message_display_bottomright(self.word_list[3], (PistolGame.DISPLAY_WIDTH - 50, PistolGame.DISPLAY_HEIGHT - 50))
+                rect0 = self.message_display_topleft(self.word_list[0], (100, 100))
+                rect1 = self.message_display_bottomleft(self.word_list[1], (100, PistolGame.DISPLAY_HEIGHT - 100))
+                rect2 = self.message_display_topright(self.word_list[2], (PistolGame.DISPLAY_WIDTH - 100, 100))
+                rect3 = self.message_display_bottomright(self.word_list[3], (PistolGame.DISPLAY_WIDTH - 100, PistolGame.DISPLAY_HEIGHT - 100))
                 pygame.draw.circle(self.game_display, PistolGame.BLUE, (PistolGame.DISPLAY_WIDTH/2, PistolGame.DISPLAY_HEIGHT/2), 60)
                 if rect0.collidepoint(int_x, int_y) or rect1.collidepoint(int_x, int_y) or rect2.collidepoint(int_x, int_y) or rect3.collidepoint(int_x, int_y):
                     pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
