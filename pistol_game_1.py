@@ -10,6 +10,7 @@ class PistolGame(object):
     BLACK = (0,0,0)
     WHITE = (255,255,255)
     RED = (255,0,0)
+    BLUE = (0,162,232)
     
     def __init__(self):
         pygame.init()
@@ -18,8 +19,8 @@ class PistolGame(object):
         self.sound_shot = pygame.mixer.Sound('audio\\shot.ogg')
         self.image_shot = pygame.image.load('images\\bang.png')
 
-        self.object_lower = (0, 112, 208)# HSV color range for object to be tracked
-        self.object_upper = (19, 255, 255)
+        self.object_lower = (89, 230, 230)# HSV color range for object to be tracked
+        self.object_upper = (108, 255, 255)
 
         self.verbs = ['eat','walk','talk','run','speak','read','be','watch','see','hear','listen','allow','permit']
         self.adjectives = ['red','green','blue','furry','hairy','happy']
@@ -98,6 +99,7 @@ class PistolGame(object):
                 rect1 = self.message_display_bottomleft(self.word_list[1], (50, PistolGame.DISPLAY_HEIGHT - 50))
                 rect2 = self.message_display_topright(self.word_list[2], (PistolGame.DISPLAY_WIDTH - 50, 50))
                 rect3 = self.message_display_bottomright(self.word_list[3], (PistolGame.DISPLAY_WIDTH - 50, PistolGame.DISPLAY_HEIGHT - 50))
+                pygame.draw.circle(self.game_display, PistolGame.BLUE, (PistolGame.DISPLAY_WIDTH/2, PistolGame.DISPLAY_HEIGHT/2), 60)
                 if rect0.collidepoint(int_x, int_y) or rect1.collidepoint(int_x, int_y) or rect2.collidepoint(int_x, int_y) or rect3.collidepoint(int_x, int_y):
                     pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
                 else:
