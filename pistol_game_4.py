@@ -4,7 +4,7 @@ import numpy as np
 import argparse, imutils, cv2, pygame, time, random
 
 class PistolGame(object):
-    DISPLAY_WIDTH = 800
+    DISPLAY_WIDTH = 800# update for full screen later!
     DISPLAY_HEIGHT = 600
 
     FONT_SIZE = 64
