@@ -4,9 +4,6 @@ import numpy as np
 import argparse, imutils, cv2, pygame, time, random
 
 class PistolGame(object):
-    DISPLAY_WIDTH = 800# update for full screen later!
-    DISPLAY_HEIGHT = 600
-
     FONT_SIZE = 64
 
     BLACK = (0,0,0)
@@ -30,8 +27,9 @@ class PistolGame(object):
 
         self.finished = False
 
-        self.game_display = pygame.display.set_mode((PistolGame.DISPLAY_WIDTH, PistolGame.DISPLAY_HEIGHT))
+        self.game_display = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
         pygame.display.set_caption('Pistolero Game')
+        self.display_width, self.display_height = pygame.display.get_surface().get_size()
         self.game_display.fill(PistolGame.WHITE)
         pygame.display.update()
 
@@ -39,13 +37,13 @@ class PistolGame(object):
         text_surface = font.render(text, True, PistolGame.BLACK)
         return text_surface, text_surface.get_rect()
 
-    def message_display_topleft(self, text, tuple_topleft):# subdivide these into topleft, topright...etc
+    def message_display_topleft(self, text, tuple_topleft):
         text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', PistolGame.FONT_SIZE))
         text_rect.topleft = tuple_topleft
         self.game_display.blit(text_surf, text_rect)
         return text_rect
        
-    def message_display_bottomleft(self, text, tuple_bottomleft):# subdivide these into topleft, topright...etc
+    def message_display_bottomleft(self, text, tuple_bottomleft):
         text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', PistolGame.FONT_SIZE))
         text_rect.bottomleft = tuple_bottomleft
         self.game_display.blit(text_surf, text_rect)
@@ -80,7 +78,7 @@ class PistolGame(object):
         while not self.finished:
             (grabbed, frame) = camera.read()
 
-            frame = imutils.resize(frame, width=800)
+            frame = imutils.resize(frame, width=self.display_width)
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
             mask = cv2.inRange(hsv, self.object_lower, self.object_upper)
@@ -91,7 +89,7 @@ class PistolGame(object):
             if len(cnts) > 0:
                 c = max(cnts, key=cv2.contourArea)
                 ((x, y), radius) = cv2.minEnclosingCircle(c)
-                int_x, int_y = PistolGame.DISPLAY_WIDTH - int(x), PistolGame.DISPLAY_HEIGHT - int(y)
+                int_x, int_y = self.display_width - int(x), self.display_height - int(y)
                 # if radius > 10:# left here for troubleshooting purposes
                     # cv2.circle(frame, (int_x, int_y), int(radius), (0, 255, 255), 2)
             # cv2.imshow("Frame", frame)
@@ -99,10 +97,10 @@ class PistolGame(object):
             try:
                 self.game_display.fill(PistolGame.WHITE)
                 rect0 = self.message_display_topleft(self.word_list[0], (100, 100))
-                rect1 = self.message_display_bottomleft(self.word_list[1], (100, PistolGame.DISPLAY_HEIGHT - 100))
-                rect2 = self.message_display_topright(self.word_list[2], (PistolGame.DISPLAY_WIDTH - 100, 100))
-                rect3 = self.message_display_bottomright(self.word_list[3], (PistolGame.DISPLAY_WIDTH - 100, PistolGame.DISPLAY_HEIGHT - 100))
-                pygame.draw.circle(self.game_display, PistolGame.BLUE, (PistolGame.DISPLAY_WIDTH/2, PistolGame.DISPLAY_HEIGHT/2), 60)
+                rect1 = self.message_display_bottomleft(self.word_list[1], (100, self.display_height - 100))
+                rect2 = self.message_display_topright(self.word_list[2], (self.display_width - 100, 100))
+                rect3 = self.message_display_bottomright(self.word_list[3], (self.display_width - 100, self.display_height - 100))
+                pygame.draw.circle(self.game_display, PistolGame.BLUE, (self.display_width/2, self.display_height/2), 60)
                 if rect0.collidepoint(int_x, int_y) or rect1.collidepoint(int_x, int_y) or rect2.collidepoint(int_x, int_y) or rect3.collidepoint(int_x, int_y):
                     pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
                 else:
