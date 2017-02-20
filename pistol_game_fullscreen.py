@@ -100,7 +100,7 @@ class PistolGame(object):
                 rect1 = self.message_display_bottomleft(self.word_list[1], (100, self.display_height - 100))
                 rect2 = self.message_display_topright(self.word_list[2], (self.display_width - 100, 100))
                 rect3 = self.message_display_bottomright(self.word_list[3], (self.display_width - 100, self.display_height - 100))
-                pygame.draw.circle(self.game_display, PistolGame.BLUE, (self.display_width/2, self.display_height/2), 60)
+                pygame.draw.circle(self.game_display, PistolGame.BLUE, (self.display_width/2, self.display_height/2), 40)# change tracking circle radius as necessary
                 if rect0.collidepoint(int_x, int_y) or rect1.collidepoint(int_x, int_y) or rect2.collidepoint(int_x, int_y) or rect3.collidepoint(int_x, int_y):
                     pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
                 else:
