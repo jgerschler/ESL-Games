@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import pygame, time, sqlite3, math, random, sys
 import pygame.font
 from pygame.locals import *
