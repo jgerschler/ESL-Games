@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from collections import deque
 from pygame.locals import *
 import numpy as np

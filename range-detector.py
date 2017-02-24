@@ -9,7 +9,7 @@
 # (python) range-detector --filter RGB --image /path/to/image.png
 # or
 # (python) range-detector --filter HSV --webcam
-
+#!/usr/bin/env python
 import cv2
 import argparse
 from operator import xor
