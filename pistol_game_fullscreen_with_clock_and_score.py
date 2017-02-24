@@ -79,6 +79,7 @@ class PistolGame(object):
     def end_game(self):
         self.game_display.fill(PistolGame.WHITE)
         self.message_display_center("GAME OVER", (self.display_width/2, self.display_height/2))
+        self.message_display_center("SCORE: {0}".format(str(self.score)), (self.display_width/2, self.display_height/3))
         pygame.display.update()
         pygame.time.delay(3000)
         self.finished = True
