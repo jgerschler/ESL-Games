@@ -6,6 +6,7 @@ import argparse, imutils, cv2, pygame, time, random
 
 class PistolGame(object):
     FONT_SIZE = 64
+    SCORE_SIZE = 32
 
     BLACK = (0,0,0)
     WHITE = (255,255,255)
@@ -37,6 +38,12 @@ class PistolGame(object):
     def text_objects(self, text, font):
         text_surface = font.render(text, True, PistolGame.BLACK)
         return text_surface, text_surface.get_rect()
+        
+    def message_display_center(self, text, tuple_center):
+        text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', PistolGame.SCORE_SIZE))
+        text_rect.center = tuple_center
+        self.game_display.blit(text_surf, text_rect)
+        return text_rect        
 
     def message_display_topleft(self, text, tuple_topleft):
         text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', PistolGame.FONT_SIZE))
@@ -104,6 +111,7 @@ class PistolGame(object):
                 rect1 = self.message_display_bottomleft(self.word_list[1], (100, self.display_height - 100))
                 rect2 = self.message_display_topright(self.word_list[2], (self.display_width - 100, 100))
                 rect3 = self.message_display_bottomright(self.word_list[3], (self.display_width - 100, self.display_height - 100))
+                react_score = self.message_display_center(self.score,(self.display_width/2, self.display_height - 50))
                 pygame.draw.circle(self.game_display, PistolGame.BLUE, (self.display_width/2, self.display_height/2), 40)# change tracking circle radius as necessary
                 if rect0.collidepoint(int_x, int_y) or rect1.collidepoint(int_x, int_y) or rect2.collidepoint(int_x, int_y) or rect3.collidepoint(int_x, int_y):
                     pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
