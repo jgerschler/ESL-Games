@@ -2,13 +2,11 @@
 from collections import deque
 from pygame.locals import *
 import numpy as np
-import argparse, imutils, cv2, pygame, random, sys
+import argparse, imutils, cv2, pygame, time, random
 
 class PistolGame(object):
-    FONT_SIZE = 64# font size for words
-    SCORE_SIZE = 32# font size for score
-    
-    GAME_TIME = 60# number of seconds to complete the game
+    FONT_SIZE = 64
+    SCORE_SIZE = 32
 
     BLACK = (0,0,0)
     WHITE = (255,255,255)
@@ -75,13 +73,6 @@ class PistolGame(object):
         self.word_list = random.sample(self.verbs, 3)# update this with dictionary for more flexibility
         self.word_list.append(random.sample(self.adjectives, 1)[0])
         random.shuffle(self.word_list)
-        
-    def end_game(self):
-        self.game_display.fill(PistolGame.WHITE)
-        self.message_display_center("GAME OVER", (self.display_width/2, self.display_height/2))
-        pygame.display.update()
-        pygame.time.delay(3000)
-        sys.exit()
 
     def run(self):
         camera = cv2.VideoCapture(0)
@@ -120,7 +111,7 @@ class PistolGame(object):
             rect1 = self.message_display_bottomleft(self.word_list[1], (100, self.display_height - 100))
             rect2 = self.message_display_topright(self.word_list[2], (self.display_width - 100, 100))
             rect3 = self.message_display_bottomright(self.word_list[3], (self.display_width - 100, self.display_height - 100))
-            react_score = self.message_display_center("{0} {1}".format(str(self.score), PistolGame.GAME_TIME - seconds), (self.display_width/2, self.display_height - 50))
+            react_score = self.message_display_center(str(self.score), (self.display_width/2, self.display_height - 50))
             pygame.draw.circle(self.game_display, PistolGame.BLUE, (self.display_width/2, self.display_height/2), 40)# change tracking circle radius as necessary
             if rect0.collidepoint(int_x, int_y) or rect1.collidepoint(int_x, int_y) or rect2.collidepoint(int_x, int_y) or rect3.collidepoint(int_x, int_y):
                 pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
