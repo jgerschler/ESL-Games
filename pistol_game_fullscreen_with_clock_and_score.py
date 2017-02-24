@@ -81,10 +81,14 @@ class PistolGame(object):
         self.message_display_center("GAME OVER", (self.display_width/2, self.display_height/2))
         pygame.display.update()
         pygame.time.delay(3000)
+        self.finished = True
+        self.camera.release()
+        cv2.destroyAllWindows()
+        pygame.quit()
         sys.exit()
 
     def run(self):
-        camera = cv2.VideoCapture(0)
+        self.camera = cv2.VideoCapture(0)
         
         self.word_list = random.sample(self.verbs, 3)# update this with dictionary for more flexibility
         self.word_list.append(random.sample(self.adjectives, 1)[0])
@@ -96,7 +100,10 @@ class PistolGame(object):
         
         while not self.finished:
             seconds = (pygame.time.get_ticks()-start_ticks)/1000
-            (grabbed, frame) = camera.read()
+            if PistolGame.GAME_TIME - seconds == 0:
+                self.end_game()
+            
+            (grabbed, frame) = self.camera.read()
 
             frame = imutils.resize(frame, width=self.display_width)
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -114,7 +121,6 @@ class PistolGame(object):
                     # cv2.circle(frame, (int_x, int_y), int(radius), (0, 255, 255), 2)
             # cv2.imshow("Frame", frame)
             
-            #try:
             self.game_display.fill(PistolGame.WHITE)
             rect0 = self.message_display_topleft(self.word_list[0], (100, 100))
             rect1 = self.message_display_bottomleft(self.word_list[1], (100, self.display_height - 100))
@@ -126,9 +132,6 @@ class PistolGame(object):
                 pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
             else:
                 pygame.draw.circle(self.game_display, PistolGame.BLACK,(int_x, int_y), 10)
-                
-            #except:
-                #pass# temporary! add error handling!
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
