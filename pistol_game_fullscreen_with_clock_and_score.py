@@ -74,6 +74,7 @@ class PistolGame(object):
         self.word_list.append(random.sample(self.adjectives, 1)[0])
         random.shuffle(self.word_list)
 
+        self.score = 0
         int_x, int_y = 0, 0
         start_ticks = pygame.time.get_ticks()
         
@@ -119,41 +120,49 @@ class PistolGame(object):
                     # update to use dictionary here?
                     if (rect0.collidepoint(int_x, int_y) and self.word_list[0] in self.adjectives):
                         self.sound_shot.play()
+                        self.score+=1
                         self.game_display.blit(self.image_shot, (rect0.center[0]-self.image_shot.get_width()/2, rect0.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
                     elif (rect1.collidepoint(int_x, int_y) and self.word_list[1] in self.adjectives):
                         self.sound_shot.play()
+                        self.score+=1
                         self.game_display.blit(self.image_shot, (rect1.center[0]-self.image_shot.get_width()/2, rect1.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
                     elif (rect2.collidepoint(int_x, int_y) and self.word_list[2] in self.adjectives):
                         self.sound_shot.play()
+                        self.score+=1
                         self.game_display.blit(self.image_shot, (rect2.center[0]-self.image_shot.get_width()/2, rect2.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
                     elif (rect3.collidepoint(int_x, int_y) and self.word_list[3] in self.adjectives):
                         self.sound_shot.play()
+                        self.score+=1
                         self.game_display.blit(self.image_shot, (rect3.center[0]-self.image_shot.get_width()/2, rect3.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
                     elif (rect0.collidepoint(int_x, int_y) and self.word_list[0] in self.verbs):
                         self.sound_shot.play()
+                        self.score-=1
                         self.game_display.blit(self.image_shot, (rect0.center[0]-self.image_shot.get_width()/2, rect0.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
                     elif (rect1.collidepoint(int_x, int_y) and self.word_list[1] in self.verbs):
                         self.sound_shot.play()
+                        self.score-=1
                         self.game_display.blit(self.image_shot, (rect1.center[0]-self.image_shot.get_width()/2, rect1.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
                     elif (rect2.collidepoint(int_x, int_y) and self.word_list[2] in self.verbs):
                         self.sound_shot.play()
+                        self.score-=1
                         self.game_display.blit(self.image_shot, (rect2.center[0]-self.image_shot.get_width()/2, rect2.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
                     elif (rect3.collidepoint(int_x, int_y) and self.word_list[3] in self.verbs):
                         self.sound_shot.play()
+                        self.score-=1
                         self.game_display.blit(self.image_shot, (rect3.center[0]-self.image_shot.get_width()/2, rect3.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
