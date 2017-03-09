@@ -209,6 +209,7 @@ class PistolGame(object):
             rect2 = self.message_display_topright(self.selected_verb_list[1][2][0], (self.display_width - 100, 100))
             rect3 = self.message_display_bottomright(self.selected_verb_list[1][3][0], (self.display_width - 100, self.display_height - 100))
             react_score = self.message_display_center("{0} {1}".format(str(self.score), PistolGame.GAME_TIME - seconds), (self.display_width/2, self.display_height - 50))
+            base_verb = self.message_display_center(self.selected_verb_list[0], (self.display_width/2, 50))
             pygame.draw.circle(self.game_display, PistolGame.BLUE, (self.display_width/2, self.display_height/2), 40)# change tracking circle radius as necessary
             if rect0.collidepoint(int_x, int_y) or rect1.collidepoint(int_x, int_y) or rect2.collidepoint(int_x, int_y) or rect3.collidepoint(int_x, int_y):
                 pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
