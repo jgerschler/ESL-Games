@@ -20,12 +20,15 @@ class PistolGame(object):
         pygame.mixer.init()
 
         self.sound_shot = pygame.mixer.Sound('audio\\shot.ogg')
+        self.sound_wrong_shot = pygame.mixer.Sound('audio\\nelsonlaugh.ogg')
         self.sound_miss = pygame.mixer.Sound('audio\\ricochet.ogg')
         self.image_shot = pygame.image.load('images\\bang.png')
 
-        self.object_lower = (89, 230, 230)# HSV color range for object to be tracked
-        self.object_upper = (108, 255, 255)
-
+##        self.object_lower = (89, 230, 230)# HSV color range for object to be tracked
+##        self.object_upper = (108, 255, 255)
+        self.object_lower = (94, 126, 129)# HSV color range for object to be tracked
+        self.object_upper = (131, 255, 255)
+        
         self.verbs = [
                 ["be",[["was/were","a"],["been","q"],["being","q"],["is","q"]]],
                 ["bear",[["bore","a"],["born","q"],["bears","q"],["bearing","q"]]],
@@ -246,25 +249,25 @@ class PistolGame(object):
                         pygame.display.update()
                         pygame.time.delay(300)
                     elif (rect0.collidepoint(int_x, int_y) and self.selected_verb_list[1][0][1] == "q"):
-                        self.sound_shot.play()
+                        self.sound_wrong_shot.play()
                         self.score-=1
                         self.game_display.blit(self.image_shot, (rect0.center[0]-self.image_shot.get_width()/2, rect0.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
                     elif (rect1.collidepoint(int_x, int_y) and self.selected_verb_list[1][1][1] == "q"):
-                        self.sound_shot.play()
+                        self.sound_wrong_shot.play()
                         self.score-=1
                         self.game_display.blit(self.image_shot, (rect1.center[0]-self.image_shot.get_width()/2, rect1.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
                     elif (rect2.collidepoint(int_x, int_y) and self.selected_verb_list[1][2][1] == "q"):
-                        self.sound_shot.play()
+                        self.sound_wrong_shot.play()
                         self.score-=1
                         self.game_display.blit(self.image_shot, (rect2.center[0]-self.image_shot.get_width()/2, rect2.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
                     elif (rect3.collidepoint(int_x, int_y) and self.selected_verb_list[1][3][1] == "q"):
-                        self.sound_shot.play()
+                        self.sound_wrong_shot.play()
                         self.score-=1
                         self.game_display.blit(self.image_shot, (rect3.center[0]-self.image_shot.get_width()/2, rect3.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
