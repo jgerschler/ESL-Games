@@ -60,6 +60,7 @@ class PistolGame(object):
         text_surface = font.render(text, True, PistolGame.BLACK)
         return text_surface, text_surface.get_rect()
         
+    # these message display functions need to be combined!    
     def message_display_center(self, text, tuple_center):
         text_surf, text_rect = self.text_objects(text, pygame.font.Font('arial.ttf', PistolGame.SCORE_SIZE))
         text_rect.center = tuple_center
