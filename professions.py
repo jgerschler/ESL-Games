@@ -5,7 +5,7 @@ import numpy as np
 import argparse, imutils, cv2, pygame, random, sys
 
 class PistolGame(object):
-    FONT_SIZE = 64# font size for words
+    FONT_SIZE = 32# font size for words
     SCORE_SIZE = 32# font size for score
     
     GAME_TIME = 60# number of seconds to complete the game
@@ -92,8 +92,12 @@ class PistolGame(object):
         return text_rect
         
     def new_round(self):
-        self.selected_verb_list = self.professions[random.randint(0, len(self.professions)-1)]
-        random.shuffle(self.selected_verb_list[1])
+        self.selected_profession = random.choice(self.translations.keys())
+        self.professions_list = random.sample(self.professions, 3)
+        while self.selected_profession in self.professions_list:
+            self.professions_list = random.sample(self.professions, 3)
+        self.professions_list.append(self.selected_profession)
+        random.shuffle(self.professions_list)
         
     def end_game(self):
         self.game_display.fill(PistolGame.WHITE)
@@ -110,9 +114,13 @@ class PistolGame(object):
     def run(self):
         self.camera = cv2.VideoCapture(0)
         
-        self.selected_verb_list = self.professions[random.randint(0, len(self.professions)-1)]
-        random.shuffle(self.selected_verb_list[1])
-
+        self.selected_profession = random.choice(self.translations.keys())
+        self.professions_list = random.sample(self.professions, 3)
+        while self.selected_profession in self.professions_list:
+            self.professions_list = random.sample(self.professions, 3)
+        self.professions_list.append(self.selected_profession)
+        random.shuffle(self.professions_list)
+        
         self.score = 0
         int_x, int_y = 0, 0
         start_ticks = pygame.time.get_ticks()
@@ -141,12 +149,12 @@ class PistolGame(object):
             # cv2.imshow("Frame", frame)
             
             self.game_display.fill(PistolGame.WHITE)
-            rect0 = self.message_display_topleft(self.selected_verb_list[1][0][0], (100, 100))
-            rect1 = self.message_display_bottomleft(self.selected_verb_list[1][1][0], (100, self.display_height - 100))
-            rect2 = self.message_display_topright(self.selected_verb_list[1][2][0], (self.display_width - 100, 100))
-            rect3 = self.message_display_bottomright(self.selected_verb_list[1][3][0], (self.display_width - 100, self.display_height - 100))
+            rect0 = self.message_display_topleft(self.professions_list[0], (100, 100))
+            rect1 = self.message_display_bottomleft(self.professions_list[1], (100, self.display_height - 100))
+            rect2 = self.message_display_topright(self.professions_list[2], (self.display_width - 100, 100))
+            rect3 = self.message_display_bottomright(self.professions_list[3], (self.display_width - 100, self.display_height - 100))
             react_score = self.message_display_center("{0} {1}".format(str(self.score), PistolGame.GAME_TIME - seconds), (self.display_width/2, self.display_height - 50))
-            base_verb = self.message_display_center(self.selected_verb_list[0], (self.display_width/2, 50))
+            base_verb = self.message_display_center(self.translations[self.selected_profession], (self.display_width/2, 50))
             pygame.draw.circle(self.game_display, PistolGame.BLUE, (self.display_width/2, self.display_height/2), 40)# change tracking circle radius as necessary
             if rect0.collidepoint(int_x, int_y) or rect1.collidepoint(int_x, int_y) or rect2.collidepoint(int_x, int_y) or rect3.collidepoint(int_x, int_y):
                 pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
