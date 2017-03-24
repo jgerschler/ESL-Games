@@ -30,21 +30,21 @@ class PistolGame(object):
         self.object_upper = (131, 255, 255)
         
         self.translations = {'electrician':'electricista','gardener':'jardinero','mechanic':'mecanico','bus driver':'chofer de autobus',
-				'hairdresser':'estilista','construction worker':'obrero','mason':'albañil','pump attendant':'despachador',
-				'garbage man':'recogedor de basura','mailman':'cartero','architect':'arquitecto','cook':'cocinero',
-				'photographer':'fotografo','butcher':'carnicero','waiter':'mesero','waitress':'mesera','dentist':'dentista',
-				'baker':'panadero','cleaning lady':'limpiadora','salesman':'vendedor','actress':'actriz','artist':'artista',
-				'doctor':'doctor','engineer':'ingeniero','fireman':'bombero','housewife':'ama de casa','nurse':'enfermera',
-				'pilot':'piloto','policeman':'policia','cashier':'cajera','painter':'pintor','secretary':'secretaria',
-				'singer':'cantante','veterinarian':'veterinario','soldier':'soldado','carpenter':'carpintero',
-				'businessman':'hombre de negocios','detective':'detective','plumber':'plomero','surgeon':'cirujano',
-				'writer':'escritor','farmer':'campesino','spy':'espia','lawyer':'abogado','judge':'juez','journalist':'periodista',
-				'teacher':'maestro','delivery boy':'repartidor'}
+                'hairdresser':'estilista','construction worker':'obrero','mason':'albañil','pump attendant':'despachador',
+                'garbage man':'recogedor de basura','mailman':'cartero','architect':'arquitecto','cook':'cocinero',
+                'photographer':'fotografo','butcher':'carnicero','waiter':'mesero','waitress':'mesera','dentist':'dentista',
+                'baker':'panadero','cleaning lady':'limpiadora','salesman':'vendedor','actress':'actriz','artist':'artista',
+                'doctor':'doctor','engineer':'ingeniero','fireman':'bombero','housewife':'ama de casa','nurse':'enfermera',
+                'pilot':'piloto','policeman':'policia','cashier':'cajera','painter':'pintor','secretary':'secretaria',
+                'singer':'cantante','veterinarian':'veterinario','soldier':'soldado','carpenter':'carpintero',
+                'businessman':'hombre de negocios','detective':'detective','plumber':'plomero','surgeon':'cirujano',
+                'writer':'escritor','farmer':'campesino','spy':'espia','lawyer':'abogado','judge':'juez','journalist':'periodista',
+                'teacher':'maestro','delivery boy':'repartidor'}
                 
-		self.professions = ['electrician', 'gardener', 'mechanic', 'bus driver', 'hairdresser', 'construction worker', 'mason', 
+        self.professions = ['electrician', 'gardener', 'mechanic', 'bus driver', 'hairdresser', 'construction worker', 'mason', 
                 'pump attendant', 'garbage man', 'mailman', 'architect', 'cook', 'photographer', 'butcher', 'waiter', 
-                'waitress', 'dentist', 'baker',	'cleaning lady', 'salesman', 'actress', 'artist', 'doctor', 'engineer', 
-				'fireman', 'housewife', 'nurse', 'pilot', 'policeman', 'cashier', 'painter', 'secretary', 'singer',
+                'waitress', 'dentist', 'baker', 'cleaning lady', 'salesman', 'actress', 'artist', 'doctor', 'engineer', 
+                'fireman', 'housewife', 'nurse', 'pilot', 'policeman', 'cashier', 'painter', 'secretary', 'singer',
                 'veterinarian', 'soldier', 'carpenter', 'businessman', 'detective', 'plumber', 'surgeon', 'writer',
                 'farmer', 'spy', 'lawyer', 'judge', 'journalist', 'teacher', 'delivery boy']
 
