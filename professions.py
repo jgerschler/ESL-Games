@@ -166,49 +166,49 @@ class PistolGame(object):
                     self.finished = True
                 if event.type == pygame.KEYUP and event.key == pygame.K_a:
                     # update to use dictionary here?
-                    if (rect0.collidepoint(int_x, int_y) and self.selected_verb_list[1][0][1] == "a"):
+                    if (rect0.collidepoint(int_x, int_y) and self.professions_list[0] == self.selected_profession):
                         self.sound_shot.play()
                         self.score+=1
                         self.game_display.blit(self.image_shot, (rect0.center[0]-self.image_shot.get_width()/2, rect0.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect1.collidepoint(int_x, int_y) and self.selected_verb_list[1][1][1] == "a"):
+                    elif (rect1.collidepoint(int_x, int_y) and self.professions_list[1] == self.selected_profession):
                         self.sound_shot.play()
                         self.score+=1
                         self.game_display.blit(self.image_shot, (rect1.center[0]-self.image_shot.get_width()/2, rect1.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect2.collidepoint(int_x, int_y) and self.selected_verb_list[1][2][1] == "a"):
+                    elif (rect2.collidepoint(int_x, int_y) and self.professions_list[2] == self.selected_profession):
                         self.sound_shot.play()
                         self.score+=1
                         self.game_display.blit(self.image_shot, (rect2.center[0]-self.image_shot.get_width()/2, rect2.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect3.collidepoint(int_x, int_y) and self.selected_verb_list[1][3][1] == "a"):
+                    elif (rect3.collidepoint(int_x, int_y) and self.professions_list[3] == self.selected_profession):
                         self.sound_shot.play()
                         self.score+=1
                         self.game_display.blit(self.image_shot, (rect3.center[0]-self.image_shot.get_width()/2, rect3.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect0.collidepoint(int_x, int_y) and self.selected_verb_list[1][0][1] == "q"):
+                    elif (rect0.collidepoint(int_x, int_y) and self.professions_list[0] != self.selected_profession):
                         self.sound_wrong_shot.play()
                         self.score-=1
                         self.game_display.blit(self.image_shot, (rect0.center[0]-self.image_shot.get_width()/2, rect0.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect1.collidepoint(int_x, int_y) and self.selected_verb_list[1][1][1] == "q"):
+                    elif (rect1.collidepoint(int_x, int_y) and self.professions_list[1] != self.selected_profession):
                         self.sound_wrong_shot.play()
                         self.score-=1
                         self.game_display.blit(self.image_shot, (rect1.center[0]-self.image_shot.get_width()/2, rect1.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect2.collidepoint(int_x, int_y) and self.selected_verb_list[1][2][1] == "q"):
+                    elif (rect2.collidepoint(int_x, int_y) and self.professions_list[2] != self.selected_profession):
                         self.sound_wrong_shot.play()
                         self.score-=1
                         self.game_display.blit(self.image_shot, (rect2.center[0]-self.image_shot.get_width()/2, rect2.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect3.collidepoint(int_x, int_y) and self.selected_verb_list[1][3][1] == "q"):
+                    elif (rect3.collidepoint(int_x, int_y) and self.professions_list[3] != self.selected_profession):
                         self.sound_wrong_shot.play()
                         self.score-=1
                         self.game_display.blit(self.image_shot, (rect3.center[0]-self.image_shot.get_width()/2, rect3.center[1]-self.image_shot.get_height()/2))
