@@ -20,7 +20,7 @@ class PistolGame(object):
         pygame.mixer.init()
 
         self.sound_shot = pygame.mixer.Sound('audio\\shot.ogg')
-        self.sound_wrong_shot = pygame.mixer.Sound('audio\\nelsonlaugh.ogg')
+        self.sound_wrong_shot = pygame.mixer.Sound('audio\\scream.ogg')
         self.sound_miss = pygame.mixer.Sound('audio\\ricochet.ogg')
         self.image_shot = pygame.image.load('images\\bang.png')
 
