@@ -30,7 +30,7 @@ class PistolGame(object):
         self.object_upper = (131, 255, 255)
         
         self.translations = {'electrician':'electricista','gardener':'jardinero','mechanic':'mecanico','bus driver':'chofer de autobus',
-                'hairdresser':'estilista','construction worker':'obrero','mason':'albañil','pump attendant':'despachador',
+                'hairdresser':'estilista','construction worker':'obrero','mason':'albaÃ±il','pump attendant':'despachador',
                 'garbage man':'recogedor de basura','mailman':'cartero','architect':'arquitecto','cook':'cocinero',
                 'photographer':'fotografo','butcher':'carnicero','waiter':'mesero','waitress':'mesera','dentist':'dentista',
                 'baker':'panadero','cleaning lady':'limpiadora','salesman':'vendedor','actress':'actriz','artist':'artista',
