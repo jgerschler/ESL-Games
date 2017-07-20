@@ -2,7 +2,12 @@
 from collections import deque
 from pygame.locals import *
 import numpy as np
-import argparse, imutils, cv2, pygame, random, sys
+import argparse
+import imutils
+import cv2
+import pygame
+import random
+import sys
 
 class PistolGame(object):
     FONT_SIZE = 32# font size for words

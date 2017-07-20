@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-import pygame, time, math, random, sys
+import pygame
+import time
+import math
+import random
+import sys
 import pygame.font
 from pygame.locals import *
 
