@@ -157,16 +157,16 @@ class PartsOfSpeechTeamGame(object):
         pygame.display.update()
         return
 
-    def game_over(self): 
+    def game_over(self, team): 
         self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
-        text = self.font.render(team+' wins!', True, PartsOfSpeechTeamGame.RED)
+        text = self.font.render(team + ' wins!', True, PartsOfSpeechTeamGame.RED)
         textpos = text.get_rect()
         textpos.centerx = self.DISPLAYSURF.get_rect().centerx
         textpos.y = self.yRes/4
         self.DISPLAYSURF.blit(text,textpos)
 
-        refresh_display()
+        self.refresh_display()
 
         self.team_1_score = 0
         self.team_2_score = 0
@@ -226,42 +226,42 @@ class PartsOfSpeechTeamGame(object):
         if self.team_1_score < 0:
             self.team_1_score = 0
         if self.team_1_score >= self.winning_score:
-            self.game_over()
+            self.game_over(self.team_1_name)
 
     def team_2_score_update(self, score):
         self.team_2_score += score
         if self.team_2_score < 0:
             self.team_2_score = 0
         if self.team_2_score >= self.winning_score:
-            self.game_over()
+            self.game_over(self.team_2_name)
 
     def team_3_score_update(self, score):
         self.team_3_score += score
         if self.team_3_score < 0:
             self.team_3_score = 0
         if self.team_3_score >= self.winning_score:
-            self.game_over()
+            self.game_over(self.team_3_name)
 
     def team_4_score_update(self, score):
         self.team_4_score += score
         if self.team_4_score < 0:
             self.team_4_score = 0
         if self.team_4_score >= self.winning_score:
-            self.game_over()
+            self.game_over(self.team_4_name)
 
     def team_5_score_update(self, score):
         self.team_5_score += score
         if self.team_5_score < 0:
             self.team_5_score = 0
         if self.team_5_score >= self.winning_score:
-            self.game_over()
+            self.game_over(self.team_5_name)
 
     def team_6_score_update(self, score):
         self.team_6_score += score
         if self.team_6_score < 0:
             self.team_6_score = 0
         if self.team_6_score >= self.winning_score:
-            self.game_over()
+            self.game_over(self.team_6_name)
 
     def run(self):
         self.refresh_display()
