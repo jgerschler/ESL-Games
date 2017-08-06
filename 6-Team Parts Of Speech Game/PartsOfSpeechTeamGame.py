@@ -264,7 +264,7 @@ class PartsOfSpeechTeamGame(object):
             game_over(self.team_6_name)
 
     def run(self):
-        refresh_display()
+        self.refresh_display()
         while True:
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -272,27 +272,27 @@ class PartsOfSpeechTeamGame(object):
                     sys.exit()
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_SPACE:
-                        new_word()
+                        self.new_word()
                     if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
                         if self.active_word_class == 'adj':
                             self.key_bindings_dict[event.key](self.points_per_question)
-                            deactivate_keys()#alter as needed to affect classroom speed, use delay if needed
+                            self.deactivate_keys()#alter as needed to affect classroom speed, use delay if needed
                         else:
                             self.key_bindings_dict[event.key](-self.points_per_question)
-                            deactivate_keys()
+                            self.deactivate_keys()
                     if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
                         if self.active_word_class == 'noun':
                             self.key_bindings_dict[event.key](self.points_per_question)
-                            deactivate_keys()
+                            self.deactivate_keys()
                         else:
                             self.key_bindings_dict[event.key](-self.points_per_question)
-                            deactivate_keys()
+                            self.deactivate_keys()
                     if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
                         if self.active_word_class == 'verb':
                             self.key_bindings_dict[event.key](self.points_per_question)
-                            deactivate_keys()
+                            self.deactivate_keys()
                         else:
                             self.key_bindings_dict[event.key](-self.points_per_question)
-                            deactivate_keys()
+                            self.deactivate_keys()
 
             pygame.display.update()
