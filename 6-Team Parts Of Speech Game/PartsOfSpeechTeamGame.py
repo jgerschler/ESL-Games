@@ -102,7 +102,7 @@ class PartsOfSpeechTeamGame(object):
                        pygame.K_s:self.team_5_score_update,
                        pygame.K_w:self.team_6_score_update}
 
-    def RefreshDisplay(self):
+    def refresh_display(self):
         team1Label = self.team_font.render(self.team_1_name, True, PartsOfSpeechTeamGame.BLACK)
         team2Label = self.team_font.render(self.team_2_name, True, PartsOfSpeechTeamGame.BLACK)
         team3Label = self.team_font.render(self.team_3_name, True, PartsOfSpeechTeamGame.BLACK)
@@ -157,7 +157,7 @@ class PartsOfSpeechTeamGame(object):
         pygame.display.update()
         return
 
-    def GameOver(self): 
+    def game_over(self): 
         self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
         text = font.render(team+' wins!', True, PartsOfSpeechTeamGame.RED)
@@ -166,7 +166,7 @@ class PartsOfSpeechTeamGame(object):
         textpos.y = self.yRes/4
         self.DISPLAYSURF.blit(text,textpos)
 
-        RefreshDisplay()
+        refresh_display()
 
         self.team_1_score = 0
         self.team_2_score = 0
@@ -187,7 +187,7 @@ class PartsOfSpeechTeamGame(object):
                 if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
                     return
                 
-    def DeactivateKeys(self):
+    def deactivate_keys(self):
         self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
         text = font.render(self.active_word, True, PartsOfSpeechTeamGame.BLACK)
@@ -196,7 +196,7 @@ class PartsOfSpeechTeamGame(object):
         textpos.y = self.yRes/4
         self.DISPLAYSURF.blit(text,textpos)
 
-        RefreshDisplay()
+        refresh_display()
         
         while True:
             for event in pygame.event.get():
@@ -206,7 +206,7 @@ class PartsOfSpeechTeamGame(object):
                 if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
                     return
 
-    def NewWord(self):
+    def new_word(self):
         randomWordInt = randint(0,len(self.vocab_tuples)-1)
         self.active_word = self.vocab_tuples[randomWordInt][0]
         self.active_word_class = self.vocab_tuples[randomWordInt][1]
@@ -219,90 +219,80 @@ class PartsOfSpeechTeamGame(object):
         textpos.y = self.yRes/4
         self.DISPLAYSURF.blit(text,textpos)
 
-        RefreshDisplay()
+        refresh_display()
 
     def team_1_score_update(self):
         self.team_1_score += score
         if self.team_1_score < 0:
             self.team_1_score = 0
         if self.team_1_score >= self.winning_score:
-            GameOver(self.team_1_name)
+            game_over(self.team_1_name)
 
     def team_2_score_update(self):
         self.team_2_score += score
         if self.team_2_score < 0:
             self.team_2_score = 0
         if self.team_2_score >= self.winning_score:
-            GameOver(self.team_2_name)
+            game_over(self.team_2_name)
 
     def team_3_score_update(self):
         self.team_3_score += score
         if self.team_3_score < 0:
             self.team_3_score = 0
         if self.team_3_score >= self.winning_score:
-            GameOver(self.team_3_name)
+            game_over(self.team_3_name)
 
     def team_4_score_update(self):
         self.team_4_score += score
         if self.team_4_score < 0:
             self.team_4_score = 0
         if self.team_4_score >= self.winning_score:
-            GameOver(self.team_4_name)
+            game_over(self.team_4_name)
 
     def team_5_score_update(self):
         self.team_5_score += score
         if self.team_5_score < 0:
             self.team_5_score = 0
         if self.team_5_score >= self.winning_score:
-            GameOver(self.team_5_name)
+            game_over(self.team_5_name)
 
     def team_6_score_update(score):
         self.team_6_score += score
         if self.team_6_score < 0:
             self.team_6_score = 0
         if self.team_6_score >= self.winning_score:
-            GameOver(self.team_6_name)
+            game_over(self.team_6_name)
 
+    def run(self):
+        refresh_display()
+        while True:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_SPACE:
+                        new_word()
+                    if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
+                        if self.active_word_class == 'adj':
+                            self.key_bindings_dict[event.key](self.points_per_question)
+                            deactivate_keys()#alter as needed to affect classroom speed, use delay if needed
+                        else:
+                            self.key_bindings_dict[event.key](-self.points_per_question)
+                            deactivate_keys()
+                    if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
+                        if self.active_word_class == 'noun':
+                            self.key_bindings_dict[event.key](self.points_per_question)
+                            deactivate_keys()
+                        else:
+                            self.key_bindings_dict[event.key](-self.points_per_question)
+                            deactivate_keys()
+                    if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
+                        if self.active_word_class == 'verb':
+                            self.key_bindings_dict[event.key](self.points_per_question)
+                            deactivate_keys()
+                        else:
+                            self.key_bindings_dict[event.key](-self.points_per_question)
+                            deactivate_keys()
 
-
-#display prep
-
-
-
-RefreshDisplay()
-
-#main loop
-
-while True:
-
-    for event in pygame.event.get():
-
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_SPACE:
-                NewWord()
-            if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
-                if self.active_word_class == 'adj':
-                    self.key_bindings_dict[event.key](self.points_per_question)
-                    DeactivateKeys()#alter as needed to affect classroom speed, use time.sleep if needed
-                else:
-                    self.key_bindings_dict[event.key](-self.points_per_question)
-                    DeactivateKeys()
-            if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
-                if self.active_word_class == 'noun':
-                    self.key_bindings_dict[event.key](self.points_per_question)
-                    DeactivateKeys()
-                else:
-                    self.key_bindings_dict[event.key](-self.points_per_question)
-                    DeactivateKeys()
-            if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
-                if self.active_word_class == 'verb':
-                    self.key_bindings_dict[event.key](self.points_per_question)
-                    DeactivateKeys()
-                else:
-                    self.key_bindings_dict[event.key](-self.points_per_question)
-                    DeactivateKeys()
-
-    pygame.display.update()
+            pygame.display.update()
