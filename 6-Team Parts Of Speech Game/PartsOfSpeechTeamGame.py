@@ -15,9 +15,9 @@ class PartsOfSpeechTeamGame(object):
         self.xRes = 1024
         self.yRes = 768
 
-        self.self.DISPLAYSURF = pygame.display.set_mode((self.xRes, self.yRes), 0, 32)
+        self.DISPLAYSURF = pygame.display.set_mode((self.xRes, self.yRes), 0, 32)
         pygame.display.set_caption('Parts of Speech Game')
-        self.self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
+        self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
         self.font = pygame.font.SysFont(None, 72)
         self.team_font = pygame.font.SysFont(None, 32)
@@ -31,12 +31,12 @@ class PartsOfSpeechTeamGame(object):
 
         #starting scores (add handicap as necessary). Will affect answers required to win, effect varies based on screen resolution.
 
-        self.self.team_1_score = 0
-        self.self.team_2_score = 0
-        self.self.team_3_score = 0
-        self.self.team_4_score = 0
-        self.self.team_5_score = 0
-        self.self.team_6_score = 0
+        self.team_1_score = 0
+        self.team_2_score = 0
+        self.team_3_score = 0
+        self.team_4_score = 0
+        self.team_5_score = 0
+        self.team_6_score = 0
 
         self.answers_to_win = 20
         self.winning_score = (self.yRes-40)/2#self.yRes minus 40px team name rectangle
@@ -160,7 +160,7 @@ class PartsOfSpeechTeamGame(object):
     def game_over(self): 
         self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
-        text = font.render(team+' wins!', True, PartsOfSpeechTeamGame.RED)
+        text = self.font.render(team+' wins!', True, PartsOfSpeechTeamGame.RED)
         textpos = text.get_rect()
         textpos.centerx = self.DISPLAYSURF.get_rect().centerx
         textpos.y = self.yRes/4
@@ -190,13 +190,13 @@ class PartsOfSpeechTeamGame(object):
     def deactivate_keys(self):
         self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
-        text = font.render(self.active_word, True, PartsOfSpeechTeamGame.BLACK)
+        text = self.font.render(self.active_word, True, PartsOfSpeechTeamGame.BLACK)
         textpos = text.get_rect()
         textpos.centerx = self.DISPLAYSURF.get_rect().centerx
         textpos.y = self.yRes/4
         self.DISPLAYSURF.blit(text,textpos)
 
-        refresh_display()
+        self.refresh_display()
         
         while True:
             for event in pygame.event.get():
@@ -213,55 +213,55 @@ class PartsOfSpeechTeamGame(object):
         
         self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
-        text = font.render(self.active_word, True, PartsOfSpeechTeamGame.BLACK)
+        text = self.font.render(self.active_word, True, PartsOfSpeechTeamGame.BLACK)
         textpos = text.get_rect()
         textpos.centerx = self.DISPLAYSURF.get_rect().centerx
         textpos.y = self.yRes/4
         self.DISPLAYSURF.blit(text,textpos)
 
-        refresh_display()
+        self.refresh_display()
 
-    def team_1_score_update(self):
+    def team_1_score_update(self, score):
         self.team_1_score += score
         if self.team_1_score < 0:
             self.team_1_score = 0
         if self.team_1_score >= self.winning_score:
-            game_over(self.team_1_name)
+            self.game_over()
 
-    def team_2_score_update(self):
+    def team_2_score_update(self, score):
         self.team_2_score += score
         if self.team_2_score < 0:
             self.team_2_score = 0
         if self.team_2_score >= self.winning_score:
-            game_over(self.team_2_name)
+            self.game_over()
 
-    def team_3_score_update(self):
+    def team_3_score_update(self, score):
         self.team_3_score += score
         if self.team_3_score < 0:
             self.team_3_score = 0
         if self.team_3_score >= self.winning_score:
-            game_over(self.team_3_name)
+            self.game_over()
 
-    def team_4_score_update(self):
+    def team_4_score_update(self, score):
         self.team_4_score += score
         if self.team_4_score < 0:
             self.team_4_score = 0
         if self.team_4_score >= self.winning_score:
-            game_over(self.team_4_name)
+            self.game_over()
 
-    def team_5_score_update(self):
+    def team_5_score_update(self, score):
         self.team_5_score += score
         if self.team_5_score < 0:
             self.team_5_score = 0
         if self.team_5_score >= self.winning_score:
-            game_over(self.team_5_name)
+            self.game_over()
 
-    def team_6_score_update(score):
+    def team_6_score_update(self, score):
         self.team_6_score += score
         if self.team_6_score < 0:
             self.team_6_score = 0
         if self.team_6_score >= self.winning_score:
-            game_over(self.team_6_name)
+            self.game_over()
 
     def run(self):
         self.refresh_display()
@@ -296,3 +296,7 @@ class PartsOfSpeechTeamGame(object):
                             self.deactivate_keys()
 
             pygame.display.update()
+
+if __name__ == '__main__':
+    new_instance = PartsOfSpeechTeamGame()
+    new_instance.run()
