@@ -1,56 +1,68 @@
-import pygame, sys
+import pygame
+import sys
 from pygame.locals import *
 from random import randint
 
-pygame.init()
+class PartsOfSpeechTeamGame(object):
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+    RED = (255, 0, 0)
+    BLUE = (0, 0, 255)
 
-xRes = 1024
-yRes = 768
+    def __init__(self):
+        pygame.init()
 
-vocabtuples = (('agree','verb'),('allow','verb'),('appear','verb'),('ask','verb'),('be','verb'),('become','verb'),
-               ('begin','verb'),('believe','verb'),('belong','verb'),('bring','verb'),('build','verb'),('carry','verb'),
-               ('choose','verb'),('come','verb'),('connect','verb'),('consider','verb'),('continue','verb'),
-               ('contribute','verb'),('correct','verb'),('create','verb'),('decide','verb'),('deliver','verb'),
-               ('destroy','verb'),('develop','verb'),('discover','verb'),('discuss','verb'),('eat','verb'),('encourage','verb'),
-               ('explain','verb'),('follow','verb'),('get','verb'),('give','verb'),('go','verb'),('happen','verb'),
-               ('have','verb'),('hear','verb'),('imagine','verb'),('include','verb'),('involve','verb'),('know','verb'),
-               ('learn','verb'),('let','verb'),('lose','verb'),('make','verb'),('obtain','verb'),('open','verb'),('pay','verb'),
-               ('read','verb'),('realize','verb'),('receive','verb'),('remember','verb'),('say','verb'),('see','verb'),
-               ('seem','verb'),('sell','verb'),('send','verb'),('serve','verb'),('sit','verb'),('speak','verb'),('spend','verb'),
-               ('suffer','verb'),('suggest','verb'),('take','verb'),('teach','verb'),('tell','verb'),('think','verb'),
-               ('try','verb'),('understand','verb'),('want','verb'),('write','verb'),
+        self.xRes = 1024
+        self.yRes = 768
 
-               ('red','adj'),('green','adj'),('purple','adj'),('yellow','adj'),('brown','adj'),('different','adj'),
-               ('important','adj'),('other','adj'),('new','adj'),('old','adj'),('young','adj'),('fat','adj'),('skinny','adj'),
-               ('pretty','adj'),('ugly','adj'),('beautiful','adj'),('nice','adj'),('fantastic','adj'),('long','adj'),('short','adj'),
-               ('tall','adj'),('big','adj'),('small','adj'),('political','adj'),('best','adj'),('worst','adj'),('happiest','adj'),
-               ('saddest','adj'),('flirtatious','adj'),('stinky','adj'),('smelly','adj'),('squishy','adj'),('greasy','adj'),
-               ('hot','adj'),('cold','adj'),('warm','adj'),('environmental','adj'),('financial','adj'),('scientific','adj'),
-               ('medical','adj'),('smart','adj'),('dumb','adj'),('hairy','adj'),('smooth','adj'),('rough','adj'),('lonely','adj'),
-               ('natural','adj'),('wrong','adj'),('incorrect','adj'),('correct','adj'),('afraid','adj'),('alive','adj'),('bad','adj'),
-               ('good','adj'),('annoying','adj'),('irritating','adj'),('brave','adj'),('broken','adj'),('cheap','adj'),
-               ('expensive','adj'),('dangerous','adj'),('empty','adj'),('full','adj'),('dry','adj'),('wet','adj'),('exciting','adj'),
-               ('boring','adj'),('great','adj'),
+        self.DISPLAYSURF = pygame.display.set_mode((self.xRes, self.yRes), 0, 32)
+        pygame.display.set_caption('Parts of Speech Game')
+        self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
-               ('year','noun'),('people','noun'),('way','noun'),('day','noun'),('man','noun'),('thing','noun'),('woman','noun'),
-               ('life','noun'),('child','noun'),('world','noun'),('family','noun'),('student','noun'),('country','noun'),
-               ('problem','noun'),('week','noun'),('company','noun'),('system','noun'),('government','noun'),('night','noun'),
-               ('house','noun'),('car','noun'),('I','noun'),('you','noun'),('they','noun'),('he','noun'),('she','noun'),('it','noun'),
-               ('we','noun'),('book','noun'),('elephant','noun'),('cat','noun'),('dog','noun'),('hippopotamus','noun'),
-               ('magazine','noun'),('eye','noun'),('leg','noun'),('brain','noun'),('job','noun'),('business','noun'),
-               ('teacher','noun'),('mother','noun'),('father','noun'),('boy','noun'),('girl','noun'),('triangle','noun'),
-               ('rectangle','noun'),('history','noun'),('war','noun'),('art','noun'),('science','noun'),('nursing','noun'),
-               ('chemistry','noun'),('biotechnology','noun'),('money','noun'),('person','noun'),('health','noun'),('door','noun'),
-               ('window','noun'),('ceiling','noun'),('roof','noun'),('office','noun'),('computer','noun'),('Xbox','noun'),
-               ('stethescope','noun'),('injection','noun'),('tree','noun'),('boat','noun'),('river','noun'),('lake','noun'),
-               ('sky','noun'),('mango','noun'))
+        self.font = pygame.font.SysFont(None, 72)
+        self.team_font = pygame.font.SysFont(None, 32)
+
+        self.vocab_tuples = (('agree','verb'),('allow','verb'),('appear','verb'),('ask','verb'),('be','verb'),('become','verb'),
+                       ('begin','verb'),('believe','verb'),('belong','verb'),('bring','verb'),('build','verb'),('carry','verb'),
+                       ('choose','verb'),('come','verb'),('connect','verb'),('consider','verb'),('continue','verb'),
+                       ('contribute','verb'),('correct','verb'),('create','verb'),('decide','verb'),('deliver','verb'),
+                       ('destroy','verb'),('develop','verb'),('discover','verb'),('discuss','verb'),('eat','verb'),('encourage','verb'),
+                       ('explain','verb'),('follow','verb'),('get','verb'),('give','verb'),('go','verb'),('happen','verb'),
+                       ('have','verb'),('hear','verb'),('imagine','verb'),('include','verb'),('involve','verb'),('know','verb'),
+                       ('learn','verb'),('let','verb'),('lose','verb'),('make','verb'),('obtain','verb'),('open','verb'),('pay','verb'),
+                       ('read','verb'),('realize','verb'),('receive','verb'),('remember','verb'),('say','verb'),('see','verb'),
+                       ('seem','verb'),('sell','verb'),('send','verb'),('serve','verb'),('sit','verb'),('speak','verb'),('spend','verb'),
+                       ('suffer','verb'),('suggest','verb'),('take','verb'),('teach','verb'),('tell','verb'),('think','verb'),
+                       ('try','verb'),('understand','verb'),('want','verb'),('write','verb'),
+
+                       ('red','adj'),('green','adj'),('purple','adj'),('yellow','adj'),('brown','adj'),('different','adj'),
+                       ('important','adj'),('other','adj'),('new','adj'),('old','adj'),('young','adj'),('fat','adj'),('skinny','adj'),
+                       ('pretty','adj'),('ugly','adj'),('beautiful','adj'),('nice','adj'),('fantastic','adj'),('long','adj'),('short','adj'),
+                       ('tall','adj'),('big','adj'),('small','adj'),('political','adj'),('best','adj'),('worst','adj'),('happiest','adj'),
+                       ('saddest','adj'),('flirtatious','adj'),('stinky','adj'),('smelly','adj'),('squishy','adj'),('greasy','adj'),
+                       ('hot','adj'),('cold','adj'),('warm','adj'),('environmental','adj'),('financial','adj'),('scientific','adj'),
+                       ('medical','adj'),('smart','adj'),('dumb','adj'),('hairy','adj'),('smooth','adj'),('rough','adj'),('lonely','adj'),
+                       ('natural','adj'),('wrong','adj'),('incorrect','adj'),('correct','adj'),('afraid','adj'),('alive','adj'),('bad','adj'),
+                       ('good','adj'),('annoying','adj'),('irritating','adj'),('brave','adj'),('broken','adj'),('cheap','adj'),
+                       ('expensive','adj'),('dangerous','adj'),('empty','adj'),('full','adj'),('dry','adj'),('wet','adj'),('exciting','adj'),
+                       ('boring','adj'),('great','adj'),
+
+                       ('year','noun'),('people','noun'),('way','noun'),('day','noun'),('man','noun'),('thing','noun'),('woman','noun'),
+                       ('life','noun'),('child','noun'),('world','noun'),('family','noun'),('student','noun'),('country','noun'),
+                       ('problem','noun'),('week','noun'),('company','noun'),('system','noun'),('government','noun'),('night','noun'),
+                       ('house','noun'),('car','noun'),('I','noun'),('you','noun'),('they','noun'),('he','noun'),('she','noun'),('it','noun'),
+                       ('we','noun'),('book','noun'),('elephant','noun'),('cat','noun'),('dog','noun'),('hippopotamus','noun'),
+                       ('magazine','noun'),('eye','noun'),('leg','noun'),('brain','noun'),('job','noun'),('business','noun'),
+                       ('teacher','noun'),('mother','noun'),('father','noun'),('boy','noun'),('girl','noun'),('triangle','noun'),
+                       ('rectangle','noun'),('history','noun'),('war','noun'),('art','noun'),('science','noun'),('nursing','noun'),
+                       ('chemistry','noun'),('biotechnology','noun'),('money','noun'),('person','noun'),('health','noun'),('door','noun'),
+                       ('window','noun'),('ceiling','noun'),('roof','noun'),('office','noun'),('computer','noun'),('Xbox','noun'),
+                       ('stethescope','noun'),('injection','noun'),('tree','noun'),('boat','noun'),('river','noun'),('lake','noun'),
+                       ('sky','noun'),('mango','noun'))
 
 #colors
 
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
+
 
 #customize team names
 
@@ -73,7 +85,7 @@ team6Score = 0
 #how many correct answers to win?
 
 correctAnswersToWin = 20
-winningScore = (yRes-40)/2#yRes minus 40px team name rectangle
+winningScore = (self.yRes-40)/2#self.yRes minus 40px team name rectangle
 pointsPerQuestion = winningScore/correctAnswersToWin
 
 #starting word
@@ -82,12 +94,12 @@ activeWord = ''
 activeWordClass = ''
 
 def RefreshDisplay():
-    team1Label = teamfont.render(team1Name, True, BLACK)
-    team2Label = teamfont.render(team2Name, True, BLACK)
-    team3Label = teamfont.render(team3Name, True, BLACK)
-    team4Label = teamfont.render(team4Name, True, BLACK)
-    team5Label = teamfont.render(team5Name, True, BLACK)
-    team6Label = teamfont.render(team6Name, True, BLACK)
+    team1Label = teamfont.render(team1Name, True, PartsOfSpeechTeamGame.BLACK)
+    team2Label = teamfont.render(team2Name, True, PartsOfSpeechTeamGame.BLACK)
+    team3Label = teamfont.render(team3Name, True, PartsOfSpeechTeamGame.BLACK)
+    team4Label = teamfont.render(team4Name, True, PartsOfSpeechTeamGame.BLACK)
+    team5Label = teamfont.render(team5Name, True, PartsOfSpeechTeamGame.BLACK)
+    team6Label = teamfont.render(team6Name, True, PartsOfSpeechTeamGame.BLACK)
 
     team1LabelPos = team1Label.get_rect()
     team2LabelPos = team2Label.get_rect()
@@ -96,19 +108,19 @@ def RefreshDisplay():
     team5LabelPos = team5Label.get_rect()
     team6LabelPos = team6Label.get_rect()
 
-    team1LabelPos.centerx = (3*xRes/16)/2
-    team2LabelPos.centerx = ((2*xRes/16)+(xRes/10)+(2*xRes/16)+(xRes/10)+(xRes/16))/2
-    team3LabelPos.centerx = ((3*xRes/16)+(2*xRes/10)+(3*xRes/16)+(2*xRes/10)+(xRes/16))/2
-    team4LabelPos.centerx = ((4*xRes/16)+(3*xRes/10)+(4*xRes/16)+(3*xRes/10)+(xRes/16))/2
-    team5LabelPos.centerx = ((5*xRes/16)+(4*xRes/10)+(5*xRes/16)+(4*xRes/10)+(xRes/16))/2
-    team6LabelPos.centerx = ((6*xRes/16)+(5*xRes/10)+(6*xRes/16)+(5*xRes/10)+(xRes/16))/2
+    team1LabelPos.centerx = (3*self.xRes/16)/2
+    team2LabelPos.centerx = ((2*self.xRes/16)+(self.xRes/10)+(2*self.xRes/16)+(self.xRes/10)+(self.xRes/16))/2
+    team3LabelPos.centerx = ((3*self.xRes/16)+(2*self.xRes/10)+(3*self.xRes/16)+(2*self.xRes/10)+(self.xRes/16))/2
+    team4LabelPos.centerx = ((4*self.xRes/16)+(3*self.xRes/10)+(4*self.xRes/16)+(3*self.xRes/10)+(self.xRes/16))/2
+    team5LabelPos.centerx = ((5*self.xRes/16)+(4*self.xRes/10)+(5*self.xRes/16)+(4*self.xRes/10)+(self.xRes/16))/2
+    team6LabelPos.centerx = ((6*self.xRes/16)+(5*self.xRes/10)+(6*self.xRes/16)+(5*self.xRes/10)+(self.xRes/16))/2
 
-    team1LabelPos.centery = (2*yRes-40)/2
-    team2LabelPos.centery = (2*yRes-40)/2
-    team3LabelPos.centery = (2*yRes-40)/2
-    team4LabelPos.centery = (2*yRes-40)/2
-    team5LabelPos.centery = (2*yRes-40)/2
-    team6LabelPos.centery = (2*yRes-40)/2
+    team1LabelPos.centery = (2*self.yRes-40)/2
+    team2LabelPos.centery = (2*self.yRes-40)/2
+    team3LabelPos.centery = (2*self.yRes-40)/2
+    team4LabelPos.centery = (2*self.yRes-40)/2
+    team5LabelPos.centery = (2*self.yRes-40)/2
+    team6LabelPos.centery = (2*self.yRes-40)/2
 
     DISPLAYSURF.blit(team1Label,team1LabelPos)
     DISPLAYSURF.blit(team2Label,team2LabelPos)
@@ -117,21 +129,21 @@ def RefreshDisplay():
     DISPLAYSURF.blit(team5Label,team5LabelPos)
     DISPLAYSURF.blit(team6Label,team6LabelPos)
 
-    team1Rect = pygame.Rect(xRes/16,yRes-team1Score-40,xRes/16,team1Score)
-    team2Rect = pygame.Rect((2*xRes/16)+(xRes/10),yRes-team2Score-40,xRes/16,team2Score)
-    team3Rect = pygame.Rect((3*xRes/16)+(2*xRes/10),yRes-team3Score-40,xRes/16,team3Score)
-    team4Rect = pygame.Rect((4*xRes/16)+(3*xRes/10),yRes-team4Score-40,xRes/16,team4Score)
-    team5Rect = pygame.Rect((5*xRes/16)+(4*xRes/10),yRes-team5Score-40,xRes/16,team5Score)
-    team6Rect = pygame.Rect((6*xRes/16)+(5*xRes/10),yRes-team6Score-40,xRes/16,team6Score)
+    team1Rect = pygame.Rect(self.xRes/16,self.yRes-team1Score-40,self.xRes/16,team1Score)
+    team2Rect = pygame.Rect((2*self.xRes/16)+(self.xRes/10),self.yRes-team2Score-40,self.xRes/16,team2Score)
+    team3Rect = pygame.Rect((3*self.xRes/16)+(2*self.xRes/10),self.yRes-team3Score-40,self.xRes/16,team3Score)
+    team4Rect = pygame.Rect((4*self.xRes/16)+(3*self.xRes/10),self.yRes-team4Score-40,self.xRes/16,team4Score)
+    team5Rect = pygame.Rect((5*self.xRes/16)+(4*self.xRes/10),self.yRes-team5Score-40,self.xRes/16,team5Score)
+    team6Rect = pygame.Rect((6*self.xRes/16)+(5*self.xRes/10),self.yRes-team6Score-40,self.xRes/16,team6Score)
 
-    pygame.draw.rect(DISPLAYSURF, RED, team1Rect)
-    pygame.draw.rect(DISPLAYSURF, RED, team2Rect)
-    pygame.draw.rect(DISPLAYSURF, RED, team3Rect)
-    pygame.draw.rect(DISPLAYSURF, RED, team4Rect)
-    pygame.draw.rect(DISPLAYSURF, RED, team5Rect)
-    pygame.draw.rect(DISPLAYSURF, RED, team6Rect)
+    pygame.draw.rect(DISPLAYSURF, PartsOfSpeechTeamGame.RED, team1Rect)
+    pygame.draw.rect(DISPLAYSURF, PartsOfSpeechTeamGame.RED, team2Rect)
+    pygame.draw.rect(DISPLAYSURF, PartsOfSpeechTeamGame.RED, team3Rect)
+    pygame.draw.rect(DISPLAYSURF, PartsOfSpeechTeamGame.RED, team4Rect)
+    pygame.draw.rect(DISPLAYSURF, PartsOfSpeechTeamGame.RED, team5Rect)
+    pygame.draw.rect(DISPLAYSURF, PartsOfSpeechTeamGame.RED, team6Rect)
 
-    pygame.draw.line(DISPLAYSURF, BLUE, (0, (yRes-40)/2), (xRes, (yRes-40)/2), 4)
+    pygame.draw.line(DISPLAYSURF, PartsOfSpeechTeamGame.BLUE, (0, (self.yRes-40)/2), (self.xRes, (self.yRes-40)/2), 4)
 
     pygame.display.update()
     return
@@ -147,12 +159,12 @@ def GameOver(team):
     global activeWord
     global activeWordClass
     
-    DISPLAYSURF.fill(WHITE)
+    DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
-    text = font.render(team+' wins!', True, RED)
+    text = font.render(team+' wins!', True, PartsOfSpeechTeamGame.RED)
     textpos = text.get_rect()
     textpos.centerx = DISPLAYSURF.get_rect().centerx
-    textpos.y = yRes/4
+    textpos.y = self.yRes/4
     DISPLAYSURF.blit(text,textpos)
 
     RefreshDisplay()
@@ -164,9 +176,9 @@ def GameOver(team):
     team5Score = 0
     team6Score = 0
 
-    randomWordInt = randint(0,len(vocabtuples)-1)
-    activeWord = vocabtuples[randomWordInt][0]
-    activeWordClass = vocabtuples[randomWordInt][1]
+    randomWordInt = randint(0,len(self.vocab_tuples)-1)
+    activeWord = self.vocab_tuples[randomWordInt][0]
+    activeWordClass = self.vocab_tuples[randomWordInt][1]
 
     while True:
         for event in pygame.event.get():
@@ -177,12 +189,12 @@ def GameOver(team):
                 return
             
 def DeactivateKeys():
-    DISPLAYSURF.fill(WHITE)
+    DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
-    text = font.render(activeWord, True, BLACK)
+    text = font.render(activeWord, True, PartsOfSpeechTeamGame.BLACK)
     textpos = text.get_rect()
     textpos.centerx = DISPLAYSURF.get_rect().centerx
-    textpos.y = yRes/4
+    textpos.y = self.yRes/4
     DISPLAYSURF.blit(text,textpos)
 
     RefreshDisplay()
@@ -198,16 +210,16 @@ def DeactivateKeys():
 def NewWord():
     global activeWord
     global activeWordClass
-    randomWordInt = randint(0,len(vocabtuples)-1)
-    activeWord = vocabtuples[randomWordInt][0]
-    activeWordClass = vocabtuples[randomWordInt][1]
+    randomWordInt = randint(0,len(self.vocab_tuples)-1)
+    activeWord = self.vocab_tuples[randomWordInt][0]
+    activeWordClass = self.vocab_tuples[randomWordInt][1]
     
-    DISPLAYSURF.fill(WHITE)
+    DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
-    text = font.render(activeWord, True, BLACK)
+    text = font.render(activeWord, True, PartsOfSpeechTeamGame.BLACK)
     textpos = text.get_rect()
     textpos.centerx = DISPLAYSURF.get_rect().centerx
-    textpos.y = yRes/4
+    textpos.y = self.yRes/4
     DISPLAYSURF.blit(text,textpos)
 
     RefreshDisplay()
@@ -293,16 +305,7 @@ keybindingsdict = {pygame.K_a:team1ScoreUpdate,
 
 #display prep
 
-DISPLAYSURF = pygame.display.set_mode((xRes, yRes), 0, 32)
 
-pygame.display.set_caption('Testing')
-
-#starting text and display
-
-DISPLAYSURF.fill(WHITE)
-
-font = pygame.font.SysFont(None, 72)
-teamfont = pygame.font.SysFont(None, 32)
 
 RefreshDisplay()
 
