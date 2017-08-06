@@ -15,9 +15,9 @@ class PartsOfSpeechTeamGame(object):
         self.xRes = 1024
         self.yRes = 768
 
-        self.DISPLAYSURF = pygame.display.set_mode((self.xRes, self.yRes), 0, 32)
+        self.self.DISPLAYSURF = pygame.display.set_mode((self.xRes, self.yRes), 0, 32)
         pygame.display.set_caption('Parts of Speech Game')
-        self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
+        self.self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
         self.font = pygame.font.SysFont(None, 72)
         self.team_font = pygame.font.SysFont(None, 32)
@@ -31,12 +31,12 @@ class PartsOfSpeechTeamGame(object):
 
         #starting scores (add handicap as necessary). Will affect answers required to win, effect varies based on screen resolution.
 
-        self.team1Score = 0
-        self.team2Score = 0
-        self.team3Score = 0
-        self.team4Score = 0
-        self.team5Score = 0
-        self.team6Score = 0
+        self.self.team_1_score = 0
+        self.self.team_2_score = 0
+        self.self.team_3_score = 0
+        self.self.team_4_score = 0
+        self.self.team_5_score = 0
+        self.self.team_6_score = 0
 
         self.answers_to_win = 20
         self.winning_score = (self.yRes-40)/2#self.yRes minus 40px team name rectangle
@@ -119,59 +119,59 @@ def RefreshDisplay(self):
     team5LabelPos.centery = (2*self.yRes-40)/2
     team6LabelPos.centery = (2*self.yRes-40)/2
 
-    DISPLAYSURF.blit(team1Label,team1LabelPos)
-    DISPLAYSURF.blit(team2Label,team2LabelPos)
-    DISPLAYSURF.blit(team3Label,team3LabelPos)
-    DISPLAYSURF.blit(team4Label,team4LabelPos)
-    DISPLAYSURF.blit(team5Label,team5LabelPos)
-    DISPLAYSURF.blit(team6Label,team6LabelPos)
+    self.DISPLAYSURF.blit(team1Label,team1LabelPos)
+    self.DISPLAYSURF.blit(team2Label,team2LabelPos)
+    self.DISPLAYSURF.blit(team3Label,team3LabelPos)
+    self.DISPLAYSURF.blit(team4Label,team4LabelPos)
+    self.DISPLAYSURF.blit(team5Label,team5LabelPos)
+    self.DISPLAYSURF.blit(team6Label,team6LabelPos)
 
-    team1Rect = pygame.Rect(self.xRes/16,self.yRes-team1Score-40,self.xRes/16,team1Score)
-    team2Rect = pygame.Rect((2*self.xRes/16)+(self.xRes/10),self.yRes-team2Score-40,self.xRes/16,team2Score)
-    team3Rect = pygame.Rect((3*self.xRes/16)+(2*self.xRes/10),self.yRes-team3Score-40,self.xRes/16,team3Score)
-    team4Rect = pygame.Rect((4*self.xRes/16)+(3*self.xRes/10),self.yRes-team4Score-40,self.xRes/16,team4Score)
-    team5Rect = pygame.Rect((5*self.xRes/16)+(4*self.xRes/10),self.yRes-team5Score-40,self.xRes/16,team5Score)
-    team6Rect = pygame.Rect((6*self.xRes/16)+(5*self.xRes/10),self.yRes-team6Score-40,self.xRes/16,team6Score)
+    team1Rect = pygame.Rect(self.xRes/16,self.yRes-self.team_1_score-40,self.xRes/16,self.team_1_score)
+    team2Rect = pygame.Rect((2*self.xRes/16)+(self.xRes/10),self.yRes-self.team_2_score-40,self.xRes/16,self.team_2_score)
+    team3Rect = pygame.Rect((3*self.xRes/16)+(2*self.xRes/10),self.yRes-self.team_3_score-40,self.xRes/16,self.team_3_score)
+    team4Rect = pygame.Rect((4*self.xRes/16)+(3*self.xRes/10),self.yRes-self.team_4_score-40,self.xRes/16,self.team_4_score)
+    team5Rect = pygame.Rect((5*self.xRes/16)+(4*self.xRes/10),self.yRes-self.team_5_score-40,self.xRes/16,self.team_5_score)
+    team6Rect = pygame.Rect((6*self.xRes/16)+(5*self.xRes/10),self.yRes-self.team_6_score-40,self.xRes/16,self.team_6_score)
 
-    pygame.draw.rect(DISPLAYSURF, PartsOfSpeechTeamGame.RED, team1Rect)
-    pygame.draw.rect(DISPLAYSURF, PartsOfSpeechTeamGame.RED, team2Rect)
-    pygame.draw.rect(DISPLAYSURF, PartsOfSpeechTeamGame.RED, team3Rect)
-    pygame.draw.rect(DISPLAYSURF, PartsOfSpeechTeamGame.RED, team4Rect)
-    pygame.draw.rect(DISPLAYSURF, PartsOfSpeechTeamGame.RED, team5Rect)
-    pygame.draw.rect(DISPLAYSURF, PartsOfSpeechTeamGame.RED, team6Rect)
+    pygame.draw.rect(self.DISPLAYSURF, PartsOfSpeechTeamGame.RED, team1Rect)
+    pygame.draw.rect(self.DISPLAYSURF, PartsOfSpeechTeamGame.RED, team2Rect)
+    pygame.draw.rect(self.DISPLAYSURF, PartsOfSpeechTeamGame.RED, team3Rect)
+    pygame.draw.rect(self.DISPLAYSURF, PartsOfSpeechTeamGame.RED, team4Rect)
+    pygame.draw.rect(self.DISPLAYSURF, PartsOfSpeechTeamGame.RED, team5Rect)
+    pygame.draw.rect(self.DISPLAYSURF, PartsOfSpeechTeamGame.RED, team6Rect)
 
-    pygame.draw.line(DISPLAYSURF, PartsOfSpeechTeamGame.BLUE, (0, (self.yRes-40)/2), (self.xRes, (self.yRes-40)/2), 4)
+    pygame.draw.line(self.DISPLAYSURF, PartsOfSpeechTeamGame.BLUE, (0, (self.yRes-40)/2), (self.xRes, (self.yRes-40)/2), 4)
 
     pygame.display.update()
     return
 
 def GameOver(team):
 
-    global team1Score
-    global team2Score
-    global team3Score
-    global team4Score
-    global team5Score
-    global team6Score
+    global self.team_1_score
+    global self.team_2_score
+    global self.team_3_score
+    global self.team_4_score
+    global self.team_5_score
+    global self.team_6_score
     global self.active_word
     global self.active_word_class
     
-    DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
+    self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
     text = font.render(team+' wins!', True, PartsOfSpeechTeamGame.RED)
     textpos = text.get_rect()
-    textpos.centerx = DISPLAYSURF.get_rect().centerx
+    textpos.centerx = self.DISPLAYSURF.get_rect().centerx
     textpos.y = self.yRes/4
-    DISPLAYSURF.blit(text,textpos)
+    self.DISPLAYSURF.blit(text,textpos)
 
     RefreshDisplay()
 
-    team1Score = 0
-    team2Score = 0
-    team3Score = 0
-    team4Score = 0
-    team5Score = 0
-    team6Score = 0
+    self.team_1_score = 0
+    self.team_2_score = 0
+    self.team_3_score = 0
+    self.team_4_score = 0
+    self.team_5_score = 0
+    self.team_6_score = 0
 
     randomWordInt = randint(0,len(self.vocab_tuples)-1)
     self.active_word = self.vocab_tuples[randomWordInt][0]
@@ -186,13 +186,13 @@ def GameOver(team):
                 return
             
 def DeactivateKeys():
-    DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
+    self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
     text = font.render(self.active_word, True, PartsOfSpeechTeamGame.BLACK)
     textpos = text.get_rect()
-    textpos.centerx = DISPLAYSURF.get_rect().centerx
+    textpos.centerx = self.DISPLAYSURF.get_rect().centerx
     textpos.y = self.yRes/4
-    DISPLAYSURF.blit(text,textpos)
+    self.DISPLAYSURF.blit(text,textpos)
 
     RefreshDisplay()
     
@@ -211,94 +211,94 @@ def NewWord():
     self.active_word = self.vocab_tuples[randomWordInt][0]
     self.active_word_class = self.vocab_tuples[randomWordInt][1]
     
-    DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
+    self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
     text = font.render(self.active_word, True, PartsOfSpeechTeamGame.BLACK)
     textpos = text.get_rect()
-    textpos.centerx = DISPLAYSURF.get_rect().centerx
+    textpos.centerx = self.DISPLAYSURF.get_rect().centerx
     textpos.y = self.yRes/4
-    DISPLAYSURF.blit(text,textpos)
+    self.DISPLAYSURF.blit(text,textpos)
 
     RefreshDisplay()
 
-def team1ScoreUpdate(score):
-    global team1Score
+def self.team_1_score_update(score):
+    global self.team_1_score
     global self.team_1_name
     global self.winning_score
-    team1Score += score
-    if team1Score < 0:
-        team1Score = 0
-    if team1Score >= self.winning_score:
+    self.team_1_score += score
+    if self.team_1_score < 0:
+        self.team_1_score = 0
+    if self.team_1_score >= self.winning_score:
         GameOver(self.team_1_name)
 
-def team2ScoreUpdate(score):
-    global team2Score
+def self.team_2_score_update(score):
+    global self.team_2_score
     global self.team_2_name
     global self.winning_score
-    team2Score += score
-    if team2Score < 0:
-        team2Score = 0
-    if team2Score >= self.winning_score:
+    self.team_2_score += score
+    if self.team_2_score < 0:
+        self.team_2_score = 0
+    if self.team_2_score >= self.winning_score:
         GameOver(self.team_2_name)
 
-def team3ScoreUpdate(score):
-    global team3Score
+def self.team_3_score_update(score):
+    global self.team_3_score
     global self.team_3_name
     global self.winning_score
-    team3Score += score
-    if team3Score < 0:
-        team3Score = 0
-    if team3Score >= self.winning_score:
+    self.team_3_score += score
+    if self.team_3_score < 0:
+        self.team_3_score = 0
+    if self.team_3_score >= self.winning_score:
         GameOver(self.team_3_name)
 
-def team4ScoreUpdate(score):
-    global team4Score
+def self.team_4_score_update(score):
+    global self.team_4_score
     global self.team_4_name
     global self.winning_score
-    team4Score += score
-    if team4Score < 0:
-        team4Score = 0
-    if team4Score >= self.winning_score:
+    self.team_4_score += score
+    if self.team_4_score < 0:
+        self.team_4_score = 0
+    if self.team_4_score >= self.winning_score:
         GameOver(self.team_4_name)
 
-def team5ScoreUpdate(score):
-    global team5Score
+def self.team_5_score_update(score):
+    global self.team_5_score
     global self.team_5_name
     global self.winning_score
-    team5Score += score
-    if team5Score < 0:
-        team5Score = 0
-    if team5Score >= self.winning_score:
+    self.team_5_score += score
+    if self.team_5_score < 0:
+        self.team_5_score = 0
+    if self.team_5_score >= self.winning_score:
         GameOver(self.team_5_name)
 
-def team6ScoreUpdate(score):
-    global team6Score
+def self.team_6_score_update(score):
+    global self.team_6_score
     global self.team_6_name
     global self.winning_score
-    team6Score += score
-    if team6Score < 0:
-        team6Score = 0
-    if team6Score >= self.winning_score:
+    self.team_6_score += score
+    if self.team_6_score < 0:
+        self.team_6_score = 0
+    if self.team_6_score >= self.winning_score:
         GameOver(self.team_6_name)
 
-keybindingsdict = {pygame.K_a:team1ScoreUpdate,
-                   pygame.K_e:team2ScoreUpdate,
-                   pygame.K_i:team3ScoreUpdate,
-                   pygame.K_m:team4ScoreUpdate,
-                   pygame.K_q:team5ScoreUpdate,
-                   pygame.K_u:team6ScoreUpdate,
-                   pygame.K_b:team1ScoreUpdate,
-                   pygame.K_f:team2ScoreUpdate,
-                   pygame.K_j:team3ScoreUpdate,
-                   pygame.K_n:team4ScoreUpdate,
-                   pygame.K_r:team5ScoreUpdate,
-                   pygame.K_v:team6ScoreUpdate,
-                   pygame.K_c:team1ScoreUpdate,
-                   pygame.K_g:team2ScoreUpdate,
-                   pygame.K_k:team3ScoreUpdate,
-                   pygame.K_o:team4ScoreUpdate,
-                   pygame.K_s:team5ScoreUpdate,
-                   pygame.K_w:team6ScoreUpdate}
+keybindingsdict = {pygame.K_a:self.team_1_score_update,
+                   pygame.K_e:self.team_2_score_update,
+                   pygame.K_i:self.team_3_score_update,
+                   pygame.K_m:self.team_4_score_update,
+                   pygame.K_q:self.team_5_score_update,
+                   pygame.K_u:self.team_6_score_update,
+                   pygame.K_b:self.team_1_score_update,
+                   pygame.K_f:self.team_2_score_update,
+                   pygame.K_j:self.team_3_score_update,
+                   pygame.K_n:self.team_4_score_update,
+                   pygame.K_r:self.team_5_score_update,
+                   pygame.K_v:self.team_6_score_update,
+                   pygame.K_c:self.team_1_score_update,
+                   pygame.K_g:self.team_2_score_update,
+                   pygame.K_k:self.team_3_score_update,
+                   pygame.K_o:self.team_4_score_update,
+                   pygame.K_s:self.team_5_score_update,
+                   pygame.K_w:self.team_6_score_update}
 
 #display prep
 
