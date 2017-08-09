@@ -274,4 +274,4 @@ class SentenceBuilder(object):
 
 if __name__ == '__main__':
     new_instance = SentenceBuilder()
-    SentenceBuilder.run()
+    new_instance.run()
