@@ -150,32 +150,73 @@ class SentenceBuilder(object):
 
         return
 
-def RefreshScreen(fragment):
-    global sentence
-    global constructedsentence
-    global frag0
-    global frag1
-    global frag2
-    global frag3
-    global username
+    def refresh_screen(self, fragment):
+        global sentence
+        global constructedsentence
+        global frag0
+        global frag1
+        global frag2
+        global frag3
+        global username
 
-    if constructedsentence == "":
-        constructedsentence = constructedsentence + fragment
-    else:
-        constructedsentence = constructedsentence + " " + fragment
+        if constructedsentence == "":
+            constructedsentence = constructedsentence + fragment
+        else:
+            constructedsentence = constructedsentence + " " + fragment
 
-    if fragment == frag0:
-        frag0 = ""
-    elif fragment == frag1:
-        frag1 = ""
-    elif fragment == frag2:
-        frag2 = ""
-    elif fragment == frag3:
-        frag3 = ""
+        if fragment == frag0:
+            frag0 = ""
+        elif fragment == frag1:
+            frag1 = ""
+        elif fragment == frag2:
+            frag2 = ""
+        elif fragment == frag3:
+            frag3 = ""
 
-    if frag0 == frag1 == frag2 == frag3 == "" and sentence == constructedsentence:#winner!
+        if frag0 == frag1 == frag2 == frag3 == "" and sentence == constructedsentence:#winner!
+            display.fill(WHITE)
+            rendered_text = render_textrect(sentence, my_font, my_rect, GREEN, WHITE, 1)
+            rendered_text_user = render_textrect(username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
+            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, YELLOW, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, GREEN, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLUE, WHITE, 0)
+
+            display.blit(rendered_text, my_rect.topleft)
+            display.blit(rendered_text_user, my_rect_user.topleft)
+            display.blit(rendered_text_frag_1, my_rect_frag_1.topleft)
+            display.blit(rendered_text_frag_2, my_rect_frag_2.topleft)
+            display.blit(rendered_text_frag_3, my_rect_frag_3.topleft)
+            display.blit(rendered_text_frag_4, my_rect_frag_4.topleft)
+
+            pygame.display.update()
+            soundwin.play()
+
+            return
+
+        elif frag0 == frag1 == frag2 == frag3 == "" and sentence != constructedsentence:#loser
+            display.fill(WHITE)
+            rendered_text = render_textrect(constructedsentence, my_font, my_rect, RED, WHITE, 1)
+            rendered_text_user = render_textrect(username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
+            rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, YELLOW, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, GREEN, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLUE, WHITE, 0)
+
+            display.blit(rendered_text, my_rect.topleft)
+            display.blit(rendered_text_user, my_rect_user.topleft)
+            display.blit(rendered_text_frag_1, my_rect_frag_1.topleft)
+            display.blit(rendered_text_frag_2, my_rect_frag_2.topleft)
+            display.blit(rendered_text_frag_3, my_rect_frag_3.topleft)
+            display.blit(rendered_text_frag_4, my_rect_frag_4.topleft)
+
+            pygame.display.update()
+            soundloss.play()
+
+            return
+
         display.fill(WHITE)
-        rendered_text = render_textrect(sentence, my_font, my_rect, GREEN, WHITE, 1)
+        rendered_text = render_textrect(constructedsentence, my_font, my_rect, BLACK, WHITE, 1)
         rendered_text_user = render_textrect(username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
         rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
         rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, YELLOW, WHITE, 0)
@@ -190,57 +231,10 @@ def RefreshScreen(fragment):
         display.blit(rendered_text_frag_4, my_rect_frag_4.topleft)
 
         pygame.display.update()
-        soundwin.play()
 
         return
 
-    elif frag0 == frag1 == frag2 == frag3 == "" and sentence != constructedsentence:#loser
-        display.fill(WHITE)
-        rendered_text = render_textrect(constructedsentence, my_font, my_rect, RED, WHITE, 1)
-        rendered_text_user = render_textrect(username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
-        rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
-        rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, YELLOW, WHITE, 0)
-        rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, GREEN, WHITE, 0)
-        rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLUE, WHITE, 0)
 
-        display.blit(rendered_text, my_rect.topleft)
-        display.blit(rendered_text_user, my_rect_user.topleft)
-        display.blit(rendered_text_frag_1, my_rect_frag_1.topleft)
-        display.blit(rendered_text_frag_2, my_rect_frag_2.topleft)
-        display.blit(rendered_text_frag_3, my_rect_frag_3.topleft)
-        display.blit(rendered_text_frag_4, my_rect_frag_4.topleft)
-
-        pygame.display.update()
-        soundloss.play()
-
-        return
-
-    display.fill(WHITE)
-    rendered_text = render_textrect(constructedsentence, my_font, my_rect, BLACK, WHITE, 1)
-    rendered_text_user = render_textrect(username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
-    rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
-    rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, YELLOW, WHITE, 0)
-    rendered_text_frag_3 = render_textrect(frag2, my_font, my_rect_frag_3, GREEN, WHITE, 0)
-    rendered_text_frag_4 = render_textrect(frag3, my_font, my_rect_frag_4, BLUE, WHITE, 0)
-
-    display.blit(rendered_text, my_rect.topleft)
-    display.blit(rendered_text_user, my_rect_user.topleft)
-    display.blit(rendered_text_frag_1, my_rect_frag_1.topleft)
-    display.blit(rendered_text_frag_2, my_rect_frag_2.topleft)
-    display.blit(rendered_text_frag_3, my_rect_frag_3.topleft)
-    display.blit(rendered_text_frag_4, my_rect_frag_4.topleft)
-
-    pygame.display.update()
-
-    return
-
-#connect to database
-try:
-    conn = sqlite3.connect('reader.db')
-except:
-    print("Database not found!")
-
-c = conn.cursor()
 
 pygame.init()
 
@@ -272,25 +266,23 @@ while not finished:
                 new_user()
             if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
                 if frag0 != "":
-                    RefreshScreen(frag0)
+                    refresh_screen(frag0)
                 else:
                     pass
             if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
                 if frag1 != "":
-                    RefreshScreen(frag1)
+                    refresh_screen(frag1)
                 else:
                     pass
             if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
                 if frag2 != "":
-                    RefreshScreen(frag2)
+                    refresh_screen(frag2)
                 else:
                     pass
             if event.key in (pygame.K_d,pygame.K_h,pygame.K_l,pygame.K_p,pygame.K_t,pygame.K_x):
                 if frag3 != "":
-                    RefreshScreen(frag3)
+                    refresh_screen(frag3)
                 else:
                     pass
             
     pygame.display.update()
-
-conn.close()
