@@ -91,15 +91,15 @@ class SentenceBuilder(object):
         fragment_list = []
         i = 0
         j = 0
-        numberofbuttons = 4#number of buttons on controller
+        number_of_buttons = 4#number of buttons on controller
 
-        fragsize_floor = int(math.floor(len(sentence_list)/(numberofbuttons-1)))
-        fragsize_remainder = len(sentence_list)%(numberofbuttons-1)
+        fragsize_floor = int(math.floor(len(sentence_list) / (number_of_buttons - 1)))
+        fragsize_remainder = len(sentence_list) % (number_of_buttons - 1)
 
-        for i in range(numberofbuttons-1):
+        for i in range(number_of_buttons - 1):
             fragment = ""
             for j in range(fragsize_floor):
-                fragment = fragment + " " + sentence_list[fragsize_floor*i+j]
+                fragment = fragment + " " + sentence_list[fragsize_floor * i + j]
             fragment_list.append(fragment)
         #clean up leading space
         i = 0
