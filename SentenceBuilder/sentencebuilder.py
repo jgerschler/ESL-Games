@@ -117,34 +117,34 @@ class SentenceBuilder(object):
         return fragment_list
 
     def new_user(self):
-        global frag0
-        global frag1
-        global frag2
-        global frag3
+        global self.frag0
+        global self.frag1
+        global self.frag2
+        global self.frag3
         global username
         global sentence
         global constructedsentence
 
         constructedsentence = ""
-        c.execute('select * from users order by random() limit 1;')
+        self.c.execute('select * from users order by random() limit 1;')
         userdata = c.fetchone()
         username = str(userdata[1])
-        c.execute('select * from sentences order by random() limit 1;')
+        self.c.execute('select * from sentences order by random() limit 1;')
         sentencedata = c.fetchone()
         sentence = str(sentencedata[1])
         fragment_list = sentence_gen(sentence)
-        frag0 = fragment_list[0]
-        frag1 = fragment_list[1]
-        frag2 = fragment_list[2]
-        frag3 = fragment_list[3]
+        self.frag0 = fragment_list[0]
+        self.frag1 = fragment_list[1]
+        self.frag2 = fragment_list[2]
+        self.frag3 = fragment_list[3]
 
         display.fill(WHITE)
         #rendered_text = render_textrect(sentenceunderline, self.my_font, self.rect, BLACK, WHITE, 1)
         rendered_text_user = render_textrect(username, self.my_font, self.rect_user, BROWN, WHITE, 0)#last 0 is to left align
-        rendered_text_frag_1 = render_textrect(frag0, self.my_font, self.rect_frag_1, RED, WHITE, 0)
-        rendered_text_frag_2 = render_textrect(frag1, self.my_font, self.rect_frag_2, YELLOW, WHITE, 0)
-        rendered_text_frag_3 = render_textrect(frag2, self.my_font, self.rect_frag_3, GREEN, WHITE, 0)
-        rendered_text_frag_4 = render_textrect(frag3, self.my_font, self.rect_frag_4, BLUE, WHITE, 0)
+        rendered_text_frag_1 = render_textrect(self.frag0, self.my_font, self.rect_frag_1, RED, WHITE, 0)
+        rendered_text_frag_2 = render_textrect(self.frag1, self.my_font, self.rect_frag_2, YELLOW, WHITE, 0)
+        rendered_text_frag_3 = render_textrect(self.frag2, self.my_font, self.rect_frag_3, GREEN, WHITE, 0)
+        rendered_text_frag_4 = render_textrect(self.frag3, self.my_font, self.rect_frag_4, BLUE, WHITE, 0)
 
         #display.blit(rendered_text, self.rect.topleft)
         display.blit(rendered_text_user, self.rect_user.topleft)
@@ -160,10 +160,10 @@ class SentenceBuilder(object):
     def refresh_screen(self, fragment):
         global sentence
         global constructedsentence
-        global frag0
-        global frag1
-        global frag2
-        global frag3
+        global self.frag0
+        global self.frag1
+        global self.frag2
+        global self.frag3
         global username
 
         if constructedsentence == "":
@@ -171,23 +171,23 @@ class SentenceBuilder(object):
         else:
             constructedsentence = constructedsentence + " " + fragment
 
-        if fragment == frag0:
-            frag0 = ""
-        elif fragment == frag1:
-            frag1 = ""
-        elif fragment == frag2:
-            frag2 = ""
-        elif fragment == frag3:
-            frag3 = ""
+        if fragment == self.frag0:
+            self.frag0 = ""
+        elif fragment == self.frag1:
+            self.frag1 = ""
+        elif fragment == self.frag2:
+            self.frag2 = ""
+        elif fragment == self.frag3:
+            self.frag3 = ""
 
-        if frag0 == frag1 == frag2 == frag3 == "" and sentence == constructedsentence:#winner!
+        if self.frag0 == self.frag1 == self.frag2 == self.frag3 == "" and sentence == constructedsentence:#winner!
             display.fill(WHITE)
             rendered_text = render_textrect(sentence, self.my_font, self.rect, GREEN, WHITE, 1)
             rendered_text_user = render_textrect(username, self.my_font, self.rect_user, BROWN, WHITE, 0)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, self.my_font, self.rect_frag_1, RED, WHITE, 0)
-            rendered_text_frag_2 = render_textrect(frag1, self.my_font, self.rect_frag_2, YELLOW, WHITE, 0)
-            rendered_text_frag_3 = render_textrect(frag2, self.my_font, self.rect_frag_3, GREEN, WHITE, 0)
-            rendered_text_frag_4 = render_textrect(frag3, self.my_font, self.rect_frag_4, BLUE, WHITE, 0)
+            rendered_text_frag_1 = render_textrect(self.frag0, self.my_font, self.rect_frag_1, RED, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(self.frag1, self.my_font, self.rect_frag_2, YELLOW, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(self.frag2, self.my_font, self.rect_frag_3, GREEN, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(self.frag3, self.my_font, self.rect_frag_4, BLUE, WHITE, 0)
 
             display.blit(rendered_text, self.rect.topleft)
             display.blit(rendered_text_user, self.rect_user.topleft)
@@ -201,14 +201,14 @@ class SentenceBuilder(object):
 
             return
 
-        elif frag0 == frag1 == frag2 == frag3 == "" and sentence != constructedsentence:#loser
+        elif self.frag0 == self.frag1 == self.frag2 == self.frag3 == "" and sentence != constructedsentence:#loser
             display.fill(WHITE)
             rendered_text = render_textrect(constructedsentence, self.my_font, self.rect, RED, WHITE, 1)
             rendered_text_user = render_textrect(username, self.my_font, self.rect_user, BROWN, WHITE, 0)#last 0 is to left align
-            rendered_text_frag_1 = render_textrect(frag0, self.my_font, self.rect_frag_1, RED, WHITE, 0)
-            rendered_text_frag_2 = render_textrect(frag1, self.my_font, self.rect_frag_2, YELLOW, WHITE, 0)
-            rendered_text_frag_3 = render_textrect(frag2, self.my_font, self.rect_frag_3, GREEN, WHITE, 0)
-            rendered_text_frag_4 = render_textrect(frag3, self.my_font, self.rect_frag_4, BLUE, WHITE, 0)
+            rendered_text_frag_1 = render_textrect(self.frag0, self.my_font, self.rect_frag_1, RED, WHITE, 0)
+            rendered_text_frag_2 = render_textrect(self.frag1, self.my_font, self.rect_frag_2, YELLOW, WHITE, 0)
+            rendered_text_frag_3 = render_textrect(self.frag2, self.my_font, self.rect_frag_3, GREEN, WHITE, 0)
+            rendered_text_frag_4 = render_textrect(self.frag3, self.my_font, self.rect_frag_4, BLUE, WHITE, 0)
 
             display.blit(rendered_text, self.rect.topleft)
             display.blit(rendered_text_user, self.rect_user.topleft)
@@ -225,10 +225,10 @@ class SentenceBuilder(object):
         display.fill(WHITE)
         rendered_text = render_textrect(constructedsentence, self.my_font, self.rect, BLACK, WHITE, 1)
         rendered_text_user = render_textrect(username, self.my_font, self.rect_user, BROWN, WHITE, 0)#last 0 is to left align
-        rendered_text_frag_1 = render_textrect(frag0, self.my_font, self.rect_frag_1, RED, WHITE, 0)
-        rendered_text_frag_2 = render_textrect(frag1, self.my_font, self.rect_frag_2, YELLOW, WHITE, 0)
-        rendered_text_frag_3 = render_textrect(frag2, self.my_font, self.rect_frag_3, GREEN, WHITE, 0)
-        rendered_text_frag_4 = render_textrect(frag3, self.my_font, self.rect_frag_4, BLUE, WHITE, 0)
+        rendered_text_frag_1 = render_textrect(self.frag0, self.my_font, self.rect_frag_1, RED, WHITE, 0)
+        rendered_text_frag_2 = render_textrect(self.frag1, self.my_font, self.rect_frag_2, YELLOW, WHITE, 0)
+        rendered_text_frag_3 = render_textrect(self.frag2, self.my_font, self.rect_frag_3, GREEN, WHITE, 0)
+        rendered_text_frag_4 = render_textrect(self.frag3, self.my_font, self.rect_frag_4, BLUE, WHITE, 0)
 
         display.blit(rendered_text, self.rect.topleft)
         display.blit(rendered_text_user, self.rect_user.topleft)
@@ -241,50 +241,49 @@ class SentenceBuilder(object):
 
         return
 
+    def run(self):
+        self.display = pygame.display.set_mode((1024, 768))
 
+        self.my_font = pygame.font.Font(None, 64)
+        self.rect = pygame.Rect((20, 200, 984, 388))
+        self.rect_user = pygame.Rect((20, 20, 984, 80))
+        self.rect_frag_1 = pygame.Rect((20, 488, 984, 65))
+        self.rect_frag_2 = pygame.Rect((20, 553, 984, 65))
+        self.rect_frag_3 = pygame.Rect((20, 618, 984, 65))
+        self.rect_frag_4 = pygame.Rect((20, 683, 984, 65))
 
+        self.display.fill(SentenceBuilder.WHITE)
 
+        pygame.display.update()
 
-self.display = pygame.display.set_mode((1024, 768))
-
-self.my_font = pygame.font.Font(None, 64)
-self.rect = pygame.Rect((20, 200, 984, 388))
-self.rect_user = pygame.Rect((20, 20, 984, 80))
-self.rect_frag_1 = pygame.Rect((20, 488, 984, 65))
-self.rect_frag_2 = pygame.Rect((20, 553, 984, 65))
-self.rect_frag_3 = pygame.Rect((20, 618, 984, 65))
-self.rect_frag_4 = pygame.Rect((20, 683, 984, 65))
-
-self.display.fill(WHITE)
-
-pygame.display.update()
-
-while not finished:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            finished = True
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_SPACE:
-                new_user()
-            if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
-                if frag0 != "":
-                    refresh_screen(frag0)
-                else:
-                    pass
-            if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
-                if frag1 != "":
-                    refresh_screen(frag1)
-                else:
-                    pass
-            if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
-                if frag2 != "":
-                    refresh_screen(frag2)
-                else:
-                    pass
-            if event.key in (pygame.K_d,pygame.K_h,pygame.K_l,pygame.K_p,pygame.K_t,pygame.K_x):
-                if frag3 != "":
-                    refresh_screen(frag3)
-                else:
-                    pass
+        while not finished:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    finished = True
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_SPACE:
+                        self.new_user()
+                    if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
+                        if self.frag0 != '':
+                            refresh_screen(self.frag0)
+                        else:
+                            pass
+                    if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
+                        if self.frag1 != '':
+                            refresh_screen(self.frag1)
+                        else:
+                            pass
+                    if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
+                        if self.frag2 != '':
+                            refresh_screen(self.frag2)
+                        else:
+                            pass
+                    if event.key in (pygame.K_d,pygame.K_h,pygame.K_l,pygame.K_p,pygame.K_t,pygame.K_x):
+                        if self.frag3 != '':
+                            refresh_screen(self.frag3)
+                        else:
+                            pass
+                    
+            pygame.display.update()
             
-    pygame.display.update()
+        conn.close()
