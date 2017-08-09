@@ -271,3 +271,7 @@ class SentenceBuilder(object):
             pygame.display.update()
             
         self.conn.close()
+
+if __name__ == '__main__':
+    new_instance = SentenceBuilder()
+    SentenceBuilder.run()
