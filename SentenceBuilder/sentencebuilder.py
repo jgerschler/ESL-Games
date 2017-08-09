@@ -28,88 +28,86 @@ class SentenceBuilder(object):
         self.sound_win = pygame.mixer.Sound('audio\\ping.ogg')
         self.sound_loss = pygame.mixer.Sound('audio\\buzzer.ogg')         
 
+        self.finished = False
 
-
-finished = False
-
-constructedsentence = ""
+        self.constructed_sentence = ''
 
 
 
-def render_textrect(string, font, rect, text_color, background_color, justification=0):
-    
-    final_lines = []
+    def render_textrect(self, string, font, rect, text_color, background_color, justification=0):
+        
+        final_lines = []
 
-    requested_lines = string.splitlines()
+        requested_lines = string.splitlines()
 
-    for requested_line in requested_lines:
-        if font.size(requested_line)[0] > rect.width:
-            words = requested_line.split(' ')
-            for word in words:
-                if font.size(word)[0] >= rect.width:
-                    raise TextRectException("The word " + word + " is too long to fit in the rect passed.")
-            accumulated_line = ""
-            for word in words:
-                test_line = accumulated_line + word + " "   
-                if font.size(test_line)[0] < rect.width:
-                    accumulated_line = test_line 
-                else: 
-                    final_lines.append(accumulated_line) 
-                    accumulated_line = word + " " 
-            final_lines.append(accumulated_line)
-        else: 
-            final_lines.append(requested_line) 
+        for requested_line in requested_lines:
+            if font.size(requested_line)[0] > rect.width:
+                words = requested_line.split(' ')
+                for word in words:
+                    if font.size(word)[0] >= rect.width:
+                        raise TextRectException("The word " + word + " is too long to fit in the rect passed.")
+                accumulated_line = ""
+                for word in words:
+                    test_line = accumulated_line + word + " "   
+                    if font.size(test_line)[0] < rect.width:
+                        accumulated_line = test_line 
+                    else: 
+                        final_lines.append(accumulated_line) 
+                        accumulated_line = word + " " 
+                final_lines.append(accumulated_line)
+            else: 
+                final_lines.append(requested_line) 
 
-    surface = pygame.Surface(rect.size) 
-    surface.fill(background_color) 
+        surface = pygame.Surface(rect.size) 
+        surface.fill(background_color) 
 
-    accumulated_height = 0 
-    for line in final_lines: 
-        if accumulated_height + font.size(line)[1] >= rect.height:
-            raise TextRectException("Once word-wrapped, the text string was too tall to fit in the rect.")
-        if line != "":
-            tempsurface = font.render(line, 1, text_color)
-            if justification == 0:
-                surface.blit(tempsurface, (0, accumulated_height))
-            elif justification == 1:
-                surface.blit(tempsurface, ((rect.width - tempsurface.get_width()) / 2, accumulated_height))
-            elif justification == 2:
-                surface.blit(tempsurface, (rect.width - tempsurface.get_width(), accumulated_height))
-            else:
-                raise TextRectException("Invalid justification argument: " + str(justification))
-        accumulated_height += font.size(line)[1]
+        accumulated_height = 0 
+        for line in final_lines: 
+            if accumulated_height + font.size(line)[1] >= rect.height:
+                raise TextRectException("Once word-wrapped, the text string was too tall to fit in the rect.")
+            if line != "":
+                tempsurface = font.render(line, 1, text_color)
+                if justification == 0:
+                    surface.blit(tempsurface, (0, accumulated_height))
+                elif justification == 1:
+                    surface.blit(tempsurface, ((rect.width - tempsurface.get_width()) / 2, accumulated_height))
+                elif justification == 2:
+                    surface.blit(tempsurface, (rect.width - tempsurface.get_width(), accumulated_height))
+                else:
+                    raise TextRectException("Invalid justification argument: " + str(justification))
+            accumulated_height += font.size(line)[1]
 
-    return surface
+        return surface
 
-def SentenceGen(sentence):
-    sentencelist = sentence.split(' ')
-    fragmentlist = []
-    i = 0
-    j = 0
-    numberofbuttons = 4#number of buttons on controller
+    def sentence_gen(self, sentence):
+        sentencelist = sentence.split(' ')
+        fragment_list = []
+        i = 0
+        j = 0
+        numberofbuttons = 4#number of buttons on controller
 
-    fragsizefloor = int(math.floor(len(sentencelist)/(numberofbuttons-1)))
-    fragsizeremainder = len(sentencelist)%(numberofbuttons-1)
+        fragsizefloor = int(math.floor(len(sentencelist)/(numberofbuttons-1)))
+        fragsizeremainder = len(sentencelist)%(numberofbuttons-1)
 
-    for i in range(numberofbuttons-1):
-        fragment = ""
-        for j in range(fragsizefloor):
-            fragment = fragment + " " + sentencelist[fragsizefloor*i+j]
-        fragmentlist.append(fragment)
-    #clean up leading space
-    i = 0
-    for i in range(len(fragmentlist)):
-        fragmentlist[i] = fragmentlist[i][1:]
+        for i in range(numberofbuttons-1):
+            fragment = ""
+            for j in range(fragsizefloor):
+                fragment = fragment + " " + sentencelist[fragsizefloor*i+j]
+            fragment_list.append(fragment)
+        #clean up leading space
+        i = 0
+        for i in range(len(fragment_list)):
+            fragment_list[i] = fragment_list[i][1:]
 
-    if fragsizeremainder != 0:
-        fragmentlist.append(" ".join(sentencelist[len(sentencelist)-fragsizeremainder:]))
+        if fragsizeremainder != 0:
+            fragment_list.append(" ".join(sentencelist[len(sentencelist)-fragsizeremainder:]))
 
-    random.shuffle(fragmentlist)
-    #make sure there are always the correct number of entries.
-    if fragsizeremainder == 0:
-        fragmentlist.append("")
+        random.shuffle(fragment_list)
+        #make sure there are always the correct number of entries.
+        if fragsizeremainder == 0:
+            fragment_list.append("")
 
-    return fragmentlist
+        return fragment_list
 
 def NewUser():
     global frag0
@@ -127,11 +125,11 @@ def NewUser():
     c.execute('select * from sentences order by random() limit 1;')
     sentencedata = c.fetchone()
     sentence = str(sentencedata[1])
-    fragmentlist = SentenceGen(sentence)
-    frag0 = fragmentlist[0]
-    frag1 = fragmentlist[1]
-    frag2 = fragmentlist[2]
-    frag3 = fragmentlist[3]
+    fragment_list = sentence_gen(sentence)
+    frag0 = fragment_list[0]
+    frag1 = fragment_list[1]
+    frag2 = fragment_list[2]
+    frag3 = fragment_list[3]
 
     display.fill(WHITE)
     #rendered_text = render_textrect(sentenceunderline, my_font, my_rect, BLACK, WHITE, 1)
