@@ -27,21 +27,21 @@ class SentenceBuilder(object):
         pygame.mixer.init()
 
         try:
-            conn = sqlite3.connect('reader.db')
+            self.conn = sqlite3.connect('reader.db')
         except:
             print("Database not found!")
 
-        self.c = conn.cursor()
+        self.c = self.conn.cursor()
 
         self.sound_win = pygame.mixer.Sound('audio\\ping.ogg')
         self.sound_loss = pygame.mixer.Sound('audio\\buzzer.ogg')         
 
         self.finished = False
 
-        self.constructed_sentence = ''
+        #self.constructed_sentence = ''
 
 
-    def render_textrect(self, string, font, rect, text_color, background_color, justification=0):
+    def render_textrect(self, text_color, background_color, justification=0):
         
         final_lines = []
 
@@ -117,21 +117,13 @@ class SentenceBuilder(object):
         return fragment_list
 
     def new_user(self):
-        global self.frag0
-        global self.frag1
-        global self.frag2
-        global self.frag3
-        global username
-        global sentence
-        global constructedsentence
-
-        constructedsentence = ""
+        self.constructed_sentence = ''
         self.c.execute('select * from users order by random() limit 1;')
-        userdata = c.fetchone()
-        username = str(userdata[1])
+        userdata = self.c.fetchone()
+        self.username = str(userdata[1])
         self.c.execute('select * from sentences order by random() limit 1;')
         sentencedata = c.fetchone()
-        sentence = str(sentencedata[1])
+        self.sentence = str(sentencedata[1])
         fragment_list = sentence_gen(sentence)
         self.frag0 = fragment_list[0]
         self.frag1 = fragment_list[1]
@@ -140,7 +132,7 @@ class SentenceBuilder(object):
 
         display.fill(WHITE)
         #rendered_text = render_textrect(sentenceunderline, self.my_font, self.rect, BLACK, WHITE, 1)
-        rendered_text_user = render_textrect(username, self.my_font, self.rect_user, BROWN, WHITE, 0)#last 0 is to left align
+        rendered_text_user = self.render_textrect(BROWN, WHITE, 0)#last 0 is to left align
         rendered_text_frag_1 = render_textrect(self.frag0, self.my_font, self.rect_frag_1, RED, WHITE, 0)
         rendered_text_frag_2 = render_textrect(self.frag1, self.my_font, self.rect_frag_2, YELLOW, WHITE, 0)
         rendered_text_frag_3 = render_textrect(self.frag2, self.my_font, self.rect_frag_3, GREEN, WHITE, 0)
@@ -265,25 +257,25 @@ class SentenceBuilder(object):
                         self.new_user()
                     if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
                         if self.frag0 != '':
-                            refresh_screen(self.frag0)
+                            self.refresh_screen(self.frag0)
                         else:
                             pass
                     if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
                         if self.frag1 != '':
-                            refresh_screen(self.frag1)
+                            self.refresh_screen(self.frag1)
                         else:
                             pass
                     if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
                         if self.frag2 != '':
-                            refresh_screen(self.frag2)
+                            self.refresh_screen(self.frag2)
                         else:
                             pass
                     if event.key in (pygame.K_d,pygame.K_h,pygame.K_l,pygame.K_p,pygame.K_t,pygame.K_x):
                         if self.frag3 != '':
-                            refresh_screen(self.frag3)
+                            self.refresh_screen(self.frag3)
                         else:
                             pass
                     
             pygame.display.update()
             
-        conn.close()
+        self.conn.close()
