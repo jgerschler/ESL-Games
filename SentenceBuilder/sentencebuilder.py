@@ -41,7 +41,7 @@ class SentenceBuilder(object):
         #self.constructed_sentence = ''
 
 
-    def render_textrect(self, txt_string, font, text_color, background_color, justification=0):
+    def render_textrect(self, txt_string, font, rect, text_color, background_color, justification=0):
         
         final_lines = []
 
@@ -132,11 +132,11 @@ class SentenceBuilder(object):
 
         self.display.fill(SentenceBuilder.WHITE)
         #rendered_text = render_textrect(sentenceunderline, self.my_font, self.rect, BLACK, WHITE, 1)
-        rendered_text_user = self.render_textrect(self.username, self.my_font, SentenceBuilder.BROWN, SentenceBuilder.WHITE, 0)#last 0 is to left align
-        rendered_text_frag_0 = self.render_textrect(self.frag0, self.my_font, SentenceBuilder.RED, SentenceBuilder.WHITE, 0)
-        rendered_text_frag_1 = self.render_textrect(self.frag1, self.my_font, SentenceBuilder.YELLOW, SentenceBuilder.WHITE, 0)
-        rendered_text_frag_2 = self.render_textrect(self.frag2, self.my_font, SentenceBuilder.GREEN, SentenceBuilder.WHITE, 0)
-        rendered_text_frag_3 = self.render_textrect(self.frag3, self.my_font, SentenceBuilder.BLUE, SentenceBuilder.WHITE, 0)
+        rendered_text_user = self.render_textrect(self.username, self.my_font, self.rect_user, SentenceBuilder.BROWN, SentenceBuilder.WHITE, 0)#last 0 is to left align
+        rendered_text_frag_0 = self.render_textrect(self.frag0, self.my_font, self.rect_frag_0, SentenceBuilder.RED, SentenceBuilder.WHITE, 0)
+        rendered_text_frag_1 = self.render_textrect(self.frag1, self.my_font, self.rect_frag_1, SentenceBuilder.YELLOW, SentenceBuilder.WHITE, 0)
+        rendered_text_frag_2 = self.render_textrect(self.frag2, self.my_font, self.rect_frag_2, SentenceBuilder.GREEN, SentenceBuilder.WHITE, 0)
+        rendered_text_frag_3 = self.render_textrect(self.frag3, self.my_font, self.rect_frag_3, SentenceBuilder.BLUE, SentenceBuilder.WHITE, 0)
 
         #display.blit(rendered_text, self.rect.topleft)
         display.blit(rendered_text_user, self.rect_user.topleft)
@@ -166,12 +166,12 @@ class SentenceBuilder(object):
 
         if self.frag0 == self.frag1 == self.frag2 == self.frag3 == '' and self.sentence == self.constructed_sentence:#winner!
             self.display.fill(SentenceBuilder.WHITE)
-            rendered_text = self.render_textrect(self.sentence, self.my_font, self.rect, GREEN, WHITE, 1)
-            rendered_text_user = self.render_textrect(self.username, self.my_font, SentenceBuilder.BROWN, SentenceBuilder.WHITE, 0)#last 0 is to left align
-            rendered_text_frag_0 = self.render_textrect(self.frag0, self.my_font, SentenceBuilder.RED, SentenceBuilder.WHITE, 0)
-            rendered_text_frag_1 = self.render_textrect(self.frag1, self.my_font, SentenceBuilder.YELLOW, SentenceBuilder.WHITE, 0)
-            rendered_text_frag_2 = self.render_textrect(self.frag2, self.my_font, SentenceBuilder.GREEN, SentenceBuilder.WHITE, 0)
-            rendered_text_frag_3 = self.render_textrect(self.frag3, self.my_font, SentenceBuilder.BLUE, SentenceBuilder.WHITE, 0)
+            rendered_text = self.render_textrect(self.sentence, self.my_font, self.rect, SentenceBuilder.GREEN, SentenceBuilder.WHITE, 1)
+            rendered_text_user = self.render_textrect(self.username, self.my_font, self.rect_user, SentenceBuilder.BROWN, SentenceBuilder.WHITE, 0)
+            rendered_text_frag_0 = self.render_textrect(self.frag0, self.my_font, self.rect_frag_0, SentenceBuilder.RED, SentenceBuilder.WHITE, 0)
+            rendered_text_frag_1 = self.render_textrect(self.frag1, self.my_font, self.rect_frag_1, SentenceBuilder.YELLOW, SentenceBuilder.WHITE, 0)
+            rendered_text_frag_2 = self.render_textrect(self.frag2, self.my_font, self.rect_frag_2, SentenceBuilder.GREEN, SentenceBuilder.WHITE, 0)
+            rendered_text_frag_3 = self.render_textrect(self.frag3, self.my_font, self.rect_frag_3, SentenceBuilder.BLUE, SentenceBuilder.WHITE, 0)
 
             display.blit(rendered_text, self.rect.topleft)
             display.blit(rendered_text_user, self.rect_user.topleft)
@@ -188,11 +188,11 @@ class SentenceBuilder(object):
         elif self.frag0 == self.frag1 == self.frag2 == self.frag3 == '' and self.sentence != self.constructed_sentence:#loser
             self.display.fill(SentenceBuilder.WHITE)
             rendered_text = self.render_textrect(self.sentence, self.my_font, SentenceBuilder.RED, SentenceBuilder.WHITE, 1)
-            rendered_text_user = self.render_textrect(self.username, self.my_font, SentenceBuilder.BROWN, SentenceBuilder.WHITE, 0)#last 0 is to left align
-            rendered_text_frag_0 = self.render_textrect(self.frag0, self.my_font, SentenceBuilder.RED, SentenceBuilder.WHITE, 0)
-            rendered_text_frag_1 = self.render_textrect(self.frag1, self.my_font, SentenceBuilder.YELLOW, SentenceBuilder.WHITE, 0)
-            rendered_text_frag_2 = self.render_textrect(self.frag2, self.my_font, SentenceBuilder.GREEN, SentenceBuilder.WHITE, 0)
-            rendered_text_frag_3 = self.render_textrect(self.frag3, self.my_font, SentenceBuilder.BLUE, SentenceBuilder.WHITE, 0)
+            rendered_text_user = self.render_textrect(self.username, self.my_font, self.rect_user, SentenceBuilder.BROWN, SentenceBuilder.WHITE, 0)
+            rendered_text_frag_0 = self.render_textrect(self.frag0, self.my_font, self.rect_frag_0, SentenceBuilder.RED, SentenceBuilder.WHITE, 0)
+            rendered_text_frag_1 = self.render_textrect(self.frag1, self.my_font, self.rect_frag_1, SentenceBuilder.YELLOW, SentenceBuilder.WHITE, 0)
+            rendered_text_frag_2 = self.render_textrect(self.frag2, self.my_font, self.rect_frag_2, SentenceBuilder.GREEN, SentenceBuilder.WHITE, 0)
+            rendered_text_frag_3 = self.render_textrect(self.frag3, self.my_font, self.rect_frag_3, SentenceBuilder.BLUE, SentenceBuilder.WHITE, 0)
 
             display.blit(rendered_text, self.rect.topleft)
             display.blit(rendered_text_user, self.rect_user.topleft)
@@ -208,11 +208,11 @@ class SentenceBuilder(object):
 
         display.fill(SentenceBuilder.WHITE)
         rendered_text = self.render_textrect(self.sentence, self.my_font, SentenceBuilder.BLACK, SentenceBuilder.WHITE, 1)
-        rendered_text_user = self.render_textrect(self.username, self.my_font, SentenceBuilder.BROWN, SentenceBuilder.WHITE, 0)#last 0 is to left align
-        rendered_text_frag_0 = self.render_textrect(self.frag0, self.my_font, SentenceBuilder.RED, SentenceBuilder.WHITE, 0)
-        rendered_text_frag_1 = self.render_textrect(self.frag1, self.my_font, SentenceBuilder.YELLOW, SentenceBuilder.WHITE, 0)
-        rendered_text_frag_2 = self.render_textrect(self.frag2, self.my_font, SentenceBuilder.GREEN, SentenceBuilder.WHITE, 0)
-        rendered_text_frag_3 = self.render_textrect(self.frag3, self.my_font, SentenceBuilder.BLUE, SentenceBuilder.WHITE, 0)
+        rendered_text_user = self.render_textrect(self.username, self.my_font, self.rect_user, SentenceBuilder.BROWN, SentenceBuilder.WHITE, 0)
+        rendered_text_frag_0 = self.render_textrect(self.frag0, self.my_font, self.rect_frag_0, SentenceBuilder.RED, SentenceBuilder.WHITE, 0)
+        rendered_text_frag_1 = self.render_textrect(self.frag1, self.my_font, self.rect_frag_1, SentenceBuilder.YELLOW, SentenceBuilder.WHITE, 0)
+        rendered_text_frag_2 = self.render_textrect(self.frag2, self.my_font, self.rect_frag_2, SentenceBuilder.GREEN, SentenceBuilder.WHITE, 0)
+        rendered_text_frag_3 = self.render_textrect(self.frag3, self.my_font, self.rect_frag_3, SentenceBuilder.BLUE, SentenceBuilder.WHITE, 0)
 
         display.blit(rendered_text, self.rect.topleft)
         display.blit(rendered_text_user, self.rect_user.topleft)
