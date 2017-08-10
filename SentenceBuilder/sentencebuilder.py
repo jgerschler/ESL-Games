@@ -139,11 +139,11 @@ class SentenceBuilder(object):
         rendered_text_frag_3 = self.render_textrect(self.frag3, self.my_font, self.rect_frag_3, SentenceBuilder.BLUE, SentenceBuilder.WHITE, 0)
 
         #display.blit(rendered_text, self.rect.topleft)
-        display.blit(rendered_text_user, self.rect_user.topleft)
-        display.blit(rendered_text_frag_0, self.rect_frag_0.topleft)
-        display.blit(rendered_text_frag_1, self.rect_frag_1.topleft)
-        display.blit(rendered_text_frag_2, self.rect_frag_2.topleft)
-        display.blit(rendered_text_frag_3, self.rect_frag_3.topleft)
+        self.display.blit(rendered_text_user, self.rect_user.topleft)
+        self.display.blit(rendered_text_frag_0, self.rect_frag_0.topleft)
+        self.display.blit(rendered_text_frag_1, self.rect_frag_1.topleft)
+        self.display.blit(rendered_text_frag_2, self.rect_frag_2.topleft)
+        self.display.blit(rendered_text_frag_3, self.rect_frag_3.topleft)
 
         pygame.display.update()
 
@@ -173,12 +173,12 @@ class SentenceBuilder(object):
             rendered_text_frag_2 = self.render_textrect(self.frag2, self.my_font, self.rect_frag_2, SentenceBuilder.GREEN, SentenceBuilder.WHITE, 0)
             rendered_text_frag_3 = self.render_textrect(self.frag3, self.my_font, self.rect_frag_3, SentenceBuilder.BLUE, SentenceBuilder.WHITE, 0)
 
-            display.blit(rendered_text, self.rect.topleft)
-            display.blit(rendered_text_user, self.rect_user.topleft)
-            display.blit(rendered_text_frag_0, self.rect_frag_0.topleft)
-            display.blit(rendered_text_frag_1, self.rect_frag_1.topleft)
-            display.blit(rendered_text_frag_2, self.rect_frag_2.topleft)
-            display.blit(rendered_text_frag_3, self.rect_frag_3.topleft)
+            self.display.blit(rendered_text, self.rect.topleft)
+            self.display.blit(rendered_text_user, self.rect_user.topleft)
+            self.display.blit(rendered_text_frag_0, self.rect_frag_0.topleft)
+            self.display.blit(rendered_text_frag_1, self.rect_frag_1.topleft)
+            self.display.blit(rendered_text_frag_2, self.rect_frag_2.topleft)
+            self.display.blit(rendered_text_frag_3, self.rect_frag_3.topleft)
 
             pygame.display.update()
             self.sound_win.play()
@@ -187,39 +187,39 @@ class SentenceBuilder(object):
 
         elif self.frag0 == self.frag1 == self.frag2 == self.frag3 == '' and self.sentence != self.constructed_sentence:#loser
             self.display.fill(SentenceBuilder.WHITE)
-            rendered_text = self.render_textrect(self.sentence, self.my_font, SentenceBuilder.RED, SentenceBuilder.WHITE, 1)
+            rendered_text = self.render_textrect(self.sentence, self.my_font, self.rect, SentenceBuilder.RED, SentenceBuilder.WHITE, 1)
             rendered_text_user = self.render_textrect(self.username, self.my_font, self.rect_user, SentenceBuilder.BROWN, SentenceBuilder.WHITE, 0)
             rendered_text_frag_0 = self.render_textrect(self.frag0, self.my_font, self.rect_frag_0, SentenceBuilder.RED, SentenceBuilder.WHITE, 0)
             rendered_text_frag_1 = self.render_textrect(self.frag1, self.my_font, self.rect_frag_1, SentenceBuilder.YELLOW, SentenceBuilder.WHITE, 0)
             rendered_text_frag_2 = self.render_textrect(self.frag2, self.my_font, self.rect_frag_2, SentenceBuilder.GREEN, SentenceBuilder.WHITE, 0)
             rendered_text_frag_3 = self.render_textrect(self.frag3, self.my_font, self.rect_frag_3, SentenceBuilder.BLUE, SentenceBuilder.WHITE, 0)
 
-            display.blit(rendered_text, self.rect.topleft)
-            display.blit(rendered_text_user, self.rect_user.topleft)
-            display.blit(rendered_text_frag_0, self.rect_frag_0.topleft)
-            display.blit(rendered_text_frag_1, self.rect_frag_1.topleft)
-            display.blit(rendered_text_frag_2, self.rect_frag_2.topleft)
-            display.blit(rendered_text_frag_3, self.rect_frag_3.topleft)
+            self.display.blit(rendered_text, self.rect.topleft)
+            self.display.blit(rendered_text_user, self.rect_user.topleft)
+            self.display.blit(rendered_text_frag_0, self.rect_frag_0.topleft)
+            self.display.blit(rendered_text_frag_1, self.rect_frag_1.topleft)
+            self.display.blit(rendered_text_frag_2, self.rect_frag_2.topleft)
+            self.display.blit(rendered_text_frag_3, self.rect_frag_3.topleft)
 
             pygame.display.update()
             self.sound_loss.play()
 
             return
 
-        display.fill(SentenceBuilder.WHITE)
-        rendered_text = self.render_textrect(self.sentence, self.my_font, SentenceBuilder.BLACK, SentenceBuilder.WHITE, 1)
+        self.display.fill(SentenceBuilder.WHITE)
+        rendered_text = self.render_textrect(self.sentence, self.my_font, self.rect, SentenceBuilder.BLACK, SentenceBuilder.WHITE, 1)
         rendered_text_user = self.render_textrect(self.username, self.my_font, self.rect_user, SentenceBuilder.BROWN, SentenceBuilder.WHITE, 0)
         rendered_text_frag_0 = self.render_textrect(self.frag0, self.my_font, self.rect_frag_0, SentenceBuilder.RED, SentenceBuilder.WHITE, 0)
         rendered_text_frag_1 = self.render_textrect(self.frag1, self.my_font, self.rect_frag_1, SentenceBuilder.YELLOW, SentenceBuilder.WHITE, 0)
         rendered_text_frag_2 = self.render_textrect(self.frag2, self.my_font, self.rect_frag_2, SentenceBuilder.GREEN, SentenceBuilder.WHITE, 0)
         rendered_text_frag_3 = self.render_textrect(self.frag3, self.my_font, self.rect_frag_3, SentenceBuilder.BLUE, SentenceBuilder.WHITE, 0)
 
-        display.blit(rendered_text, self.rect.topleft)
-        display.blit(rendered_text_user, self.rect_user.topleft)
-        display.blit(rendered_text_frag_0, self.rect_frag_0.topleft)
-        display.blit(rendered_text_frag_1, self.rect_frag_1.topleft)
-        display.blit(rendered_text_frag_2, self.rect_frag_2.topleft)
-        display.blit(rendered_text_frag_3, self.rect_frag_3.topleft)
+        self.display.blit(rendered_text, self.rect.topleft)
+        self.display.blit(rendered_text_user, self.rect_user.topleft)
+        self.display.blit(rendered_text_frag_0, self.rect_frag_0.topleft)
+        self.display.blit(rendered_text_frag_1, self.rect_frag_1.topleft)
+        self.display.blit(rendered_text_frag_2, self.rect_frag_2.topleft)
+        self.display.blit(rendered_text_frag_3, self.rect_frag_3.topleft)
 
         pygame.display.update()
 
