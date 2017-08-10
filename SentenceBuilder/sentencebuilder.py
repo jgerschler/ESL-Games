@@ -1,4 +1,8 @@
-import pygame, time, sqlite3, math, random
+import time
+import sqlite3
+import math
+import random
+import pygame
 import pygame.font
 from pygame.locals import *
 
@@ -15,7 +19,7 @@ soundlossfile = "audio\\buzzer.ogg"
 
 finished = False
 
-constructedsentence = ""
+constructed_sentence = ''
 
 class TextRectException:
     def __init__(self, message = None):
@@ -68,7 +72,7 @@ def render_textrect(string, font, rect, text_color, background_color, justificat
 
     return surface
 
-def SentenceGen(sentence):
+def sentence_gen(sentence):
     sentencelist = sentence.split(' ')
     fragmentlist = []
     i = 0
@@ -98,23 +102,15 @@ def SentenceGen(sentence):
 
     return fragmentlist
 
-def NewUser():
-    global frag0
-    global frag1
-    global frag2
-    global frag3
-    global username
-    global sentence
-    global constructedsentence
-
-    constructedsentence = ""
+def new_user():
+    constructed_sentence = ""
     c.execute('select * from users order by random() limit 1;')
     userdata = c.fetchone()
     username = str(userdata[1])
     c.execute('select * from sentences order by random() limit 1;')
     sentencedata = c.fetchone()
     sentence = str(sentencedata[1])
-    fragmentlist = SentenceGen(sentence)
+    fragmentlist = sentence_gen(sentence)
     frag0 = fragmentlist[0]
     frag1 = fragmentlist[1]
     frag2 = fragmentlist[2]
@@ -137,21 +133,21 @@ def NewUser():
 
     pygame.display.update()
 
-    return
+    return frag0, frag1, frag2, frag3, username, sentence, constructed_sentence
 
-def RefreshScreen(fragment):
+def refresh_screen(fragment):
     global sentence
-    global constructedsentence
+    global constructed_sentence
     global frag0
     global frag1
     global frag2
     global frag3
     global username
 
-    if constructedsentence == "":
-        constructedsentence = constructedsentence + fragment
+    if constructed_sentence == "":
+        constructed_sentence = constructed_sentence + fragment
     else:
-        constructedsentence = constructedsentence + " " + fragment
+        constructed_sentence = constructed_sentence + " " + fragment
 
     if fragment == frag0:
         frag0 = ""
@@ -162,7 +158,7 @@ def RefreshScreen(fragment):
     elif fragment == frag3:
         frag3 = ""
 
-    if frag0 == frag1 == frag2 == frag3 == "" and sentence == constructedsentence:#winner!
+    if frag0 == frag1 == frag2 == frag3 == "" and sentence == constructed_sentence:#winner!
         display.fill(WHITE)
         rendered_text = render_textrect(sentence, my_font, my_rect, GREEN, WHITE, 1)
         rendered_text_user = render_textrect(username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
@@ -183,9 +179,9 @@ def RefreshScreen(fragment):
 
         return
 
-    elif frag0 == frag1 == frag2 == frag3 == "" and sentence != constructedsentence:#loser
+    elif frag0 == frag1 == frag2 == frag3 == "" and sentence != constructed_sentence:#loser
         display.fill(WHITE)
-        rendered_text = render_textrect(constructedsentence, my_font, my_rect, RED, WHITE, 1)
+        rendered_text = render_textrect(constructed_sentence, my_font, my_rect, RED, WHITE, 1)
         rendered_text_user = render_textrect(username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
         rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
         rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, YELLOW, WHITE, 0)
@@ -205,7 +201,7 @@ def RefreshScreen(fragment):
         return
 
     display.fill(WHITE)
-    rendered_text = render_textrect(constructedsentence, my_font, my_rect, BLACK, WHITE, 1)
+    rendered_text = render_textrect(constructed_sentence, my_font, my_rect, BLACK, WHITE, 1)
     rendered_text_user = render_textrect(username, my_font, my_rect_user, BROWN, WHITE, 0)#last 0 is to left align
     rendered_text_frag_1 = render_textrect(frag0, my_font, my_rect_frag_1, RED, WHITE, 0)
     rendered_text_frag_2 = render_textrect(frag1, my_font, my_rect_frag_2, YELLOW, WHITE, 0)
@@ -232,7 +228,6 @@ except:
 c = conn.cursor()
 
 pygame.init()
-
 pygame.mixer.init()
 
 soundwin = pygame.mixer.Sound(soundwinfile)
@@ -240,7 +235,7 @@ soundloss = pygame.mixer.Sound(soundlossfile)
 
 display = pygame.display.set_mode((1024, 768))
 
-my_font = pygame.font.Font(None, 64)
+my_font = pygame.font.Font(None, 48)
 my_rect = pygame.Rect((20, 200, 984, 388))
 my_rect_user = pygame.Rect((20, 20, 984, 80))
 my_rect_frag_1 = pygame.Rect((20, 488, 984, 65))
@@ -258,25 +253,25 @@ while not finished:
             finished = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE:
-                NewUser()
+                frag0, frag1, frag2, frag3, username, sentence, constructed_sentence = new_user()
             if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
                 if frag0 != "":
-                    RefreshScreen(frag0)
+                    refresh_screen(frag0)
                 else:
                     pass
             if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
                 if frag1 != "":
-                    RefreshScreen(frag1)
+                    refresh_screen(frag1)
                 else:
                     pass
             if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
                 if frag2 != "":
-                    RefreshScreen(frag2)
+                    refresh_screen(frag2)
                 else:
                     pass
             if event.key in (pygame.K_d,pygame.K_h,pygame.K_l,pygame.K_p,pygame.K_t,pygame.K_x):
                 if frag3 != "":
-                    RefreshScreen(frag3)
+                    refresh_screen(frag3)
                 else:
                     pass
             
