@@ -8,6 +8,8 @@ class TimedWordsTeamGame(object):
     WHITE = (255, 255, 255)
     RED = (255, 0, 0)
     BLUE = (0, 0, 255)
+    INV_PLAY_TIME = 0.5
+    NUM_TEAM_MEMBERS = 30
 
     def __init__(self):
         pygame.init()
@@ -29,7 +31,7 @@ class TimedWordsTeamGame(object):
         self.team_1_name = "Team 1"
         self.team_2_name = "Team 2"
 
-        self.team_1_score = 0
+        self.team_1_score = 50
         self.team_2_score = 0
 
         self.active_word = ''
@@ -47,22 +49,22 @@ class TimedWordsTeamGame(object):
         team1LabelPos = team1Label.get_rect()
         team2LabelPos = team2Label.get_rect()
 
-        team1LabelPos.left = 10#(3*self.xRes/16)/2
+        team1LabelPos.left = 10
         team2LabelPos.right = self.xRes - 10
 
-        team1LabelPos.bottom = self.yRes - 10#(2*self.yRes-40)/2
-        team2LabelPos.bottom = self.yRes - 10#(2*self.yRes-40)/2
+        team1LabelPos.bottom = self.yRes - 10
+        team2LabelPos.bottom = self.yRes - 10
 
         self.DISPLAYSURF.blit(team1Label,team1LabelPos)
         self.DISPLAYSURF.blit(team2Label,team2LabelPos)
 
-        team1Rect = pygame.Rect(self.xRes/16,self.yRes-self.team_1_score-40,self.xRes/16,self.team_1_score)
-        team2Rect = pygame.Rect((2*self.xRes/16)+(self.xRes/10),self.yRes-self.team_2_score-40,self.xRes/16,self.team_2_score)
+        team1Rect = pygame.Rect(10, 40, 40, self.yRes - 80)
+        team2Rect = pygame.Rect(self.xRes - 50, 40, 40, self.yRes - 80)
 
         pygame.draw.rect(self.DISPLAYSURF, TimedWordsTeamGame.RED, team1Rect)
-        pygame.draw.rect(self.DISPLAYSURF, TimedWordsTeamGame.RED, team2Rect)
+        pygame.draw.rect(self.DISPLAYSURF, TimedWordsTeamGame.BLUE, team2Rect)
 
-        pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLUE, (0, (self.yRes-40)/2), (self.xRes, (self.yRes-40)/2), 4)
+        pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
         pygame.display.update()
         return
