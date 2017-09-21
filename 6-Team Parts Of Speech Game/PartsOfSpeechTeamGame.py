@@ -48,7 +48,7 @@ class PartsOfSpeechTeamGame(object):
         self.vocab_tuples = (('agree','verb'),('allow','verb'),('appear','verb'),('ask','verb'),('be','verb'),('become','verb'),
                        ('begin','verb'),('believe','verb'),('belong','verb'),('bring','verb'),('build','verb'),('carry','verb'),
                        ('choose','verb'),('come','verb'),('connect','verb'),('consider','verb'),('continue','verb'),
-                       ('contribute','verb'),('correct','verb'),('create','verb'),('decide','verb'),('deliver','verb'),
+                       ('contribute','verb'),('manipulate','verb'),('create','verb'),('decide','verb'),('deliver','verb'),
                        ('destroy','verb'),('develop','verb'),('discover','verb'),('discuss','verb'),('eat','verb'),('encourage','verb'),
                        ('explain','verb'),('follow','verb'),('get','verb'),('give','verb'),('go','verb'),('happen','verb'),
                        ('have','verb'),('hear','verb'),('imagine','verb'),('include','verb'),('involve','verb'),('know','verb'),
