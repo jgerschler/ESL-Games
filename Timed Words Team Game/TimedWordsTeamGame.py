@@ -47,11 +47,11 @@ class TimedWordsTeamGame(object):
         team1LabelPos = team1Label.get_rect()
         team2LabelPos = team2Label.get_rect()
 
-        team1LabelPos.centerx = (3*self.xRes/16)/2
-        team2LabelPos.centerx = ((2*self.xRes/16)+(self.xRes/10)+(2*self.xRes/16)+(self.xRes/10)+(self.xRes/16))/2
+        team1LabelPos.left = 10#(3*self.xRes/16)/2
+        team2LabelPos.right = self.xRes - 10
 
-        team1LabelPos.centery = (2*self.yRes-40)/2
-        team2LabelPos.centery = (2*self.yRes-40)/2
+        team1LabelPos.bottom = self.yRes - 10#(2*self.yRes-40)/2
+        team2LabelPos.bottom = self.yRes - 10#(2*self.yRes-40)/2
 
         self.DISPLAYSURF.blit(team1Label,team1LabelPos)
         self.DISPLAYSURF.blit(team2Label,team2LabelPos)
