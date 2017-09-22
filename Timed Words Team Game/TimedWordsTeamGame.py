@@ -209,13 +209,17 @@ class TimedWordsTeamGame(object):
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_SPACE:
                         self.new_word()
-##                    if event.key == pygame.K_a:
-##                        if self.active_word_class == 'adj':
-##                            self.key_bindings_dict[event.key](self.points_per_question)
-##                            self.deactivate_keys()#alter as needed to affect classroom speed, use delay if needed
-##                        else:
-##                            self.key_bindings_dict[event.key](-self.points_per_question)
-##                            self.deactivate_keys()
+                    if event.key == pygame.K_a:
+                        pass
+                    if event.key == pygame.K_e:
+                        pass
+                    if event.key == pygame.K_i:
+                        pass
+                    if event.key == pygame.K_m:
+                        pass
+                    
+                        
+
 
 
             pygame.display.update()
