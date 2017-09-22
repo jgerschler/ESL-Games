@@ -25,6 +25,11 @@ class TimedWordsTeamGame(object):
         self.font = pygame.font.SysFont(None, 72)
         self.team_font = pygame.font.SysFont(None, 32)
 
+        self.my_rect_frag_1 = pygame.Rect((273,20,252,64))
+        self.my_rect_frag_2 = pygame.Rect((527,268,252,64))
+        self.my_rect_frag_3 = pygame.Rect((273,516,252,64))
+        self.my_rect_frag_4 = pygame.Rect((20,268,252,64))
+
         self.answers_to_win = 20
         self.winning_score = (self.yRes-40)/2#self.yRes minus 40px team name rectangle
         self.points_per_question = self.winning_score/self.answers_to_win
@@ -44,22 +49,40 @@ class TimedWordsTeamGame(object):
                       [["q41","q"],["q42","q"],["q43","q"],["a44","a"]]]
 
     def refresh_display(self):
-        team1Label = self.team_font.render(self.team_1_name, True, TimedWordsTeamGame.BLACK)
-        team2Label = self.team_font.render(self.team_2_name, True, TimedWordsTeamGame.BLACK)
+        frag_1_text = self.team_font.render("text", True, TimedWordsTeamGame.BLACK)
+        frag_2_text = self.team_font.render("text", True, TimedWordsTeamGame.BLACK)
+        frag_3_text = self.team_font.render("text", True, TimedWordsTeamGame.BLACK)
+        frag_4_text = self.team_font.render("text", True, TimedWordsTeamGame.BLACK)
 
-        team1LabelPos = team1Label.get_rect()
-        team2LabelPos = team2Label.get_rect()
+        frag_1_text_rect = frag_1_text.get_rect()
+        frag_2_text_rect = frag_1_text.get_rect()
+        frag_3_text_rect = frag_1_text.get_rect()
+        frag_4_text_rect = frag_1_text.get_rect()
 
-        team1LabelPos.left = 10
-        team2LabelPos.right = self.xRes - 10
+        frag_1_text_rect.center = (self.xRes / 2, (1 / 5) * self.yRes)
+        frag_2_text_rect.center = (self.xRes / 2, (2 / 5) * self.yRes)
+        frag_3_text_rect.center = (self.xRes / 2, (3 / 5) * self.yRes)
+        frag_4_text_rect.center = (self.xRes / 2, (4 / 5) * self.yRes)
 
-        team1LabelPos.bottom = self.yRes - 10
-        team2LabelPos.bottom = self.yRes - 10
+        team_1_label = self.team_font.render(self.team_1_name, True, TimedWordsTeamGame.BLACK)
+        team_2_label = self.team_font.render(self.team_2_name, True, TimedWordsTeamGame.BLACK)
 
-        self.DISPLAYSURF.blit(team1Label,team1LabelPos)
-        self.DISPLAYSURF.blit(team2Label,team2LabelPos)
+        team_1_label_rect = team_1_label.get_rect()
+        team_2_label_rect = team_2_label.get_rect()
 
-        team1Rect = pygame.Rect(10,
+        team_1_label_rect.left = 10
+        team_2_label_rect.right = self.xRes - 10
+        team_1_label_rect.bottom = self.yRes - 10
+        team_2_label_rect.bottom = self.yRes - 10
+
+        self.DISPLAYSURF.blit(frag_1_text, frag_1_text_rect)
+        self.DISPLAYSURF.blit(frag_2_text, frag_2_text_rect)
+        self.DISPLAYSURF.blit(frag_3_text, frag_3_text_rect)
+        self.DISPLAYSURF.blit(frag_4_text, frag_4_text_rect)
+        self.DISPLAYSURF.blit(team_1_label, team_1_label_rect)
+        self.DISPLAYSURF.blit(team_2_label, team_2_label_rect)
+
+        team_1_rect = pygame.Rect(10,
                                 ((self.yRes - 40) - (TimedWordsTeamGame.TEST_TIME_S) *
                                 (self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME *
                                                   TimedWordsTeamGame.NUM_TEAM_MEMBERS)),
@@ -68,7 +91,7 @@ class TimedWordsTeamGame(object):
                                 (self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME *
                                                   TimedWordsTeamGame.NUM_TEAM_MEMBERS))
         
-        team2Rect = pygame.Rect(self.xRes - 50,
+        team_2_rect = pygame.Rect(self.xRes - 50,
                                 ((self.yRes - 40) - (TimedWordsTeamGame.TEST_TIME_S) *
                                 (self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME *
                                                   TimedWordsTeamGame.NUM_TEAM_MEMBERS)),
@@ -77,10 +100,8 @@ class TimedWordsTeamGame(object):
                                 (self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME *
                                                   TimedWordsTeamGame.NUM_TEAM_MEMBERS))
 
-        #team2Rect = pygame.Rect(self.xRes - 50, 40, 40, self.yRes - 80)
-
-        pygame.draw.rect(self.DISPLAYSURF, TimedWordsTeamGame.RED, team1Rect)
-        pygame.draw.rect(self.DISPLAYSURF, TimedWordsTeamGame.BLUE, team2Rect)
+        pygame.draw.rect(self.DISPLAYSURF, TimedWordsTeamGame.RED, team_1_rect)
+        pygame.draw.rect(self.DISPLAYSURF, TimedWordsTeamGame.BLUE, team_2_rect)
 
         pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
