@@ -25,15 +25,6 @@ class TimedWordsTeamGame(object):
         self.font = pygame.font.SysFont(None, 72)
         self.team_font = pygame.font.SysFont(None, 32)
 
-        self.my_rect_frag_1 = pygame.Rect((273,20,252,64))
-        self.my_rect_frag_2 = pygame.Rect((527,268,252,64))
-        self.my_rect_frag_3 = pygame.Rect((273,516,252,64))
-        self.my_rect_frag_4 = pygame.Rect((20,268,252,64))
-
-        self.answers_to_win = 20
-        self.winning_score = (self.yRes-40)/2#self.yRes minus 40px team name rectangle
-        self.points_per_question = self.winning_score/self.answers_to_win
-
         self.team_1_name = "Team 1"
         self.team_2_name = "Team 2"
 
