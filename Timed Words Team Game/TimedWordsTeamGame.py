@@ -124,6 +124,7 @@ class TimedWordsTeamGame(object):
     def new_word(self):
         self.word_list = random.sample(self.words, 1)[0]
         random.shuffle(self.word_list)
+        print(self.word_list)
         
         self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
@@ -156,10 +157,10 @@ class TimedWordsTeamGame(object):
                                 (self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME *
                                                   TimedWordsTeamGame.NUM_TEAM_MEMBERS))
 
-        frag_1_text = self.team_font.render("text", True, TimedWordsTeamGame.BLACK)
-        frag_2_text = self.team_font.render("text", True, TimedWordsTeamGame.BLACK)
-        frag_3_text = self.team_font.render("text", True, TimedWordsTeamGame.BLACK)
-        frag_4_text = self.team_font.render("text", True, TimedWordsTeamGame.BLACK)
+        frag_1_text = self.team_font.render(self.word_list[0][0], True, TimedWordsTeamGame.BLACK)
+        frag_2_text = self.team_font.render(self.word_list[1][0], True, TimedWordsTeamGame.BLACK)
+        frag_3_text = self.team_font.render(self.word_list[2][0], True, TimedWordsTeamGame.BLACK)
+        frag_4_text = self.team_font.render(self.word_list[3][0], True, TimedWordsTeamGame.BLACK)
 
         frag_1_text_rect = frag_1_text.get_rect()
         frag_2_text_rect = frag_1_text.get_rect()
@@ -208,27 +209,14 @@ class TimedWordsTeamGame(object):
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_SPACE:
                         self.new_word()
-##                    if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
+##                    if event.key == pygame.K_a:
 ##                        if self.active_word_class == 'adj':
 ##                            self.key_bindings_dict[event.key](self.points_per_question)
 ##                            self.deactivate_keys()#alter as needed to affect classroom speed, use delay if needed
 ##                        else:
 ##                            self.key_bindings_dict[event.key](-self.points_per_question)
 ##                            self.deactivate_keys()
-##                    if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
-##                        if self.active_word_class == 'noun':
-##                            self.key_bindings_dict[event.key](self.points_per_question)
-##                            self.deactivate_keys()
-##                        else:
-##                            self.key_bindings_dict[event.key](-self.points_per_question)
-##                            self.deactivate_keys()
-##                    if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
-##                        if self.active_word_class == 'verb':
-##                            self.key_bindings_dict[event.key](self.points_per_question)
-##                            self.deactivate_keys()
-##                        else:
-##                            self.key_bindings_dict[event.key](-self.points_per_question)
-##                            self.deactivate_keys()
+
 
             pygame.display.update()
 
