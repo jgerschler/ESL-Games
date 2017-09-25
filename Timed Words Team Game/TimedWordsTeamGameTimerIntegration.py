@@ -83,6 +83,7 @@ class TimedWordsTeamGame(object):
         return
 
     def game_score(self, key):#still need to add scoring algorithm
+        self.end_ticks = pygame.time.get_ticks()
         if key == 'a':
             if self.word_list[0][1] == 'a':
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
@@ -669,7 +670,7 @@ class TimedWordsTeamGame(object):
         pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
         self.refresh_display()
-        start_ticks = pygame.time.get_ticks()
+        self.start_ticks = pygame.time.get_ticks()
 
     def team_1_score_update(self, score):
         self.team_1_score += score
