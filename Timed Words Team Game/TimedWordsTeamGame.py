@@ -79,6 +79,7 @@ class TimedWordsTeamGame(object):
         return
 
     def game_score(self, key):#still need to add scoring algorithm
+        print("dont give up yet")
         if key == 'a':
             if self.word_list[0][1] == 'a':
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
@@ -439,7 +440,7 @@ class TimedWordsTeamGame(object):
                 self.refresh_display()
                 
         if key == 'd':
-            if self.word_list[0][1] == 'a':
+            if self.word_list[3][1] == 'a':
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
                 team_1_label = self.team_font.render(self.team_1_name, True, TimedWordsTeamGame.BLACK)
