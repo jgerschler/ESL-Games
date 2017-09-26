@@ -88,8 +88,15 @@ class TimedWordsTeamGame(object):
         pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
         pygame.display.update()
-        self.active_team = 1 if self.active_team == 2 else 1# ternary conditional syntax
-        return
+        self.active_team = 1 if self.active_team == 2 else 2# ternary conditional syntax
+
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
+                    self.new_word()
 
     def game_score(self, key):# still need to add scoring algorithm
         self.end_ticks = pygame.time.get_ticks()
@@ -626,7 +633,6 @@ class TimedWordsTeamGame(object):
                     return
 
     def new_word(self):
-        print("you're here")
         self.word_list = random.sample(self.words, 1)[0]
         random.shuffle(self.word_list)
         
@@ -690,24 +696,10 @@ class TimedWordsTeamGame(object):
         pygame.display.update()
                 
         self.start_ticks = pygame.time.get_ticks()
-        return
-
-    def team_1_score_update(self, score):
-        self.team_1_score += score
-        if self.team_1_score < 0:
-            self.team_1_score = 0
-        if self.team_1_score >= self.winning_score:
-            self.game_over(self.team_1_name)
-
-    def team_2_score_update(self, score):
-        self.team_2_score += score
-        if self.team_2_score < 0:
-            self.team_2_score = 0
-        if self.team_2_score >= self.winning_score:
-            self.game_over(self.team_2_name)
+        self.run()
 
     def run(self):
-        self.refresh_display()
+        #self.refresh_display()
         while True:
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -715,7 +707,7 @@ class TimedWordsTeamGame(object):
                     sys.exit()
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_SPACE:
-                        self.new_word()
+                        self.refresh_display()
                     if event.key == pygame.K_a:#these pygame keys (a, e, i, m) will depend on your hardware setup
                         self.game_score('a')
                     if event.key == pygame.K_e:
