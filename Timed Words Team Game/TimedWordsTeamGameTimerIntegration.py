@@ -43,7 +43,7 @@ class TimedWordsTeamGame(object):
                       [["q31","q"],["q32","q"],["q33","q"],["a34","a"]],
                       [["q41","q"],["q42","q"],["q43","q"],["a44","a"]]]
 
-    def refresh_display(self):
+    def refresh_display(self):     
         self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
         
         active_team_label = self.font.render("Team {0}".format(self.active_team), True, TimedWordsTeamGame.BLACK)
@@ -79,7 +79,6 @@ class TimedWordsTeamGame(object):
         pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
         pygame.display.update()
-        self.active_team = 1 if self.active_team == 2 else 2# ternary conditional syntax
 
         while True:
             for event in pygame.event.get():
@@ -148,7 +147,6 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
-                return
             else:
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
@@ -200,9 +198,11 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
-                return
+
         if key == 'b':
             if self.word_list[1][1] == 'a':
+                team_scores[self.active_team - 1] += points
+                self.team_1_score, self.team_2_score = team_scores[0], team_scores[1]
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
                 team_1_label = self.team_font.render(self.team_1_name, True, TimedWordsTeamGame.BLACK)
@@ -253,7 +253,6 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
-                return
             else:
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
@@ -305,10 +304,11 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
-                return
                 
         if key == 'c':
             if self.word_list[2][1] == 'a':
+                team_scores[self.active_team - 1] += points
+                self.team_1_score, self.team_2_score = team_scores[0], team_scores[1]
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
                 team_1_label = self.team_font.render(self.team_1_name, True, TimedWordsTeamGame.BLACK)
@@ -359,7 +359,6 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
-                return
             else:
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
@@ -411,10 +410,11 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
-                return
                 
         if key == 'd':
             if self.word_list[3][1] == 'a':
+                team_scores[self.active_team - 1] += points
+                self.team_1_score, self.team_2_score = team_scores[0], team_scores[1]
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
                 team_1_label = self.team_font.render(self.team_1_name, True, TimedWordsTeamGame.BLACK)
@@ -465,7 +465,6 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
-                return
             else:
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
@@ -517,8 +516,9 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
-                return
-
+        self.active_team = 1 if self.active_team == 2 else 2
+        return
+    
     def game_over(self, team): 
         self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
@@ -631,7 +631,6 @@ class TimedWordsTeamGame(object):
         self.run()
 
     def run(self):
-        #self.refresh_display()
         while True:
             for event in pygame.event.get():
                 if event.type == QUIT:
