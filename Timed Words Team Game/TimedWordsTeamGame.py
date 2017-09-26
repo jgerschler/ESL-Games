@@ -525,7 +525,10 @@ class TimedWordsTeamGame(object):
                 pygame.display.update()
                 self.sound_wrong.play()
 
-        if team_scores[self.active_team - 1] >= (team_scores[self.active_team - 1] * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS))):
+        print(team_scores[self.active_team - 1] * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS)))
+        print((self.yRes - 80))
+
+        if (team_scores[self.active_team - 1] * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS))) >= (self.yRes - 80):
             self.game_over()
             
         self.active_team = 1 if self.active_team == 2 else 2
