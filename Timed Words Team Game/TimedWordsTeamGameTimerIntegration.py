@@ -16,7 +16,7 @@ class TimedWordsTeamGame(object):
 
     def __init__(self):
         pygame.init()
-        pygame.mixer.init()#still in process of adding sound
+        pygame.mixer.init()# still in process of adding sound
 
         #self.sound_right = pygame.mixer.Sound('audio\\shot.ogg')
         #self.sound_wrong = pygame.mixer.Sound('audio\\scream.ogg')
@@ -33,6 +33,8 @@ class TimedWordsTeamGame(object):
 
         self.team_1_name = "Team 1"
         self.team_2_name = "Team 2"
+
+        self.active_team = 1# placeholder; randomly assigned when starting game
 
         self.team_1_score = 0
         self.team_2_score = 0
@@ -82,7 +84,7 @@ class TimedWordsTeamGame(object):
         pygame.display.update()
         return
 
-    def game_score(self, key):#still need to add scoring algorithm
+    def game_score(self, key):# still need to add scoring algorithm
         self.end_ticks = pygame.time.get_ticks()
         if key == 'a':
             if self.word_list[0][1] == 'a':
