@@ -45,6 +45,8 @@ class TimedWordsTeamGame(object):
                       [["q41","q"],["q42","q"],["q43","q"],["a44","a"]]]
 
     def refresh_display(self):
+        self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
+        
         active_team_label = self.font.render("Team {0}".format(self.active_team), True, TimedWordsTeamGame.BLACK)
         team_1_label = self.team_font.render(self.team_1_name, True, TimedWordsTeamGame.BLACK)
         team_2_label = self.team_font.render(self.team_2_name, True, TimedWordsTeamGame.BLACK)
@@ -624,6 +626,7 @@ class TimedWordsTeamGame(object):
                     return
 
     def new_word(self):
+        print("you're here")
         self.word_list = random.sample(self.words, 1)[0]
         random.shuffle(self.word_list)
         
@@ -684,8 +687,10 @@ class TimedWordsTeamGame(object):
         pygame.draw.rect(self.DISPLAYSURF, TimedWordsTeamGame.BLUE, team_2_rect)
         pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
-        self.refresh_display()
+        pygame.display.update()
+                
         self.start_ticks = pygame.time.get_ticks()
+        return
 
     def team_1_score_update(self, score):
         self.team_1_score += score
