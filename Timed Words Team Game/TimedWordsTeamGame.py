@@ -15,7 +15,7 @@ class TimedWordsTeamGame(object):
 
     def __init__(self):
         pygame.init()
-        pygame.mixer.init()# still in process of adding sound
+        pygame.mixer.init()
 
         self.sound_right = pygame.mixer.Sound('audio\\beep.ogg')
         self.sound_wrong = pygame.mixer.Sound('audio\\buzzer.ogg')
@@ -38,7 +38,7 @@ class TimedWordsTeamGame(object):
         self.team_1_score = 0
         self.team_2_score = 0
         
-        self.words = [[["q11","q"],["q12","q"],["q13","q"],["a14","a"]],
+        self.words = [[["q11","q"],["q12","q"],["q13","q"],["a14","a"]],# add desired content here
                       [["q21","q"],["q22","q"],["q23","q"],["a24","a"]],
                       [["q31","q"],["q32","q"],["q33","q"],["a34","a"]],
                       [["q41","q"],["q42","q"],["q43","q"],["a44","a"]]]
@@ -88,11 +88,11 @@ class TimedWordsTeamGame(object):
                 if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
                     self.new_word()
 
-    def game_score(self, key):# still need to add scoring algorithm
+    def game_score(self, key):
         self.end_ticks = pygame.time.get_ticks()
         team_scores = [self.team_1_score, self.team_2_score]
         points = 1000 / (self.end_ticks - self.start_ticks)
-        #temp
+
         if key == 'a':
             if self.word_list[0][1] == 'a':
                 team_scores[self.active_team - 1] += points
@@ -524,54 +524,32 @@ class TimedWordsTeamGame(object):
 
                 pygame.display.update()
                 self.sound_wrong.play()
-                
+
+        if team_scores[self.active_team - 1] >= (team_scores[self.active_team - 1] * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS))):
+            self.game_over()
+            
         self.active_team = 1 if self.active_team == 2 else 2
+        
         return
     
-    def game_over(self, team): 
+    def game_over(self): 
         self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
-        text = self.font.render(team + ' wins!', True, TimedWordsTeamGame.RED)
+        text = self.font.render("Team {0} wins!".format(self.active_team), True, TimedWordsTeamGame.GREEN)
         textpos = text.get_rect()
-        textpos.centerx = self.DISPLAYSURF.get_rect().centerx
-        textpos.y = self.yRes/4
+        textpos.center = (self.xRes / 2, self.yRes / 2)
         self.DISPLAYSURF.blit(text,textpos)
-
-        self.refresh_display()
 
         self.team_1_score = 0
         self.team_2_score = 0
 
-        randomWordInt = randint(0,len(self.vocab_tuples)-1)
-        self.active_word = self.vocab_tuples[randomWordInt][0]
-        self.active_word_class = self.vocab_tuples[randomWordInt][1]
-
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
-                    return
-                
-    def deactivate_keys(self):
-        self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
-
-        text = self.font.render(self.active_word, True, TimedWordsTeamGame.BLACK)
-        textpos = text.get_rect()
-        textpos.centerx = self.DISPLAYSURF.get_rect().centerx
-        textpos.y = self.yRes/4
-        self.DISPLAYSURF.blit(text,textpos)
-
-        self.refresh_display()
-        
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
-                    return
+                    self.run()
 
     def new_word(self):
         self.word_list = random.sample(self.words, 1)[0]
