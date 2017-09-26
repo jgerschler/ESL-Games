@@ -17,8 +17,8 @@ class TimedWordsTeamGame(object):
         pygame.init()
         pygame.mixer.init()# still in process of adding sound
 
-        #self.sound_right = pygame.mixer.Sound('audio\\shot.ogg')
-        #self.sound_wrong = pygame.mixer.Sound('audio\\scream.ogg')
+        self.sound_right = pygame.mixer.Sound('audio\\beep.ogg')
+        self.sound_wrong = pygame.mixer.Sound('audio\\buzzer.ogg')
 
         self.xRes = 1024
         self.yRes = 768
@@ -147,6 +147,7 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
+                self.sound_right.play()
             else:
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
@@ -198,6 +199,7 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
+                self.sound_wrong.play()
 
         if key == 'b':
             if self.word_list[1][1] == 'a':
@@ -253,6 +255,7 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
+                self.sound_right.play()
             else:
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
@@ -304,6 +307,7 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
+                self.sound_wrong.play()
                 
         if key == 'c':
             if self.word_list[2][1] == 'a':
@@ -359,6 +363,7 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
+                self.sound_right.play()
             else:
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
@@ -410,6 +415,7 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
+                self.sound_wrong.play()
                 
         if key == 'd':
             if self.word_list[3][1] == 'a':
@@ -465,6 +471,7 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
+                self.sound_right.play()
             else:
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
@@ -516,6 +523,8 @@ class TimedWordsTeamGame(object):
                 pygame.draw.line(self.DISPLAYSURF, TimedWordsTeamGame.BLACK, (0, 40), (self.xRes, 40), 4)
 
                 pygame.display.update()
+                self.sound_wrong.play()
+                
         self.active_team = 1 if self.active_team == 2 else 2
         return
     
