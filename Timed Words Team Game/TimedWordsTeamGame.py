@@ -19,6 +19,7 @@ class TimedWordsTeamGame(object):
 
         self.sound_right = pygame.mixer.Sound('audio\\beep.ogg')
         self.sound_wrong = pygame.mixer.Sound('audio\\buzzer.ogg')
+        self.sound_win = pygame.mixer.Sound('audio\\win.ogg')
 
         self.xRes = 1024
         self.yRes = 768
@@ -525,15 +526,14 @@ class TimedWordsTeamGame(object):
                 pygame.display.update()
                 self.sound_wrong.play()
 
-        print(team_scores[self.active_team - 1] * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS)))
-        print((self.yRes - 80))
-
         if (team_scores[self.active_team - 1] * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS))) >= (self.yRes - 80):
             self.game_over()
+
+        pygame.time.delay(3000)# modify according to needs
             
         self.active_team = 1 if self.active_team == 2 else 2
         
-        return
+        self.refresh_display()
     
     def game_over(self): 
         self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
@@ -545,6 +545,10 @@ class TimedWordsTeamGame(object):
 
         self.team_1_score = 0
         self.team_2_score = 0
+
+        pygame.display.update()
+
+        self.sound_win.play()
 
         while True:
             for event in pygame.event.get():
@@ -629,13 +633,13 @@ class TimedWordsTeamGame(object):
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_SPACE:
                         self.refresh_display()
-                    if event.key == pygame.K_a:#these pygame keys (a, e, i, m) will depend on your hardware setup
+                    if event.key == pygame.K_d:#these pygame keys (a, e, i, m) will depend on your hardware setup
                         self.game_score('a')
-                    if event.key == pygame.K_e:
+                    if event.key == pygame.K_h:
                         self.game_score('b')
-                    if event.key == pygame.K_i:
+                    if event.key == pygame.K_l:
                         self.game_score('c')
-                    if event.key == pygame.K_m:
+                    if event.key == pygame.K_p:
                         self.game_score('d')
                     
             pygame.display.update()
