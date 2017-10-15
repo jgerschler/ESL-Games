@@ -10,8 +10,8 @@ class TimedWordsTeamGame(object):
     YELLOW = (230, 230, 0)
     GREEN = (0, 128, 0)
     BLUE = (0, 0, 255)
-    INV_PLAY_TIME = 0.5
-    NUM_TEAM_MEMBERS = 30
+    INV_PLAY_TIME = 0.3
+    NUM_TEAM_MEMBERS = 24
 
     def __init__(self):
         pygame.init()
@@ -105,7 +105,7 @@ class TimedWordsTeamGame(object):
     def game_score(self, key):
         self.end_ticks = pygame.time.get_ticks()
         team_scores = [self.team_1_score, self.team_2_score]
-        points = 1000 / (self.end_ticks - self.start_ticks)
+        points = 1000 / (self.end_ticks - self.start_ticks)# 5000000 / (self.end_ticks - self.start_ticks) ** 2# algorithm with larger effect
 
         if key == 'a':
             if self.filler_words[0] == self.selected_word:
