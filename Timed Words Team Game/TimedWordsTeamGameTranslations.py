@@ -38,11 +38,6 @@ class TimedWordsTeamGame(object):
 
         self.team_1_score = 0
         self.team_2_score = 0
-        
-        self.words = [[["q11","q"],["q12","q"],["q13","q"],["a14","a"]],# add desired content here
-                      [["q21","q"],["q22","q"],["q23","q"],["a24","a"]],
-                      [["q31","q"],["q32","q"],["q33","q"],["a34","a"]],
-                      [["q41","q"],["q42","q"],["q43","q"],["a44","a"]]]
 
         self.words = {'talented':'talentoso','creative':'creativo','disorganized':'desorganizado',
                       'uncreative':'no creativo','organized':'organizado','untalented':'no talentoso',
@@ -60,7 +55,7 @@ class TimedWordsTeamGame(object):
                       'tolerant':'tolerante','intolerant':'intolerante','patient':'paciente',
                       'impatient':'impaciente','considerate':'considerado','inconsiderate':'inconsiderado',
                       'dishonest':'deshonesto'}
-                      
+                    
 
     def refresh_display(self):     
         self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
@@ -577,8 +572,12 @@ class TimedWordsTeamGame(object):
                     self.run()
 
     def new_word(self):
-        self.word_list = random.sample(self.words, 1)[0]
-        random.shuffle(self.word_list)
+        self.selected_word = random.choice(list(self.words.keys()))
+        self.filler_words = random.sample(list(self.words.keys()), 3)
+        while self.selected_word in self.filler_words:
+            self.filler_words = random.sample(list(self.words.keys()), 3)
+        self.filler_words.append(self.selected_word)
+        random.shuffle(self.filler_words)
         
         self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
 
