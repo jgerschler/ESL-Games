@@ -77,7 +77,7 @@ class PistolGame(object):
         return text_rect   
         
     def new_round(self):
-        self.selected_profession = random.choice(self.translations.keys())
+        self.selected_profession = random.choice(list(self.translations.keys()))
         self.professions_list = random.sample(self.professions, 3)
         while self.selected_profession in self.professions_list:
             self.professions_list = random.sample(self.professions, 3)
@@ -97,9 +97,9 @@ class PistolGame(object):
         sys.exit()
 
     def run(self):
-        self.camera = cv2.VideoCapture(0)
+        self.camera = cv2.VideoCapture(1)# change 1 to 0 if you only have one camera
         
-        self.selected_profession = random.choice(self.translations.keys())
+        self.selected_profession = random.choice(list(self.translations.keys()))
         self.professions_list = random.sample(self.professions, 3)
         while self.selected_profession in self.professions_list:
             self.professions_list = random.sample(self.professions, 3)
@@ -138,9 +138,10 @@ class PistolGame(object):
             rect1 = self.message_display(self.professions_list[1], (100, self.display_height - 100), 3, 0)
             rect2 = self.message_display(self.professions_list[2], (self.display_width - 100, 100), 5, 0)
             rect3 = self.message_display(self.professions_list[3], (self.display_width - 100, self.display_height - 100), 4, 0)
-            react_score = self.message_display("{0} {1}".format(str(self.score), PistolGame.GAME_TIME - seconds), (self.display_width/2, self.display_height - 50), 1, 1)
+            react_score = self.message_display("{0} {1}".format(str(self.score), int(PistolGame.GAME_TIME - seconds)),
+                                               (int(self.display_width/2), int(self.display_height - 50)), 1, 1)
             base_verb = self.message_display(self.translations[self.selected_profession], (self.display_width/2, 50), 1, 1)
-            pygame.draw.circle(self.game_display, PistolGame.BLUE, (self.display_width/2, self.display_height/2), 40)# change tracking circle radius as necessary
+            pygame.draw.circle(self.game_display, PistolGame.BLUE, (int(self.display_width/2), int(self.display_height/2)), 40)# change tracking circle radius as necessary
             if rect0.collidepoint(int_x, int_y) or rect1.collidepoint(int_x, int_y) or rect2.collidepoint(int_x, int_y) or rect3.collidepoint(int_x, int_y):
                 pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
             else:

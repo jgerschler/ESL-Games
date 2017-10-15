@@ -29,8 +29,8 @@ class PistolGame(object):
         self.sound_miss = pygame.mixer.Sound('audio\\ricochet.ogg')
         self.image_shot = pygame.image.load('images\\bang.png')
 
-        self.object_lower = (89, 230, 230)# HSV color range for object to be tracked
-        self.object_upper = (108, 255, 255)
+        self.object_lower = (94, 126, 129)# HSV color range for object to be tracked
+        self.object_upper = (131, 255, 255)
 
         self.verbs = ['Accept', 'Care', 'Could', 'Enjoy', 'Happen', 'Lead', 'Open',
                       'Reduce', 'Settle', 'Teach', 'Carry', 'Count', 'Examine',

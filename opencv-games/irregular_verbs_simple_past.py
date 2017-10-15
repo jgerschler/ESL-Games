@@ -25,7 +25,7 @@ class PistolGame(object):
         pygame.mixer.init()
 
         self.sound_shot = pygame.mixer.Sound('audio\\shot.ogg')
-        self.sound_wrong_shot = pygame.mixer.Sound('audio\\nelsonlaugh.ogg')
+        self.sound_wrong_shot = pygame.mixer.Sound('audio\\scream.ogg')
         self.sound_miss = pygame.mixer.Sound('audio\\ricochet.ogg')
         self.image_shot = pygame.image.load('images\\bang.png')
 
@@ -179,7 +179,7 @@ class PistolGame(object):
         sys.exit()
 
     def run(self):
-        self.camera = cv2.VideoCapture(0)
+        self.camera = cv2.VideoCapture(1)
         
         self.selected_verb_list = self.verbs[random.randint(0, len(self.verbs)-1)]
         random.shuffle(self.selected_verb_list[1])
@@ -216,9 +216,10 @@ class PistolGame(object):
             rect1 = self.message_display_bottomleft(self.selected_verb_list[1][1][0], (100, self.display_height - 100))
             rect2 = self.message_display_topright(self.selected_verb_list[1][2][0], (self.display_width - 100, 100))
             rect3 = self.message_display_bottomright(self.selected_verb_list[1][3][0], (self.display_width - 100, self.display_height - 100))
-            react_score = self.message_display_center("{0} {1}".format(str(self.score), PistolGame.GAME_TIME - seconds), (self.display_width/2, self.display_height - 50))
+            react_score = self.message_display_center("{0} {1}".format(str(self.score), int(PistolGame.GAME_TIME - seconds)),
+                                                      (int(self.display_width/2), int(self.display_height - 50)))
             base_verb = self.message_display_center(self.selected_verb_list[0], (self.display_width/2, 50))
-            pygame.draw.circle(self.game_display, PistolGame.BLUE, (self.display_width/2, self.display_height/2), 40)# change tracking circle radius as necessary
+            pygame.draw.circle(self.game_display, PistolGame.BLUE, (int(self.display_width/2), int(self.display_height/2)), 40)# change tracking circle radius as necessary
             if rect0.collidepoint(int_x, int_y) or rect1.collidepoint(int_x, int_y) or rect2.collidepoint(int_x, int_y) or rect3.collidepoint(int_x, int_y):
                 pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
             else:
