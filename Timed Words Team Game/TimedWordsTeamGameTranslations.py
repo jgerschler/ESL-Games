@@ -46,15 +46,21 @@ class TimedWordsTeamGame(object):
 
         self.words = {'talented':'talentoso','creative':'creativo','disorganized':'desorganizado',
                       'uncreative':'no creativo','organized':'organizado','untalented':'no talentoso',
-                      'competitive':'competitivo','uncompetitive':'no competitive','talented':'talentoso',
-                      'talented':'talentoso','talented':'talentoso','talented':'talentoso',
-                      'talented':'talentoso','talented':'talentoso','talented':'talentoso',
-                      'talented':'talentoso','talented':'talentoso','talented':'talentoso',
-                      'talented':'talentoso','talented':'talentoso','talented':'talentoso',
-                      'talented':'talentoso','talented':'talentoso','talented':'talentoso',
-                      'talented':'talentoso','talented':'talentoso','talented':'talentoso',
-                      'talented':'talentoso','talented':'talentoso','talented':'talentoso',
-                      'talented':'talentoso','talented':'talentoso','talented':'talentoso'}
+                      'competitive':'competitivo','uncompetitive':'no competitivo','shy':'timido',
+                      'arrogant':'arogante','humble':'humilde','brave':'valiente',
+                      'outgoing':'extrovertido','friendly':'amigable','unfriendly':'no amigable',
+                      'introverted':'introvertido','easygoing':'relajado','laid-back':'relajado',
+                      'practical':'practico','unpractical':'no practico','down-to-earth':'centrado',
+                      'honest':'honesto','helpful':'servicial','generous':'generoso',
+                      'unhelpful':'no servicial','rude':'grosero','cowardly':'cobarde',
+                      'reliable':'responsable/fiable','selfish':'egoista','unselfish':'no egoista',
+                      'sociable':'sociable','confident':'seguro','insecure':'inseguro',
+                      'enthusiastic':'entusiasta','ambitious':'ambicioso','energetic':'energetico',
+                      'lazy':'flojo','sensitive':'sensible','insensitive':'no sensible',
+                      'tolerant':'tolerante','intolerant':'intolerante','patient':'paciente',
+                      'impatient':'impaciente','considerate':'considerado','inconsiderate':'inconsiderado',
+                      'dishonest':'deshonesto'}
+                      
 
     def refresh_display(self):     
         self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
