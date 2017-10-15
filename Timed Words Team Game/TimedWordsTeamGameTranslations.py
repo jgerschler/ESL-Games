@@ -108,7 +108,7 @@ class TimedWordsTeamGame(object):
         points = 1000 / (self.end_ticks - self.start_ticks)
 
         if key == 'a':
-            if self.word_list[0][1] == 'a':
+            if self.filler_words[0] == self.selected_word:
                 team_scores[self.active_team - 1] += points
                 self.team_1_score, self.team_2_score = team_scores[0], team_scores[1]
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
@@ -134,10 +134,10 @@ class TimedWordsTeamGame(object):
                                         40,
                                         (self.team_2_score * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS))))
 
-                frag_1_text = self.team_font.render(self.word_list[0][0], True, TimedWordsTeamGame.GREEN)
-                frag_2_text = self.team_font.render(self.word_list[1][0], True, TimedWordsTeamGame.BLACK)
-                frag_3_text = self.team_font.render(self.word_list[2][0], True, TimedWordsTeamGame.BLACK)
-                frag_4_text = self.team_font.render(self.word_list[3][0], True, TimedWordsTeamGame.BLACK)
+                frag_1_text = self.team_font.render(self.filler_words[0], True, TimedWordsTeamGame.GREEN)
+                frag_2_text = self.team_font.render(self.filler_words[1], True, TimedWordsTeamGame.BLACK)
+                frag_3_text = self.team_font.render(self.filler_words[2], True, TimedWordsTeamGame.BLACK)
+                frag_4_text = self.team_font.render(self.filler_words[3], True, TimedWordsTeamGame.BLACK)
 
                 frag_1_text_rect = frag_1_text.get_rect()
                 frag_2_text_rect = frag_1_text.get_rect()
@@ -186,10 +186,10 @@ class TimedWordsTeamGame(object):
                                         40,
                                         (self.team_2_score * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS))))
 
-                frag_1_text = self.team_font.render(self.word_list[0][0], True, TimedWordsTeamGame.RED)
-                frag_2_text = self.team_font.render(self.word_list[1][0], True, TimedWordsTeamGame.BLACK)
-                frag_3_text = self.team_font.render(self.word_list[2][0], True, TimedWordsTeamGame.BLACK)
-                frag_4_text = self.team_font.render(self.word_list[3][0], True, TimedWordsTeamGame.BLACK)
+                frag_1_text = self.team_font.render(self.filler_words[0], True, TimedWordsTeamGame.RED)
+                frag_2_text = self.team_font.render(self.filler_words[1], True, TimedWordsTeamGame.BLACK)
+                frag_3_text = self.team_font.render(self.filler_words[2], True, TimedWordsTeamGame.BLACK)
+                frag_4_text = self.team_font.render(self.filler_words[3], True, TimedWordsTeamGame.BLACK)
 
                 frag_1_text_rect = frag_1_text.get_rect()
                 frag_2_text_rect = frag_1_text.get_rect()
@@ -216,7 +216,7 @@ class TimedWordsTeamGame(object):
                 self.sound_wrong.play()
 
         if key == 'b':
-            if self.word_list[1][1] == 'a':
+            if self.filler_words[1] == self.selected_word:
                 team_scores[self.active_team - 1] += points
                 self.team_1_score, self.team_2_score = team_scores[0], team_scores[1]
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
@@ -242,10 +242,10 @@ class TimedWordsTeamGame(object):
                                         40,
                                         (self.team_2_score * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS))))
 
-                frag_1_text = self.team_font.render(self.word_list[0][0], True, TimedWordsTeamGame.BLACK)
-                frag_2_text = self.team_font.render(self.word_list[1][0], True, TimedWordsTeamGame.GREEN)
-                frag_3_text = self.team_font.render(self.word_list[2][0], True, TimedWordsTeamGame.BLACK)
-                frag_4_text = self.team_font.render(self.word_list[3][0], True, TimedWordsTeamGame.BLACK)
+                frag_1_text = self.team_font.render(self.filler_words[0], True, TimedWordsTeamGame.BLACK)
+                frag_2_text = self.team_font.render(self.filler_words[1], True, TimedWordsTeamGame.GREEN)
+                frag_3_text = self.team_font.render(self.filler_words[2], True, TimedWordsTeamGame.BLACK)
+                frag_4_text = self.team_font.render(self.filler_words[3], True, TimedWordsTeamGame.BLACK)
 
                 frag_1_text_rect = frag_1_text.get_rect()
                 frag_2_text_rect = frag_1_text.get_rect()
@@ -294,15 +294,15 @@ class TimedWordsTeamGame(object):
                                         40,
                                         (self.team_2_score * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS))))
 
-                frag_1_text = self.team_font.render(self.word_list[0][0], True, TimedWordsTeamGame.BLACK)
-                frag_2_text = self.team_font.render(self.word_list[1][0], True, TimedWordsTeamGame.RED)
-                frag_3_text = self.team_font.render(self.word_list[2][0], True, TimedWordsTeamGame.BLACK)
-                frag_4_text = self.team_font.render(self.word_list[3][0], True, TimedWordsTeamGame.BLACK)
+                frag_1_text = self.team_font.render(self.filler_words[0], True, TimedWordsTeamGame.BLACK)
+                frag_2_text = self.team_font.render(self.filler_words[1], True, TimedWordsTeamGame.RED)
+                frag_3_text = self.team_font.render(self.filler_words[2], True, TimedWordsTeamGame.BLACK)
+                frag_4_text = self.team_font.render(self.filler_words[3], True, TimedWordsTeamGame.BLACK)
 
                 frag_1_text_rect = frag_1_text.get_rect()
-                frag_2_text_rect = frag_1_text.get_rect()
-                frag_3_text_rect = frag_1_text.get_rect()
-                frag_4_text_rect = frag_1_text.get_rect()
+                frag_2_text_rect = frag_2_text.get_rect()
+                frag_3_text_rect = frag_3_text.get_rect()
+                frag_4_text_rect = frag_4_text.get_rect()
 
                 frag_1_text_rect.center = (self.xRes / 2, (1 / 5) * self.yRes)
                 frag_2_text_rect.center = (self.xRes / 2, (2 / 5) * self.yRes)
@@ -324,7 +324,7 @@ class TimedWordsTeamGame(object):
                 self.sound_wrong.play()
                 
         if key == 'c':
-            if self.word_list[2][1] == 'a':
+            if self.filler_words[2] == self.selected_word:
                 team_scores[self.active_team - 1] += points
                 self.team_1_score, self.team_2_score = team_scores[0], team_scores[1]
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
@@ -350,15 +350,15 @@ class TimedWordsTeamGame(object):
                                         40,
                                         (self.team_2_score * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS))))
 
-                frag_1_text = self.team_font.render(self.word_list[0][0], True, TimedWordsTeamGame.BLACK)
-                frag_2_text = self.team_font.render(self.word_list[1][0], True, TimedWordsTeamGame.BLACK)
-                frag_3_text = self.team_font.render(self.word_list[2][0], True, TimedWordsTeamGame.GREEN)
-                frag_4_text = self.team_font.render(self.word_list[3][0], True, TimedWordsTeamGame.BLACK)
+                frag_1_text = self.team_font.render(self.filler_words[0], True, TimedWordsTeamGame.BLACK)
+                frag_2_text = self.team_font.render(self.filler_words[1], True, TimedWordsTeamGame.BLACK)
+                frag_3_text = self.team_font.render(self.filler_words[2], True, TimedWordsTeamGame.GREEN)
+                frag_4_text = self.team_font.render(self.filler_words[3], True, TimedWordsTeamGame.BLACK)
 
                 frag_1_text_rect = frag_1_text.get_rect()
-                frag_2_text_rect = frag_1_text.get_rect()
-                frag_3_text_rect = frag_1_text.get_rect()
-                frag_4_text_rect = frag_1_text.get_rect()
+                frag_2_text_rect = frag_2_text.get_rect()
+                frag_3_text_rect = frag_3_text.get_rect()
+                frag_4_text_rect = frag_4_text.get_rect()
 
                 frag_1_text_rect.center = (self.xRes / 2, (1 / 5) * self.yRes)
                 frag_2_text_rect.center = (self.xRes / 2, (2 / 5) * self.yRes)
@@ -402,15 +402,15 @@ class TimedWordsTeamGame(object):
                                         40,
                                         (self.team_2_score * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS))))
 
-                frag_1_text = self.team_font.render(self.word_list[0][0], True, TimedWordsTeamGame.BLACK)
-                frag_2_text = self.team_font.render(self.word_list[1][0], True, TimedWordsTeamGame.BLACK)
-                frag_3_text = self.team_font.render(self.word_list[2][0], True, TimedWordsTeamGame.RED)
-                frag_4_text = self.team_font.render(self.word_list[3][0], True, TimedWordsTeamGame.BLACK)
+                frag_1_text = self.team_font.render(self.filler_words[0], True, TimedWordsTeamGame.BLACK)
+                frag_2_text = self.team_font.render(self.filler_words[1], True, TimedWordsTeamGame.BLACK)
+                frag_3_text = self.team_font.render(self.filler_words[2], True, TimedWordsTeamGame.RED)
+                frag_4_text = self.team_font.render(self.filler_words[3], True, TimedWordsTeamGame.BLACK)
 
                 frag_1_text_rect = frag_1_text.get_rect()
-                frag_2_text_rect = frag_1_text.get_rect()
-                frag_3_text_rect = frag_1_text.get_rect()
-                frag_4_text_rect = frag_1_text.get_rect()
+                frag_2_text_rect = frag_2_text.get_rect()
+                frag_3_text_rect = frag_3_text.get_rect()
+                frag_4_text_rect = frag_4_text.get_rect()
 
                 frag_1_text_rect.center = (self.xRes / 2, (1 / 5) * self.yRes)
                 frag_2_text_rect.center = (self.xRes / 2, (2 / 5) * self.yRes)
@@ -432,7 +432,7 @@ class TimedWordsTeamGame(object):
                 self.sound_wrong.play()
                 
         if key == 'd':
-            if self.word_list[3][1] == 'a':
+            if self.filler_words[3] == self.selected_word:
                 team_scores[self.active_team - 1] += points
                 self.team_1_score, self.team_2_score = team_scores[0], team_scores[1]
                 self.DISPLAYSURF.fill(TimedWordsTeamGame.WHITE)
@@ -458,15 +458,15 @@ class TimedWordsTeamGame(object):
                                         40,
                                         (self.team_2_score * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS))))
 
-                frag_1_text = self.team_font.render(self.word_list[0][0], True, TimedWordsTeamGame.BLACK)
-                frag_2_text = self.team_font.render(self.word_list[1][0], True, TimedWordsTeamGame.BLACK)
-                frag_3_text = self.team_font.render(self.word_list[2][0], True, TimedWordsTeamGame.BLACK)
-                frag_4_text = self.team_font.render(self.word_list[3][0], True, TimedWordsTeamGame.GREEN)
+                frag_1_text = self.team_font.render(self.filler_words[0], True, TimedWordsTeamGame.BLACK)
+                frag_2_text = self.team_font.render(self.filler_words[1], True, TimedWordsTeamGame.BLACK)
+                frag_3_text = self.team_font.render(self.filler_words[2], True, TimedWordsTeamGame.BLACK)
+                frag_4_text = self.team_font.render(self.filler_words[3], True, TimedWordsTeamGame.GREEN)
 
                 frag_1_text_rect = frag_1_text.get_rect()
-                frag_2_text_rect = frag_1_text.get_rect()
-                frag_3_text_rect = frag_1_text.get_rect()
-                frag_4_text_rect = frag_1_text.get_rect()
+                frag_2_text_rect = frag_2_text.get_rect()
+                frag_3_text_rect = frag_3_text.get_rect()
+                frag_4_text_rect = frag_4_text.get_rect()
 
                 frag_1_text_rect.center = (self.xRes / 2, (1 / 5) * self.yRes)
                 frag_2_text_rect.center = (self.xRes / 2, (2 / 5) * self.yRes)
@@ -510,15 +510,15 @@ class TimedWordsTeamGame(object):
                                         40,
                                         (self.team_2_score * ((self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME * TimedWordsTeamGame.NUM_TEAM_MEMBERS))))
 
-                frag_1_text = self.team_font.render(self.word_list[0][0], True, TimedWordsTeamGame.BLACK)
-                frag_2_text = self.team_font.render(self.word_list[1][0], True, TimedWordsTeamGame.BLACK)
-                frag_3_text = self.team_font.render(self.word_list[2][0], True, TimedWordsTeamGame.BLACK)
-                frag_4_text = self.team_font.render(self.word_list[3][0], True, TimedWordsTeamGame.RED)
+                frag_1_text = self.team_font.render(self.filler_words[0], True, TimedWordsTeamGame.BLACK)
+                frag_2_text = self.team_font.render(self.filler_words[1], True, TimedWordsTeamGame.BLACK)
+                frag_3_text = self.team_font.render(self.filler_words[2], True, TimedWordsTeamGame.BLACK)
+                frag_4_text = self.team_font.render(self.filler_words[3], True, TimedWordsTeamGame.RED)
 
                 frag_1_text_rect = frag_1_text.get_rect()
-                frag_2_text_rect = frag_1_text.get_rect()
-                frag_3_text_rect = frag_1_text.get_rect()
-                frag_4_text_rect = frag_1_text.get_rect()
+                frag_2_text_rect = frag_2_text.get_rect()
+                frag_3_text_rect = frag_3_text.get_rect()
+                frag_4_text_rect = frag_4_text.get_rect()
 
                 frag_1_text_rect.center = (self.xRes / 2, (1 / 5) * self.yRes)
                 frag_2_text_rect.center = (self.xRes / 2, (2 / 5) * self.yRes)
@@ -610,20 +610,26 @@ class TimedWordsTeamGame(object):
                                 (self.yRes - 80) / (TimedWordsTeamGame.INV_PLAY_TIME *
                                                   TimedWordsTeamGame.NUM_TEAM_MEMBERS))
 
-        frag_1_text = self.team_font.render(self.word_list[0][0], True, TimedWordsTeamGame.RED)
-        frag_2_text = self.team_font.render(self.word_list[1][0], True, TimedWordsTeamGame.YELLOW)
-        frag_3_text = self.team_font.render(self.word_list[2][0], True, TimedWordsTeamGame.GREEN)
-        frag_4_text = self.team_font.render(self.word_list[3][0], True, TimedWordsTeamGame.BLUE)
+        frag_1_text = self.team_font.render(self.filler_words[0], True, TimedWordsTeamGame.RED)
+        frag_2_text = self.team_font.render(self.filler_words[1], True, TimedWordsTeamGame.YELLOW)
+        frag_3_text = self.team_font.render(self.filler_words[2], True, TimedWordsTeamGame.GREEN)
+        frag_4_text = self.team_font.render(self.filler_words[3], True, TimedWordsTeamGame.BLUE)
+
+        trans_text = self.team_font.render(self.words[self.selected_word], True, TimedWordsTeamGame.BLACK)
 
         frag_1_text_rect = frag_1_text.get_rect()
-        frag_2_text_rect = frag_1_text.get_rect()
-        frag_3_text_rect = frag_1_text.get_rect()
-        frag_4_text_rect = frag_1_text.get_rect()
+        frag_2_text_rect = frag_2_text.get_rect()
+        frag_3_text_rect = frag_3_text.get_rect()
+        frag_4_text_rect = frag_4_text.get_rect()
+
+        trans_text_rect = trans_text.get_rect()
 
         frag_1_text_rect.center = (self.xRes / 2, (1 / 5) * self.yRes)
         frag_2_text_rect.center = (self.xRes / 2, (2 / 5) * self.yRes)
         frag_3_text_rect.center = (self.xRes / 2, (3 / 5) * self.yRes)
         frag_4_text_rect.center = (self.xRes / 2, (4 / 5) * self.yRes)
+
+        trans_text_rect.center = (self.xRes / 2, (9 / 10) * self.yRes)
 
         self.DISPLAYSURF.blit(team_1_label, team_1_label_rect)
         self.DISPLAYSURF.blit(team_2_label, team_2_label_rect)
@@ -631,6 +637,7 @@ class TimedWordsTeamGame(object):
         self.DISPLAYSURF.blit(frag_2_text, frag_2_text_rect)
         self.DISPLAYSURF.blit(frag_3_text, frag_3_text_rect)
         self.DISPLAYSURF.blit(frag_4_text, frag_4_text_rect)
+        self.DISPLAYSURF.blit(trans_text, trans_text_rect)
 
         pygame.draw.rect(self.DISPLAYSURF, TimedWordsTeamGame.RED, team_1_rect)
         pygame.draw.rect(self.DISPLAYSURF, TimedWordsTeamGame.BLUE, team_2_rect)
