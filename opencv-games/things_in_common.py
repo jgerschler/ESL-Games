@@ -137,10 +137,14 @@ class PistolGame(object):
 
     def run(self):
         self.camera = cv2.VideoCapture(0)# 0 if only one camera
-        
-        self.selected_verb_list = self.verbs[random.randint(0, len(self.verbs)-1)]
-        random.shuffle(self.selected_verb_list[1])
 
+        self.selected_sentence = random.choice(list(self.sentence_dict.keys()))
+        self.selected_answer = random.sample(self.sentence_dict[selected_sentence], 1)
+        self.filler_replies = random.sample(self.reply_list, 3)
+        while self.selected_answer in self.filler_replies:
+            self.filler_replies = random.sample(self.reply_list, 3)
+        self.filler_replies.append(self.selected_answer)
+        
         self.score = 0
         int_x, int_y = 0, 0
         start_ticks = pygame.time.get_ticks()
@@ -185,8 +189,7 @@ class PistolGame(object):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.finished = True
-                if event.type == pygame.KEYUP and event.key == pygame.K_a:
-                    # update to use dictionary here?
+                if event.type == pygame.KEYUP and event.key = pygame.K_a:
                     if (rect0.collidepoint(int_x, int_y) and self.selected_verb_list[1][0][1] == "a"):
                         self.sound_shot.play()
                         self.score+=1
