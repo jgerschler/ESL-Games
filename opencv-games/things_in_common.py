@@ -120,8 +120,12 @@ class PistolGame(object):
         return text_rect
         
     def new_round(self):
-        self.selected_verb_list = self.verbs[random.randint(0, len(self.verbs)-1)]
-        random.shuffle(self.selected_verb_list[1])
+        self.selected_sentence = random.choice(list(self.sentence_dict.keys()))
+        self.selected_answer = random.sample(self.sentence_dict[self.selected_sentence], 1)
+        self.filler_replies = random.sample(self.reply_list, 3)
+        while self.selected_answer in self.filler_replies:
+            self.filler_replies = random.sample(self.reply_list, 3)
+        self.filler_replies += self.selected_answer
         
     def end_game(self):
         self.game_display.fill(PistolGame.WHITE)
@@ -139,11 +143,11 @@ class PistolGame(object):
         self.camera = cv2.VideoCapture(0)# 0 if only one camera
 
         self.selected_sentence = random.choice(list(self.sentence_dict.keys()))
-        self.selected_answer = random.sample(self.sentence_dict[selected_sentence], 1)
+        self.selected_answer = random.sample(self.sentence_dict[self.selected_sentence], 1)
         self.filler_replies = random.sample(self.reply_list, 3)
-        while self.selected_answer in self.filler_replies:
+        while self.selected_answer[0] in self.filler_replies:
             self.filler_replies = random.sample(self.reply_list, 3)
-        self.filler_replies.append(self.selected_answer)
+        self.filler_replies += self.selected_answer
         
         self.score = 0
         int_x, int_y = 0, 0
@@ -173,13 +177,13 @@ class PistolGame(object):
             # cv2.imshow("Frame", frame)
             
             self.game_display.fill(PistolGame.WHITE)
-            rect0 = self.message_display_topleft(self.selected_verb_list[1][0][0], (100, 100))
-            rect1 = self.message_display_bottomleft(self.selected_verb_list[1][1][0], (100, self.display_height - 100))
-            rect2 = self.message_display_topright(self.selected_verb_list[1][2][0], (self.display_width - 100, 100))
-            rect3 = self.message_display_bottomright(self.selected_verb_list[1][3][0], (self.display_width - 100, self.display_height - 100))
+            rect0 = self.message_display_topleft(self.filler_replies[0], (100, 100))
+            rect1 = self.message_display_bottomleft(self.filler_replies[1], (100, self.display_height - 100))
+            rect2 = self.message_display_topright(self.filler_replies[2], (self.display_width - 100, 100))
+            rect3 = self.message_display_bottomright(self.filler_replies[3], (self.display_width - 100, self.display_height - 100))
             react_score = self.message_display_center("{0} {1}".format(str(self.score), int(PistolGame.GAME_TIME - seconds)),
                                                       (int(self.display_width/2), int(self.display_height - 50)))
-            base_verb = self.message_display_center(self.selected_verb_list[0], (self.display_width/2, 50))
+            base_verb = self.message_display_center(self.selected_sentence, (self.display_width/2, 50))
             pygame.draw.circle(self.game_display, PistolGame.BLUE, (int(self.display_width/2), int(self.display_height/2)), 40)# change tracking circle radius as necessary
             if rect0.collidepoint(int_x, int_y) or rect1.collidepoint(int_x, int_y) or rect2.collidepoint(int_x, int_y) or rect3.collidepoint(int_x, int_y):
                 pygame.draw.circle(self.game_display, PistolGame.RED,(int_x, int_y), 10)
@@ -189,50 +193,50 @@ class PistolGame(object):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.finished = True
-                if event.type == pygame.KEYUP and event.key = pygame.K_a:
-                    if (rect0.collidepoint(int_x, int_y) and self.selected_verb_list[1][0][1] == "a"):
+                if event.type == pygame.KEYUP and event.key == pygame.K_a:
+                    if (rect0.collidepoint(int_x, int_y) and self.filler_replies[0] == self.selected_answer[0]):
                         self.sound_shot.play()
                         self.score+=1
                         self.game_display.blit(self.image_shot, (rect0.center[0]-self.image_shot.get_width()/2, rect0.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect1.collidepoint(int_x, int_y) and self.selected_verb_list[1][1][1] == "a"):
+                    elif (rect1.collidepoint(int_x, int_y) and self.filler_replies[1] == self.selected_answer[0]):
                         self.sound_shot.play()
                         self.score+=1
                         self.game_display.blit(self.image_shot, (rect1.center[0]-self.image_shot.get_width()/2, rect1.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect2.collidepoint(int_x, int_y) and self.selected_verb_list[1][2][1] == "a"):
+                    elif (rect2.collidepoint(int_x, int_y) and self.filler_replies[2] == self.selected_answer[0]):
                         self.sound_shot.play()
                         self.score+=1
                         self.game_display.blit(self.image_shot, (rect2.center[0]-self.image_shot.get_width()/2, rect2.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect3.collidepoint(int_x, int_y) and self.selected_verb_list[1][3][1] == "a"):
+                    elif (rect3.collidepoint(int_x, int_y) and self.filler_replies[3] == self.selected_answer[0]):
                         self.sound_shot.play()
                         self.score+=1
                         self.game_display.blit(self.image_shot, (rect3.center[0]-self.image_shot.get_width()/2, rect3.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect0.collidepoint(int_x, int_y) and self.selected_verb_list[1][0][1] == "q"):
+                    elif (rect0.collidepoint(int_x, int_y)):
                         self.sound_wrong_shot.play()
                         self.score-=1
                         self.game_display.blit(self.image_shot, (rect0.center[0]-self.image_shot.get_width()/2, rect0.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect1.collidepoint(int_x, int_y) and self.selected_verb_list[1][1][1] == "q"):
+                    elif (rect1.collidepoint(int_x, int_y)):
                         self.sound_wrong_shot.play()
                         self.score-=1
                         self.game_display.blit(self.image_shot, (rect1.center[0]-self.image_shot.get_width()/2, rect1.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect2.collidepoint(int_x, int_y) and self.selected_verb_list[1][2][1] == "q"):
+                    elif (rect2.collidepoint(int_x, int_y)):
                         self.sound_wrong_shot.play()
                         self.score-=1
                         self.game_display.blit(self.image_shot, (rect2.center[0]-self.image_shot.get_width()/2, rect2.center[1]-self.image_shot.get_height()/2))
                         pygame.display.update()
                         pygame.time.delay(300)
-                    elif (rect3.collidepoint(int_x, int_y) and self.selected_verb_list[1][3][1] == "q"):
+                    elif (rect3.collidepoint(int_x, int_y)):
                         self.sound_wrong_shot.play()
                         self.score-=1
                         self.game_display.blit(self.image_shot, (rect3.center[0]-self.image_shot.get_width()/2, rect3.center[1]-self.image_shot.get_height()/2))
