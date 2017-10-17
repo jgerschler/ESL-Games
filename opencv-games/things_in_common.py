@@ -123,9 +123,11 @@ class PistolGame(object):
         self.selected_sentence = random.choice(list(self.sentence_dict.keys()))
         self.selected_answer = random.sample(self.sentence_dict[self.selected_sentence], 1)
         self.filler_replies = random.sample(self.reply_list, 3)
-        while self.selected_answer in self.filler_replies:
+        while ((self.sentence_dict[self.selected_sentence][0] in self.filler_replies) or
+               (self.sentence_dict[self.selected_sentence][1] in self.filler_replies)):
             self.filler_replies = random.sample(self.reply_list, 3)
         self.filler_replies += self.selected_answer
+        random.shuffle(self.filler_replies)
         
     def end_game(self):
         self.game_display.fill(PistolGame.WHITE)
@@ -145,9 +147,11 @@ class PistolGame(object):
         self.selected_sentence = random.choice(list(self.sentence_dict.keys()))
         self.selected_answer = random.sample(self.sentence_dict[self.selected_sentence], 1)
         self.filler_replies = random.sample(self.reply_list, 3)
-        while self.selected_answer[0] in self.filler_replies:
+        while ((self.sentence_dict[self.selected_sentence][0] in self.filler_replies) or
+               (self.sentence_dict[self.selected_sentence][1] in self.filler_replies)):
             self.filler_replies = random.sample(self.reply_list, 3)
         self.filler_replies += self.selected_answer
+        random.shuffle(self.filler_replies)
         
         self.score = 0
         int_x, int_y = 0, 0
@@ -155,7 +159,7 @@ class PistolGame(object):
         
         while not self.finished:
             seconds = (pygame.time.get_ticks() - start_ticks)/1000
-            if PistolGame.GAME_TIME - seconds == 0:
+            if PistolGame.GAME_TIME - seconds <= 0:
                 self.end_game()
             
             (grabbed, frame) = self.camera.read()
