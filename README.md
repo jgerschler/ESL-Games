@@ -21,6 +21,8 @@ Games:
 
 7. Sentence Builder: Student must build sentences using the provided fragments.
 
+Some examples are not finished.
+
 
 
 
