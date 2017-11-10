@@ -80,7 +80,7 @@ class PartsOfSpeechTeamGame(object):
                        ('rectangle','noun'),('history','noun'),('war','noun'),('art','noun'),('science','noun'),('nursing','noun'),
                        ('chemistry','noun'),('biotechnology','noun'),('money','noun'),('person','noun'),('health','noun'),('door','noun'),
                        ('window','noun'),('ceiling','noun'),('roof','noun'),('office','noun'),('computer','noun'),('Xbox','noun'),
-                       ('stethescope','noun'),('injection','noun'),('tree','noun'),('boat','noun'),('river','noun'),('lake','noun'),
+                       ('stethoscope','noun'),('injection','noun'),('tree','noun'),('boat','noun'),('river','noun'),('lake','noun'),
                        ('sky','noun'),('mango','noun'))
 
         self.key_bindings_dict = {pygame.K_a:self.team_1_score_update,
