@@ -11,11 +11,16 @@ class PartsOfSpeechTeamGame(object):
 
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
 
-        self.xRes = 1024
-        self.yRes = 768
+        self.sound_wrong = pygame.mixer.Sound('audio\\wrong.ogg')
+        self.sound_right = pygame.mixer.Sound('audio\\right.ogg')
+        self.sound_win = pygame.mixer.Sound('audio\\win.ogg')
 
-        self.DISPLAYSURF = pygame.display.set_mode((self.xRes, self.yRes), 0, 32)
+        self.DISPLAYSURF = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+
+        self.xRes, self.yRes = pygame.display.get_surface().get_size()
+
         pygame.display.set_caption('Parts of Speech Game')
         self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
@@ -159,6 +164,8 @@ class PartsOfSpeechTeamGame(object):
     def game_over(self, team): 
         self.DISPLAYSURF.fill(PartsOfSpeechTeamGame.WHITE)
 
+        self.sound_win.play()
+
         text = self.font.render(team + ' wins!', True, PartsOfSpeechTeamGame.RED)
         textpos = text.get_rect()
         textpos.centerx = self.DISPLAYSURF.get_rect().centerx
@@ -274,23 +281,29 @@ class PartsOfSpeechTeamGame(object):
                         self.new_word()
                     if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
                         if self.active_word_class == 'adj':
+                            self.sound_right.play()
                             self.key_bindings_dict[event.key](self.points_per_question)
                             self.deactivate_keys()#alter as needed to affect classroom speed, use delay if needed
                         else:
+                            self.sound_wrong.play()
                             self.key_bindings_dict[event.key](-self.points_per_question)
                             self.deactivate_keys()
                     if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
                         if self.active_word_class == 'noun':
+                            self.sound_right.play()
                             self.key_bindings_dict[event.key](self.points_per_question)
                             self.deactivate_keys()
                         else:
+                            self.sound_wrong.play()
                             self.key_bindings_dict[event.key](-self.points_per_question)
                             self.deactivate_keys()
                     if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
                         if self.active_word_class == 'verb':
+                            self.sound_right.play()
                             self.key_bindings_dict[event.key](self.points_per_question)
                             self.deactivate_keys()
                         else:
+                            self.sound_wrong.play()
                             self.key_bindings_dict[event.key](-self.points_per_question)
                             self.deactivate_keys()
 
