@@ -59,7 +59,7 @@ class PartsOfSpeechTeamGame(object):
                        ('try','verb'),('understand','verb'),('want','verb'),('write','verb'),
 
                        ('red','adj'),('green','adj'),('purple','adj'),('yellow','adj'),('brown','adj'),('different','adj'),
-                       ('important','adj'),('other','adj'),('new','adj'),('old','adj'),('young','adj'),('fat','adj'),('skinny','adj'),
+                       ('important','adj'),('new','adj'),('old','adj'),('young','adj'),('fat','adj'),('skinny','adj'),
                        ('pretty','adj'),('ugly','adj'),('beautiful','adj'),('nice','adj'),('fantastic','adj'),('long','adj'),('short','adj'),
                        ('tall','adj'),('big','adj'),('small','adj'),('political','adj'),('best','adj'),('worst','adj'),('happiest','adj'),
                        ('saddest','adj'),('flirtatious','adj'),('stinky','adj'),('smelly','adj'),('squishy','adj'),('greasy','adj'),
@@ -73,8 +73,7 @@ class PartsOfSpeechTeamGame(object):
                        ('year','noun'),('people','noun'),('way','noun'),('day','noun'),('man','noun'),('thing','noun'),('woman','noun'),
                        ('life','noun'),('child','noun'),('world','noun'),('family','noun'),('student','noun'),('country','noun'),
                        ('problem','noun'),('week','noun'),('company','noun'),('system','noun'),('government','noun'),('night','noun'),
-                       ('house','noun'),('car','noun'),('I','noun'),('you','noun'),('they','noun'),('he','noun'),('she','noun'),('it','noun'),
-                       ('we','noun'),('book','noun'),('elephant','noun'),('cat','noun'),('dog','noun'),('hippopotamus','noun'),
+                       ('house','noun'),('car','noun'),('book','noun'),('elephant','noun'),('cat','noun'),('dog','noun'),('hippopotamus','noun'),
                        ('magazine','noun'),('eye','noun'),('leg','noun'),('brain','noun'),('job','noun'),('business','noun'),
                        ('teacher','noun'),('mother','noun'),('father','noun'),('boy','noun'),('girl','noun'),('triangle','noun'),
                        ('rectangle','noun'),('history','noun'),('war','noun'),('art','noun'),('science','noun'),('nursing','noun'),
