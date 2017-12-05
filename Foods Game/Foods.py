@@ -90,23 +90,23 @@ class FruitsAndVegetables(object):
         self.my_image_56 = pygame.image.load("images\\watermelon.png")
         self.my_image_74 = pygame.image.load("images\\yam.png")
 		
-		self.my_image_57 = pygame.image.load("images\\jam.jpg")
-		self.my_image_58 = pygame.image.load("images\\oil.jpg")
-		self.my_image_59 = pygame.image.load("images\\salt.jpg")
-		self.my_image_60 = pygame.image.load("images\\frenchfries.jpg")
-		self.my_image_61 = pygame.image.load("images\\hamburger.jpg")
-		self.my_image_62 = pygame.image.load("images\\pasta.jpg")
-		self.my_image_63 = pygame.image.load("images\\pizza.jpg")
-		self.my_image_64 = pygame.image.load("images\\soup.jpg")
-		self.my_image_65 = pygame.image.load("images\\milk.jpg")
-		self.my_image_66 = pygame.image.load("images\\orangejuice.jpg")
-		self.my_image_67 = pygame.image.load("images\\rice.jpg")
-		self.my_image_68 = pygame.image.load("images\\eggs.jpg")
-		self.my_image_69 = pygame.image.load("images\\shrimp.jpg")
-		self.my_image_70 = pygame.image.load("images\\sausage.jpg")
-		self.my_image_71 = pygame.image.load("images\\bacon.jpg")
-		self.my_image_72 = pygame.image.load("images\\bread.jpg")
-		self.my_image_73 = pygame.image.load("images\\cheese.jpg")
+        self.my_image_57 = pygame.image.load("images\\jam.jpg")
+        self.my_image_58 = pygame.image.load("images\\oil.jpg")
+        self.my_image_59 = pygame.image.load("images\\salt.jpg")
+        self.my_image_60 = pygame.image.load("images\\frenchfries.jpg")
+        self.my_image_61 = pygame.image.load("images\\hamburger.jpg")
+        self.my_image_62 = pygame.image.load("images\\pasta.jpg")
+        self.my_image_63 = pygame.image.load("images\\pizza.png")
+        self.my_image_64 = pygame.image.load("images\\soup.jpg")
+        self.my_image_65 = pygame.image.load("images\\milk.jpg")
+        self.my_image_66 = pygame.image.load("images\\orangejuice.jpg")
+        self.my_image_67 = pygame.image.load("images\\rice.jpg")
+        self.my_image_68 = pygame.image.load("images\\eggs.jpg")
+        self.my_image_69 = pygame.image.load("images\\shrimp.jpg")
+        self.my_image_70 = pygame.image.load("images\\sausage.jpg")
+        self.my_image_71 = pygame.image.load("images\\bacon.jpg")
+        self.my_image_72 = pygame.image.load("images\\bread.jpg")
+        self.my_image_73 = pygame.image.load("images\\cheese.jpg")
 		
 				
 
@@ -229,44 +229,25 @@ class FruitsAndVegetables(object):
         [self.my_image_54,[["sugarcane","a"],["mango","q"],["lemon","q"],["tomato","q"]]],
         [self.my_image_55,[["tomatoes","a"],["potatoes","q"],["oranges","q"],["pears","q"]]],
         [self.my_image_56,[["watermelon","a"],["melon","q"],["canteloupe","q"],["grapefruit","q"]]],
-        [self.my_image_74,[["yam","a"],["potato","q"],["melon","q"],["garlic","q"]]]
-		
-		[self.my_image_57,[["jam","a"],["potato","q"],["melon","q"],["garlic","q"]]]
-		[self.my_image_58,[["oil","a"],["potato","q"],["jam","q"],["sugar","q"]]]
-		[self.my_image_59,[["salt","a"],["potato","q"],["melon","q"],["garlic","q"]]]
-		[self.my_image_60,[["french fries","a"],["potato","q"],["hamburger","q"],["garlic","q"]]]
-		[self.my_image_61,[["hamburger","a"],["pasta","q"],["melon","q"],["shrimp","q"]]]
-		[self.my_image_62,[["pasta","a"],["potato","q"],["melon","q"],["garlic","q"]]]
-		[self.my_image_63,[["pizza","a"],["potato","q"],["melon","q"],["garlic","q"]]]
-		[self.my_image_64,[["soup","a"],["potato","q"],["sausage","q"],["garlic","q"]]]
-		[self.my_image_65,[["milk","a"],["potato","q"],["orange juice","q"],["garlic","q"]]]
-		[self.my_image_66,[["orange juice","a"],["potato","q"],["melon","q"],["garlic","q"]]]
-		[self.my_image_67,[["rice","a"],["potato","q"],["melon","q"],["pasta","q"]]]
-		[self.my_image_68,[["eggs","a"],["potato","q"],["bacon","q"],["garlic","q"]]]
-		[self.my_image_69,[["shrimp","a"],["Kenty","q"],["pizza","q"],["garlic","q"]]]
-		[self.my_image_70,[["sausage","a"],["potato","q"],["melon","q"],["garlic","q"]]]
-		[self.my_image_71,[["bacon","a"],["potato","q"],["melon","q"],["milk","q"]]]
-		[self.my_image_72,[["bread","a"],["potato","q"],["cheese","q"],["garlic","q"]]]
-		[self.my_image_73,[["cheese","a"],["potato","q"],["melon","q"],["bread","q"]]]
+        [self.my_image_74,[["yam","a"],["potato","q"],["melon","q"],["garlic","q"]]],
+        [self.my_image_57,[["jam","a"],["potato","q"],["melon","q"],["garlic","q"]]],
+        [self.my_image_58,[["oil","a"],["potato","q"],["jam","q"],["sugar","q"]]],
+        [self.my_image_59,[["salt","a"],["potato","q"],["melon","q"],["garlic","q"]]],
+        [self.my_image_60,[["french fries","a"],["potato","q"],["hamburger","q"],["garlic","q"]]],
+        [self.my_image_61,[["hamburger","a"],["pasta","q"],["melon","q"],["shrimp","q"]]],
+        [self.my_image_62,[["pasta","a"],["potato","q"],["melon","q"],["garlic","q"]]],
+        [self.my_image_63,[["pizza","a"],["potato","q"],["melon","q"],["garlic","q"]]],
+        [self.my_image_64,[["soup","a"],["potato","q"],["sausage","q"],["garlic","q"]]],
+        [self.my_image_65,[["milk","a"],["potato","q"],["orange juice","q"],["garlic","q"]]],
+        [self.my_image_66,[["orange juice","a"],["potato","q"],["melon","q"],["garlic","q"]]],
+        [self.my_image_67,[["rice","a"],["potato","q"],["melon","q"],["pasta","q"]]],
+        [self.my_image_68,[["eggs","a"],["potato","q"],["bacon","q"],["garlic","q"]]],
+        [self.my_image_69,[["shrimp","a"],["Kenty","q"],["pizza","q"],["garlic","q"]]],
+        [self.my_image_70,[["sausage","a"],["potato","q"],["melon","q"],["garlic","q"]]],
+        [self.my_image_71,[["bacon","a"],["potato","q"],["melon","q"],["milk","q"]]],
+        [self.my_image_72,[["bread","a"],["potato","q"],["cheese","q"],["garlic","q"]]],
+        [self.my_image_73,[["cheese","a"],["potato","q"],["melon","q"],["bread","q"]]]
         ]
-
-				self.my_image_57 = pygame.image.load("images\\jam.jpg")
-		self.my_image_58 = pygame.image.load("images\\oil.jpg")
-		self.my_image_59 = pygame.image.load("images\\salt.jpg")
-		self.my_image_60 = pygame.image.load("images\\frenchfries.jpg")
-		self.my_image_61 = pygame.image.load("images\\hamburger.jpg")
-		self.my_image_62 = pygame.image.load("images\\pasta.jpg")
-		self.my_image_63 = pygame.image.load("images\\pizza.jpg")
-		self.my_image_64 = pygame.image.load("images\\soup.jpg")
-		self.my_image_65 = pygame.image.load("images\\milk.jpg")
-		self.my_image_66 = pygame.image.load("images\\orangejuice.jpg")
-		self.my_image_67 = pygame.image.load("images\\rice.jpg")
-		self.my_image_68 = pygame.image.load("images\\eggs.jpg")
-		self.my_image_69 = pygame.image.load("images\\shrimp.jpg")
-		self.my_image_70 = pygame.image.load("images\\sausage.jpg")
-		self.my_image_71 = pygame.image.load("images\\bacon.jpg")
-		self.my_image_72 = pygame.image.load("images\\bread.jpg")
-		self.my_image_73 = pygame.image.load("images\\cheese.jpg")
 		
         self.word_list = random.sample(self.irregular_verbs,1)[0]
         self.answer = self.word_list[1][0][0]
