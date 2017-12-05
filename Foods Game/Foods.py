@@ -88,8 +88,6 @@ class FruitsAndVegetables(object):
         self.my_image_54 = pygame.image.load("images\\sugarcane.png")
         self.my_image_55 = pygame.image.load("images\\tomatoes.png")
         self.my_image_56 = pygame.image.load("images\\watermelon.png")
-        self.my_image_74 = pygame.image.load("images\\yam.png")
-		
         self.my_image_57 = pygame.image.load("images\\jam.jpg")
         self.my_image_58 = pygame.image.load("images\\oil.jpg")
         self.my_image_59 = pygame.image.load("images\\salt.jpg")
@@ -107,9 +105,11 @@ class FruitsAndVegetables(object):
         self.my_image_71 = pygame.image.load("images\\bacon.jpg")
         self.my_image_72 = pygame.image.load("images\\bread.jpg")
         self.my_image_73 = pygame.image.load("images\\cheese.jpg")
-		
-				
-
+        self.my_image_74 = pygame.image.load("images\\yam.png")
+        self.my_image_75 = pygame.image.load("images\\butter.jpg")
+        self.my_image_76 = pygame.image.load("images\\sugar.jpg")
+        self.my_image_77 = pygame.image.load("images\\meat.jpg")
+        
         self.my_font = pygame.font.Font(None, 48)# need to make these relative
         self.my_rect = pygame.Rect((273,268,252,64))
         self.my_rect_frag_1 = pygame.Rect((273,20,252,64))
@@ -229,7 +229,6 @@ class FruitsAndVegetables(object):
         [self.my_image_54,[["sugarcane","a"],["mango","q"],["lemon","q"],["tomato","q"]]],
         [self.my_image_55,[["tomatoes","a"],["potatoes","q"],["oranges","q"],["pears","q"]]],
         [self.my_image_56,[["watermelon","a"],["melon","q"],["canteloupe","q"],["grapefruit","q"]]],
-        [self.my_image_74,[["yam","a"],["potato","q"],["melon","q"],["garlic","q"]]],
         [self.my_image_57,[["jam","a"],["potato","q"],["melon","q"],["garlic","q"]]],
         [self.my_image_58,[["oil","a"],["potato","q"],["jam","q"],["sugar","q"]]],
         [self.my_image_59,[["salt","a"],["potato","q"],["melon","q"],["garlic","q"]]],
@@ -242,11 +241,15 @@ class FruitsAndVegetables(object):
         [self.my_image_66,[["orange juice","a"],["potato","q"],["melon","q"],["garlic","q"]]],
         [self.my_image_67,[["rice","a"],["potato","q"],["melon","q"],["pasta","q"]]],
         [self.my_image_68,[["eggs","a"],["potato","q"],["bacon","q"],["garlic","q"]]],
-        [self.my_image_69,[["shrimp","a"],["Kenty","q"],["pizza","q"],["garlic","q"]]],
-        [self.my_image_70,[["sausage","a"],["potato","q"],["melon","q"],["garlic","q"]]],
+        [self.my_image_69,[["shrimp","a"],["Estefania","q"],["pizza","q"],["garlic","q"]]],
+        [self.my_image_70,[["sausage","a"],["potato","q"],["melon","q"],["meat","q"]]],
         [self.my_image_71,[["bacon","a"],["potato","q"],["melon","q"],["milk","q"]]],
-        [self.my_image_72,[["bread","a"],["potato","q"],["cheese","q"],["garlic","q"]]],
-        [self.my_image_73,[["cheese","a"],["potato","q"],["melon","q"],["bread","q"]]]
+        [self.my_image_72,[["bread","a"],["milk","q"],["cheese","q"],["garlic","q"]]],
+        [self.my_image_73,[["cheese","a"],["sugar","q"],["melon","q"],["bread","q"]]],
+        [self.my_image_74,[["yam","a"],["potato","q"],["melon","q"],["garlic","q"]]],
+        [self.my_image_75,[["butter","a"],["potato","q"],["melon","q"],["hamburger","q"]]],
+        [self.my_image_76,[["sugar","a"],["rice","q"],["pasta","q"],["garlic","q"]]],
+        [self.my_image_77,[["meat","a"],["pizza","q"],["melon","q"],["orange juice","q"]]]
         ]
 		
         self.word_list = random.sample(self.irregular_verbs,1)[0]
