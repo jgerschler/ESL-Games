@@ -188,7 +188,7 @@ class FruitsAndVegetables(object):
         [self.my_image_33,[["melon","a"],["canteloupe","q"],["plum","q"],["watermelon","q"]]],
         [self.my_image_34,[["mushroom","a"],["onion","q"],["pumpkin","q"],["pomegranate","q"]]],
         [self.my_image_35,[["olives","a"],["mushrooms","q"],["blueberries","q"],["raspberries","q"]]],
-        [self.my_image_36,[["onion","a"],["potato","q"],["onion","q"],["green onion","q"]]],
+        [self.my_image_36,[["onion","a"],["potato","q"],["banana","q"],["green onion","q"]]],
         [self.my_image_37,[["orange","a"],["lime","q"],["lemon","q"],["pear","q"]]],
         [self.my_image_38,[["papaya","a"],["potato","q"],["orange","q"],["starfruit","q"]]],
         [self.my_image_39,[["passion fruit","a"],["dragonfruit","q"],["orange","q"],["starfruit","q"]]],

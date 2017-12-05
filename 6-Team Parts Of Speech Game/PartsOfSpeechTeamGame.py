@@ -27,12 +27,12 @@ class PartsOfSpeechTeamGame(object):
         self.font = pygame.font.SysFont(None, 72)
         self.team_font = pygame.font.SysFont(None, 32)
 
-        self.team_1_name = 'Team 1'
-        self.team_2_name = 'Team 2'
-        self.team_3_name = 'Team 3'
-        self.team_4_name = 'Team 4'
-        self.team_5_name = 'Team 5'
-        self.team_6_name = 'Team 6'
+        self.team_1_name = 'Ants'
+        self.team_2_name = 'Pharmcists'
+        self.team_3_name = 'Apples'
+        self.team_4_name = 'Monkeys'
+        self.team_5_name = 'Red Stars'
+        self.team_6_name = 'Wildcats'
 
         #starting scores (add handicap as necessary). Will affect answers required to win, effect varies based on screen resolution.
 
