@@ -109,7 +109,7 @@ class PistolGame(object):
         
         while not self.finished:
             seconds = (pygame.time.get_ticks() - start_ticks)/1000
-            if PistolGame.GAME_TIME - seconds == 0:
+            if PistolGame.GAME_TIME - seconds <= 0:
                 self.end_game()
             
             (grabbed, frame) = self.camera.read()

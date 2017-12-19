@@ -33,15 +33,15 @@ class PistolGame(object):
         
         self.translations = {'father':'padre','mother':'madre','brother':'hermano','sister':'hermana',
                 'husband':'esposo','wife':'esposa','son':'hijo','daughter':'hija',
-                'great grandmother':'bisabuela','great grandfather':'bisabuelo','grandpa':'abuelo','grandfather':'abuelo',
-                'grandma':'abuela','grandmother':'abuela','uncle':'tio','aunt':'tia','cousin':'primo',
+                'great grandmother':'bisabuela','great grandfather':'bisabuelo','father-in-law':'suegro','grandfather':'abuelo',
+                'mother-in-law':'suegra','grandmother':'abuela','uncle':'tio','aunt':'tia','cousin':'primo',
                 'nephew':'sobrino','niece':'sobrina','brother-in-law':'cuñado','sister-in-law':'cuñada','stepfather':'padrastro',
                 'stepmother':'madrastra','stepbrother':'hermanastro','stepsister':'hermanastra','half brother':'medio hermano','half sister':'media hermana'}
                 
         self.professions = ['father','mother','brother','sister',
                 'husband','wife','son','daughter',
-                'great grandmother','great grandfather','grandpa','grandfather',
-                'grandma','grandmother','uncle','aunt','cousin',
+                'great grandmother','great grandfather','father-in-law','grandfather',
+                'mother-in-law','grandmother','uncle','aunt','cousin',
                 'nephew','niece','brother-in-law','sister-in-law','stepfather',
                 'stepmother','stepbrother','stepsister','half brother','half sister']
 
