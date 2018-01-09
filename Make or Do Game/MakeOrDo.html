@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<title>Make or Do?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script language="JavaScript" type="text/javascript">
+<!--
+var makearr = new Array("supper", "the bed", "friends", "a profit", "amends", "a mess", "an appointment", "a phone call", "a noise", "enemies", "a cake", "breakfast", "a cup of coffee", "him sleepy", "her happy", "a decision", "a choice", "a comment", "a suggestion", "a deal", "lunch");
+var doarr  = new Array("homework", "the dishes", "business", "a good job", "a favor", "gymnastics", "a crossword", "a grammar game", "housework", "chores", "nothing", "something");
+var mixarr = new Array("supper","homework", "a deal", "enemies", "the bed", "the dishes", "friends", "business", "a profit", "amends", "a good job", "a mess", "an appointment", "a favor", "gymnastics", "a crossword", "a phone call","a noise", "a grammar game", "housework", "chores", "nothing", "something", "a cake", "breakfast", "a cup of coffee", "him sleepy", "her happy", "a decision", "a choice", "a comment", "a suggestion");
+var con = new Array("c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19", "c20", "c21", "c22", "c23", "c24", "c25", "c26", "c27", "c28", "c29", "c30", "c31", "c32", "c33");
+var x=0;
+var b=0;
+var j=0;
+var y=0;
+var z=0;
+sc=0;
+var flashr;
+
+function StartGame(){
+document.getElementById('info').style.display="none";
+document.getElementById('tab1').style.display="";
+document.getElementById('wrd').innerHTML=mixarr[x];
+flushRes();
+}
+
+function nextWord(){
+sc=0;
+x++;
+if(x<mixarr.length){
+document.getElementById('wrd').innerHTML=mixarr[x]; 
+flushRes();
+}
+if(x==mixarr.length){
+document.getElementById('wrd').innerHTML="THE END";
+}
+}
+
+function checkWrd(data){
+switch(data){
+case 'make':
+for(i=0;i<makearr.length; i++){
+if(mixarr[x]==makearr[i])sc=1;
+}
+break;
+case 'do':
+for(i=0;i<doarr.length; i++){
+if(mixarr[x]==doarr[i])sc=1;
+}
+break;
+}
+if(sc==0){
+j=j-y;
+}
+if(sc==1){
+j=j+y;
+document.getElementById(con[z]).style.visibility="visible";
+z++;
+}
+document.getElementById('gmake').style.visibility="hidden";
+document.getElementById('gdo').style.visibility="hidden";
+document.getElementById('bet').innerHTML="BET";
+document.getElementById('bet').style.display="none";
+document.getElementById("score").innerHTML=j.toString();
+window.setTimeout('nextWord()',2000);
+}
+
+function addScore(val){
+y=val;
+document.getElementById('bet').innerHTML=y.toString();
+document.getElementById('gmake').style.visibility="visible";
+document.getElementById('gdo').style.visibility="visible";
+b=0;
+}
+
+function flushRes(){
+flashr=window.setInterval('flashit()',150);
+}
+function flashit(){
+b++
+if(document.getElementById('bet').style.display=="")
+document.getElementById('bet').style.display="none";
+else document.getElementById('bet').style.display="";
+if(b==11)window.clearInterval(flashr);
+}
+//-->
+</script>
+
+<style type="text/css">
+.menu {font-family: verdana; font-size: 10pt; font-weight: bold; cursor: hand}
+.hand {font-size: 30pt; font-weight: bold;
+          cursor: hand;}
+a {text-decoration: none; font-family: Arial; font-size: 11pt; color: #635959; cursor: hand}
+@media(max-width: 499px){
+
+}
+</style>
+
+
+</head>
+<body style="background:#000000">
+<div style="font-size: 20pt; text-align: center; color: #ffffff; font-weight: bold;">Make <i>or</i> Do</div>
+<div style="text-align:left; color:#ffffff" id="info">
+<p style="text-align: center;"><input id="startbut" value="start" onclick="StartGame()" type="button"></p></div>
+<form name="myform" action="">
+<table style="width:320px; display:none" id="tab1" align="center" border="0"><tbody><tr><td valign="top">
+<table style="width: 250px; font-size: 14pt; color: #FFFF33; font-weight: bold; " align="center">
+<tbody><tr>
+<td style="width:125px" align="center"><a href="javascript:checkWrd('make')" style="text-decoration: none;"><span id="gmake" style="font-family: arial; font-size: 16pt; color:  #FFFF33;visibility:hidden"><b>make</b></span></a></td>
+<td style="width:125px" align="center"><a href="javascript:checkWrd('do')" style="text-decoration: none;"><span id="gdo" style="font-family: arial; font-size: 16pt; color:  #FFFF33;visibility:hidden"><b>do</b></span></a></td></tr>
+<tr>
+</tr><tr><td colspan="2">&nbsp;</td></tr>
+<tr><td colspan="2" align="center"><div id="wrd" style="text-align:center; font-size:20pt; color: red; font-weight: bold"></div></td></tr>
+</tbody></table></td>
+<td rowspan="2" style="width:100px" align="right" valign="bottom">
+<table style="width:100px" cellspacing="0" cellpadding="0">
+<tbody><tr><td colspan="2" id="score" style="color: white; font-size: 18pt; font-weight: bold" align="center" valign="top"></td></tr>
+<tr><td valign="bottom">
+<img src="images/coin.gif" id="c11" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c10" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c9" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c8" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c7" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c6" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c5" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c4" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c3" style=" visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c2" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c1" style="visibility: hidden" alt="coin">
+</td>
+<td valign="bottom">
+<img src="images/coin.gif" id="c22" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c21" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c20" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c19" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c18" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c17" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c16" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c15" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c14" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c13" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c12" style="visibility: hidden" alt="coin">
+</td>
+<td valign="bottom">
+<img src="images/coin.gif" id="c33" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c32" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c31" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c30" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c29" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c28" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c27" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c26" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c25" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c24" style="visibility: hidden" alt="coin"><br>
+<img src="images/coin.gif" id="c23" style="visibility: hidden" alt="coin">
+</td></tr></tbody></table>
+</td>
+</tr><tr><td valign="bottom">
+<table>
+<tbody><tr>
+<td colspan="3" align="center"><span id="bet" style="font-family:verdana; font-size:14pt; color:green;font-weight: bold;display:none">BET</span></td>
+</tr><tr>
+<td><img src="images/coin10.gif" onclick="addScore(10)" alt="coin"></td>
+<td><img src="images/coin20.gif" onclick="addScore(20)" alt="coin"></td>
+<td><img src="images/coin50.gif" onclick="addScore(50)" alt="coin"></td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+
+</form>
+
+
+</body></html>
