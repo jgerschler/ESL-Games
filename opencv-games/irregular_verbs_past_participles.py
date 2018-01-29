@@ -111,7 +111,7 @@ class PistolGame(object):
                 ["think",[["thought","a"],["thinks","q"],["think","q"],["thinked","q"]]],
                 ["throw",[["threw","q"],["thrown","a"],["throw","q"],["throws","q"]]],
                 ["wake",[["woke","q"],["woken","a"],["wake","q"],["waked","q"]]],
-                ["wear",[["wore","q"],["worn","q"],["wear","q"],["wears","q"]]],
+                ["wear",[["wore","q"],["worn","a"],["wear","q"],["wears","q"]]],
                 ["win",[["won","a"],["wins","q"],["win","q"],["winning","q"]]],
                 ["write",[["wrote","q"],["written","a"],["write","q"],["writes","q"]]]
                 ]
@@ -186,7 +186,7 @@ class PistolGame(object):
         
         while not self.finished:
             seconds = (pygame.time.get_ticks() - start_ticks)/1000
-            if PistolGame.GAME_TIME - seconds == 0:
+            if PistolGame.GAME_TIME - seconds <= 0:
                 self.end_game()
             
             (grabbed, frame) = self.camera.read()
