@@ -85,6 +85,7 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 outcome, pos = crosshair.shoot(star)
                 if outcome:
+                    allsprites.remove(star)
                     explosion_sound.play()
                     screen.blit(explosion_image, (pos[0] - 120, pos[1] - 120))
                     pygame.display.update()
