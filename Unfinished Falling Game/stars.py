@@ -9,23 +9,23 @@ clock = pygame.time.Clock()
 
 #create the locations of the stars for when we animate the background
 star_field_slow = []
-star_field_medium = []
-star_field_fast = []
+##star_field_medium = []
+##star_field_fast = []
 
 for slow_stars in range(5):
     star_loc_x = random.randrange(0, width)
     star_loc_y = random.randrange(0, height)
     star_field_slow.append([star_loc_x, star_loc_y])
     
-for medium_stars in range(3):
-    star_loc_x = random.randrange(0, width)
-    star_loc_y = random.randrange(0, height)
-    star_field_medium.append([star_loc_x, star_loc_y])
-
-for fast_stars in range(1):
-    star_loc_x = random.randrange(0, width)
-    star_loc_y = random.randrange(0, height)
-    star_field_fast.append([star_loc_x, star_loc_y])
+##for medium_stars in range(3):
+##    star_loc_x = random.randrange(0, width)
+##    star_loc_y = random.randrange(0, height)
+##    star_field_medium.append([star_loc_x, star_loc_y])
+##
+##for fast_stars in range(1):
+##    star_loc_x = random.randrange(0, width)
+##    star_loc_y = random.randrange(0, height)
+##    star_field_fast.append([star_loc_x, star_loc_y])
 
 #define some commonly used colours
 WHITE = (255, 255, 255)
@@ -42,16 +42,16 @@ CYAN = (0, 255, 255)
 #create the window
 pygame.init()
 
-app_is_alive = True
+finished = True
 
-while app_is_alive:
+while finished:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             print("Goodbye!")
-            app_is_alive = False
+            finished = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             print("Goodbye!")
-            app_is_alive = False
+            finished = False
 
     screen.fill(BLACK)
 
@@ -62,19 +62,19 @@ while app_is_alive:
             star[1] = random.randrange(-20, -5)
         pygame.draw.circle(screen, DARKGREY, star, 10)
 
-    for star in star_field_medium:
-        star[1] += 4
-        if star[1] > height:
-            star[0] = random.randrange(0, width)
-            star[1] = random.randrange(-20, -5)
-        pygame.draw.circle(screen, LIGHTGREY, star, 10)
-
-    for star in star_field_fast:
-        star[1] += 8
-        if star[1] > height:
-            star[0] = random.randrange(0, width)
-            star[1] = random.randrange(-20, -5)
-        pygame.draw.circle(screen, WHITE, star, 10)
+##    for star in star_field_medium:
+##        star[1] += 4
+##        if star[1] > height:
+##            star[0] = random.randrange(0, width)
+##            star[1] = random.randrange(-20, -5)
+##        pygame.draw.circle(screen, LIGHTGREY, star, 10)
+##
+##    for star in star_field_fast:
+##        star[1] += 8
+##        if star[1] > height:
+##            star[0] = random.randrange(0, width)
+##            star[1] = random.randrange(-20, -5)
+##        pygame.draw.circle(screen, WHITE, star, 10)
 
     #redraw everything we've asked pygame to draw
     pygame.display.update()
