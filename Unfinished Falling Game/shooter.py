@@ -4,7 +4,8 @@ import random
 class Crosshair(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image('crosshair.png', -1)
+        self.image = pygame.image.load('crosshair.png')
+        self.rect = self.image.get_rect()
 
     def update(self):
         pos = pygame.mouse.get_pos()
@@ -14,49 +15,82 @@ class Crosshair(pygame.sprite.Sprite):
         hitbox = self.rect.inflate(-5, -5)
         return hitbox.colliderect(target.rect)
 
+class Star(pygame.sprite.Sprite):
+
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load('star.png')
+        self.rect = self.image.get_rect()
+        
+        screen = pygame.display.get_surface()
+        self.area = screen.get_rect()
+        self.rect.topleft = 10, 10
+
+    def update(self):
+        newpos = self.rect.move((0, 1))
+        if (self.rect.top < self.area.top or
+            self.rect.bottom > self.area.bottom):
+            self.rect.topleft = 10, 10
+            newpos = self.rect.move((0, 1))
+        self.rect = newpos
+
 
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-height = pygame.display.Info().current_h
-width = pygame.display.Info().current_w
-pygame.display.set_caption('Shooter')
+
+pygame.display.set_caption('Star Shooter')
 pygame.mouse.set_visible(0)
+crosshair = Crosshair()
 clock = pygame.time.Clock()
 
-star_field_slow = []
+def main():
 
-for slow_stars in range(5):
-    star_loc_x = random.randrange(0, width)
-    star_loc_y = random.randrange(0, height)
-    star_field_slow.append([star_loc_x, star_loc_y])
+    pygame.init()
+    screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+    pygame.display.set_caption('Star Shooter')
+    pygame.mouse.set_visible(0)
 
-WHITE = (255, 255, 255)
-LIGHTGREY = (192, 192, 192)
-DARKGREY = (128, 128, 128)
-                                 
-pygame.init()
+    background = pygame.Surface(screen.get_size())
+    background = background.convert()
+    background.fill((0, 0, 0))
 
-finished = True
+###Put Text On The Background, Centered
+##    if pygame.font:
+##        font = pygame.font.Font(None, 36)
+##        text = font.render("Pummel The Chimp, And Win $$$", 1, (10, 10, 10))
+##        textpos = text.get_rect(centerx=background.get_width()/2)
+##        background.blit(text, textpos)
 
-while finished:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            print("Goodbye!")
-            finished = False
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            print("Goodbye!")
-            finished = False
-
-    screen.fill(BLACK)
-
-    for star in star_field_slow:
-        star[1] += 1
-        if star[1] > height:
-            star[0] = random.randrange(0, width)
-            star[1] = random.randrange(-20, -5)
-        pygame.draw.circle(screen, DARKGREY, star, 10)
-
+    screen.blit(background, (0, 0))
     pygame.display.update()
 
-    clock.tick(30)
+    clock = pygame.time.Clock()
+##    whiff_sound = load_sound('whiff.wav')
+##    punch_sound = load_sound('punch.wav')
+    star = Star()
+    crosshair = Crosshair()
+    allsprites = pygame.sprite.RenderPlain((star, crosshair))
 
-pygame.quit()
+    going = True
+    while going:
+        clock.tick(30)
+
+        #Handle Input Events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                going = False
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                going = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if crosshair.shoot(star):
+                    print("shot fired")
+
+        allsprites.update()
+
+        screen.blit(background, (0, 0))
+        allsprites.draw(screen)
+        pygame.display.update()
+
+    pygame.quit()
+
+if __name__ == '__main__':
+    main()
