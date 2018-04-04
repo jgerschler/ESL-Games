@@ -45,6 +45,7 @@ clock = pygame.time.Clock()
 def main():
 
     pygame.init()
+    pygame.mixer.init()
     screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
     pygame.display.set_caption('Star Shooter')
     pygame.mouse.set_visible(0)
@@ -64,8 +65,8 @@ def main():
     pygame.display.update()
 
     clock = pygame.time.Clock()
-##    whiff_sound = load_sound('whiff.wav')
-##    punch_sound = load_sound('punch.wav')
+    laser_sound = pygame.mixer.Sound('laser.ogg')
+    explosion_sound = pygame.mixer.Sound('explosion.ogg')
     star = Star()
     crosshair = Crosshair()
     allsprites = pygame.sprite.RenderPlain((star, crosshair))
@@ -82,7 +83,9 @@ def main():
                 going = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if crosshair.shoot(star):
-                    print("shot fired")
+                    explosion_sound.play()
+                else:
+                    laser_sound.play()
 
         allsprites.update()
 
