@@ -13,7 +13,7 @@ class Crosshair(pygame.sprite.Sprite):
 
     def shoot(self, target):
         hitbox = self.rect.inflate(-5, -5)
-        return hitbox.colliderect(target.rect)
+        return hitbox.colliderect(target.rect), target.rect.center
 
 class Star(pygame.sprite.Sprite):
 
@@ -24,13 +24,13 @@ class Star(pygame.sprite.Sprite):
         
         screen = pygame.display.get_surface()
         self.area = screen.get_rect()
-        self.rect.topleft = 10, 10
+        self.rect.topleft = 200, 100
 
     def update(self):
         newpos = self.rect.move((0, 1))
         if (self.rect.top < self.area.top or
             self.rect.bottom > self.area.bottom):
-            self.rect.topleft = 10, 10
+            self.rect.topleft = 200, 100
             newpos = self.rect.move((0, 1))
         self.rect = newpos
 
@@ -67,6 +67,7 @@ def main():
     clock = pygame.time.Clock()
     laser_sound = pygame.mixer.Sound('laser.ogg')
     explosion_sound = pygame.mixer.Sound('explosion.ogg')
+    explosion_image = pygame.image.load('explosion.png')
     star = Star()
     crosshair = Crosshair()
     allsprites = pygame.sprite.RenderPlain((star, crosshair))
@@ -82,8 +83,12 @@ def main():
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 going = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if crosshair.shoot(star):
+                outcome, pos = crosshair.shoot(star)
+                if outcome:
                     explosion_sound.play()
+                    screen.blit(explosion_image, (pos[0] - 120, pos[1] - 120))
+                    pygame.display.update()
+                    pygame.time.delay(300)
                 else:
                     laser_sound.play()
 
