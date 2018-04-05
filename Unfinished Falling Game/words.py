@@ -57,7 +57,8 @@ explosion_sound = pygame.mixer.Sound('explosion.ogg')
 explosion_image = pygame.image.load('explosion.png')
 
 font = pygame.font.Font(None, 128)
-score_text = font.render("32", 1, (255, 0, 0))
+##score_text = font.render("32", 1, (255, 0, 0))
+##time_text = font.render("60", 1, (148, 0, 211))
 
 star_field_slow = []
 star_field_medium = []
@@ -91,11 +92,18 @@ done = False
 
 clock = pygame.time.Clock()
 score = 0
+previous_time = 0
+time_remaining = 60
 
 adjectives = ['red','orange','yellow','green','blue','purple']
 verbs = ['eat','talk','watch','walk','work','sleep','sing']
 
 while not done:
+    if pygame.time.get_ticks() - previous_time >= 1000:
+        previous_time = pygame.time.get_ticks()
+        time_remaining -= 1
+        if time_remaining < 0:
+            done = True
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
@@ -107,7 +115,6 @@ while not done:
                 explosion_sound.play()
                 screen.blit(explosion_image, (crosshair.rect.x - 60, crosshair.rect.y - 60))
                 pygame.display.update()
-                star.time = pygame.time.get_ticks()
                 for star in star_hit_list:
                     all_sprites_list.remove(star)
                     star_list.remove(star)
@@ -121,8 +128,10 @@ while not done:
                 laser_sound.play()
 
     screen.fill(BLACK)
+    time_text = font.render(str(time_remaining), 1, (148, 0, 201))
     score_text = font.render(str(score), 1, (255, 0, 0))
-    screen.blit(score_text, (0,0))
+    screen.blit(time_text, (0, 100))
+    screen.blit(score_text, (0, 0))
                 
     for bg_star in star_field_slow:
         bg_star[1] += 1
