@@ -8,8 +8,8 @@ class Star(pygame.sprite.Sprite):
     def __init__(self):
         # Call the parent class (Sprite) constructor
         super().__init__()
-        
-        self.image = pygame.image.load('star.png')
+        self.font = pygame.font.Font(None, 14)
+        self.image = self.font.render("WORD", 1, (255, 255, 0))
         self.rect = self.image.get_rect()
 
     def reset_pos(self):
