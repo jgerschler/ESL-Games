@@ -56,6 +56,9 @@ laser_sound = pygame.mixer.Sound('laser.ogg')
 explosion_sound = pygame.mixer.Sound('explosion.ogg')
 explosion_image = pygame.image.load('explosion.png')
 
+font = pygame.font.Font(None, 128)
+score_text = font.render("32", 1, (255, 0, 0))
+
 star_field_slow = []
 star_field_medium = []
 
@@ -87,8 +90,8 @@ all_sprites_list.add(crosshair)
 done = False
 
 clock = pygame.time.Clock()
-
 score = 0
+
 adjectives = ['red','orange','yellow','green','blue','purple']
 verbs = ['eat','talk','watch','walk','work','sleep','sing']
 
@@ -109,14 +112,17 @@ while not done:
                     all_sprites_list.remove(star)
                     star_list.remove(star)
                     if star.word in verbs:
+                        print("you killed a verb!")
                         score += 1
                     else:
                         print("argh! you killed an adjective")
-                    print(score)
+                        score += 2
             else:
                 laser_sound.play()
 
     screen.fill(BLACK)
+    score_text = font.render(str(score), 1, (255, 0, 0))
+    screen.blit(score_text, (0,0))
                 
     for bg_star in star_field_slow:
         bg_star[1] += 1
