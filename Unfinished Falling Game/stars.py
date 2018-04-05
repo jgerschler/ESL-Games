@@ -9,7 +9,7 @@ clock = pygame.time.Clock()
 
 #create the locations of the stars for when we animate the background
 star_field_slow = []
-##star_field_medium = []
+star_field_medium = []
 ##star_field_fast = []
 
 for slow_stars in range(5):
@@ -17,10 +17,10 @@ for slow_stars in range(5):
     star_loc_y = random.randrange(0, height)
     star_field_slow.append([star_loc_x, star_loc_y])
     
-##for medium_stars in range(3):
-##    star_loc_x = random.randrange(0, width)
-##    star_loc_y = random.randrange(0, height)
-##    star_field_medium.append([star_loc_x, star_loc_y])
+for medium_stars in range(3):
+    star_loc_x = random.randrange(0, width)
+    star_loc_y = random.randrange(0, height)
+    star_field_medium.append([star_loc_x, star_loc_y])
 ##
 ##for fast_stars in range(1):
 ##    star_loc_x = random.randrange(0, width)
