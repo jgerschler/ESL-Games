@@ -19,19 +19,15 @@ class Star(pygame.sprite.Sprite):
         self.image = self.font.render(self.word, 1, (255, 255, 0))
         self.rect = self.image.get_rect()
         self.time = None
-        self.dead = False
 
     def reset_pos(self):
         self.rect.y = random.randrange(-300, -20)
         self.rect.x = random.randrange(0, screen_width)
 
     def update(self):
-        if self.dead:
-            self.rect.x, self.rect.y = -100, -100
-        else:
-            self.rect.y += 6
-            if self.rect.y > screen_height:
-                self.reset_pos()
+        self.rect.y += 6
+        if self.rect.y > screen_height:
+            self.reset_pos()
 ##        if self.time is not None:
 ##            if pygame.time.get_ticks() - self.time >= 1000:
 ##                print(self.word)
@@ -88,10 +84,8 @@ for i in range(10):
 crosshair = Crosshair()
 all_sprites_list.add(crosshair)
 
-# Loop until the user clicks the close button.
 done = False
 
-# Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
 score = 0
@@ -119,7 +113,6 @@ while not done:
                     else:
                         print("argh! you killed an adjective")
                     print(score)
-##                    star.reset_pos()
             else:
                 laser_sound.play()
 
