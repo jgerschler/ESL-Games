@@ -6,17 +6,16 @@ WHITE = (255, 255, 255)
 LIGHTGREY = (192, 192, 192)
 DARKGREY = (128, 128, 128)
 
-class Star(pygame.sprite.Sprite):
+class Word(pygame.sprite.Sprite):
     def __init__(self):
-        # Call the parent class (Sprite) constructor
         super().__init__()
         self.words = ['eat','talk','watch','walk',
                 'work','sleep','sing','red',
                 'orange','yellow','green','blue',
                 'purple']
-        self.font = pygame.font.Font(None, 32)
+        self.font = pygame.font.Font(None, random.randint(16, 96))
         self.word = random.choice(self.words)
-        self.image = self.font.render(self.word, 1, (255, 255, 0))
+        self.image = self.font.render(self.word, 1, (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255)))
         self.rect = self.image.get_rect()
         self.time = None
 
@@ -28,15 +27,12 @@ class Star(pygame.sprite.Sprite):
         self.rect.y += 6
         if self.rect.y > screen_height:
             self.reset_pos()
-##        if self.time is not None:
-##            if pygame.time.get_ticks() - self.time >= 1000:
-##                print(self.word)
 
 
-class Crosshair(Star):
+class Crosshair(Word):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load('crosshair.png')
+        self.image = pygame.image.load('images\\crosshair.png')
         self.rect = self.image.get_rect()
         
     def update(self):
@@ -52,13 +48,11 @@ screen_width = screen.get_width()
 screen_height = screen.get_width()
 pygame.mouse.set_visible(0)
 
-laser_sound = pygame.mixer.Sound('laser.ogg')
-explosion_sound = pygame.mixer.Sound('explosion.ogg')
-explosion_image = pygame.image.load('explosion.png')
+laser_sound = pygame.mixer.Sound('audio\\laser.ogg')
+explosion_sound = pygame.mixer.Sound('audio\\explosion.ogg')
+explosion_image = pygame.image.load('images\\explosion.png')
 
 font = pygame.font.Font(None, 128)
-##score_text = font.render("32", 1, (255, 0, 0))
-##time_text = font.render("60", 1, (148, 0, 211))
 
 star_field_slow = []
 star_field_medium = []
@@ -73,17 +67,17 @@ for medium_stars in range(60):
     star_loc_y = random.randrange(0, screen_height)
     star_field_medium.append([star_loc_x, star_loc_y])
 
-star_list = pygame.sprite.Group()
+word_list = pygame.sprite.Group()
 all_sprites_list = pygame.sprite.Group()
 
 for i in range(20):
-    star = Star()
+    word = Word()
 
-    star.rect.x = random.randrange(screen_width)
-    star.rect.y = random.randrange(screen_height)
+    word.rect.x = random.randrange(screen_width)
+    word.rect.y = random.randrange(screen_height)
 
-    star_list.add(star)
-    all_sprites_list.add(star)
+    word_list.add(word)
+    all_sprites_list.add(word)
 
 crosshair = Crosshair()
 all_sprites_list.add(crosshair)
@@ -110,15 +104,15 @@ while not done:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             done = True
         if event.type == pygame.MOUSEBUTTONDOWN:
-            star_hit_list = pygame.sprite.spritecollide(crosshair, star_list, False)
-            if len(star_hit_list) > 0:
+            word_hit_list = pygame.sprite.spritecollide(crosshair, word_list, False)
+            if len(word_hit_list) > 0:
                 explosion_sound.play()
                 screen.blit(explosion_image, (crosshair.rect.x - 60, crosshair.rect.y - 60))
                 pygame.display.update()
-                for star in star_hit_list:
-                    all_sprites_list.remove(star)
-                    star_list.remove(star)
-                    if star.word in verbs:
+                for word in word_hit_list:
+                    all_sprites_list.remove(word)
+                    word_list.remove(word)
+                    if word.word in verbs:
                         print("you killed a verb!")
                         score += 1
                     else:
