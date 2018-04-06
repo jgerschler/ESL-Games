@@ -17,14 +17,14 @@ class Word(pygame.sprite.Sprite):
         self.word = random.choice(self.words)
         self.image = self.font.render(self.word, 1, (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255)))
         self.rect = self.image.get_rect()
-        self.time = None
+        self.speed = random.randint(1, 8)
 
     def reset_pos(self):
         self.rect.y = random.randrange(-300, -20)
         self.rect.x = random.randrange(0, screen_width)
 
     def update(self):
-        self.rect.y += 6
+        self.rect.y += self.speed
         if self.rect.y > screen_height:
             self.reset_pos()
 
