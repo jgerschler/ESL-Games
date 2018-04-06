@@ -76,7 +76,7 @@ for medium_stars in range(60):
 star_list = pygame.sprite.Group()
 all_sprites_list = pygame.sprite.Group()
 
-for i in range(10):
+for i in range(20):
     star = Star()
 
     star.rect.x = random.randrange(screen_width)
