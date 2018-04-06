@@ -13,7 +13,7 @@ class Word(pygame.sprite.Sprite):
                 'work','sleep','sing','red',
                 'orange','yellow','green','blue',
                 'purple']
-        self.font = pygame.font.Font(None, random.randint(16, 96))
+        self.font = pygame.font.Font(None, random.randint(32, 96))
         self.word = random.choice(self.words)
         self.image = self.font.render(self.word, 1, (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255)))
         self.rect = self.image.get_rect()
@@ -33,7 +33,7 @@ class Crosshair(Word):
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load('images\\crosshair.png')
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect()        
         
     def update(self):
         pos = pygame.mouse.get_pos()
@@ -124,8 +124,10 @@ while not done:
     screen.fill(BLACK)
     time_text = font.render(str(time_remaining), 1, (148, 0, 201))
     score_text = font.render(str(score), 1, (255, 0, 0))
-    screen.blit(time_text, (0, 100))
-    screen.blit(score_text, (0, 0))
+    score_text_rect = score_text.get_rect()
+    score_text_rect.topright = (screen_width, 0)
+    screen.blit(time_text, (0, 0))
+    screen.blit(score_text, score_text_rect)
                 
     for bg_star in star_field_slow:
         bg_star[1] += 1
