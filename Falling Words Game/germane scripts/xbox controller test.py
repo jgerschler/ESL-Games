@@ -95,7 +95,7 @@ while done==False:
         
         for i in range( axes ):
             axis = joystick.get_axis( i )
-            textPrint.print(screen, "Axis {} value: {:>6.3f}".format(i, axis) )
+            textPrint.print(screen, "Axis {} value: {}".format(i, axis) )
         textPrint.unindent()
             
         buttons = joystick.get_numbuttons()
