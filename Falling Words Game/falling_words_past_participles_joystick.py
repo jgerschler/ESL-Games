@@ -162,28 +162,30 @@ while not done:
         rx_axis = round(30 * joystick.get_axis(4), 0)
         ry_axis = round(30 * joystick.get_axis(3), 0)
         crosshair_x_y[0] += rx_axis
-        crosshair_x_y[1] += ry_axis        
+        crosshair_x_y[1] += ry_axis
+    if abs(joystick.get_axis(2)) > 0.1:
+        word_hit_list = pygame.sprite.spritecollide(crosshair, word_list, False)
+        if len(word_hit_list) > 0:
+            screen.blit(explosion_image, (crosshair.rect.x - 60, crosshair.rect.y - 60))
+            pygame.display.update()
+            for word in word_hit_list:
+                all_sprites_list.remove(word)
+                word_list.remove(word)
+                if word.word in past_participles:
+                    explosion_sound.play()
+                    score += 1
+                else:
+                    scream_sound.play()
+                    score -= 1
+        else:
+            laser_sound.play()
+        
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             done = True
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            word_hit_list = pygame.sprite.spritecollide(crosshair, word_list, False)
-            if len(word_hit_list) > 0:
-                screen.blit(explosion_image, (crosshair.rect.x - 60, crosshair.rect.y - 60))
-                pygame.display.update()
-                for word in word_hit_list:
-                    all_sprites_list.remove(word)
-                    word_list.remove(word)
-                    if word.word in past_participles:
-                        explosion_sound.play()
-                        score += 1
-                    else:
-                        scream_sound.play()
-                        score -= 1
-            else:
-                laser_sound.play()
+##        if event.type == pygame.MOUSEBUTTONDOWN:
 
     screen.fill(BLACK)
     time_text = font.render(str(time_remaining), 1, (148, 0, 201))
