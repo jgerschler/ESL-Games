@@ -15,7 +15,7 @@ verbs = ["be", "beat", "begin", "bite", "blow", "break",
          "give", "go", "grow", "hang", "have", "hear", "hide",
          "hold", "keep", "know", "lead", "leave", "lend",
          "lose", "make", "mean", "meet", "pay", "ride",
-         "ring", "rise", "say", "see", "sell", "send", "set",
+         "ring", "rise", "say", "see", "sell", "send",
          "shoot", "shut", "sing", "sit", "sleep", "speak", "spend",
          "stand", "steal", "stick", "swim", "take", "teach", "tell",
          "think", "throw", "wake", "wear", "win", "write"]
@@ -31,7 +31,7 @@ past_participles = ["been", "beaten", "begun", "bitten", "blown",
                     "lent", "lost", "made", "meant",
                     "met", "paid", "ridden",
                     "rung", "risen", "said", "seen",
-                    "sold", "sent", "set", "shot", "shut",
+                    "sold", "sent", "shot", "shut",
                     "sung", "sat", "slept", "spoken", "spent",
                     "stood", "stolen", "stuck", "swum", "taken",
                     "taught", "told", "thought", "thrown",
@@ -40,7 +40,11 @@ pronouns = ["I", "We", "You", "He", "She", "It", "They",
             "Me", "You", "Us", "Him", "Her", "It", "Them"]
 
 global words
+global score
 words = adjectives + verbs + past_participles + pronouns
+score = 0
+previous_time = 0
+time_remaining = 60
 
 class Word(pygame.sprite.Sprite):
     def __init__(self):
@@ -76,8 +80,16 @@ class Crosshair(Word):
         self.rect.y = pos[1]
 
 def game_over():
+    screen.fill(BLACK)
+    score_text = font.render("SCORE: " + str(score), 1, (255, 0, 0))
+    score_text_rect = score_text.get_rect()
+    score_text_rect.center = (screen_width / 2, screen_height / 2)
+    screen.blit(score_text, score_text_rect)
+    pygame.display.update()
+    pygame.time.wait(3000)
+    pygame.quit()
+
     
-    pygame.time.delay(5000)
 
 pygame.init()
 pygame.mixer.init()
@@ -109,12 +121,6 @@ for medium_stars in range(60):
 
 word_list = pygame.sprite.Group()
 all_sprites_list = pygame.sprite.Group()
-
-global score
-score = 0
-
-previous_time = 0
-time_remaining = 60
 
 for i in range(50):
     word = Word()
@@ -191,4 +197,4 @@ while not done:
     clock.tick(30)
     pygame.display.update()
 
-pygame.quit()
+game_over()
