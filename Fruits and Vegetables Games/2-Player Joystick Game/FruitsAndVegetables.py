@@ -30,6 +30,8 @@ class FruitsAndVegetables(object):
         self.sound_win = pygame.mixer.Sound('audio\\ping.ogg')
         self.sound_loss = pygame.mixer.Sound('audio\\buzzer.ogg')
 
+        # need to improve import process using dict
+        # see other fruits and veggies game for example
         self.my_image_0 = pygame.image.load("images\\apple.png")
         self.my_image_rect_0 = self.my_image_0.get_rect()
         self.my_image_1 = pygame.image.load("images\\apricot.png")
@@ -46,7 +48,7 @@ class FruitsAndVegetables(object):
         self.my_image_12 = pygame.image.load("images\\cauliflour.png")
         self.my_image_13 = pygame.image.load("images\\celery.png")
         self.my_image_14 = pygame.image.load("images\\cherries.png")
-        self.my_image_15 = pygame.image.load("images\\chilipeppers.png")
+        self.my_image_15 = pygame.image.load("images\\chili peppers.png")
         self.my_image_16 = pygame.image.load("images\\coconut.png")
         self.my_image_17 = pygame.image.load("images\\corn.png")
         self.my_image_18 = pygame.image.load("images\\cucumber.png")
@@ -61,7 +63,7 @@ class FruitsAndVegetables(object):
         self.my_image_27 = pygame.image.load("images\\guava.png")
         self.my_image_28 = pygame.image.load("images\\kiwi.png")
         self.my_image_29 = pygame.image.load("images\\lettuce.png")
-        self.my_image_30 = pygame.image.load("images\\limelemon.png")
+        self.my_image_30 = pygame.image.load("images\\lime lemons.png")
         self.my_image_31 = pygame.image.load("images\\lychee.png")
         self.my_image_32 = pygame.image.load("images\\mango.png")
         self.my_image_33 = pygame.image.load("images\\melon.png")
