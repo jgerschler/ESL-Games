@@ -37,8 +37,6 @@ images_dict = {}
 global score
 score = 0
 
-global fruit_chosen
-
 previous_time = 0
 time_remaining = 60 
 
@@ -102,10 +100,11 @@ for medium_stars in range(60):
     star_field_medium.append([star_loc_x, star_loc_y])
 
 def new_round():
-    for entry in word_list:
-        word_list.remove(entry)
-##    for entry in all_sprites_list:
-##        all_sprites_list.remove(entry)
+    word_list.empty()
+    all_sprites_list.empty()
+    fruit_list = []
+    crosshair = Crosshair()
+    all_sprites_list.add(crosshair)
     for i in range(4):
         word = Word()
 
@@ -115,22 +114,16 @@ def new_round():
         fruit_list.append(word.random_img)
         word_list.add(word)
         all_sprites_list.add(word)
-
-    global fruit_chosen    
+ 
     fruit_chosen = random.choice(fruit_list)
+    return fruit_chosen, crosshair
 
-
-    
-
-crosshair = Crosshair()
-
-all_sprites_list.add(crosshair)
 
 done = False
 
 clock = pygame.time.Clock()
 
-new_round()
+fruit_chosen, crosshair = new_round()
 
 print(fruit_chosen)
 
@@ -161,11 +154,11 @@ while not done:
                 if word.random_img == fruit_chosen:
                     explosion_sound.play()
                     score += 1
-                    new_round()
+                    fruit_chosen, crosshair = new_round()
                 else:
                     scream_sound.play()
                     score -= 1
-                    new_round()
+                    fruit_chosen, crosshair = new_round()
         else:
             laser_sound.play()
         
