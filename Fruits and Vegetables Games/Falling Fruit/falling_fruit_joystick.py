@@ -34,20 +34,22 @@ fruit_list = []
 global images_dict
 images_dict = {}
 
-global score
-score = 0
-
-previous_time = 0
-time_remaining = 60 
-
 for entry in os.listdir('images'):
     fruit_image = pygame.image.load('images\\' + entry)
     fruit_image.set_colorkey(WHITE)
     fruit_image.convert_alpha()
     images_dict[entry[:-4]] = fruit_image
 
+global score
+score = 0
+previous_time = 0
+time_remaining = 60
+done = False
+
 word_list = pygame.sprite.Group()
 all_sprites_list = pygame.sprite.Group()
+clock = pygame.time.Clock()
+fruit_chosen, crosshair = new_round()
 
 class Word(pygame.sprite.Sprite):
     def __init__(self):
@@ -117,15 +119,6 @@ def new_round():
  
     fruit_chosen = random.choice(fruit_list)
     return fruit_chosen, crosshair
-
-
-done = False
-
-clock = pygame.time.Clock()
-
-fruit_chosen, crosshair = new_round()
-
-print(fruit_chosen)
 
 while not done:
     if pygame.time.get_ticks() - previous_time >= 1000:
