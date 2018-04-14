@@ -96,7 +96,7 @@ pygame.mixer.init()
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_width = screen.get_width()
-screen_height = screen.get_width()
+screen_height = screen.get_height()
 pygame.mouse.set_visible(0)
 
 laser_sound = pygame.mixer.Sound('audio\\laser.ogg')

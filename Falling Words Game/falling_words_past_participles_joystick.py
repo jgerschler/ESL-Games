@@ -99,7 +99,7 @@ joystick.init()
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_width = screen.get_width()
-screen_height = screen.get_width()
+screen_height = screen.get_height()
 pygame.mouse.set_visible(0)
 
 crosshair_x_y = [round(screen_width / 2, 0), round(screen_height / 2, 0)]
