@@ -49,7 +49,7 @@ done = False
 word_list = pygame.sprite.Group()
 all_sprites_list = pygame.sprite.Group()
 clock = pygame.time.Clock()
-fruit_chosen, crosshair = new_round()
+
 
 class Word(pygame.sprite.Sprite):
     def __init__(self):
@@ -119,6 +119,8 @@ def new_round():
  
     fruit_chosen = random.choice(fruit_list)
     return fruit_chosen, crosshair
+
+fruit_chosen, crosshair = new_round()
 
 while not done:
     if pygame.time.get_ticks() - previous_time >= 1000:
