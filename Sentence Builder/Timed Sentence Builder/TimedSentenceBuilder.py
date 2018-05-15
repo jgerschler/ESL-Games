@@ -13,10 +13,8 @@ soundwinfile = "audio\\ping.ogg"
 soundlossfile = "audio\\buzzer.ogg"
 
 finished = False
-
-constructed_sentence = ''
-
 sentence_list = ["This is the best sentence.", "This is the worst sentence."]
+
 
 class TextRectException:
     def __init__(self, message = None):
@@ -24,7 +22,7 @@ class TextRectException:
     def __str__(self):
         return self.message
 
-def render_textrect(string, font, rect, text_color, background_color, justification=0):
+def render_textrect(string, font, rect, text_color, background_color=WHITE, justification=0):
     
     final_lines = []
 
@@ -69,7 +67,13 @@ def render_textrect(string, font, rect, text_color, background_color, justificat
 
     return surface
 
-
+def new_game():
+    time_remaining = 60
+    constructed_sentence = ''
+    sentence = random.choice(sentence_list)
+    sentence_surface = render_textrect(sentence, font, sentence_rect, RED)
+    
+    
 
 pygame.init()
 pygame.mixer.init()
@@ -82,6 +86,7 @@ display_width = display.get_width()
 display_height = display.get_height()
 
 font = pygame.font.Font(None, 48)
+sentence_rect = pygame.Rect(20, 20, display_width - 40, display_height / 2)
 
 display.fill(WHITE)
 
@@ -102,7 +107,7 @@ while not finished:
             if event.key == pygame.K_ESCAPE:
                 finished == True
             if event.key == pygame.K_SPACE:
-                frag0, frag1, frag2, frag3, username, sentence, constructed_sentence = new_user()
+                new_game()
             if event.key == pygame.K_a:
                 if frag0 != "":
                     refresh_screen(frag0)
