@@ -3,8 +3,7 @@ import sqlite3
 import math
 import random
 import pygame
-import pygame.font
-from pygame.locals import *
+
 
 WHITE = (255,255,255)
 BLACK = (0,0,0)
@@ -20,6 +19,8 @@ soundlossfile = "audio\\buzzer.ogg"
 finished = False
 
 constructed_sentence = ''
+
+sentence_list = ["This is the best sentence.", "This is the worst sentence."]
 
 class TextRectException:
     def __init__(self, message = None):
@@ -71,36 +72,6 @@ def render_textrect(string, font, rect, text_color, background_color, justificat
         accumulated_height += font.size(line)[1]
 
     return surface
-
-def sentence_gen(sentence):
-    sentencelist = sentence.split(' ')
-    fragmentlist = []
-    i = 0
-    j = 0
-    numberofbuttons = 4#number of buttons on controller
-
-    fragsizefloor = int(math.floor(len(sentencelist)/(numberofbuttons-1)))
-    fragsizeremainder = len(sentencelist)%(numberofbuttons-1)
-
-    for i in range(numberofbuttons-1):
-        fragment = ""
-        for j in range(fragsizefloor):
-            fragment = fragment + " " + sentencelist[fragsizefloor*i+j]
-        fragmentlist.append(fragment)
-    #clean up leading space
-    i = 0
-    for i in range(len(fragmentlist)):
-        fragmentlist[i] = fragmentlist[i][1:]
-
-    if fragsizeremainder != 0:
-        fragmentlist.append(" ".join(sentencelist[len(sentencelist)-fragsizeremainder:]))
-
-    random.shuffle(fragmentlist)
-    #make sure there are always the correct number of entries.
-    if fragsizeremainder == 0:
-        fragmentlist.append("")
-
-    return fragmentlist
 
 def new_user():
     constructed_sentence = ""
@@ -219,13 +190,6 @@ def refresh_screen(fragment):
 
     return
 
-#connect to database
-try:
-    conn = sqlite3.connect('reader.db')
-except:
-    print("Database not found!")
-
-c = conn.cursor()
 
 pygame.init()
 pygame.mixer.init()
@@ -233,7 +197,7 @@ pygame.mixer.init()
 soundwin = pygame.mixer.Sound(soundwinfile)
 soundloss = pygame.mixer.Sound(soundlossfile)
 
-display = pygame.display.set_mode((1024, 768))
+display = pygame.display.set_mode(pygame.FULLSCREEN, (0,0))
 
 my_font = pygame.font.Font(None, 48)
 my_rect = pygame.Rect((20, 200, 984, 388))
@@ -254,22 +218,22 @@ while not finished:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE:
                 frag0, frag1, frag2, frag3, username, sentence, constructed_sentence = new_user()
-            if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
+            if event.key == pygame.K_a:
                 if frag0 != "":
                     refresh_screen(frag0)
                 else:
                     pass
-            if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
+            if event.key == pygame.K_b:
                 if frag1 != "":
                     refresh_screen(frag1)
                 else:
                     pass
-            if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
+            if event.key == pygame.K_c:
                 if frag2 != "":
                     refresh_screen(frag2)
                 else:
                     pass
-            if event.key in (pygame.K_d,pygame.K_h,pygame.K_l,pygame.K_p,pygame.K_t,pygame.K_x):
+            if event.key == pygame.K_d:
                 if frag3 != "":
                     refresh_screen(frag3)
                 else:
@@ -277,4 +241,4 @@ while not finished:
             
     pygame.display.update()
 
-conn.close()
+pygame.quit()
