@@ -108,7 +108,33 @@ def sentence_gen(sentence):
     return fragmentlist
 
 def new_user():
-    sentence_list = ["This is a sentence", "This is another sentence", "This is a third sentence"]
+    sentence_list = ["My hair is longer than your hair.", "Oxford is more beautiful than Birmingham.",
+                     "I’m taller than you.", "People are more intelligent than animals.",
+                     "Barcelona is bigger than Santander.", "Bikes are cheaper than cars.",
+                     "Pedro is taller than Maggie", "Antonia is noisier than Gemma.",
+                     "Laura is more beautiful than Jane.", "Radios are cheaper than TVs.",
+                     "Buses are longer than cars.", "Carlos is taller than Sergio. ",
+                     "London is bigger than Madrid. ", "Cats are more intelligent than rabbits.",
+                     "MP3 players are cheaper than laptops. ", "I’m more beautiful than you. ",
+                     "The skateboard is worse than the mobile phone.",
+                     "The computer is quieter than the mobile phone.",
+                     "The mobile phone is better than the skateboard.",
+                     "The computer is bigger than the mobile phone.", "The Nile is the longest river.",
+                     "Cheetahs are the fastest animals.", "Sharks are the most dangerous animals.",
+                     "Chihuahuas are the smallest dogs.", "A “10” exam result is the best result.",
+                     "Madrid is the biggest city in Spain.", "Dolphins are the most intelligent animals.",
+                     "The Rolls Royce is the most expensive car.",
+                     "The teacher is the oldest person in the class.",
+                     "Champagne is the most expensive drink.", "Russia is the biggest country.",
+                     "A “0” exam result is the worst result.", "Pau Gasol is the tallest Spanish player.",
+                     "Antartica is the windiest place in the world.",
+                     "Lake Baikal is the deepest lake in the world.",
+                     "Yakutsk, Russia is the coldest city in the world.",
+                     "The Nile is the longest river in the world.",
+                     "Bangkok, Thailand is the hottest city in the world.",
+                     "Río de la Plata is the widest river in the world.",
+                     "Mount Everest is the highest mountain in the world."]
+    
     constructed_sentence = ""
     sentence = random.choice(sentence_list)
     fragmentlist = sentence_gen(sentence)
@@ -227,12 +253,11 @@ display_width = display.get_width()
 display_height = display.get_height()
 
 my_font = pygame.font.Font(None, 48)
-my_rect = pygame.Rect((20, 200, 984, 388))
-my_rect_user = pygame.Rect((20, 20, 984, 80))
-my_rect_frag_1 = pygame.Rect((20, 488, 984, 65))
-my_rect_frag_2 = pygame.Rect((20, 553, 984, 65))
-my_rect_frag_3 = pygame.Rect((20, 618, 984, 65))
-my_rect_frag_4 = pygame.Rect((20, 683, 984, 65))
+my_rect = pygame.Rect((20, 50, display_width - 20, 388))
+my_rect_frag_1 = pygame.Rect((20, display_height - 200, display_width - 20, 50))
+my_rect_frag_2 = pygame.Rect((20, display_height - 150, display_width - 20, 50))
+my_rect_frag_3 = pygame.Rect((20, display_height - 100, display_width - 20, 50))
+my_rect_frag_4 = pygame.Rect((20, display_height - 50, display_width - 20, 50))
 rect_score = pygame.Rect((display_width - 50, 50, 50, 50))
 rect_time = pygame.Rect((display_width - 50, 0, 50, 50))
 
@@ -247,6 +272,11 @@ while not finished:
         previous_time = pygame.time.get_ticks()
         time_remaining -= 1
         if time_remaining == 0:
+            display.fill(WHITE)
+            score_text = my_font.render("SCORE: " + str(score), 1, (148, 0, 201))
+            display.blit(score_text, (display_width / 2, display_height / 2))
+            pygame.display.update()
+            time.sleep(5)
             finished = True
     time_text = my_font.render(str(time_remaining), 1, (148, 0, 201))
     score_text = my_font.render(str(score), 1, (255, 0, 0))
