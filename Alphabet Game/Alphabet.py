@@ -1,4 +1,5 @@
 import pygame
+import random
 
 WHITE = (255,255,255)
 BLACK = (0,0,0)
@@ -18,50 +19,35 @@ game_time = 60
 previous_time = 0
 time_remaining = 60
 score = 0
+alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 
 
 
-def new_user():
-    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
+def new_game(alphabet, score):
+    # fix these colors
+    time_text = display_font.render(str(time_remaining), 1, (148, 0, 201))
+    score_text = display_font.render(str(score), 1, (255, 0, 0))
+    letter = display_font.render(alphabet[random.randint(0, 25)], 1, (255, 0, 0))
     display.fill(WHITE)
-
-    #display.blit(rendered_text, my_rect.topleft)
+    display.blit(time_text, rect_time)
+    display.blit(score_text, rect_score)
+    display.blit(letter, rect_letter)
 
     pygame.display.update()
 
+    return
 
-def refresh_screen(fragment):
 
-    if frag0 == frag1 == frag2 == frag3 == "" and sentence == constructed_sentence:#winner!
-        display.fill(WHITE)
-        rendered_text = render_textrect(sentence, my_font, my_rect, GREEN, WHITE, 1)
-
-        display.blit(rendered_text, my_rect.topleft)
-
-        pygame.display.update()
-        score += 1
-        soundwin.play()
-        time.sleep(0.5)
-        frag0, frag1, frag2, frag3, sentence, constructed_sentence = new_user()
-
-    elif frag0 == frag1 == frag2 == frag3 == "" and sentence != constructed_sentence:#loser
-        display.fill(WHITE)
-        rendered_text = render_textrect(constructed_sentence, my_font, my_rect, RED, WHITE, 1)
-
-        display.blit(rendered_text, my_rect.topleft)
-
-        pygame.display.update()
-        score -= 1
-        soundloss.play()
-        time.sleep(0.5)
-        frag0, frag1, frag2, frag3, sentence, constructed_sentence = new_user()
-
+def new_letter(alphabet, score):
+    # fix these colors
+    time_text = display_font.render(str(time_remaining), 1, (148, 0, 201))
+    score_text = display_font.render(str(score), 1, (255, 0, 0))
+    letter = display_font.render(alphabet[random.randint(0, 25)], 1, (255, 0, 0))
     display.fill(WHITE)
-    rendered_text = render_textrect(constructed_sentence, my_font, my_rect, BLACK, WHITE, 1)
-
-    display.blit(rendered_text, my_rect.topleft)
+    display.blit(time_text, rect_time)
+    display.blit(score_text, rect_score)
+    display.blit(letter, rect_letter)
 
     pygame.display.update()
 
@@ -78,8 +64,8 @@ display = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 display_width = display.get_width()
 display_height = display.get_height()
 
-my_font = pygame.font.Font(None, 48)
-my_rect = pygame.Rect((20, 50, display_width - 20, 388))
+display_font = pygame.font.Font(None, 48)
+rect_letter = pygame.Rect((20, 50, display_width - 20, 388))
 rect_score = pygame.Rect((display_width - 50, 50, 50, 50))
 rect_time = pygame.Rect((display_width - 50, 0, 50, 50))
 
@@ -95,13 +81,13 @@ while not finished:
         time_remaining -= 1
         if time_remaining == 0:
             display.fill(WHITE)
-            score_text = my_font.render("SCORE: " + str(score), 1, (148, 0, 201))
+            score_text = display_font.render("SCORE: " + str(score), 1, (148, 0, 201))
             display.blit(score_text, (display_width / 2, display_height / 2))
             pygame.display.update()
             time.sleep(5)
             finished = True
-    time_text = my_font.render(str(time_remaining), 1, (148, 0, 201))
-    score_text = my_font.render(str(score), 1, (255, 0, 0))
+    time_text = display_font.render(str(time_remaining), 1, (148, 0, 201))
+    score_text = display_font.render(str(score), 1, (255, 0, 0))
     display.fill(WHITE, rect_time)
     display.fill(WHITE, rect_score)
     display.blit(time_text, rect_time)
@@ -111,9 +97,10 @@ while not finished:
             finished = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE:
-                new_game()
+                new_game(alphabet, score)
             if event.key == pygame.K_a:
-                refresh_screen()
+                score += 1
+                new_letter()
 
 
     clock.tick(30)        
