@@ -1,5 +1,6 @@
 import pygame
 import random
+import sys
 
 WHITE = (255,255,255)
 BLACK = (0,0,0)
@@ -96,14 +97,18 @@ while not finished:
         if event.type == pygame.QUIT:
             finished = True
         if event.type == pygame.KEYUP:
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
             if event.key == pygame.K_SPACE:
                 new_game(alphabet, score)
             if event.key == pygame.K_a:
                 score += 1
-                new_letter()
+                new_letter(alphabet, score)
 
 
     clock.tick(30)        
     pygame.display.update()
 
 pygame.quit()
+sys.exit()
