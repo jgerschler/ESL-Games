@@ -1,10 +1,4 @@
-import time
-import sqlite3
-import math
-import random
 import pygame
-import pygame.font
-from pygame.locals import *
 
 WHITE = (255,255,255)
 BLACK = (0,0,0)
@@ -26,86 +20,8 @@ previous_time = 0
 time_remaining = 60
 score = 0
 
-class TextRectException:
-    def __init__(self, message = None):
-        self.message = message
-    def __str__(self):
-        return self.message
 
-def render_textrect(string, font, rect, text_color, background_color, justification=0):
-    
-    final_lines = []
 
-    requested_lines = string.splitlines()
-
-    for requested_line in requested_lines:
-        if font.size(requested_line)[0] > rect.width:
-            words = requested_line.split(' ')
-            for word in words:
-                if font.size(word)[0] >= rect.width:
-                    raise TextRectException("The word " + word + " is too long to fit in the rect passed.")
-            accumulated_line = ""
-            for word in words:
-                test_line = accumulated_line + word + " "   
-                if font.size(test_line)[0] < rect.width:
-                    accumulated_line = test_line 
-                else: 
-                    final_lines.append(accumulated_line) 
-                    accumulated_line = word + " " 
-            final_lines.append(accumulated_line)
-        else: 
-            final_lines.append(requested_line) 
-
-    surface = pygame.Surface(rect.size) 
-    surface.fill(background_color) 
-
-    accumulated_height = 0 
-    for line in final_lines: 
-        if accumulated_height + font.size(line)[1] >= rect.height:
-            raise TextRectException("Once word-wrapped, the text string was too tall to fit in the rect.")
-        if line != "":
-            tempsurface = font.render(line, 1, text_color)
-            if justification == 0:
-                surface.blit(tempsurface, (0, accumulated_height))
-            elif justification == 1:
-                surface.blit(tempsurface, ((rect.width - tempsurface.get_width()) / 2, accumulated_height))
-            elif justification == 2:
-                surface.blit(tempsurface, (rect.width - tempsurface.get_width(), accumulated_height))
-            else:
-                raise TextRectException("Invalid justification argument: " + str(justification))
-        accumulated_height += font.size(line)[1]
-
-    return surface
-
-def sentence_gen(sentence):
-    sentencelist = sentence.split(' ')
-    fragmentlist = []
-    i = 0
-    j = 0
-    numberofbuttons = 4#number of buttons on controller
-
-    fragsizefloor = int(math.floor(len(sentencelist)/(numberofbuttons-1)))
-    fragsizeremainder = len(sentencelist)%(numberofbuttons-1)
-
-    for i in range(numberofbuttons-1):
-        fragment = ""
-        for j in range(fragsizefloor):
-            fragment = fragment + " " + sentencelist[fragsizefloor*i+j]
-        fragmentlist.append(fragment)
-    #clean up leading space
-    i = 0
-    for i in range(len(fragmentlist)):
-        fragmentlist[i] = fragmentlist[i][1:]
-
-    if fragsizeremainder != 0:
-        fragmentlist.append(" ".join(sentencelist[len(sentencelist)-fragsizeremainder:]))
-
-    random.shuffle(fragmentlist)
-    #make sure there are always the correct number of entries.
-    if fragsizeremainder == 0:
-        fragmentlist.append("")
-
-    return fragmentlist
 
 def new_user():
     sentence_list = ["My hair is longer than your hair.", "Oxford is more beautiful than Birmingham.",
