@@ -13,7 +13,6 @@ soundlossfile = "audio\\buzzer.ogg"
 
 finished = False
 
-constructed_sentence = ''
 points = 0
 game_time = 60
 previous_time = 0
@@ -112,27 +111,10 @@ while not finished:
             finished = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE:
-                frag0, frag1, frag2, frag3, sentence, constructed_sentence = new_user()
-            if event.key in (pygame.K_a,pygame.K_e,pygame.K_i,pygame.K_m,pygame.K_q,pygame.K_u):
-                if frag0 != "":
-                    refresh_screen(frag0)
-                else:
-                    pass
-            if event.key in (pygame.K_b,pygame.K_f,pygame.K_j,pygame.K_n,pygame.K_r,pygame.K_v):
-                if frag1 != "":
-                    refresh_screen(frag1)
-                else:
-                    pass
-            if event.key in (pygame.K_c,pygame.K_g,pygame.K_k,pygame.K_o,pygame.K_s,pygame.K_w):
-                if frag2 != "":
-                    refresh_screen(frag2)
-                else:
-                    pass
-            if event.key in (pygame.K_d,pygame.K_h,pygame.K_l,pygame.K_p,pygame.K_t,pygame.K_x):
-                if frag3 != "":
-                    refresh_screen(frag3)
-                else:
-                    pass
+                new_game()
+            if event.key == pygame.K_a:
+                refresh_screen()
+
 
     clock.tick(30)        
     pygame.display.update()
