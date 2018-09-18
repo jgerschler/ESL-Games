@@ -53,7 +53,12 @@ def new_game():
         letter_rect.center = (display_width / 2, display_height / 2)
         display.blit(letter, letter_rect)
         bartime = pygame.time.get_ticks() - ticks
-        pygame.draw.rect(display, GREEN, [30, display_height - 80, abs(1 - (bartime / 5000)) * (display_width - 60), 40])
+        if bartime < 3000:
+            pygame.draw.rect(display, GREEN, [30, display_height - 80, abs(1 - (bartime / 5000)) * (display_width - 60), 40])
+        elif bartime < 4000:
+            pygame.draw.rect(display, YELLOW, [30, display_height - 80, abs(1 - (bartime / 5000)) * (display_width - 60), 40])
+        else:
+            pygame.draw.rect(display, RED, [30, display_height - 80, abs(1 - (bartime / 5000)) * (display_width - 60), 40])
         pygame.draw.rect(display, BLACK, [30, display_height - 80, display_width - 60, 40], 5)
         if bartime >= 5000:
             ticks = pygame.time.get_ticks()
