@@ -75,7 +75,7 @@ def new_game():
                 if event.key == pygame.K_SPACE:
                     new_game()
                 if event.key == pygame.K_a:
-                    score += 1
+                    score += int((5000 - bartime) / 10)
                     soundwin.play()
                     ticks = pygame.time.get_ticks()
                     letter = letter_font.render(alphabet[random.randint(0, 25)], 1, RED)
@@ -97,8 +97,8 @@ display_height = display.get_height()
 
 display_font = pygame.font.Font(None, 48)
 letter_font = pygame.font.Font(None, 800)
-rect_score = pygame.Rect((display_width - 50, 50, 50, 50))
-rect_time = pygame.Rect((display_width - 50, 0, 50, 50))
+rect_score = pygame.Rect((display_width - 120, 50, 120, 50))
+rect_time = pygame.Rect((display_width - 120, 0, 50, 50))
 
 display.fill(WHITE)
 
