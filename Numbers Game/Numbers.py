@@ -1,10 +1,3 @@
-##very little logic here since the idea is
-##that the instructor will listen to the student's
-##pronunciation of the letter of the alphabet
-##and manually press a key/button as required
-##
-##Attempted machine learning solution, but
-##wasn't accurate enough!
 import pygame
 import random
 import sys
@@ -27,10 +20,9 @@ def new_game():
     previous_time = 0
     time_remaining = 60
     score = 0
-    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     points = 0
     finished = False
-    letter = letter_font.render(alphabet[random.randint(0, 25)], 1, RED)
+    letter = letter_font.render(str(random.randint(0, 99)), 1, RED)
     letter_rect = letter.get_rect()
     ticks = pygame.time.get_ticks()
     while not finished:
@@ -62,8 +54,8 @@ def new_game():
         pygame.draw.rect(display, BLACK, [30, display_height - 80, display_width - 60, 40], 5)
         if bartime >= 5000:
             ticks = pygame.time.get_ticks()
-            score -= 1
-            letter = letter_font.render(alphabet[random.randint(0, 25)], 1, RED)
+            score -= 500
+            letter = letter_font.render(str(random.randint(0, 99)), 1, RED)
             letter_rect = letter.get_rect()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -78,7 +70,7 @@ def new_game():
                     score += int((5000 - bartime) / 10)
                     soundwin.play()
                     ticks = pygame.time.get_ticks()
-                    letter = letter_font.render(alphabet[random.randint(0, 25)], 1, RED)
+                    letter = letter_font.render(str(random.randint(0, 99)), 1, RED)
                     letter_rect = letter.get_rect()
         clock.tick(30)        
         pygame.display.update()
