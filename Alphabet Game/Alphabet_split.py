@@ -52,11 +52,12 @@ def new_game():
         display.blit(score_text, rect_score)
         display.blit(letter, rect_letter.center)
         bartime = pygame.time.get_ticks() - ticks
-        pygame.draw.rect(display, GREEN, [30, display_height - 80, (bartime / 5000) * (display_width - 60), 40])# modify
+        pygame.draw.rect(display, GREEN, [30, display_height - 80, (1 - (bartime / 5000)) * (display_width - 60), 40])
         pygame.draw.rect(display, BLACK, [30, display_height - 80, display_width - 60, 40], 5)
         if bartime >= 5000:
             ticks = pygame.time.get_ticks()
-            letter = letter_font.render(alphabet[random.randint(0, 25)], 1, (255, 0, 0))
+            score -= 1
+            letter = letter_font.render(alphabet[random.randint(0, 25)], 1, RED)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 finished = True
@@ -65,11 +66,11 @@ def new_game():
                     pygame.quit()
                     sys.exit()
                 if event.key == pygame.K_SPACE:
-                    new_game(alphabet, score)
+                    new_game()
                 if event.key == pygame.K_a:
                     score += 1
-                    bartime = 0
-                    letter = letter_font.render(alphabet[random.randint(0, 25)], 1, (255, 0, 0))
+                    ticks = pygame.time.get_ticks()
+                    letter = letter_font.render(alphabet[random.randint(0, 25)], 1, RED)
         clock.tick(30)        
         pygame.display.update()
     pygame.quit()
