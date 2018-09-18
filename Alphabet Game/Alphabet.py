@@ -1,10 +1,18 @@
+##very little logic here since the idea is
+##that the instructor will listen to the student's
+##pronunciation of the letter of the alphabet
+##and manually press a key/button as required
+##
+##Attempted machine learning solution, but
+##wasn't accurate enough!
 import pygame
 import random
 import sys
+import time
 
 WHITE = (255,255,255)
 BLACK = (0,0,0)
-GREEN = (0,128,0)
+GREEN = (57, 255, 20)
 YELLOW = (230,230,0)
 RED = (255,0,0)
 BLUE = (0,0,255)
@@ -15,6 +23,8 @@ soundlossfile = "audio\\buzzer.ogg"
 
 finished = False
 
+letter_msec = 4000
+
 points = 0
 game_time = 60
 previous_time = 0
@@ -22,38 +32,33 @@ time_remaining = 60
 score = 0
 alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-
-
-
 def new_game(alphabet, score):
     # fix these colors
     time_text = display_font.render(str(time_remaining), 1, (148, 0, 201))
     score_text = display_font.render(str(score), 1, (255, 0, 0))
-    letter = display_font.render(alphabet[random.randint(0, 25)], 1, (255, 0, 0))
+    letter = letter_font.render(alphabet[random.randint(0, 25)], 1, (255, 0, 0))
     display.fill(WHITE)
     display.blit(time_text, rect_time)
     display.blit(score_text, rect_score)
-    display.blit(letter, rect_letter)
+    display.blit(letter, rect_letter.center)
 
     pygame.display.update()
 
     return
-
 
 def new_letter(alphabet, score):
     # fix these colors
     time_text = display_font.render(str(time_remaining), 1, (148, 0, 201))
     score_text = display_font.render(str(score), 1, (255, 0, 0))
-    letter = display_font.render(alphabet[random.randint(0, 25)], 1, (255, 0, 0))
+    letter = letter_font.render(alphabet[random.randint(0, 25)], 1, (255, 0, 0))
     display.fill(WHITE)
     display.blit(time_text, rect_time)
     display.blit(score_text, rect_score)
-    display.blit(letter, rect_letter)
+    display.blit(letter, rect_letter.center)
 
     pygame.display.update()
 
     return
-
 
 pygame.init()
 pygame.mixer.init()
@@ -66,6 +71,7 @@ display_width = display.get_width()
 display_height = display.get_height()
 
 display_font = pygame.font.Font(None, 48)
+letter_font = pygame.font.Font(None, 800)
 rect_letter = pygame.Rect((20, 50, display_width - 20, 388))
 rect_score = pygame.Rect((display_width - 50, 50, 50, 50))
 rect_time = pygame.Rect((display_width - 50, 0, 50, 50))
@@ -89,10 +95,14 @@ while not finished:
             finished = True
     time_text = display_font.render(str(time_remaining), 1, (148, 0, 201))
     score_text = display_font.render(str(score), 1, (255, 0, 0))
-    display.fill(WHITE, rect_time)
-    display.fill(WHITE, rect_score)
+    display.fill(WHITE)
+##    display.fill(WHITE, rect_time)
+##    display.fill(WHITE, rect_score)
     display.blit(time_text, rect_time)
     display.blit(score_text, rect_score)
+    print((time_remaining / 60) * (display_width - 60))
+    pygame.draw.rect(display, GREEN, [30, display_height - 80, (time_remaining / 60) * (display_width - 60), 40])
+    pygame.draw.rect(display, BLACK, [30, display_height - 80, display_width - 60, 40], 5)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
@@ -105,7 +115,6 @@ while not finished:
             if event.key == pygame.K_a:
                 score += 1
                 new_letter(alphabet, score)
-
 
     clock.tick(30)        
     pygame.display.update()
