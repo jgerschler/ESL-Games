@@ -23,42 +23,58 @@ soundlossfile = "audio\\buzzer.ogg"
 
 finished = False
 
-letter_msec = 4000
+def new_game():
+    clock = pygame.time.Clock()
+    previous_time = 0
+    time_remaining = 60
+    score = 0
+    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    points = 0
+    finished = False
+    letter = letter_font.render(alphabet[random.randint(0, 25)], 1, RED)
+    ticks = pygame.time.get_ticks()
+    while not finished:
+        if pygame.time.get_ticks() - previous_time >= 1000:
+            previous_time = pygame.time.get_ticks()
+            time_remaining -= 1
+            if time_remaining == 0:
+                display.fill(WHITE)
+                score_text = display_font.render("SCORE: " + str(score), 1, BROWN)
+                display.blit(score_text, (display_width / 2, display_height / 2))
+                pygame.display.update()
+                time.sleep(5)
+                finished = True
+        time_text = display_font.render(str(time_remaining), 1, BLUE)
+        score_text = display_font.render(str(score), 1, RED)
+        
+        display.fill(WHITE)
+        display.blit(time_text, rect_time)
+        display.blit(score_text, rect_score)
+        display.blit(letter, rect_letter.center)
+        bartime = pygame.time.get_ticks() - ticks
+        pygame.draw.rect(display, GREEN, [30, display_height - 80, (bartime / 5000) * (display_width - 60), 40])# modify
+        pygame.draw.rect(display, BLACK, [30, display_height - 80, display_width - 60, 40], 5)
+        if bartime >= 5000:
+            ticks = pygame.time.get_ticks()
+            letter = letter_font.render(alphabet[random.randint(0, 25)], 1, (255, 0, 0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                finished = True
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+                if event.key == pygame.K_SPACE:
+                    new_game(alphabet, score)
+                if event.key == pygame.K_a:
+                    score += 1
+                    bartime = 0
+                    letter = letter_font.render(alphabet[random.randint(0, 25)], 1, (255, 0, 0))
+        clock.tick(30)        
+        pygame.display.update()
+    pygame.quit()
+    sys.exit()
 
-points = 0
-game_time = 60
-previous_time = 0
-time_remaining = 60
-score = 0
-alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
-def new_game(alphabet, score):
-    # fix these colors
-    time_text = display_font.render(str(time_remaining), 1, (148, 0, 201))
-    score_text = display_font.render(str(score), 1, (255, 0, 0))
-    letter = letter_font.render(alphabet[random.randint(0, 25)], 1, (255, 0, 0))
-    display.fill(WHITE)
-    display.blit(time_text, rect_time)
-    display.blit(score_text, rect_score)
-    display.blit(letter, rect_letter.center)
-
-    pygame.display.update()
-
-    return
-
-def new_letter(alphabet, score):
-    # fix these colors
-    time_text = display_font.render(str(time_remaining), 1, (148, 0, 201))
-    score_text = display_font.render(str(score), 1, (255, 0, 0))
-    letter = letter_font.render(alphabet[random.randint(0, 25)], 1, (255, 0, 0))
-    display.fill(WHITE)
-    display.blit(time_text, rect_time)
-    display.blit(score_text, rect_score)
-    display.blit(letter, rect_letter.center)
-
-    pygame.display.update()
-
-    return
 
 pygame.init()
 pygame.mixer.init()
@@ -80,29 +96,7 @@ display.fill(WHITE)
 
 pygame.display.update()
 
-clock = pygame.time.Clock()
-
 while not finished:
-    if pygame.time.get_ticks() - previous_time >= 1000:
-        previous_time = pygame.time.get_ticks()
-        time_remaining -= 1
-        if time_remaining == 0:
-            display.fill(WHITE)
-            score_text = display_font.render("SCORE: " + str(score), 1, (148, 0, 201))
-            display.blit(score_text, (display_width / 2, display_height / 2))
-            pygame.display.update()
-            time.sleep(5)
-            finished = True
-    time_text = display_font.render(str(time_remaining), 1, (148, 0, 201))
-    score_text = display_font.render(str(score), 1, (255, 0, 0))
-    display.fill(WHITE)
-##    display.fill(WHITE, rect_time)
-##    display.fill(WHITE, rect_score)
-    display.blit(time_text, rect_time)
-    display.blit(score_text, rect_score)
-    print((time_remaining / 60) * (display_width - 60))
-    pygame.draw.rect(display, GREEN, [30, display_height - 80, (time_remaining / 60) * (display_width - 60), 40])
-    pygame.draw.rect(display, BLACK, [30, display_height - 80, display_width - 60, 40], 5)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
@@ -111,13 +105,7 @@ while not finished:
                 pygame.quit()
                 sys.exit()
             if event.key == pygame.K_SPACE:
-                new_game(alphabet, score)
-            if event.key == pygame.K_a:
-                score += 1
-                new_letter(alphabet, score)
-
-    clock.tick(30)        
-    pygame.display.update()
+                new_game()
 
 pygame.quit()
 sys.exit()
