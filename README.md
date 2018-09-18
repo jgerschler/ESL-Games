@@ -1,4 +1,7 @@
 # ESL-Games
+
+This is terribly out-of-date! Will fix when I get time! (18/09/2018)
+
 Scripts for interactive ESL classroom games.
 
 Some games require additional hardware (simple joysticks, etc.). Look at the included image (joystick.png) for a joystick example; you can buy these at a site like https://www.arcadeworlduk.com. The joystick connects to a keyboard circuit, such that stick movement is converted to key presses.
