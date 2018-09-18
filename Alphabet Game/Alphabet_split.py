@@ -32,6 +32,7 @@ def new_game():
     points = 0
     finished = False
     letter = letter_font.render(alphabet[random.randint(0, 25)], 1, RED)
+    letter_rect = letter.get_rect()
     ticks = pygame.time.get_ticks()
     while not finished:
         if pygame.time.get_ticks() - previous_time >= 1000:
@@ -50,7 +51,8 @@ def new_game():
         display.fill(WHITE)
         display.blit(time_text, rect_time)
         display.blit(score_text, rect_score)
-        display.blit(letter, rect_letter.center)
+        letter_rect.center = (display_width / 2, display_height / 2)
+        display.blit(letter, letter_rect)
         bartime = pygame.time.get_ticks() - ticks
         pygame.draw.rect(display, GREEN, [30, display_height - 80, abs(1 - (bartime / 5000)) * (display_width - 60), 40])
         pygame.draw.rect(display, BLACK, [30, display_height - 80, display_width - 60, 40], 5)
@@ -58,6 +60,7 @@ def new_game():
             ticks = pygame.time.get_ticks()
             score -= 1
             letter = letter_font.render(alphabet[random.randint(0, 25)], 1, RED)
+            letter_rect = letter.get_rect()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 finished = True
@@ -71,6 +74,7 @@ def new_game():
                     score += 1
                     ticks = pygame.time.get_ticks()
                     letter = letter_font.render(alphabet[random.randint(0, 25)], 1, RED)
+                    letter_rect = letter.get_rect()
         clock.tick(30)        
         pygame.display.update()
     pygame.quit()
@@ -89,7 +93,6 @@ display_height = display.get_height()
 
 display_font = pygame.font.Font(None, 48)
 letter_font = pygame.font.Font(None, 800)
-rect_letter = pygame.Rect((20, 50, display_width - 20, 388))
 rect_score = pygame.Rect((display_width - 50, 50, 50, 50))
 rect_time = pygame.Rect((display_width - 50, 0, 50, 50))
 
