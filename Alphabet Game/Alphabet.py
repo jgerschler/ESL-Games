@@ -19,7 +19,6 @@ BLUE = (0,0,255)
 BROWN = (97,65,38)
 
 soundwinfile = "audio\\ping.ogg"
-soundlossfile = "audio\\buzzer.ogg"
 
 finished = False
 
@@ -72,6 +71,7 @@ def new_game():
                     new_game()
                 if event.key == pygame.K_a:
                     score += 1
+                    soundwin.play()
                     ticks = pygame.time.get_ticks()
                     letter = letter_font.render(alphabet[random.randint(0, 25)], 1, RED)
                     letter_rect = letter.get_rect()
@@ -85,7 +85,6 @@ pygame.init()
 pygame.mixer.init()
 
 soundwin = pygame.mixer.Sound(soundwinfile)
-soundloss = pygame.mixer.Sound(soundlossfile)
 
 display = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 display_width = display.get_width()
