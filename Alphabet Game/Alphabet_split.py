@@ -52,7 +52,7 @@ def new_game():
         display.blit(score_text, rect_score)
         display.blit(letter, rect_letter.center)
         bartime = pygame.time.get_ticks() - ticks
-        pygame.draw.rect(display, GREEN, [30, display_height - 80, (1 - (bartime / 5000)) * (display_width - 60), 40])
+        pygame.draw.rect(display, GREEN, [30, display_height - 80, abs(1 - (bartime / 5000)) * (display_width - 60), 40])
         pygame.draw.rect(display, BLACK, [30, display_height - 80, display_width - 60, 40], 5)
         if bartime >= 5000:
             ticks = pygame.time.get_ticks()
