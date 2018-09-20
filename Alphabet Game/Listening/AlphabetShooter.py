@@ -6,22 +6,23 @@ WHITE = (255, 255, 255)
 LIGHTGREY = (192, 192, 192)
 DARKGREY = (128, 128, 128)
 
+past_participles = ['A', 'B', 'C']
 
-global words
+global letters
 global score
 letters = [x for x in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
 score = 0
 previous_time = 0
 time_remaining = 60 
 
-class Word(pygame.sprite.Sprite):
+class Letter(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.font = pygame.font.Font(None, random.randint(32, 96))
         self.letter = random.choice(letters)
         self.image = self.font.render(self.letter, 1, (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255)))
         self.rect = self.image.get_rect()
-        self.speed = random.randint(1, 8)
+        self.speed = random.randint(1, 3)
 
     def reset_pos(self):
         self.rect.y = random.randrange(-300, -20)
@@ -36,14 +37,13 @@ class Word(pygame.sprite.Sprite):
             self.reset_pos()
 
 
-class Crosshair(Word):
+class Crosshair(Letter):
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load('images\\crosshair.png')
         self.rect = self.image.get_rect()
         
     def update(self):
-##        pos = pygame.mouse.get_pos()
         self.rect.x = crosshair_x_y[0]
         self.rect.y = crosshair_x_y[1]
 
@@ -74,7 +74,7 @@ crosshair_x_y = [round(screen_width / 2, 0), round(screen_height / 2, 0)]
 
 laser_sound = pygame.mixer.Sound('audio\\laser.ogg')
 explosion_sound = pygame.mixer.Sound('audio\\explosion.ogg')
-scream_sound = pygame.mixer.Sound('audio\\scream.ogg')
+wrong_sound = pygame.mixer.Sound('audio\\wrong.ogg')
 explosion_image = pygame.image.load('images\\explosion.png')
 
 font = pygame.font.Font(None, 128)
@@ -92,17 +92,17 @@ for medium_stars in range(60):
     star_loc_y = random.randrange(0, screen_height)
     star_field_medium.append([star_loc_x, star_loc_y])
 
-word_list = pygame.sprite.Group()
+letter_list = pygame.sprite.Group()
 all_sprites_list = pygame.sprite.Group()
 
 for i in range(50):
-    word = Word()
+    letter = Letter()
 
-    word.rect.x = random.randrange(screen_width)
-    word.rect.y = random.randrange(screen_height)
+    letter.rect.x = random.randrange(screen_width)
+    letter.rect.y = random.randrange(screen_height)
 
-    word_list.add(word)
-    all_sprites_list.add(word)
+    letter_list.add(letter)
+    all_sprites_list.add(letter)
 
 crosshair = Crosshair()
 
@@ -111,9 +111,6 @@ all_sprites_list.add(crosshair)
 done = False
 
 clock = pygame.time.Clock()
-
-
-
 
 while not done:
     if pygame.time.get_ticks() - previous_time >= 1000:
@@ -132,18 +129,18 @@ while not done:
         crosshair_x_y[0] += rx_axis
         crosshair_x_y[1] += ry_axis
     if abs(joystick.get_axis(2)) > 0.1:
-        word_hit_list = pygame.sprite.spritecollide(crosshair, word_list, False)
-        if len(word_hit_list) > 0:
+        letter_hit_list = pygame.sprite.spritecollide(crosshair, letter_list, False)
+        if len(letter_hit_list) > 0:
             screen.blit(explosion_image, (crosshair.rect.x - 60, crosshair.rect.y - 60))
             pygame.display.update()
-            for word in word_hit_list:
-                all_sprites_list.remove(word)
-                word_list.remove(word)
-                if word.word in past_participles:
+            for letter in letter_hit_list:
+                all_sprites_list.remove(letter)
+                letter_list.remove(letter)
+                if letter.letter in past_participles:
                     explosion_sound.play()
                     score += 1
                 else:
-                    scream_sound.play()
+                    wrong_sound.play()
                     score -= 1
         else:
             laser_sound.play()
@@ -153,7 +150,6 @@ while not done:
             done = True
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             done = True
-##        if event.type == pygame.MOUSEBUTTONDOWN:
 
     screen.fill(BLACK)
     time_text = font.render(str(time_remaining), 1, (148, 0, 201))
