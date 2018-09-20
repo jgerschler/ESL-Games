@@ -6,42 +6,10 @@ WHITE = (255, 255, 255)
 LIGHTGREY = (192, 192, 192)
 DARKGREY = (128, 128, 128)
 
-adjectives = ["red","orange","yellow","green","blue","purple", "fat",
-              "skinny", "happy", "sad"]
-verbs = ["be", "beat", "begin", "bite", "blow", "break",
-         "bring", "build", "buy", "catch", "choose", "cost",
-         "do", "draw", "drink", "drive", "eat", "fall", "feed",
-         "feel", "fight", "find", "fly", "forget", "freeze", "get",
-         "give", "go", "grow", "hang", "have", "hear", "hide",
-         "hold", "keep", "know", "lead", "leave", "lend",
-         "lose", "make", "mean", "meet", "pay", "ride",
-         "ring", "rise", "say", "see", "sell", "send",
-         "shoot", "shut", "sing", "sit", "sleep", "speak", "spend",
-         "stand", "steal", "stick", "swim", "take", "teach", "tell",
-         "think", "throw", "wake", "wear", "win", "write"]
-past_participles = ["been", "beaten", "begun", "bitten", "blown",
-                    "broken", "brought", "built",
-                    "bought", "caught", "chosen", "cost",
-                    "done", "drawn", "drunk", "driven",
-                    "eaten", "fallen", "fed", "felt", "fought",
-                    "found", "flown", "forgotten", "frozen",
-                    "gotten", "given", "gone", "grown", "hung",
-                    "had", "heard", "hidden", "held",
-                    "kept", "known", "led", "left",
-                    "lent", "lost", "made", "meant",
-                    "met", "paid", "ridden",
-                    "rung", "risen", "said", "seen",
-                    "sold", "sent", "shot", "shut",
-                    "sung", "sat", "slept", "spoken", "spent",
-                    "stood", "stolen", "stuck", "swum", "taken",
-                    "taught", "told", "thought", "thrown",
-                    "woken", "worn", "won", "written"]
-pronouns = ["I", "We", "You", "He", "She", "It", "They",
-            "Me", "You", "Us", "Him", "Her", "It", "Them"]
 
 global words
 global score
-words = adjectives + verbs + past_participles + pronouns
+letters = [x for x in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
 score = 0
 previous_time = 0
 time_remaining = 60 
@@ -50,8 +18,8 @@ class Word(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.font = pygame.font.Font(None, random.randint(32, 96))
-        self.word = random.choice(words)
-        self.image = self.font.render(self.word, 1, (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255)))
+        self.letter = random.choice(letters)
+        self.image = self.font.render(self.letter, 1, (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255)))
         self.rect = self.image.get_rect()
         self.speed = random.randint(1, 8)
 
