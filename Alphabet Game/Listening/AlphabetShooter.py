@@ -6,14 +6,15 @@ WHITE = (255, 255, 255)
 LIGHTGREY = (192, 192, 192)
 DARKGREY = (128, 128, 128)
 
-past_participles = ['A', 'B', 'C']
-
 global letters
 global score
 letters = [x for x in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
 score = 0
+
 previous_time = 0
-time_remaining = 60 
+time_remaining = 60
+
+sel_letters = random.sample(letters, 10)
 
 class Letter(pygame.sprite.Sprite):
     def __init__(self):
@@ -56,7 +57,6 @@ def game_over():
     pygame.display.update()
     pygame.time.wait(3000)
     pygame.quit()
-
     
 
 pygame.init()
@@ -76,6 +76,33 @@ laser_sound = pygame.mixer.Sound('audio\\laser.ogg')
 explosion_sound = pygame.mixer.Sound('audio\\explosion.ogg')
 wrong_sound = pygame.mixer.Sound('audio\\wrong.ogg')
 explosion_image = pygame.image.load('images\\explosion.png')
+
+letter_a = pygame.mixer.Sound('audio\\A.ogg')
+letter_b = pygame.mixer.Sound('audio\\B.ogg')
+letter_c = pygame.mixer.Sound('audio\\C.ogg')
+letter_d = pygame.mixer.Sound('audio\\D.ogg')
+letter_e = pygame.mixer.Sound('audio\\E.ogg')
+letter_f = pygame.mixer.Sound('audio\\F.ogg')
+letter_g = pygame.mixer.Sound('audio\\G.ogg')
+letter_h = pygame.mixer.Sound('audio\\H.ogg')
+letter_i = pygame.mixer.Sound('audio\\I.ogg')
+letter_j = pygame.mixer.Sound('audio\\J.ogg')
+letter_k = pygame.mixer.Sound('audio\\K.ogg')
+letter_l = pygame.mixer.Sound('audio\\L.ogg')
+letter_m = pygame.mixer.Sound('audio\\M.ogg')
+letter_n = pygame.mixer.Sound('audio\\N.ogg')
+letter_o = pygame.mixer.Sound('audio\\O.ogg')
+letter_p = pygame.mixer.Sound('audio\\P.ogg')
+letter_q = pygame.mixer.Sound('audio\\Q.ogg')
+letter_r = pygame.mixer.Sound('audio\\R.ogg')
+letter_s = pygame.mixer.Sound('audio\\S.ogg')
+letter_t = pygame.mixer.Sound('audio\\T.ogg')
+letter_u = pygame.mixer.Sound('audio\\U.ogg')
+letter_v = pygame.mixer.Sound('audio\\V.ogg')
+letter_w = pygame.mixer.Sound('audio\\W.ogg')
+letter_x = pygame.mixer.Sound('audio\\X.ogg')
+letter_y = pygame.mixer.Sound('audio\\Y.ogg')
+letter_z = pygame.mixer.Sound('audio\\Z.ogg')
 
 font = pygame.font.Font(None, 128)
 
@@ -112,6 +139,8 @@ done = False
 
 clock = pygame.time.Clock()
 
+letter_a.play()
+
 while not done:
     if pygame.time.get_ticks() - previous_time >= 1000:
         previous_time = pygame.time.get_ticks()
@@ -136,7 +165,7 @@ while not done:
             for letter in letter_hit_list:
                 all_sprites_list.remove(letter)
                 letter_list.remove(letter)
-                if letter.letter in past_participles:
+                if letter.letter in sel_letters:
                     explosion_sound.play()
                     score += 1
                 else:
