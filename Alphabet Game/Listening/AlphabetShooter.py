@@ -1,5 +1,6 @@
 import pygame
 import random
+import sys
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -10,20 +11,22 @@ global letters
 global score
 letters = [x for x in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
 score = 0
+letter_str_list = []
+
 
 previous_time = 0
-time_remaining = 60
+time_remaining = 30
 
-sel_letters = random.sample(letters, 10)
+
 
 class Letter(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.font = pygame.font.Font(None, random.randint(32, 96))
+        self.font = pygame.font.Font(None, random.randint(48, 128))
         self.letter = random.choice(letters)
         self.image = self.font.render(self.letter, 1, (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255)))
         self.rect = self.image.get_rect()
-        self.speed = random.randint(1, 3)
+        self.speed = random.randint(1, 8)
 
     def reset_pos(self):
         self.rect.y = random.randrange(-300, -20)
@@ -57,6 +60,7 @@ def game_over():
     pygame.display.update()
     pygame.time.wait(3000)
     pygame.quit()
+    sys.exit()
     
 
 pygame.init()
@@ -73,7 +77,6 @@ pygame.mouse.set_visible(0)
 crosshair_x_y = [round(screen_width / 2, 0), round(screen_height / 2, 0)]
 
 laser_sound = pygame.mixer.Sound('audio\\laser.ogg')
-explosion_sound = pygame.mixer.Sound('audio\\explosion.ogg')
 wrong_sound = pygame.mixer.Sound('audio\\wrong.ogg')
 explosion_image = pygame.image.load('images\\explosion.png')
 
@@ -111,8 +114,6 @@ letter_dict = {"A":letter_a, "B":letter_b, "C":letter_c, "D":letter_d, "E":lette
                "U":letter_u, "V":letter_v, "W":letter_w, "X":letter_x, "Y":letter_y,
                "Z":letter_z}
 
-current_letter = sel_letters.pop()
-
 font = pygame.font.Font(None, 128)
 
 star_field_slow = []
@@ -131,14 +132,18 @@ for medium_stars in range(60):
 letter_list = pygame.sprite.Group()
 all_sprites_list = pygame.sprite.Group()
 
-for i in range(20):
+for i in range(30):
     letter = Letter()
 
     letter.rect.x = random.randrange(screen_width)
     letter.rect.y = random.randrange(screen_height)
 
+    letter_str_list.append(letter.letter)
+    
     letter_list.add(letter)
     all_sprites_list.add(letter)
+
+sel_letters = random.sample(letter_str_list, 10)
 
 crosshair = Crosshair()
 
@@ -146,8 +151,12 @@ all_sprites_list.add(crosshair)
 
 done = False
 
+
+
 clock = pygame.time.Clock()
 
+
+current_letter = sel_letters.pop()
 letter_dict[current_letter].play()
 
 while not done:
@@ -175,7 +184,7 @@ while not done:
             for letter in letter_hit_list:
                 all_sprites_list.remove(letter)
                 letter_list.remove(letter)
-                if letter.letter in sel_letters:
+                if letter.letter == current_letter:
                     laser_sound.play()
                     if len(sel_letters) > 0:
                         current_letter = sel_letters.pop()
