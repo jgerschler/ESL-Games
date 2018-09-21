@@ -111,6 +111,8 @@ letter_dict = {"A":letter_a, "B":letter_b, "C":letter_c, "D":letter_d, "E":lette
                "U":letter_u, "V":letter_v, "W":letter_w, "X":letter_x, "Y":letter_y,
                "Z":letter_z}
 
+current_letter = sel_letters.pop()
+
 font = pygame.font.Font(None, 128)
 
 star_field_slow = []
@@ -129,7 +131,7 @@ for medium_stars in range(60):
 letter_list = pygame.sprite.Group()
 all_sprites_list = pygame.sprite.Group()
 
-for i in range(50):
+for i in range(20):
     letter = Letter()
 
     letter.rect.x = random.randrange(screen_width)
@@ -146,12 +148,13 @@ done = False
 
 clock = pygame.time.Clock()
 
-letter_a.play()
+letter_dict[current_letter].play()
 
 while not done:
     if pygame.time.get_ticks() - previous_time >= 1000:
         previous_time = pygame.time.get_ticks()
         time_remaining -= 1
+        letter_dict[current_letter].play()
         if time_remaining == 0:
             done = True
     if (abs(joystick.get_axis(0)) > 0.1 or abs(joystick.get_axis(1)) > 0.1):
@@ -173,13 +176,19 @@ while not done:
                 all_sprites_list.remove(letter)
                 letter_list.remove(letter)
                 if letter.letter in sel_letters:
-                    explosion_sound.play()
+                    laser_sound.play()
+                    if len(sel_letters) > 0:
+                        current_letter = sel_letters.pop()
+                    else:
+                        done = True
                     score += 1
                 else:
                     wrong_sound.play()
+                    if len(sel_letters) > 0:
+                        current_letter = sel_letters.pop()
+                    else:
+                        done = True
                     score -= 1
-        else:
-            laser_sound.play()
         
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
