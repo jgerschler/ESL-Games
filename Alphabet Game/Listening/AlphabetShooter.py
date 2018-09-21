@@ -7,22 +7,17 @@ WHITE = (255, 255, 255)
 LIGHTGREY = (192, 192, 192)
 DARKGREY = (128, 128, 128)
 
-global letters
-global score
 letters = [x for x in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
 score = 0
 letter_str_list = []
-
-
 previous_time = 0
-time_remaining = 30
-
-
+time_remaining = 60
+num_of_letters = 15
 
 class Letter(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.font = pygame.font.Font(None, random.randint(48, 128))
+        self.font = pygame.font.Font(None, random.randint(64, 128))
         self.letter = random.choice(letters)
         self.image = self.font.render(self.letter, 1, (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255)))
         self.rect = self.image.get_rect()
@@ -39,7 +34,6 @@ class Letter(pygame.sprite.Sprite):
             self.rect.y += 1
         if self.rect.y > screen_height:
             self.reset_pos()
-
 
 class Crosshair(Letter):
     def __init__(self):
@@ -61,7 +55,6 @@ def game_over():
     pygame.time.wait(3000)
     pygame.quit()
     sys.exit()
-    
 
 pygame.init()
 pygame.mixer.init()
@@ -143,21 +136,15 @@ for i in range(30):
     letter_list.add(letter)
     all_sprites_list.add(letter)
 
-sel_letters = random.sample(letter_str_list, 10)
+sel_letters = random.sample(letter_str_list, num_of_letters)
+current_letter = sel_letters.pop()
 
 crosshair = Crosshair()
-
 all_sprites_list.add(crosshair)
 
 done = False
 
-
-
 clock = pygame.time.Clock()
-
-
-current_letter = sel_letters.pop()
-letter_dict[current_letter].play()
 
 while not done:
     if pygame.time.get_ticks() - previous_time >= 1000:
