@@ -104,6 +104,13 @@ letter_x = pygame.mixer.Sound('audio\\X.ogg')
 letter_y = pygame.mixer.Sound('audio\\Y.ogg')
 letter_z = pygame.mixer.Sound('audio\\Z.ogg')
 
+letter_dict = {"A":letter_a, "B":letter_b, "C":letter_c, "D":letter_d, "E":letter_e,
+               "F":letter_f, "G":letter_g, "H":letter_h, "I":letter_i, "J":letter_j,
+               "K":letter_k, "L":letter_l, "M":letter_m, "N":letter_n, "O":letter_o,
+               "P":letter_p, "Q":letter_q, "R":letter_r, "S":letter_s, "T":letter_t,
+               "U":letter_u, "V":letter_v, "W":letter_w, "X":letter_x, "Y":letter_y,
+               "Z":letter_z}
+
 font = pygame.font.Font(None, 128)
 
 star_field_slow = []
