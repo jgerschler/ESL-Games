@@ -21,7 +21,7 @@ class Letter(pygame.sprite.Sprite):
         self.letter = random.choice(letters)
         self.image = self.font.render(self.letter, 1, (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255)))
         self.rect = self.image.get_rect()
-        self.speed = random.randint(1, 8)
+        self.speed = random.randint(3, 8)
 
     def reset_pos(self):
         self.rect.y = random.randrange(-300, -20)
@@ -59,8 +59,8 @@ def game_over():
 pygame.init()
 pygame.mixer.init()
 pygame.joystick.init()
-joystick = pygame.joystick.Joystick(0)
-joystick.init()
+joystick_player_1 = pygame.joystick.Joystick(0)
+joystick_player_1.init()
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_width = screen.get_width()
@@ -153,17 +153,17 @@ while not done:
         letter_dict[current_letter].play()
         if time_remaining == 0:
             done = True
-    if (abs(joystick.get_axis(0)) > 0.1 or abs(joystick.get_axis(1)) > 0.1):
-        lx_axis = round(30 * joystick.get_axis(0), 0)
-        ly_axis = round(30 * joystick.get_axis(1), 0)
+    if (abs(joystick_player_1.get_axis(0)) > 0.1 or abs(joystick_player_1.get_axis(1)) > 0.1):
+        lx_axis = round(30 * joystick_player_1.get_axis(0), 0)
+        ly_axis = round(30 * joystick_player_1.get_axis(1), 0)
         crosshair_x_y[0] += lx_axis
         crosshair_x_y[1] += ly_axis
-    if (abs(joystick.get_axis(3)) > 0.1 or abs(joystick.get_axis(4)) > 0.1):
-        rx_axis = round(30 * joystick.get_axis(4), 0)
-        ry_axis = round(30 * joystick.get_axis(3), 0)
+    if (abs(joystick_player_1.get_axis(3)) > 0.1 or abs(joystick_player_1.get_axis(4)) > 0.1):
+        rx_axis = round(30 * joystick_player_1.get_axis(4), 0)
+        ry_axis = round(30 * joystick_player_1.get_axis(3), 0)
         crosshair_x_y[0] += rx_axis
         crosshair_x_y[1] += ry_axis
-    if abs(joystick.get_axis(2)) > 0.1:
+    if abs(joystick_player_1.get_axis(2)) > 0.1:
         letter_hit_list = pygame.sprite.spritecollide(crosshair, letter_list, False)
         if len(letter_hit_list) > 0:
             screen.blit(explosion_image, (crosshair.rect.x - 60, crosshair.rect.y - 60))
