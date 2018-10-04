@@ -35,15 +35,25 @@ class Letter(pygame.sprite.Sprite):
         if self.rect.y > screen_height:
             self.reset_pos()
 
-class Crosshair(Letter):
+class Crosshair_P0(Letter):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load('images\\crosshair.png')
+        self.image = pygame.image.load('images\\crosshair_green.png')
         self.rect = self.image.get_rect()
         
     def update(self):
-        self.rect.x = crosshair_x_y[0]
-        self.rect.y = crosshair_x_y[1]
+        self.rect.x = crosshair_player_0_x_y[0]
+        self.rect.y = crosshair_player_0_x_y[1]
+
+class Crosshair_P1(Letter):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load('images\\crosshair_purple.png')
+        self.rect = self.image.get_rect()
+        
+    def update(self):
+        self.rect.x = crosshair_player_1_x_y[0]
+        self.rect.y = crosshair_player_1_x_y[1]
 
 def game_over():
     screen.fill(BLACK)
@@ -69,7 +79,8 @@ screen_width = screen.get_width()
 screen_height = screen.get_height()
 pygame.mouse.set_visible(0)
 
-crosshair_x_y = [round(screen_width / 2, 0), round(screen_height / 2, 0)]
+crosshair_player_0_x_y = [round(screen_width / 2, 0), round(screen_height / 2, 0)]
+crosshair_player_1_x_y = [round(screen_width / 2, 0), round(screen_height / 2, 0)]
 
 laser_sound = pygame.mixer.Sound('audio\\laser.ogg')
 wrong_sound = pygame.mixer.Sound('audio\\wrong.ogg')
@@ -141,8 +152,10 @@ for i in range(30):
 sel_letters = random.sample(letter_str_list, num_of_letters)
 current_letter = sel_letters.pop()
 
-crosshair = Crosshair()
-all_sprites_list.add(crosshair)
+crosshair_player_0 = Crosshair_P0()
+crosshair_player_1 = Crosshair_P1()
+all_sprites_list.add(crosshair_player_0)
+all_sprites_list.add(crosshair_player_1)
 
 done = False
 
@@ -159,17 +172,17 @@ while not done:
     if (abs(joystick_player_0.get_axis(0)) > 0.1 or abs(joystick_player_0.get_axis(1)) > 0.1):
         lx_axis = round(30 * joystick_player_0.get_axis(0), 0)
         ly_axis = round(30 * joystick_player_0.get_axis(1), 0)
-        crosshair_x_y[0] += lx_axis
-        crosshair_x_y[1] += ly_axis
+        crosshair_player_0_x_y[0] += lx_axis
+        crosshair_player_0_x_y[1] += ly_axis
     if (abs(joystick_player_0.get_axis(3)) > 0.1 or abs(joystick_player_0.get_axis(4)) > 0.1):
         rx_axis = round(30 * joystick_player_0.get_axis(4), 0)
         ry_axis = round(30 * joystick_player_0.get_axis(3), 0)
-        crosshair_x_y[0] += rx_axis
-        crosshair_x_y[1] += ry_axis
+        crosshair_player_0_x_y[0] += rx_axis
+        crosshair_player_0_x_y[1] += ry_axis
     if abs(joystick_player_0.get_axis(2)) > 0.1:
-        letter_hit_list = pygame.sprite.spritecollide(crosshair, letter_list, False)
+        letter_hit_list = pygame.sprite.spritecollide(crosshair_player_0, letter_list, False)
         if len(letter_hit_list) > 0:
-            screen.blit(explosion_image, (crosshair.rect.x - 60, crosshair.rect.y - 60))
+            screen.blit(explosion_image, (crosshair_player_0.rect.x - 60, crosshair_player_0.rect.y - 60))
             pygame.display.update()
             for letter in letter_hit_list:
                 all_sprites_list.remove(letter)
@@ -192,17 +205,17 @@ while not done:
     if (abs(joystick_player_1.get_axis(0)) > 0.1 or abs(joystick_player_1.get_axis(1)) > 0.1):
         lx_axis = round(30 * joystick_player_0.get_axis(0), 0)
         ly_axis = round(30 * joystick_player_0.get_axis(1), 0)
-        crosshair_x_y[0] += lx_axis
-        crosshair_x_y[1] += ly_axis
+        crosshair_player_1_x_y[0] += lx_axis
+        crosshair_player_1_x_y[1] += ly_axis
     if (abs(joystick_player_1.get_axis(3)) > 0.1 or abs(joystick_player_1.get_axis(4)) > 0.1):
         rx_axis = round(30 * joystick_player_0.get_axis(4), 0)
         ry_axis = round(30 * joystick_player_0.get_axis(3), 0)
-        crosshair_x_y[0] += rx_axis
-        crosshair_x_y[1] += ry_axis
+        crosshair_player_1_x_y[0] += rx_axis
+        crosshair_player_1_x_y[1] += ry_axis
     if abs(joystick_player_1.get_axis(2)) > 0.1:
-        letter_hit_list = pygame.sprite.spritecollide(crosshair, letter_list, False)
+        letter_hit_list = pygame.sprite.spritecollide(crosshair_player_1, letter_list, False)
         if len(letter_hit_list) > 0:
-            screen.blit(explosion_image, (crosshair.rect.x - 60, crosshair.rect.y - 60))
+            screen.blit(explosion_image, (crosshair_player_1.rect.x - 60, crosshair_player_1.rect.y - 60))
             pygame.display.update()
             for letter in letter_hit_list:
                 all_sprites_list.remove(letter)
