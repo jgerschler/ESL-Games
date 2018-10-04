@@ -203,13 +203,13 @@ while not done:
                     score -= 1
     # player two
     if (abs(joystick_player_1.get_axis(0)) > 0.1 or abs(joystick_player_1.get_axis(1)) > 0.1):
-        lx_axis = round(30 * joystick_player_0.get_axis(0), 0)
-        ly_axis = round(30 * joystick_player_0.get_axis(1), 0)
+        lx_axis = round(30 * joystick_player_1.get_axis(0), 0)
+        ly_axis = round(30 * joystick_player_1.get_axis(1), 0)
         crosshair_player_1_x_y[0] += lx_axis
         crosshair_player_1_x_y[1] += ly_axis
     if (abs(joystick_player_1.get_axis(3)) > 0.1 or abs(joystick_player_1.get_axis(4)) > 0.1):
-        rx_axis = round(30 * joystick_player_0.get_axis(4), 0)
-        ry_axis = round(30 * joystick_player_0.get_axis(3), 0)
+        rx_axis = round(30 * joystick_player_1.get_axis(4), 0)
+        ry_axis = round(30 * joystick_player_1.get_axis(3), 0)
         crosshair_player_1_x_y[0] += rx_axis
         crosshair_player_1_x_y[1] += ry_axis
     if abs(joystick_player_1.get_axis(2)) > 0.1:
