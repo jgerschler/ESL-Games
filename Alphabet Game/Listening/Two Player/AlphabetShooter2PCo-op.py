@@ -155,6 +155,7 @@ while not done:
         letter_dict[current_letter].play()
         if time_remaining == 0:
             done = True
+    # player one
     if (abs(joystick_player_0.get_axis(0)) > 0.1 or abs(joystick_player_0.get_axis(1)) > 0.1):
         lx_axis = round(30 * joystick_player_0.get_axis(0), 0)
         ly_axis = round(30 * joystick_player_0.get_axis(1), 0)
@@ -187,7 +188,40 @@ while not done:
                     else:
                         done = True
                     score -= 1
-        
+    # player two
+    if (abs(joystick_player_1.get_axis(0)) > 0.1 or abs(joystick_player_1.get_axis(1)) > 0.1):
+        lx_axis = round(30 * joystick_player_0.get_axis(0), 0)
+        ly_axis = round(30 * joystick_player_0.get_axis(1), 0)
+        crosshair_x_y[0] += lx_axis
+        crosshair_x_y[1] += ly_axis
+    if (abs(joystick_player_1.get_axis(3)) > 0.1 or abs(joystick_player_1.get_axis(4)) > 0.1):
+        rx_axis = round(30 * joystick_player_0.get_axis(4), 0)
+        ry_axis = round(30 * joystick_player_0.get_axis(3), 0)
+        crosshair_x_y[0] += rx_axis
+        crosshair_x_y[1] += ry_axis
+    if abs(joystick_player_1.get_axis(2)) > 0.1:
+        letter_hit_list = pygame.sprite.spritecollide(crosshair, letter_list, False)
+        if len(letter_hit_list) > 0:
+            screen.blit(explosion_image, (crosshair.rect.x - 60, crosshair.rect.y - 60))
+            pygame.display.update()
+            for letter in letter_hit_list:
+                all_sprites_list.remove(letter)
+                letter_list.remove(letter)
+                if letter.letter == current_letter:
+                    laser_sound.play()
+                    if len(sel_letters) > 0:
+                        current_letter = sel_letters.pop()
+                    else:
+                        done = True
+                    score += 1
+                else:
+                    wrong_sound.play()
+                    if len(sel_letters) > 0:
+                        current_letter = sel_letters.pop()
+                    else:
+                        done = True
+                    score -= 1
+                    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
