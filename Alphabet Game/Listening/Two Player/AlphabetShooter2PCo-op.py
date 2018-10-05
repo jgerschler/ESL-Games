@@ -21,17 +21,13 @@ class Letter(pygame.sprite.Sprite):
         self.letter = random.choice(letters)
         self.image = self.font.render(self.letter, 1, (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255)))
         self.rect = self.image.get_rect()
-        self.speed = random.randint(3, 8)
 
     def reset_pos(self):
-        self.rect.y = random.randrange(-300, -20)
-        self.rect.x = random.randrange(0, screen_width)
+        self.rect.y = random.randrange(-100, -20)
+        self.rect.x = random.randrange(20, screen_width - 20)
 
     def update(self):
-        if score > 0:
-            self.rect.y += (self.speed * score / 5) + 1
-        else:
-            self.rect.y += 1
+        self.rect.y += 3
         if self.rect.y > screen_height:
             self.reset_pos()
 
@@ -42,6 +38,14 @@ class Crosshair_P0(Letter):
         self.rect = self.image.get_rect()
         
     def update(self):
+        if crosshair_player_0_x_y[0] < 0:
+            crosshair_player_0_x_y[0] = 0
+        if crosshair_player_0_x_y[1] < 0:
+            crosshair_player_0_x_y[1] = 0
+        if crosshair_player_0_x_y[0] > screen_width - self.rect.width:
+            crosshair_player_0_x_y[0] = screen_width - self.rect.width
+        if crosshair_player_0_x_y[1] > screen_height - self.rect.height:
+            crosshair_player_0_x_y[1] = screen_height - self.rect.height
         self.rect.x = crosshair_player_0_x_y[0]
         self.rect.y = crosshair_player_0_x_y[1]
 
@@ -52,6 +56,14 @@ class Crosshair_P1(Letter):
         self.rect = self.image.get_rect()
         
     def update(self):
+        if crosshair_player_1_x_y[0] < 0:
+            crosshair_player_1_x_y[0] = 0
+        if crosshair_player_1_x_y[1] < 0:
+            crosshair_player_1_x_y[1] = 0
+        if crosshair_player_1_x_y[0] > screen_width - self.rect.width:
+            crosshair_player_1_x_y[0] = screen_width - self.rect.width
+        if crosshair_player_1_x_y[1] > screen_height - self.rect.height:
+            crosshair_player_1_x_y[1] = screen_height - self.rect.height
         self.rect.x = crosshair_player_1_x_y[0]
         self.rect.y = crosshair_player_1_x_y[1]
 

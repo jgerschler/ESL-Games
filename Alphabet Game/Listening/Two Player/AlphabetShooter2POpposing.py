@@ -25,7 +25,7 @@ class Letter(pygame.sprite.Sprite):
 
     def reset_pos(self):
         self.rect.y = random.randrange(-100, -20)
-        self.rect.x = random.randrange(0, screen_width)
+        self.rect.x = random.randrange(20, screen_width - 20)
 
     def update(self):
         self.rect.y += 3
@@ -39,6 +39,14 @@ class Crosshair_P0(Letter):
         self.rect = self.image.get_rect()
         
     def update(self):
+        if crosshair_player_0_x_y[0] < 0:
+            crosshair_player_0_x_y[0] = 0
+        if crosshair_player_0_x_y[1] < 0:
+            crosshair_player_0_x_y[1] = 0
+        if crosshair_player_0_x_y[0] > screen_width - self.rect.width:
+            crosshair_player_0_x_y[0] = screen_width - self.rect.width
+        if crosshair_player_0_x_y[1] > screen_height - self.rect.height:
+            crosshair_player_0_x_y[1] = screen_height - self.rect.height
         self.rect.x = crosshair_player_0_x_y[0]
         self.rect.y = crosshair_player_0_x_y[1]
 
@@ -49,6 +57,14 @@ class Crosshair_P1(Letter):
         self.rect = self.image.get_rect()
         
     def update(self):
+        if crosshair_player_1_x_y[0] < 0:
+            crosshair_player_1_x_y[0] = 0
+        if crosshair_player_1_x_y[1] < 0:
+            crosshair_player_1_x_y[1] = 0
+        if crosshair_player_1_x_y[0] > screen_width - self.rect.width:
+            crosshair_player_1_x_y[0] = screen_width - self.rect.width
+        if crosshair_player_1_x_y[1] > screen_height - self.rect.height:
+            crosshair_player_1_x_y[1] = screen_height - self.rect.height
         self.rect.x = crosshair_player_1_x_y[0]
         self.rect.y = crosshair_player_1_x_y[1]
 
