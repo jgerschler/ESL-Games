@@ -24,8 +24,8 @@ class Letter(pygame.sprite.Sprite):
         self.speed = random.randint(1, 8)
 
     def reset_pos(self):
-        self.rect.y = random.randrange(-300, -20)
-        self.rect.x = random.randrange(0, screen_width)
+        self.rect.y = random.randrange(-100, -20)
+        self.rect.x = random.randrange(20, screen_width - 20)
 
     def update(self):
         if score > 0:
@@ -42,6 +42,14 @@ class Crosshair(Letter):
         self.rect = self.image.get_rect()
         
     def update(self):
+        if crosshair_x_y[0] < 0:
+            crosshair_x_y[0] = 0
+        if crosshair_x_y[1] < 0:
+            crosshair_x_y[1] = 0
+        if crosshair_x_y[0] > screen_width - self.rect.width:
+            crosshair_x_y[0] = screen_width - self.rect.width
+        if crosshair_x_y[1] > screen_height - self.rect.height:
+            crosshair_x_y[1] = screen_height - self.rect.height
         self.rect.x = crosshair_x_y[0]
         self.rect.y = crosshair_x_y[1]
 
@@ -128,8 +136,8 @@ all_sprites_list = pygame.sprite.Group()
 for i in range(30):
     letter = Letter()
 
-    letter.rect.x = random.randrange(screen_width)
-    letter.rect.y = random.randrange(screen_height)
+    letter.rect.x = random.randrange(20, screen_width - 20)
+    letter.rect.y = random.randrange(20, screen_height - 20)
 
     letter_str_list.append(letter.letter)
     
