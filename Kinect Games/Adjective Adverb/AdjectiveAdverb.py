@@ -38,11 +38,42 @@ class BodyGameRuntime(object):
 
         self.score = 0
 
-        self.vocab_dict = {"beach":"playa", "desert":"desierto", "forest":"bosque",
-                           "jungle":"selva", "hill":"loma", "island":"isla",
-                           "lake":"lago", "mountain":"montaña", "ocean":"oceano",
-                           "river":"rio", "valley":"valle", "basin":"cuenca",
-                           "volcano":"volcano", "waterfall":"cascada", "creek":"arroyo"}
+        self.vocab_dict = {"She liked the happy cat.":("happy", "happily", "happy"),
+                      "He quickly ate his food.":("quick", "quickly", "quickly"),
+                      "That is a cute puppy!":("cute", "cutely", "cute"),
+                      "The pozole smells tasty.":("tasty", "tastily", "tasty"),
+                      "The dead fish looks gross.":("gross", "grossly", "gross"),
+                      "He speaks slowly.":("slow", "slowly", "slowly"),
+                      "The girl moves quickly.":("quick", "quickly", "quickly"),
+                      "I feel angry.":("angry", "angrily", "angry"),
+                      "The woman looked angrily at the paint stains.":("angry", "angrily", "angrily"),
+                      "Rosario feels bad about the news.":("bad", "badly", "bad"),
+                      "Your nose is very senstive. You smell well.":("good", "well", "well"),
+                      "Nice perfume! You smell good.":("good", "well", "good"),
+                      "Concha seems sad. She broke up with her boyfriend.":("sad", "sadly", "sad"),
+                      "Elvia was nervous and spoke very quickly.":("quick", "quickly", "quickly"),
+                      "Monse rapidly swallowed the taco.":("rapid", "rapidly", "rapidly"),
+                      "Chivis excitedly watched the new movie.":("excited", "excitedly", "excitedly"),
+                      "Tizoc rudely cut in line at the cafeteria.":("rude", "rudely", "rudely"),
+                      "We did a good job on our homework.":("good", "well", "good"),
+                      "Roberto feels bad.":("bad", "badly", "bad"),
+                      "This old sushi tastes disgusting.":("disgusting", "disgustingly", "disgusting"),
+                      "The gross man disgustingly spit on the floor.":("disgusting", "disgustingly", "disgustingly"),
+                      "Salma Hayek is a beautiful actress.":("beautiful", "beautifully", "beautiful"),
+                      "Eugenio Derbez acts beautifully.":("beautiful", "beautifully", "beautifully"),
+                      "She is a slow runner!":("slow", "slowly", "slow"),
+                      "She drinks thirstily.":("thirsty", "thirstily", "thirstily"),
+                      "Oliver hungrily ate the burrito.":("hungry", "hungrily", "hungrily"),
+                      "Five fish swam quickly.":("quick", "quickly", "quickly"),
+                      "The black crow squawks loudly.":("loud", "loudly", "loudly"),
+                      "Race cars drive carefully.":("careful", "carefully", "carefully"),
+                      "Jennifer quietly read her book.":("quiet", "quietly", "quietly"),
+                      "Luis is a quiet person.":("quiet", "quietly", "quiet"),
+                      "He is a safe driver.":("safe", "safely", "safe"),
+                      "Your brother is so kind.":("kind", "kindly", "kind"),
+                      "I always work hard during the week.":("hard", "hardly", "hard"),
+                      "Paco did badly on his test.":("bad", "badly", "badly"),
+                      "It is natural to feel nervous before a job interview.":("nervous", "nervously", "nervous")}
 
         self._frame_surface.fill((255, 255, 255))
 
@@ -59,7 +90,7 @@ class BodyGameRuntime(object):
         self._frame_surface.blit(text_surf, text_rect)
         return text_rect 
 
-    def draw_ind_point(self, joints, jointPoints, color, highlight_color, rect0, rect1, rect2, joint0, words, selected_word_esp):
+    def draw_ind_point(self, joints, jointPoints, color, highlight_color, rect0, rect1, rect2, joint0, words, selected_sentence):
         joint0State = joints[joint0].TrackingState;
         
         if (joint0State == PyKinectV2.TrackingState_NotTracked or
@@ -68,9 +99,8 @@ class BodyGameRuntime(object):
 
         center = (int(jointPoints[joint0].x), int(jointPoints[joint0].y))
 
-        if ((rect0.collidepoint(center) and self.vocab_dict[words[0]] == selected_word_esp) or
-            (rect1.collidepoint(center) and self.vocab_dict[words[1]] == selected_word_esp) or
-            (rect2.collidepoint(center) and self.vocab_dict[words[2]] == selected_word_esp)):
+        if ((rect0.collidepoint(center) and self.vocab_dict[selected_sentence][0] == self.vocab_dict[selected_sentence][2]) or
+            (rect2.collidepoint(center) and self.vocab_dict[selected_sentence][1] == self.vocab_dict[selected_sentence][2])):
             self.score += 1
             self.beep_sound.play()
             pygame.time.delay(500)
@@ -87,23 +117,23 @@ class BodyGameRuntime(object):
             except:
                 pass
 
-    def update_screen(self, joints, jointPoints, color, highlight_color, words, selected_word_esp, seconds):
+    def update_screen(self, joints, jointPoints, color, highlight_color, words, selected_sentence, seconds):
         self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
 
-        self.message_display(selected_word_esp, (300, 800), 1)
-        rect0 = self.message_display(words[0], (300, 300), 1)
-        rect1 = self.message_display(words[1], (self._frame_surface.get_width() / 2, 100), 1)
-        rect2 = self.message_display(words[2], (self._frame_surface.get_width() - 300, 300), 1)
+##        self.message_display(selected_sentence, (300, 800), 1)
+        rect0 = self.message_display(self.vocab_dict[selected_sentence][0], (300, 300), 1)
+        rect1 = self.message_display(selected_sentence, (self._frame_surface.get_width() / 2, 50), 1)
+        rect2 = self.message_display(self.vocab_dict[selected_sentence][1], (self._frame_surface.get_width() - 300, 300), 1)
         self.message_display(str(self.score), (self._frame_surface.get_width() / 2, 800), 1)
         self.message_display(str(seconds), (self._frame_surface.get_width() - 300, 800), 1)
 
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, rect2, PyKinectV2.JointType_Head, words, selected_word_esp)
+                            rect1, rect2, PyKinectV2.JointType_Head, words, selected_sentence)
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, rect2, PyKinectV2.JointType_WristRight, words, selected_word_esp)
+                            rect1, rect2, PyKinectV2.JointType_WristRight, words, selected_sentence)
         # may change PyKinectV2.JointType_WristRight to PyKinectV2.JointType_ElbowRight
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, rect2, PyKinectV2.JointType_WristLeft, words, selected_word_esp)
+                            rect1, rect2, PyKinectV2.JointType_WristLeft, words, selected_sentence)
 
     def end_game(self):
         self._frame_surface.fill(BG_COLOR)
@@ -114,9 +144,7 @@ class BodyGameRuntime(object):
         self.run()
 
     def new_round(self):
-        words = random.sample(list(self.vocab_dict), 3)
-        selected_word_esp = self.vocab_dict[words[0]]
-        random.shuffle(words)
+        selected_sentence = random.choice(list(self.vocab_dict.items()))
         pygame.time.delay(500)
         
         while not self.finished:
@@ -142,7 +170,7 @@ class BodyGameRuntime(object):
                     
                     joints = body.joints 
                     joint_points = self._kinect.body_joints_to_color_space(joints)
-                    self.update_screen(joints, joint_points, TRACKING_COLOR, HIGHLIGHT_COLOR, words, selected_word_esp, seconds)
+                    self.update_screen(joints, joint_points, TRACKING_COLOR, HIGHLIGHT_COLOR, words, selected_sentence, seconds)
 
             self._screen.blit(self._frame_surface, (0,0))
             pygame.display.update()
@@ -163,6 +191,7 @@ class BodyGameRuntime(object):
 
         self._kinect.close()
         pygame.quit()
+        sys.exit()
 
 if __name__ == "__main__":
     game = BodyGameRuntime()
