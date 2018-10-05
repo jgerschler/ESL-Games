@@ -38,42 +38,42 @@ class BodyGameRuntime(object):
 
         self.score = 0
 
-        self.vocab_dict = {"She liked the happy cat.":("happy", "happily", "happy"),
-                      "He quickly ate his food.":("quick", "quickly", "quickly"),
-                      "That is a cute puppy!":("cute", "cutely", "cute"),
-                      "The pozole smells tasty.":("tasty", "tastily", "tasty"),
-                      "The dead fish looks gross.":("gross", "grossly", "gross"),
-                      "He speaks slowly.":("slow", "slowly", "slowly"),
-                      "The girl moves quickly.":("quick", "quickly", "quickly"),
-                      "I feel angry.":("angry", "angrily", "angry"),
-                      "The woman looked angrily at the paint stains.":("angry", "angrily", "angrily"),
-                      "Rosario feels bad about the news.":("bad", "badly", "bad"),
-                      "Your nose is very senstive. You smell well.":("good", "well", "well"),
-                      "Nice perfume! You smell good.":("good", "well", "good"),
-                      "Concha seems sad. She broke up with her boyfriend.":("sad", "sadly", "sad"),
-                      "Elvia was nervous and spoke very quickly.":("quick", "quickly", "quickly"),
-                      "Monse rapidly swallowed the taco.":("rapid", "rapidly", "rapidly"),
-                      "Chivis excitedly watched the new movie.":("excited", "excitedly", "excitedly"),
-                      "Tizoc rudely cut in line at the cafeteria.":("rude", "rudely", "rudely"),
-                      "We did a good job on our homework.":("good", "well", "good"),
-                      "Roberto feels bad.":("bad", "badly", "bad"),
-                      "This old sushi tastes disgusting.":("disgusting", "disgustingly", "disgusting"),
-                      "The gross man disgustingly spit on the floor.":("disgusting", "disgustingly", "disgustingly"),
-                      "Salma Hayek is a beautiful actress.":("beautiful", "beautifully", "beautiful"),
-                      "Eugenio Derbez acts beautifully.":("beautiful", "beautifully", "beautifully"),
-                      "She is a slow runner!":("slow", "slowly", "slow"),
-                      "She drinks thirstily.":("thirsty", "thirstily", "thirstily"),
-                      "Oliver hungrily ate the burrito.":("hungry", "hungrily", "hungrily"),
-                      "Five fish swam quickly.":("quick", "quickly", "quickly"),
-                      "The black crow squawks loudly.":("loud", "loudly", "loudly"),
-                      "Race cars drive carefully.":("careful", "carefully", "carefully"),
-                      "Jennifer quietly read her book.":("quiet", "quietly", "quietly"),
-                      "Luis is a quiet person.":("quiet", "quietly", "quiet"),
-                      "He is a safe driver.":("safe", "safely", "safe"),
-                      "Your brother is so kind.":("kind", "kindly", "kind"),
-                      "I always work hard during the week.":("hard", "hardly", "hard"),
-                      "Paco did badly on his test.":("bad", "badly", "badly"),
-                      "It is natural to feel nervous before a job interview.":("nervous", "nervously", "nervous")}
+        self.vocab_dict = {"She liked the _____ cat.":("happy", "happily", "happy"),
+                      "He _____ ate his food.":("quick", "quickly", "quickly"),
+                      "That is a _____ puppy!":("cute", "cutely", "cute"),
+                      "The pozole smells _____.":("tasty", "tastily", "tasty"),
+                      "The dead fish looks _____.":("gross", "grossly", "gross"),
+                      "He speaks _____.":("slow", "slowly", "slowly"),
+                      "The girl moves _____.":("quick", "quickly", "quickly"),
+                      "I feel _____.":("angry", "angrily", "angry"),
+                      "The woman looked _____ at the paint stains.":("angry", "angrily", "angrily"),
+                      "Rosario feels _____ about the news.":("bad", "badly", "bad"),
+                      "Your nose is very senstive. You smell _____.":("good", "well", "well"),
+                      "Nice perfume! You smell _____.":("good", "well", "good"),
+                      "Concha seems _____. She broke up with her boyfriend.":("sad", "sadly", "sad"),
+                      "Elvia was nervous and spoke very _____.":("quick", "quickly", "quickly"),
+                      "Monse _____ swallowed the taco.":("rapid", "rapidly", "rapidly"),
+                      "Chivis _____ watched the new movie.":("excited", "excitedly", "excitedly"),
+                      "Tizoc _____ cut in line at the cafeteria.":("rude", "rudely", "rudely"),
+                      "We did a _____ job on our homework.":("good", "well", "good"),
+                      "Roberto feels _____.":("bad", "badly", "bad"),
+                      "This old sushi tastes _____.":("disgusting", "disgustingly", "disgusting"),
+                      "The gross man _____ spit on the floor.":("disgusting", "disgustingly", "disgustingly"),
+                      "Salma Hayek is a _____ actress.":("beautiful", "beautifully", "beautiful"),
+                      "Eugenio Derbez acts _____.":("beautiful", "beautifully", "beautifully"),
+                      "She is a _____ runner!":("slow", "slowly", "slow"),
+                      "She drinks _____.":("thirsty", "thirstily", "thirstily"),
+                      "Oliver _____ ate the burrito.":("hungry", "hungrily", "hungrily"),
+                      "Five fish swam _____.":("quick", "quickly", "quickly"),
+                      "The black crow squawks _____.":("loud", "loudly", "loudly"),
+                      "Race cars drive _____.":("careful", "carefully", "carefully"),
+                      "Jennifer _____ read her book.":("quiet", "quietly", "quietly"),
+                      "Luis is a _____ person.":("quiet", "quietly", "quiet"),
+                      "He is a _____ driver.":("safe", "safely", "safe"),
+                      "Your brother is so _____.":("kind", "kindly", "kind"),
+                      "I always work _____ during the week.":("hard", "hardly", "hard"),
+                      "Paco did _____ on his test.":("bad", "badly", "badly"),
+                      "It is natural to feel _____ before a job interview.":("nervous", "nervously", "nervous")}
 
         self._frame_surface.fill((255, 255, 255))
 
@@ -119,13 +119,14 @@ class BodyGameRuntime(object):
 
     def update_screen(self, joints, jointPoints, color, highlight_color, selected_sentence, seconds):
         self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
-
-##        self.message_display(selected_sentence, (300, 800), 1)
-        rect0 = self.message_display(self.vocab_dict[selected_sentence][0], (300, 300), 1)
-        rect1 = self.message_display(selected_sentence, (self._frame_surface.get_width() / 2, 50), 1)
-        rect2 = self.message_display(self.vocab_dict[selected_sentence][1], (self._frame_surface.get_width() - 300, 300), 1)
-        self.message_display(str(self.score), (self._frame_surface.get_width() / 2, 800), 1)
-        self.message_display(str(seconds), (self._frame_surface.get_width() - 300, 800), 1)
+        # not optimum placement -- fix later
+        screen_width = self._frame_surface.get_width()
+        screen_height = self._frame_surface.get_height()
+        rect0 = self.message_display(self.vocab_dict[selected_sentence][0], (screen_width / 3, screen_height / 3), 1)
+        rect1 = self.message_display(selected_sentence, (screen_width / 2, 50), 1)
+        rect2 = self.message_display(self.vocab_dict[selected_sentence][1], (screen_width - 300, screen_height / 3), 1)
+        self.message_display(str(self.score), (screen_width / 2, screen_height - 100), 1)
+        self.message_display(str(seconds), (screen_width - 300, screen_height - 100), 1)
 
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
                             rect1, rect2, PyKinectV2.JointType_Head, selected_sentence)
