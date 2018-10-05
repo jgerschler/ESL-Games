@@ -90,7 +90,7 @@ class BodyGameRuntime(object):
         self._frame_surface.blit(text_surf, text_rect)
         return text_rect 
 
-    def draw_ind_point(self, joints, jointPoints, color, highlight_color, rect0, rect1, rect2, joint0, words, selected_sentence):
+    def draw_ind_point(self, joints, jointPoints, color, highlight_color, rect0, rect1, rect2, joint0, selected_sentence):
         joint0State = joints[joint0].TrackingState;
         
         if (joint0State == PyKinectV2.TrackingState_NotTracked or
@@ -117,7 +117,7 @@ class BodyGameRuntime(object):
             except:
                 pass
 
-    def update_screen(self, joints, jointPoints, color, highlight_color, words, selected_sentence, seconds):
+    def update_screen(self, joints, jointPoints, color, highlight_color, selected_sentence, seconds):
         self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
 
 ##        self.message_display(selected_sentence, (300, 800), 1)
@@ -128,12 +128,12 @@ class BodyGameRuntime(object):
         self.message_display(str(seconds), (self._frame_surface.get_width() - 300, 800), 1)
 
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, rect2, PyKinectV2.JointType_Head, words, selected_sentence)
+                            rect1, rect2, PyKinectV2.JointType_Head, selected_sentence)
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, rect2, PyKinectV2.JointType_WristRight, words, selected_sentence)
+                            rect1, rect2, PyKinectV2.JointType_WristRight, selected_sentence)
         # may change PyKinectV2.JointType_WristRight to PyKinectV2.JointType_ElbowRight
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, rect2, PyKinectV2.JointType_WristLeft, words, selected_sentence)
+                            rect1, rect2, PyKinectV2.JointType_WristLeft, selected_sentence)
 
     def end_game(self):
         self._frame_surface.fill(BG_COLOR)
@@ -144,7 +144,7 @@ class BodyGameRuntime(object):
         self.run()
 
     def new_round(self):
-        selected_sentence = random.choice(list(self.vocab_dict.items()))
+        selected_sentence = random.choice(list(self.vocab_dict.keys()))
         pygame.time.delay(500)
         
         while not self.finished:
@@ -170,7 +170,7 @@ class BodyGameRuntime(object):
                     
                     joints = body.joints 
                     joint_points = self._kinect.body_joints_to_color_space(joints)
-                    self.update_screen(joints, joint_points, TRACKING_COLOR, HIGHLIGHT_COLOR, words, selected_sentence, seconds)
+                    self.update_screen(joints, joint_points, TRACKING_COLOR, HIGHLIGHT_COLOR, selected_sentence, seconds)
 
             self._screen.blit(self._frame_surface, (0,0))
             pygame.display.update()
