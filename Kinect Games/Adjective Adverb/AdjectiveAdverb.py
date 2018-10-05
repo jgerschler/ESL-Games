@@ -9,13 +9,12 @@ from pykinect2 import PyKinectRuntime
 
 import pygame
 import random
-
+import sys
 
 TRACKING_COLOR = pygame.color.Color("purple")
 HIGHLIGHT_COLOR = pygame.color.Color("red")
 BG_COLOR = pygame.color.Color("white")
 GAME_TIME = 60# seconds
-
 
 class BodyGameRuntime(object):
     def __init__(self):
@@ -109,12 +108,7 @@ class BodyGameRuntime(object):
     def end_game(self):
         self._frame_surface.fill(BG_COLOR)
         self.message_display("Score: {}".format(self.score), (self._frame_surface.get_width() / 2, self._frame_surface.get_height() / 2), 1)
-        h_to_w = float(self._frame_surface.get_height()) / self._frame_surface.get_width()
-        target_height = int(h_to_w * self._screen.get_width())
-        surface_to_draw = pygame.transform.scale(self._frame_surface,
-                                                     (self._screen.get_width(), target_height));
-        self._screen.blit(surface_to_draw, (0,0))
-        surface_to_draw = None
+        self._screen.blit(self._frame_surface, (0,0))
         pygame.display.update()
         pygame.time.delay(3000)
         self.run()
@@ -133,6 +127,9 @@ class BodyGameRuntime(object):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.finished = True
+                if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()              
                              
             if self._kinect.has_new_body_frame(): 
                 self._bodies = self._kinect.get_last_body_frame()
@@ -147,12 +144,7 @@ class BodyGameRuntime(object):
                     joint_points = self._kinect.body_joints_to_color_space(joints)
                     self.update_screen(joints, joint_points, TRACKING_COLOR, HIGHLIGHT_COLOR, words, selected_word_esp, seconds)
 
-            h_to_w = float(self._frame_surface.get_height()) / self._frame_surface.get_width()
-            target_height = int(h_to_w * self._screen.get_width())
-            surface_to_draw = pygame.transform.scale(self._frame_surface,
-                                                     (self._screen.get_width(), target_height));
-            self._screen.blit(surface_to_draw, (0,0))
-            surface_to_draw = None
+            self._screen.blit(self._frame_surface, (0,0))
             pygame.display.update()
 
             self._clock.tick(60)
