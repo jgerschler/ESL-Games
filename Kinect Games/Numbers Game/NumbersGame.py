@@ -55,7 +55,7 @@ class BodyGameRuntime(object):
         self._frame_surface.blit(text_surf, text_rect)
         return text_rect 
 
-    def draw_ind_point(self, joints, jointPoints, color, highlight_color, rect0, rect1, joint0, numbers, chosen_number):
+    def draw_ind_point(self, joints, jointPoints, color, highlight_color, rect0, rect1, rect2, joint0, numbers, chosen_number):
         joint0State = joints[joint0].TrackingState;
         
         if (joint0State == PyKinectV2.TrackingState_NotTracked or
@@ -64,12 +64,14 @@ class BodyGameRuntime(object):
 
         center = (int(jointPoints[joint0].x), int(jointPoints[joint0].y))
 
-        if (rect0.collidepoint(center) and words[0] == chosen_number) or (rect1.collidepoint(center) and words[1] == chosen_number):
+        if ((rect0.collidepoint(center) and numbers[0] == chosen_number) or
+            (rect1.collidepoint(center) and numbers[1] == chosen_number) or
+            (rect2.collidepoint(center) and numbers[2] == chosen_number)):
             self.score += 1
             self.beep_sound.play()
             pygame.time.delay(500)
             self.new_round()
-        elif rect0.collidepoint(center) or rect1.collidepoint(center):
+        elif rect0.collidepoint(center) or rect1.collidepoint(center) or rect2.collidepoint(center):
             try:
                 pygame.draw.circle(self._frame_surface, highlight_color, center, 20, 0)
                 self.score -= 1
@@ -117,12 +119,12 @@ class BodyGameRuntime(object):
         self.message_display(str(seconds), (self._frame_surface.get_width() - 300, 800), 1)
 
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, PyKinectV2.JointType_Head, numbers, chosen_number)
+                            rect1, rect2, PyKinectV2.JointType_Head, numbers, chosen_number)
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, PyKinectV2.JointType_WristRight, numbers, chosen_number)
+                            rect1, rect2, PyKinectV2.JointType_WristRight, numbers, chosen_number)
         # may change PyKinectV2.JointType_WristRight to PyKinectV2.JointType_ElbowRight
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, PyKinectV2.JointType_WristLeft, numbers, chosen_number)
+                            rect1, rect2, PyKinectV2.JointType_WristLeft, numbers, chosen_number)
 
     def end_game(self):
         self._frame_surface.fill(BG_COLOR)
@@ -139,8 +141,8 @@ class BodyGameRuntime(object):
         pygame.quit()
 
     def new_round(self):
-        numbers = random.sample(range(0, 100), 3)
-        chosen_number = random.sample(numbers, 1)
+        numbers = [str(x) for x in random.sample(range(0, 100), 3)]
+        chosen_number = str(random.sample(numbers, 1))
         pygame.time.delay(500)
         
         while not self.finished:
