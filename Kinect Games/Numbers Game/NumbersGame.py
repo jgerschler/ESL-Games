@@ -9,13 +9,12 @@ from pykinect2 import PyKinectRuntime
 
 import pygame
 import random
-
+import sys
 
 TRACKING_COLOR = pygame.color.Color("green")
 HIGHLIGHT_COLOR = pygame.color.Color("red")
 BG_COLOR = pygame.color.Color("white")
 GAME_TIME = 60# seconds
-
 
 class BodyGameRuntime(object):
     def __init__(self):
@@ -29,7 +28,7 @@ class BodyGameRuntime(object):
                                                 self._infoObject.current_h >> 1),
                                                pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE, 32)
 
-        pygame.display.set_caption("Kinect Game Framework Test")
+        pygame.display.set_caption("Numbers Game")
 
         self.finished = False
         self._clock = pygame.time.Clock()
@@ -40,55 +39,6 @@ class BodyGameRuntime(object):
         self._bodies = None
 
         self.score = 0
-
-        self.vocab_dict = {"People drive ____ these days.":["quickly", "quick"],
-                           "She has an ____ dog.":["active", "actively"],
-                           "He ____ opens the mail.":["carefully", "careful"],
-                           "The man ____ greets his friends.":["cheerfully", "cheerful"],
-                           "That is a ____ sofa!":["comfortable", "comfortably"],
-                           "The alarm sounds ____.":["continuously", "continuous"],
-                           "That woman is ____!":["crazy", "crazily"],
-                           "The woman speaks ____.":["delightfully", "delightful"],
-                           "Juan is a very ____ carpenter.":["creative", "creatively"],
-                           "Wow! That is a ____ storm!":["destructive", "destructively"],
-                           "The racecar drove ____ by the school.":["powerfully", "powerful"],
-                           "Juana ____ said NO!":["firmly", "firm"],
-                           "He ____ opened the door.":["forcefully", "forceful"],
-                           "It was a ____ day.":["glorious", "gloriously"],
-                           "Maria ____ observed her ex-boyfriend.":["hatefully", "hateful"],
-                           "He had a ___ idea.":["hopeful", "hopefully"],
-                           "It was an ____ phrase.":["insulting", "insultingly"],
-                           "Jenny ____ ate the last cookie.":["intentionally", "intentional"],
-                           "He likes ____ music.":["irritating", "irritatingly"],
-                           "Careful! That is a ___ dog!":["bad", "badly"],
-                           "The man reacted ___ to the good news.":["speedily", "speedy"],
-                           "Susana has always been a ____ girl.":["nice", "nicely"],
-                           "The boys plunged into the ____ water.":["deep", "deeply"],
-                           "The girl ____ saved her cat from the fire.":["bravely", "brave"],
-                           "The man ____ drank too much alcohol.":["foolishly", "foolish"],
-                           "Mario is ____ and never does his homework.":["lazy", "lazily"],
-                           "The teacher is very ____.":["rude", "rudely"],
-                           "The girl plays soccer ____.":["perfectly", "perfect"],
-                           "It was an ____ crash.":["accidental", "accidentally"],
-                           "That is an ____ turtle!.":["angry", "angrily"],
-                           "She ____ ate her beans.":["happily", "happy"],
-                           "John spoke ____.":["seriously", "serious"],
-                           "Firulais is a ____ dog.":["loyal", "loyally"],
-                           "Margie yelled ____ into the night.":["blindly", "blind"],
-                           "He ran ____ toward me.":["wildly", "wild"],
-                           "Pedro is ____!":["innocent", "innocently"],
-                           "The gross man winked at her ____.":["sexually", "sexual"],
-                           "Concepcion is a ____ girlfriend.":["jealous", "jealously"],
-                           "Luis ____ goes to the bar.":["frequently", "frequent"],
-                           "We didn't go out because it was raining ____.":["heavily", "heavy"],
-                           "Our team lost the game because we played ____.":["badly", "bad"],
-                           "We waited ____.":["patiently", "patient"],
-                           "Jimmy arrived ____.":["unexpectedly", "unexpected"],
-                           "Mike stays fit by playing tennis ____.":["regularly", "regular"],
-                           "The driver of the car was ____ injured.":["seriously", "serious"],
-                           "The driver of the car had ____ injuries.":["serious", "seriously"],
-                           "Ismael looked ____ at Eleazar.":["hungrily", "hungry"],
-                           "She is a ____ driver.":["dangerous", "dangerously"]}
 
         self._frame_surface.fill((255, 255, 255))
 
@@ -105,7 +55,7 @@ class BodyGameRuntime(object):
         self._frame_surface.blit(text_surf, text_rect)
         return text_rect 
 
-    def draw_ind_point(self, joints, jointPoints, color, highlight_color, rect0, rect1, joint0, words, sentence, correct_word):
+    def draw_ind_point(self, joints, jointPoints, color, highlight_color, rect0, rect1, joint0, numbers, chosen_number):
         joint0State = joints[joint0].TrackingState;
         
         if (joint0State == PyKinectV2.TrackingState_NotTracked or
@@ -114,7 +64,7 @@ class BodyGameRuntime(object):
 
         center = (int(jointPoints[joint0].x), int(jointPoints[joint0].y))
 
-        if (rect0.collidepoint(center) and words[0] == correct_word) or (rect1.collidepoint(center) and words[1] == correct_word):
+        if (rect0.collidepoint(center) and words[0] == chosen_number) or (rect1.collidepoint(center) and words[1] == chosen_number):
             self.score += 1
             self.beep_sound.play()
             pygame.time.delay(500)
@@ -150,28 +100,29 @@ class BodyGameRuntime(object):
 
     def update_intro_screen(self, joints, jointPoints, color):
         self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
+        # draw rects here as examples
 
         self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_Head)
         self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_WristLeft)
         # may change PyKinectV2.JointType_WristRight to PyKinectV2.JointType_ElbowRight
         self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_WristRight)
 
-    def update_screen(self, joints, jointPoints, color, highlight_color, words, sentence, correct_word, seconds):
+    def update_screen(self, joints, jointPoints, color, highlight_color, numbers, chosen_number, seconds):
         self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
-
-        self.message_display(sentence, (300, 900), 2)
-        rect0 = self.message_display(words[0], (400, 300), 1)
-        rect1 = self.message_display(words[1], (self._frame_surface.get_width() - 400, 300), 1)
+        # need to make these coordinates relative
+        rect0 = self.message_display(numbers[0], (400, 300), 1)
+        rect1 = self.message_display(numbers[1], (self._frame_surface.get_width()/2, 200), 1)
+        rect2 = self.message_display(numbers[2], (self._frame_surface.get_width() - 400, 300), 1)
         self.message_display(str(self.score), (self._frame_surface.get_width() / 2, 800), 1)
         self.message_display(str(seconds), (self._frame_surface.get_width() - 300, 800), 1)
 
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, PyKinectV2.JointType_Head, words, sentence, correct_word)
+                            rect1, PyKinectV2.JointType_Head, numbers, chosen_number)
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, PyKinectV2.JointType_WristRight, words, sentence, correct_word)
+                            rect1, PyKinectV2.JointType_WristRight, numbers, chosen_number)
         # may change PyKinectV2.JointType_WristRight to PyKinectV2.JointType_ElbowRight
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, PyKinectV2.JointType_WristLeft, words, sentence, correct_word)
+                            rect1, PyKinectV2.JointType_WristLeft, numbers, chosen_number)
 
     def end_game(self):
         self._frame_surface.fill(BG_COLOR)
@@ -188,14 +139,12 @@ class BodyGameRuntime(object):
         pygame.quit()
 
     def new_round(self):
-        sentence = random.sample(list(self.vocab_dict), 1)[0]
-        words = self.vocab_dict[sentence][:]
-        correct_word = words[0]
-        random.shuffle(words)
+        numbers = random.sample(range(0, 100), 3)
+        chosen_number = random.sample(numbers, 1)
         pygame.time.delay(500)
         
         while not self.finished:
-            seconds = int(GAME_TIME - (pygame.time.get_ticks() - self.start_ticks)/1000)
+            seconds = int(GAME_TIME - (pygame.time.get_ticks() - self.start_ticks) / 1000)
             if seconds <= 0:
                 self.end_game()
                              
@@ -210,7 +159,7 @@ class BodyGameRuntime(object):
                     
                     joints = body.joints 
                     joint_points = self._kinect.body_joints_to_color_space(joints)
-                    self.update_screen(joints, joint_points, TRACKING_COLOR, HIGHLIGHT_COLOR, words, sentence, correct_word, seconds)
+                    self.update_screen(joints, joint_points, TRACKING_COLOR, HIGHLIGHT_COLOR, numbers, chosen_number, seconds)# here
 
             h_to_w = float(self._frame_surface.get_height()) / self._frame_surface.get_width()
             target_height = int(h_to_w * self._screen.get_width())
@@ -267,6 +216,7 @@ class BodyGameRuntime(object):
 
         self._kinect.close()
         pygame.quit()
+        sys.exit()
 
 if __name__ == "__main__":
     game = BodyGameRuntime()
