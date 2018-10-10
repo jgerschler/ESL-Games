@@ -53,7 +53,7 @@ class BodyGameRuntime(object):
 
     def message_display(self, text, loc_tuple, loc_int):
         # loc_int: 1 center, 2 top left, 3 bottom left, 4 bottom right, 5 top right
-        text_surf, text_rect = self.text_objects(text, pygame.font.Font(None, 64))
+        text_surf, text_rect = self.text_objects(text, pygame.font.Font(None, 128))
         loc_dict = {1:'text_rect.center', 2:'text_rect.topleft', 3:'text_rect.bottomleft',
                     4:'text_rect.bottomright', 5:'text_rect.topright'}
         exec(loc_dict[loc_int] + ' = loc_tuple')
