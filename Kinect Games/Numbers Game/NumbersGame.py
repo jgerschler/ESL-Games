@@ -78,7 +78,7 @@ class BodyGameRuntime(object):
             self.new_round()
         elif rect0.collidepoint(center) or rect1.collidepoint(center) or rect2.collidepoint(center):
             try:
-                pygame.draw.circle(self._frame_surface, highlight_color, center, 20, 0)
+                pygame.draw.circle(self._frame_surface, highlight_color, center, 40, 0)
                 self.score -= 1
                 self.buzz_sound.play()
                 pygame.time.delay(500)
@@ -87,7 +87,7 @@ class BodyGameRuntime(object):
                 pass
         else:
             try:
-                pygame.draw.circle(self._frame_surface, color, center, 20, 0)
+                pygame.draw.circle(self._frame_surface, color, center, 40, 0)
             except:
                 pass
 
@@ -101,12 +101,15 @@ class BodyGameRuntime(object):
         center = (int(jointPoints[joint0].x), int(jointPoints[joint0].y))
 
         try:
-            pygame.draw.circle(self._frame_surface, color, center, 20, 0)
+            pygame.draw.circle(self._frame_surface, color, center, 40, 0)
         except:
             pass
 
     def update_intro_screen(self, joints, jointPoints, color):
         self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
+        pygame.draw.rect(self._frame_surface, HIGHLIGHT_COLOR, (400, 300, 50, 50), 0)
+        pygame.draw.rect(self._frame_surface, HIGHLIGHT_COLOR, (self._frame_surface.get_width() / 2, 200, 50, 50), 0)
+        pygame.draw.rect(self._frame_surface, HIGHLIGHT_COLOR, (self._frame_surface.get_width() - 400, 300, 50, 50), 0)
         # draw rects here as examples
 
         self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_Head)
@@ -149,7 +152,6 @@ class BodyGameRuntime(object):
     def new_round(self):
         numbers = [str(x) for x in random.sample(range(0, 100), 3)]
         chosen_number = str(random.sample(numbers, 1)[0])
-        print(numbers[0], numbers[1], numbers[2], chosen_number)
         self.speak.Speak(chosen_number)
         self.speak.Speak(chosen_number)
         
