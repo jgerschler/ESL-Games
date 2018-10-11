@@ -26,6 +26,7 @@ class Speaker(threading.Thread):
 
     def run(self):
         self.speak.Speak(self.chosen_number)
+        self.speak.Speak(self.chosen_number)
 
 class BodyGameRuntime(object):
     def __init__(self):
