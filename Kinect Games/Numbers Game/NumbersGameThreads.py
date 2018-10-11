@@ -19,13 +19,13 @@ BG_COLOR = pygame.color.Color("white")
 GAME_TIME = 60# seconds
 
 class Speaker(threading.Thread):
-    def __init__(self, word):
+    def __init__(self, chosen_number):
         threading.Thread.__init__(self)
         self.speak = wincl.Dispatch("SAPI.SpVoice")
-        self.word = word
+        self.chosen_number = chosen_number
 
     def run(self):
-        self.speak.Speak(chosen_number)
+        self.speak.Speak(self.chosen_number)
 
 class BodyGameRuntime(object):
     def __init__(self):
