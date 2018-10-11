@@ -26,6 +26,8 @@ class Speaker(threading.Thread):
 
     def run(self):
         self.speak.Speak(self.chosen_number)
+        self.speak.Speak(self.chosen_number)
+        
 
 class BodyGameRuntime(object):
     def __init__(self):
@@ -86,7 +88,8 @@ class BodyGameRuntime(object):
             self.new_round()
         elif rect0.collidepoint(center) or rect1.collidepoint(center) or rect2.collidepoint(center):
             try:
-                pygame.draw.circle(self._frame_surface, highlight_color, center, 40, 0)
+                self.face_image_rect.center = center
+                self._frame_surface.blit(self.face_image, self.face_image_rect)
                 self.score -= 1
                 self.buzz_sound.play()
                 pygame.time.delay(500)
@@ -95,7 +98,8 @@ class BodyGameRuntime(object):
                 pass
         else:
             try:
-                pygame.draw.circle(self._frame_surface, color, center, 40, 0)
+                self.face_image_rect.center = center
+                self._frame_surface.blit(self.face_image, self.face_image_rect)
             except:
                 pass
 
@@ -119,12 +123,8 @@ class BodyGameRuntime(object):
         pygame.draw.rect(self._frame_surface, HIGHLIGHT_COLOR, (400, 300, 50, 50), 0)
         pygame.draw.rect(self._frame_surface, HIGHLIGHT_COLOR, (self._frame_surface.get_width() / 2, 200, 50, 50), 0)
         pygame.draw.rect(self._frame_surface, HIGHLIGHT_COLOR, (self._frame_surface.get_width() - 400, 300, 50, 50), 0)
-        # draw rects here as examples
 
         self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_Head)
-        self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_WristLeft)
-        # may change PyKinectV2.JointType_WristRight to PyKinectV2.JointType_ElbowRight
-        self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_WristRight)
 
     def update_screen(self, joints, jointPoints, color, highlight_color, numbers, chosen_number, seconds):
         self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
@@ -137,11 +137,6 @@ class BodyGameRuntime(object):
 
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
                             rect1, rect2, PyKinectV2.JointType_Head, numbers, chosen_number)
-        self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, rect2, PyKinectV2.JointType_WristRight, numbers, chosen_number)
-        # may change PyKinectV2.JointType_WristRight to PyKinectV2.JointType_ElbowRight
-        self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, rect2, PyKinectV2.JointType_WristLeft, numbers, chosen_number)
 
     def end_game(self):
         self._frame_surface.fill(BG_COLOR)
