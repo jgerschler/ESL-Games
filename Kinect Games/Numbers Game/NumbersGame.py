@@ -10,6 +10,7 @@ from pykinect2 import PyKinectRuntime
 import pygame
 import random
 import sys
+import threading
 import win32com.client as wincl
 
 TRACKING_COLOR = pygame.color.Color("green")
@@ -17,14 +18,19 @@ HIGHLIGHT_COLOR = pygame.color.Color("red")
 BG_COLOR = pygame.color.Color("white")
 GAME_TIME = 60# seconds
 
+class Speaker(threading.Thread):
+    def __init__(self, chosen_number):
+        threading.Thread.__init__(self)
+        self.speak = wincl.Dispatch("SAPI.SpVoice")
+        self.chosen_number = chosen_number
 
+    def run(self):
+        self.speak.Speak(self.chosen_number)
 
 class BodyGameRuntime(object):
     def __init__(self):
         pygame.init()
-        pygame.mixer.init()
-
-        self.speak = wincl.Dispatch("SAPI.SpVoice")
+        pygame.mixer.init()      
 
         self.beep_sound = pygame.mixer.Sound('audio\\beep.ogg')
         self.buzz_sound = pygame.mixer.Sound('audio\\buzz.ogg')
@@ -152,8 +158,9 @@ class BodyGameRuntime(object):
     def new_round(self):
         numbers = [str(x) for x in random.sample(range(0, 100), 3)]
         chosen_number = str(random.sample(numbers, 1)[0])
-        self.speak.Speak(chosen_number)
-        self.speak.Speak(chosen_number)
+        speaker = Speaker(chosen_number)
+        speaker.start()
+        pygame.time.delay(500)
         
         while not self.finished:
             seconds = int(GAME_TIME - (pygame.time.get_ticks() - self.start_ticks) / 1000)
