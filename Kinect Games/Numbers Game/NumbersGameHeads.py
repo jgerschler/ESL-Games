@@ -39,9 +39,10 @@ class BodyGameRuntime(object):
         self.face_image = pygame.image.load('images\\face.png')
         self.face_image_rect = self.face_image.get_rect()
         self._infoObject = pygame.display.Info()
-        self._screen = pygame.display.set_mode((self._infoObject.current_w >> 1,
-                                                self._infoObject.current_h >> 1),
-                                               pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE, 32)
+##        self._screen = pygame.display.set_mode((self._infoObject.current_w >> 1,
+##                                                self._infoObject.current_h >> 1),
+##                                               pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE, 32)
+        self._screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN, 32)
 
         pygame.display.set_caption("Numbers Game")
 
