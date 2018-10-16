@@ -155,7 +155,7 @@ class PartsOfSpeech(object):
         return surface
 
     def new_user(self):
-        self.pos_list = ["noun","verb","adjective","adverb","conjunction","preposition","proper noun","interjection","possessive pronoun","pronoun","article","possessive noun"]
+        self.pos_list = ["noun","verb","adjective","adverb","conjunction","preposition","proper noun","interjection","possessive pronoun","pronoun","article","possessive noun","possessive adjective"]
 
         sentence_list = [["The English rock band Pink Floyd released the album Dark Side of the Moon in 1973.",[["band","noun"],["album","noun"],["released","verb"],["Dark","adjective"]]],
                         ["In 1969, NASA astronauts on the Apollo 10 space mission heard what sounded like outer-space music.",[["outer-space","adjective"],["sounded","verb"],["on","pre"],["mission","noun"]]],
@@ -203,6 +203,15 @@ class PartsOfSpeech(object):
                         ["Weather officials believe the storm will pass over North and South Carolina before heading out to the Atlantic Ocean in coming days.",[["before","preposition"],["the","article"],["South Carolina","proper noun"],["heading","verb"]]],
                         ["Wood and metal from destroyed buildings covered streets and moved through flooded neighborhoods.",[["neighborhoods","noun"],["flooded","adjective"],["metal","noun"],["covered","verb"]]],
                         ["Rick Scott is the governor of Florida.",[["governor","noun"],["the","article"],["Rick Scott","proper noun"],["is","verb"]]],
+                        ["Ouch! I just broke my leg.",[["Ouch!","interjection"],["broke","verb"],["my","possessive adjective"],["I","pronoun"]]],
+                        ["Holy Moly! I love mole.",[["mole","noun"],["Holy Moly!","interjection"],["I","pronoun"],["love","verb"]]],
+                        ["Don't touch Ivan's green pochocuiles.",[["pochocuiles","noun"],["Ivan's","possessive noun"],["green","adjective"],["touch","verb"]]],
+                        ["Concha and Briseida quickly run to El Chontal.",[["quickly","adverb"],["and","conjunction"],["El Chontal","proper noun"],["run","verb"]]],
+                        ["Diego hungrily swallows the gross taco.",[["taco","noun"],["the","article"],["gross","adjective"],["hungrily","adverb"]]],
+                        ["Florizet loudly said 'Oh my God!'.",[["said","verb"],["Oh my God!","interjection"],["Florizet","proper noun"],["loudly","adverb"]]],
+                        ["Jennifer hurriedly danced with La Chenta at the Video Bar.",[["hurriedly","adverb"],["the","article"],["Jennifer","proper noun"],["danced","verb"]]],
+                        ["Silvia likes to read romantic anime.",[["romantic","adjective"],["anime","noun"],["Silvia","proper noun"],["read","verb"]]],
+                        ["Yoaly and Jesus secretly pretend not to see the teacher.",[["not","adverb"],["secretly","adverb"],["and","conjunction"],["pretend","verb"]]],
                         ["More than 98 million of the world's adolescent girls do not go to school.",[["world's","possessive noun"],["adolescent","adjective"],["not","adverb"],["go","verb"]]],
                         ["Jacob Ostreicher had been jailed for months and never charged with a crime.",[["months","noun"],["jailed","verb"],["Jacob Ostreicher","proper noun"],["with","preposition"]]]]
 
