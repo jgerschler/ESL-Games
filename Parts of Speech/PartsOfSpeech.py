@@ -155,7 +155,7 @@ class PartsOfSpeech(object):
         return surface
 
     def new_user(self):
-        self.pos_list = ["noun","verb","adjective","adverb","conjunction","preposition","proper noun","interjection","possessive pronoun","pronoun","article"]
+        self.pos_list = ["noun","verb","adjective","adverb","conjunction","preposition","proper noun","interjection","possessive pronoun","pronoun","article","possessive noun"]
 
         sentence_list = [["The English rock band Pink Floyd released the album Dark Side of the Moon in 1973.",[["band","noun"],["album","noun"],["released","verb"],["Dark","adjective"]]],
                         ["In 1969, NASA astronauts on the Apollo 10 space mission heard what sounded like outer-space music.",[["outer-space","noun"],["sounded","verb"],["on","pre"],["mission","noun"]]],
@@ -199,11 +199,11 @@ class PartsOfSpeech(object):
                         ["The Russian space program has suffered several failures in recent years.",[["years","noun"],["suffered","verb"],["program","noun"],["several","adjective"]]],
                         ["The cosmonauts safely escaped in that accident as well.",[["cosmonauts","noun"],["safely","adverb"],["accident","noun"],["the","article"]]],
                         ["Relations between the U.S. and Russia have been very tense in recent years.",[["Relations","noun"],["very","adverb"],["Russia","proper noun"],["tense","adjective"]]],
-                        ["Wow! In 2012, Sean Penn went to Bolivia to visit a US businessman jailed there.",[["businessman","noun"],["Wow!","interjection"],["Bolivia","proper noun"],["visit","verb"]]],
-                        ["Wow! In 2012, Sean Penn went to Bolivia to visit a US businessman jailed there.",[["businessman","noun"],["Wow!","interjection"],["Bolivia","proper noun"],["visit","verb"]]],
-                        ["Wow! In 2012, Sean Penn went to Bolivia to visit a US businessman jailed there.",[["businessman","noun"],["Wow!","interjection"],["Bolivia","proper noun"],["visit","verb"]]],
-                        ["Wow! In 2012, Sean Penn went to Bolivia to visit a US businessman jailed there.",[["businessman","noun"],["Wow!","interjection"],["Bolivia","proper noun"],["visit","verb"]]],
-                        ["Wow! In 2012, Sean Penn went to Bolivia to visit a US businessman jailed there.",[["businessman","noun"],["Wow!","interjection"],["Bolivia","proper noun"],["visit","verb"]]],
+                        ["However, the two sides have continued their cooperation in space.",[["space","noun"],["two","adjective"],["sides","noun"],["continued","verb"]]],
+                        ["Weather officials believe the storm will pass over North and South Carolina before heading out to the Atlantic Ocean in coming days.",[["before","preposition"],["the","article"],["South Carolina","proper noun"],["heading","verb"]]],
+                        ["Wood and metal from destroyed buildings covered streets and moved through flooded neighborhoods.",[["neighborhoods","noun"],["flooded","adjective"],["metal","noun"],["covered","verb"]]],
+                        ["Rick Scott is the governor of Florida.",[["governor","noun"],["the","article"],["Rick Scott","proper noun"],["is","verb"]]],
+                        ["More than 98 million of the world's adolescent girls do not go to school.",[["world's","possessive noun"],["adolescent","adjective"],["not","adverb"],["go","verb"]]],
                         ["Jacob Ostreicher had been jailed for months and never charged with a crime.",[["months","noun"],["jailed","verb"],["Jacob Ostreicher","proper noun"],["with","preposition"]]]]
 
         self.c.execute('select * from users order by random() limit 1;')
