@@ -6,6 +6,7 @@ import sqlite3
 import random
 import pygame.font
 from pygame.locals import *
+import sys
 
 class TextRectException:
     def __init__(self, message = None):
@@ -154,7 +155,7 @@ class PartsOfSpeech(object):
         return surface
 
     def new_user(self):
-        self.pos_list = ["noun","verb","adjective","adverb","conjunction","preposition","proper noun","interjection","possessive pronoun","pronoun"]
+        self.pos_list = ["noun","verb","adjective","adverb","conjunction","preposition","proper noun","interjection","possessive pronoun","pronoun","article"]
 
         sentence_list = [["The English rock band Pink Floyd released the album Dark Side of the Moon in 1973.",[["band","noun"],["album","noun"],["released","verb"],["Dark","adjective"]]],
                         ["In 1969, NASA astronauts on the Apollo 10 space mission heard what sounded like outer-space music.",[["outer-space","noun"],["sounded","verb"],["on","pre"],["mission","noun"]]],
@@ -192,6 +193,16 @@ class PartsOfSpeech(object):
                         ["The star also helped in times of natural disaster.",[["star","noun"],["disaster","noun"],["in","preposition"],["natural","adjective"]]],
                         ["He started a foundation to help victims of the earthquake in Haiti.",[["earthquake","noun"],["started","verb"],["help","verb"],["Haiti","proper noun"]]],
                         ["He also went to New Orleans shortly after Hurricane Katrina and reportedly rescued some survivors.",[["survivors","noun"],["after","preposition"],["New Orleans","proper noun"],["rescued","verb"]]],
+                        ["Wow! In 2012, Sean Penn went to Bolivia to visit a US businessman jailed there.",[["businessman","noun"],["Wow!","interjection"],["Bolivia","proper noun"],["visit","verb"]]],
+                        ["A Russian spacecraft traveling to the International Space Station Thursday had to make an emergency landing when a rocket engine failed to fire.",[["Russian","adjective"],["emergency","adjective"],["Thursday","proper noun"],["make","verb"]]],
+                        ["About two minutes after launching, the three-stage Soyuz booster rocket suffered an unspecified failure of its second stage.",[["failure","noun"],["three-stage","adjective"],["two","adjective"],["rocket","noun"]]],
+                        ["The Russian space program has suffered several failures in recent years.",[["years","noun"],["suffered","verb"],["program","noun"],["several","adjective"]]],
+                        ["The cosmonauts safely escaped in that accident as well.",[["cosmonauts","noun"],["safely","adverb"],["accident","noun"],["the","article"]]],
+                        ["Relations between the U.S. and Russia have been very tense in recent years.",[["Relations","noun"],["very","adverb"],["Russia","proper noun"],["tense","adjective"]]],
+                        ["Wow! In 2012, Sean Penn went to Bolivia to visit a US businessman jailed there.",[["businessman","noun"],["Wow!","interjection"],["Bolivia","proper noun"],["visit","verb"]]],
+                        ["Wow! In 2012, Sean Penn went to Bolivia to visit a US businessman jailed there.",[["businessman","noun"],["Wow!","interjection"],["Bolivia","proper noun"],["visit","verb"]]],
+                        ["Wow! In 2012, Sean Penn went to Bolivia to visit a US businessman jailed there.",[["businessman","noun"],["Wow!","interjection"],["Bolivia","proper noun"],["visit","verb"]]],
+                        ["Wow! In 2012, Sean Penn went to Bolivia to visit a US businessman jailed there.",[["businessman","noun"],["Wow!","interjection"],["Bolivia","proper noun"],["visit","verb"]]],
                         ["Wow! In 2012, Sean Penn went to Bolivia to visit a US businessman jailed there.",[["businessman","noun"],["Wow!","interjection"],["Bolivia","proper noun"],["visit","verb"]]],
                         ["Jacob Ostreicher had been jailed for months and never charged with a crime.",[["months","noun"],["jailed","verb"],["Jacob Ostreicher","proper noun"],["with","preposition"]]]]
 
@@ -369,6 +380,8 @@ class PartsOfSpeech(object):
                             pass
                     
             pygame.display.update()
+        pygame.quit()
+        sys.exit()
 
 if __name__ == '__main__':
     new_game = PartsOfSpeech()
