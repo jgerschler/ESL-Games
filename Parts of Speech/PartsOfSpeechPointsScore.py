@@ -27,6 +27,9 @@ class PartsOfSpeech(object):
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
+
+        self.score = 0
+        self.start_time = 60
         
         try:
             self.conn = sqlite3.connect('student.db')# connect to database
@@ -227,7 +230,7 @@ class PartsOfSpeech(object):
 
         self.display.fill(PartsOfSpeech.WHITE)
         self.rendered_text = self.special_render_textrect(self.plain_sentence, self.my_font, self.my_rect, PartsOfSpeech.BLACK, PartsOfSpeech.PURPLE, PartsOfSpeech.WHITE, 1)
-        self.rendered_text_user = self.render_textrect(self.username, self.my_font, self.my_rect_user, PartsOfSpeech.BROWN, PartsOfSpeech.WHITE, 0)
+        self.rendered_text_user = self.render_textrect("SCORE: {0}, TIME: {1}".format(self.score, round(self.start_time - self.seconds, 0)), self.my_font, self.my_rect_user, PartsOfSpeech.BROWN, PartsOfSpeech.WHITE, 0)
         self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.RED, PartsOfSpeech.WHITE, 0)
         self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.YELLOW, PartsOfSpeech.WHITE, 0)
         self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.GREEN, PartsOfSpeech.WHITE, 0)
@@ -246,9 +249,10 @@ class PartsOfSpeech(object):
 
     def refresh_screen(self, fragment):
         if fragment == self.sentence_pos_wordIND:#winner!
+            self.score += 1
             self.display.fill(PartsOfSpeech.WHITE)
             rendered_text = self.special_render_textrect(self.plain_sentence, self.my_font, self.my_rect, PartsOfSpeech.BLACK, PartsOfSpeech.PURPLE, PartsOfSpeech.WHITE, 1)#need to figure out how to bold or color the word we want
-            rendered_text_user = self.render_textrect(self.username, self.my_font, self.my_rect_user, PartsOfSpeech.BROWN, PartsOfSpeech.WHITE, 0)#last 0 is to left align
+            rendered_text_user = self.render_textrect("SCORE: {0}, TIME: {1}".format(self.score, round(self.start_time - self.seconds, 0)), self.my_font, self.my_rect_user, PartsOfSpeech.BROWN, PartsOfSpeech.WHITE, 0)#last 0 is to left align
             if self.frag0 == fragment:
                 self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.GREEN, PartsOfSpeech.WHITE, 0)
                 self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
@@ -288,9 +292,10 @@ class PartsOfSpeech(object):
             return
 
         if fragment != self.sentence_pos_wordIND:#loser
+            self.score -= 1
             self.display.fill(PartsOfSpeech.WHITE)
             self.rendered_text = self.special_render_textrect(self.plain_sentence, self.my_font, self.my_rect, PartsOfSpeech.BLACK, PartsOfSpeech.PURPLE, PartsOfSpeech.WHITE, 1)
-            self.rendered_text_user = self.render_textrect(self.username, self.my_font, self.my_rect_user, PartsOfSpeech.BROWN, PartsOfSpeech.WHITE, 0)
+            self.rendered_text_user = self.render_textrect("SCORE: {0}, TIME: {1}".format(self.score, round(self.start_time - self.seconds, 0)), self.my_font, self.my_rect_user, PartsOfSpeech.BROWN, PartsOfSpeech.WHITE, 0)
             if self.frag0 == fragment:
                 self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.RED, PartsOfSpeech.WHITE, 0)
                 self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.BLACK, PartsOfSpeech.WHITE, 0)
@@ -331,7 +336,7 @@ class PartsOfSpeech(object):
 
         self.display.fill(PartsOfSpeech.WHITE)
         self.rendered_text = self.special_render_textrect(self.plain_sentence, self.my_font, self.my_rect, PartsOfSpeech.BLACK, PartsOfSpeech.PURPLE, PartsOfSpeech.WHITE, 1)
-        self.rendered_text_user = self.render_textrect(self.username, self.my_font, self.my_rect_user, PartsOfSpeech.BROWN, PartsOfSpeech.WHITE, 0)#last 0 is to left align
+        self.rendered_text_user = self.render_textrect("SCORE: {0}, TIME: {1}".format(self.score, round(self.start_time - self.seconds, 0)), self.my_font, self.my_rect_user, PartsOfSpeech.BROWN, PartsOfSpeech.WHITE, 0)#last 0 is to left align
         self.rendered_text_frag_1 = self.render_textrect(self.frag0, self.my_font, self.my_rect_frag_1, PartsOfSpeech.RED, PartsOfSpeech.WHITE, 0)
         self.rendered_text_frag_2 = self.render_textrect(self.frag1, self.my_font, self.my_rect_frag_2, PartsOfSpeech.YELLOW, PartsOfSpeech.WHITE, 0)
         self.rendered_text_frag_3 = self.render_textrect(self.frag2, self.my_font, self.my_rect_frag_3, PartsOfSpeech.GREEN, PartsOfSpeech.WHITE, 0)
@@ -349,8 +354,12 @@ class PartsOfSpeech(object):
         return
 
     def run(self):
-    
+        self.start_ticks = pygame.time.get_ticks()# not needed
         while not self.finished:
+            self.seconds = (pygame.time.get_ticks() - self.start_ticks) / 1000
+            if 60 - self.seconds <= 0:
+                print(self.score)
+                self.finished = True
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.conn.close()
