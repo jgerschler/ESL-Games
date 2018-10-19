@@ -79,12 +79,18 @@ class PistolGame(object):
         self.adjectives = ['Ambitious', 'Single-minded', 'Determined', 'Reliable',
                            'Honest', 'Stable', 'Independent', 'Confident', 'Calm ',
                            'Loyal', 'Sympathetic', 'Sociable', 'Creative',
-                           'Energetic', 'Enthusiastic', 'Unambitious', 'Attractive',
-                           'Unattractive', 'Incompetent', 'Competent', 'Dependent',
+                           'Energetic', 'Enthusiastic', 'Unambitious',
+                           'Incompetent', 'Competent', 'Dependent',
                            'Experienced', 'Inexperienced', 'Formal', 'Informal',
-                           'Popular ', 'Unpopular', 'Reasonable', 'Unreasonable',
-                           'Unreliable', 'Sensitive', 'Insensitive', 'Unsociable',
-                           'Tolerant', 'Intolerant']
+                           'Reasonable', 'Unreasonable', 'Unreliable', 'Sensitive',
+                           'Insensitive', 'Unsociable', 'Tolerant', 'Intolerant',
+                           'Creative', 'Funny', 'Organized', 'Disorganized',
+                           'Uncreative', 'Competitive', 'Uncompetitive', 'Arrogant',
+                           'Humble', 'Timid', 'Shy', 'Introverted', 'Extroverted',
+                           'Helpful', 'Unhelpful', 'Outgoing', 'Friendly',
+                           'Unfriendly', 'Generous', 'Selfish', 'Easy-going',
+                           'Laid-back', 'Practical', 'Down-to-earth', 'Rude',
+                           'Patient', 'Considerate', 'Dishonest', 'Inconsiderate']
 
         self.finished = False
 
