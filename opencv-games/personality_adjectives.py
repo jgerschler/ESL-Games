@@ -147,7 +147,7 @@ class PistolGame(object):
         sys.exit()
 
     def run(self):
-        self.camera = cv2.VideoCapture(1)# 0 if you only have one cam
+        self.camera = cv2.VideoCapture(0)# 0 if you only have one cam
         
         self.word_list = random.sample(self.verbs, 3)# update this with dictionary for more flexibility
         self.word_list.append(random.sample(self.adjectives, 1)[0])
@@ -251,10 +251,15 @@ class PistolGame(object):
 
                     self.new_round()
 
+                if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+                    self.finished = True
+
             pygame.display.update()
 
-        camera.release()
+        self.camera.release()
         cv2.destroyAllWindows()
+        pygame.quit()
+        sys.exit()
         
 if __name__ == '__main__':
     pg = PistolGame()
