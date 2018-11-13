@@ -149,10 +149,12 @@ while not done:
                 if word.random_img == fruit_chosen:
                     explosion_sound.play()
                     score += 1
+                    pygame.time.wait(300)
                     fruit_chosen, crosshair = new_round()
                 else:
                     scream_sound.play()
                     score -= 1
+                    pygame.time.wait(300)
                     fruit_chosen, crosshair = new_round()
         else:
             laser_sound.play()
