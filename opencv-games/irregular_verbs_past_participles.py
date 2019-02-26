@@ -175,7 +175,7 @@ class PistolGame(object):
         sys.exit()
 
     def run(self):
-        self.camera = cv2.VideoCapture(0)# 0 if only one camera
+        self.camera = cv2.VideoCapture(1)# 0 if only one camera
         
         self.selected_verb_list = self.verbs[random.randint(0, len(self.verbs)-1)]
         random.shuffle(self.selected_verb_list[1])
