@@ -655,6 +655,9 @@ class TimedWordsTeamGame(object):
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        sys.exit()
                     if event.key == pygame.K_SPACE:
                         self.refresh_display()
                     if event.key == pygame.K_d:#these pygame keys (a, e, i, m) will depend on your hardware setup
