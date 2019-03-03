@@ -1,0 +1,3 @@
+Classic Joystick
+Camera Pistol
+Single Pushbutton
