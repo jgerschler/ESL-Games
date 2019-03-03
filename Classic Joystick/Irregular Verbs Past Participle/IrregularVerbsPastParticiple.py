@@ -340,6 +340,8 @@ class IrregularVerbs(object):
                 if event.type == pygame.QUIT:
                     finished = True
                 if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_ESCAPE:
+                        self.finished = True
                     if event.key == pygame.K_SPACE:
                         self.new_user()
                     if event.key == pygame.K_a:
@@ -362,6 +364,8 @@ class IrregularVerbs(object):
                         pass
                    
             pygame.display.update()
+        pygame.quit()
+        sys.exit()
     
 if __name__ == '__main__':
     new_game = IrregularVerbs()
