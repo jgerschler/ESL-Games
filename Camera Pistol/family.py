@@ -89,7 +89,7 @@ class PistolGame(object):
         sys.exit()
 
     def run(self):
-        self.camera = cv2.VideoCapture(1)# change 1 to 0 if you only have one camera
+        self.camera = cv2.VideoCapture(0)# change 1 to 0 if you only have one camera
         
         self.selected_profession = random.choice(list(self.translations.keys()))
         self.professions_list = random.sample(self.professions, 3)
@@ -141,6 +141,8 @@ class PistolGame(object):
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    self.finished = True
+                if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
                     self.finished = True
                 if event.type == pygame.KEYUP and event.key == pygame.K_a:
                     # update to use dictionary here?
@@ -199,8 +201,10 @@ class PistolGame(object):
 
             pygame.display.update()
 
-        camera.release()
+        self.camera.release()
         cv2.destroyAllWindows()
+        pygame.quit()
+        sys.exit()
         
 if __name__ == '__main__':
     pg = PistolGame()

@@ -194,6 +194,8 @@ class PistolGame(object):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.finished = True
+                if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+                    self.finished = True
                 if event.type == pygame.KEYUP and event.key == pygame.K_a:
                     if (rect0.collidepoint(int_x, int_y) and self.filler_replies[0] == self.selected_answer[0]):
                         self.sound_shot.play()
@@ -252,6 +254,8 @@ class PistolGame(object):
 
         camera.release()
         cv2.destroyAllWindows()
+        pygame.quit()
+        sys.exit()
         
 if __name__ == '__main__':
     pg = PistolGame()

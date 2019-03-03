@@ -224,6 +224,8 @@ class PistolGame(object):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.finished = True
+                if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+                    self.finished = True
                 if event.type == pygame.KEYUP and event.key == pygame.K_a:
                     # update to use dictionary here?
                     if (rect0.collidepoint(int_x, int_y) and self.selected_verb_list[1][0][1] == "a"):
@@ -281,8 +283,10 @@ class PistolGame(object):
 
             pygame.display.update()
 
-        camera.release()
+        self.camera.release()
         cv2.destroyAllWindows()
+        pygame.quit()
+        sys.exit()
         
 if __name__ == '__main__':
     pg = PistolGame()
