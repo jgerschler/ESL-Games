@@ -103,6 +103,10 @@ class PistolGame(object):
         
         self.score = 0
         int_x, int_y = 0, 0
+        rect0_edge_x, rect0_edge_y = 0, 0
+        rect1_edge_x, rect1_edge_y = 0, 0
+        rect2_edge_x, rect2_edge_y = 0, 0
+        rect3_edge_x, rect3_edge_y = 0, 0
         start_ticks = pygame.time.get_ticks()
         
         while not self.finished:
@@ -141,6 +145,8 @@ class PistolGame(object):
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    self.finished = True
+                if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
                     self.finished = True
                 if event.type == pygame.KEYUP and event.key == pygame.K_a:
                     # update to use dictionary here?
@@ -192,6 +198,7 @@ class PistolGame(object):
                     dist_x_r3 = int_x - rect3_edge_x
                     dist_y_r3 = int_y - rect3_edge_y
                     distance_r3 = math.sqrt((dist_x_r3 * dist_x_r3) + (dist_y_r3 * dist_y_r3))
+                    print("dr0:{0},dx0:{1},dy0:{2}".format(distance_r0, dist_x_r0, dist_y_r0))
                     # scoring logic
                     if ((distance_r0 < PistolGame.TARGET_CIRCLE_RADIUS) and self.professions_list[0] == self.selected_profession):
                         self.sound_shot.play()
@@ -248,8 +255,10 @@ class PistolGame(object):
 
             pygame.display.update()
 
-        camera.release()
+        self.camera.release()
         cv2.destroyAllWindows()
+        pygame.quit()
+        sys.exit()
         
 if __name__ == '__main__':
     pg = PistolGame()
