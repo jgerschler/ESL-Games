@@ -18,7 +18,7 @@ class PistolGame(object):
     RED = (255,0,0)
     BLUE = (0,162,232)
 
-    TARGET_CIRCLE_RADIUS = 10
+    TARGET_CIRCLE_RADIUS = 50
     
     def __init__(self):
         pygame.init()
@@ -103,10 +103,6 @@ class PistolGame(object):
         
         self.score = 0
         int_x, int_y = 0, 0
-        rect0_edge_x, rect0_edge_y = 0, 0
-        rect1_edge_x, rect1_edge_y = 0, 0
-        rect2_edge_x, rect2_edge_y = 0, 0
-        rect3_edge_x, rect3_edge_y = 0, 0
         start_ticks = pygame.time.get_ticks()
         
         while not self.finished:
@@ -149,15 +145,19 @@ class PistolGame(object):
                 if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
                     self.finished = True
                 if event.type == pygame.KEYUP and event.key == pygame.K_a:
+                    rect0_edge_x, rect0_edge_y = int_x, int_y
+                    rect1_edge_x, rect1_edge_y = int_x, int_y
+                    rect2_edge_x, rect2_edge_y = int_x, int_y
+                    rect3_edge_x, rect3_edge_y = int_x, int_y
                     # update to use dictionary here?
                     # rect0
                     if int_x < rect0.left:
                         rect0_edge_x = rect0.left
                     elif int_x > rect0.right:
                         rect0_edge_x = rect0.right
-                    if int_y > rect0.top:
+                    if int_y < rect0.top:
                         rect0_edge_y = rect0.top
-                    elif int_y < rect0.bottom:
+                    elif int_y > rect0.bottom:
                         rect0_edge_y = rect0.bottom
                     dist_x_r0 = int_x - rect0_edge_x
                     dist_y_r0 = int_y - rect0_edge_y
@@ -167,9 +167,9 @@ class PistolGame(object):
                         rect1_edge_x = rect1.left
                     elif int_x > rect1.right:
                         rect1_edge_x = rect1.right
-                    if int_y > rect1.top:
+                    if int_y < rect1.top:
                         rect1_edge_y = rect1.top
-                    elif int_y < rect1.bottom:
+                    elif int_y > rect1.bottom:
                         rect1_edge_y = rect1.bottom
                     dist_x_r1 = int_x - rect1_edge_x
                     dist_y_r1 = int_y - rect1_edge_y
@@ -179,9 +179,9 @@ class PistolGame(object):
                         rect2_edge_x = rect2.left
                     elif int_x > rect2.right:
                         rect2_edge_x = rect2.right
-                    if int_y > rect2.top:
+                    if int_y < rect2.top:
                         rect2_edge_y = rect2.top
-                    elif int_y < rect2.bottom:
+                    elif int_y > rect2.bottom:
                         rect2_edge_y = rect2.bottom
                     dist_x_r2 = int_x - rect2_edge_x
                     dist_y_r2 = int_y - rect2_edge_y
@@ -191,14 +191,13 @@ class PistolGame(object):
                         rect3_edge_x = rect3.left
                     elif int_x > rect3.right:
                         rect3_edge_x = rect3.right
-                    if int_y > rect3.top:
+                    if int_y < rect3.top:
                         rect3_edge_y = rect3.top
-                    elif int_y < rect3.bottom:
+                    elif int_y > rect3.bottom:
                         rect3_edge_y = rect3.bottom
                     dist_x_r3 = int_x - rect3_edge_x
                     dist_y_r3 = int_y - rect3_edge_y
                     distance_r3 = math.sqrt((dist_x_r3 * dist_x_r3) + (dist_y_r3 * dist_y_r3))
-                    print("dr0:{0},dx0:{1},dy0:{2}".format(distance_r0, dist_x_r0, dist_y_r0))
                     # scoring logic
                     if ((distance_r0 < PistolGame.TARGET_CIRCLE_RADIUS) and self.professions_list[0] == self.selected_profession):
                         self.sound_shot.play()
