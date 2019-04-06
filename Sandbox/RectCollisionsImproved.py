@@ -5,7 +5,7 @@ pygame.init()
 
 words_list = ["word1","w2","wwordword33","w4","w5"]
 
-Surface = pygame.display.set_mode((400,300))
+Surface = pygame.display.set_mode((800,600))
 
 Words = []
 class Word:
@@ -14,8 +14,8 @@ class Word:
         self.word = random.choice(words_list)
         self.rendered_word = self.font.render(self.word, 1, (100,100,255))
         self.rect = self.rendered_word.get_rect()
-        self.x = random.randint(self.rect.width, 400-self.rect.width)
-        self.y = random.randint(self.rect.height, 300-self.rect.height)
+        self.x = random.randint(self.rect.width, 800-self.rect.width)
+        self.y = random.randint(self.rect.height, 600-self.rect.height)
         self.speedx = 0.1*(random.random()+0.1)
         self.speedy = 0.1*(random.random()+0.1)
 
@@ -66,8 +66,8 @@ def Move():
         Word.y += Word.speedy
 def CollisionDetect():
     for Word in Words:# perfect this
-        if Word.x < Word.rect.width or Word.x > 400-Word.rect.width:    Word.speedx *= -1
-        if Word.y < Word.rect.height or Word.y > 300-Word.rect.height:    Word.speedy *= -1
+        if Word.x < Word.rect.width or Word.x > 800-Word.rect.width:    Word.speedx *= -1
+        if Word.y < Word.rect.height or Word.y > 600-Word.rect.height:    Word.speedy *= -1
     for Word in Words:
         for Word2 in Words:
             if Word != Word2:

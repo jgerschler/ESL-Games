@@ -5,6 +5,7 @@ import cv2
 import pygame
 import random
 import sys
+import math
 
 class PistolGame(object):
     FONT_SIZE = 32# font size for words

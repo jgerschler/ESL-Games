@@ -89,7 +89,7 @@ class PistolGame(object):
         sys.exit()
 
     def run(self):
-        self.camera = cv2.VideoCapture(0)# change 1 to 0 if you only have one camera
+        self.camera = cv2.VideoCapture(1)# change 1 to 0 if you only have one camera
         
         self.selected_profession = random.choice(list(self.translations.keys()))
         self.professions_list = random.sample(self.professions, 3)
