@@ -92,7 +92,7 @@ class PistolGame(object):
         sys.exit()
 
     def run(self):
-        self.camera = cv2.VideoCapture(1)# change 1 to 0 if you only have one camera
+        self.camera = cv2.VideoCapture(0)# change 1 to 0 if you only have one camera
         
         self.selected_profession = random.choice(list(self.translations.keys()))
         self.professions_list = random.sample(self.professions, 3)
@@ -138,6 +138,10 @@ class PistolGame(object):
             base_verb = self.message_display(self.translations[self.selected_profession], (self.display_width/2, 50), 1, 1)
             pygame.draw.circle(self.game_display, PistolGame.BLUE, (int(self.display_width/2), int(self.display_height/2)), 40)# change tracking circle radius as necessary
             pygame.draw.circle(self.game_display, PistolGame.BLACK,(int_x, int_y), PistolGame.TARGET_CIRCLE_RADIUS)
+            pygame.draw.rect(self.game_display, PistolGame.RED, (0, 0, self.display_width, 0.05*self.display_height))
+            pygame.draw.rect(self.game_display, PistolGame.RED, (0, 0.95*self.display_height, self.display_width, 0.05*self.display_height))
+            pygame.draw.rect(self.game_display, PistolGame.RED, (0, 0, 0.05*self.display_width, self.display_height))
+            pygame.draw.rect(self.game_display, PistolGame.RED, (0.95*self.display_width, 0, 0.05*self.display_width, self.display_height))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
