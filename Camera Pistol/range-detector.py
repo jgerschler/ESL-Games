@@ -40,7 +40,7 @@ def get_trackbar_values(range_filter):
 def main():
     range_filter = 'HSV'
 
-    camera = cv2.VideoCapture(0)
+    camera = cv2.VideoCapture(1)
 
     setup_trackbars(range_filter)
 
