@@ -43,7 +43,7 @@ class Word:
     def __init__(self):
         self.font = pygame.font.Font(None, 48)
         self.word = random.choice(list(words_dict.keys()))
-        self.rendered_word = self.font.render(self.word, 1, (100,100,255))
+        self.rendered_word = self.font.render(self.word, 1, (100,0,0))
         self.rect = self.rendered_word.get_rect()
         self.x = random.randint(left_border + self.rect.width,
                                 right_border - self.rect.width)
@@ -129,7 +129,7 @@ def CollisionDetect():
                     WordCollide(Word,Word2)
                     
 def Draw(mouse_x, mouse_y, secs_remaining):
-    Surface.fill((25,0,0))
+    Surface.fill((255,255,255))
 ##    # draw tracking rects
 ##    pygame.draw.rect(Surface, PRETTY_BLUE,
 ##                     (0, 0, display_width, top_border), 0)
@@ -161,7 +161,7 @@ def Draw(mouse_x, mouse_y, secs_remaining):
         Word.rect.center = (Word.x, Word.y)
         Surface.blit(Word.rendered_word, Word.rect)
     # draw cursor
-    pygame.draw.circle(Surface, (128,128,128), (mouse_x, mouse_y), 10)
+    pygame.draw.circle(Surface, (0,0,0), (mouse_x, mouse_y), 10)
     # draw tracking circle
     pygame.draw.circle(Surface, (0,162,232), (int(display_width/2), int(display_height/2)), 40)
     pygame.display.update()
