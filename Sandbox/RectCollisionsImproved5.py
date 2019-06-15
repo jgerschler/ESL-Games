@@ -25,6 +25,8 @@ score = 0
 countdown = 30
 
 Surface = pygame.display.set_mode((800,600))
+#pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+
 
 display_width, display_height = pygame.display.get_surface().get_size()
 
@@ -34,7 +36,7 @@ right_border = (display_width -
 top_border = 0.05 * display_height
 bottom_border = 0.95 * display_height
 
-PRETTY_BLUE = (0, 0, 128)
+PRETTY_BLUE = (128, 0, 0)
 Words = []
 
 class Word:
@@ -128,20 +130,20 @@ def CollisionDetect():
                     
 def Draw(mouse_x, mouse_y, secs_remaining):
     Surface.fill((25,0,0))
-    # draw tracking rects
-    pygame.draw.rect(Surface, PRETTY_BLUE,
-                     (0, 0, display_width, top_border), 0)
-    pygame.draw.rect(Surface, PRETTY_BLUE,
-                     (0, bottom_border,
-                      display_width, 0.05 * display_height), 0)
-    pygame.draw.rect(Surface, PRETTY_BLUE,
-                     (0, 0, left_border,
-                      display_height), 0)
-    pygame.draw.rect(Surface, PRETTY_BLUE,
-                     (right_border,
-                      0,
-                      left_border,
-                      display_height), 0)
+##    # draw tracking rects
+##    pygame.draw.rect(Surface, PRETTY_BLUE,
+##                     (0, 0, display_width, top_border), 0)
+##    pygame.draw.rect(Surface, PRETTY_BLUE,
+##                     (0, bottom_border,
+##                      display_width, 0.05 * display_height), 0)
+##    pygame.draw.rect(Surface, PRETTY_BLUE,
+##                     (0, 0, left_border,
+##                      display_height), 0)
+##    pygame.draw.rect(Surface, PRETTY_BLUE,
+##                     (right_border,
+##                      0,
+##                      left_border,
+##                      display_height), 0)
     # draw score
     rendered_score = score_font.render(str(score), 1, (255, 0, 0))
     rendered_score_rect = rendered_score.get_rect()
@@ -186,26 +188,25 @@ def main():
     int_x = 0
     int_y = 0
     start_ticks = pygame.time.get_ticks()
+    camera = cv2.VideoCapture(1)
     while True:
         GetInput()
         Move()
         CollisionDetect()
         secs_remaining = (countdown -
                           (pygame.time.get_ticks() - start_ticks) / 1000)
-        camera = cv2.VideoCapture(1)
+        
         (grabbed, frame) = camera.read()
-        print(grabbed)
-        print(frame)
+        if grabbed:
+            frame = imutils.resize(frame, width=display_width)
+            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-        frame = imutils.resize(frame, width=display_width)
-        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            mask = cv2.inRange(hsv, object_lower, object_upper)
+            mask = cv2.erode(mask, None, iterations=2)
+            mask = cv2.dilate(mask, None, iterations=2)
 
-        mask = cv2.inRange(hsv, object_lower, object_upper)
-        mask = cv2.erode(mask, None, iterations=2)
-        mask = cv2.dilate(mask, None, iterations=2)
-
-        cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
-                                cv2.CHAIN_APPROX_SIMPLE)[-2]
+            cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
+                                    cv2.CHAIN_APPROX_SIMPLE)[-2]
         if len(cnts) > 0:
             c = max(cnts, key=cv2.contourArea)
             ((x, y), radius) = cv2.minEnclosingCircle(c)
