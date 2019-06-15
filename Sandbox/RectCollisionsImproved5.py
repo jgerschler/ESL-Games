@@ -24,8 +24,8 @@ score_font = pygame.font.Font(None, 32)
 score = 0
 countdown = 30
 
-Surface = pygame.display.set_mode((800,600))
-#pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+#Surface = pygame.display.set_mode((800,600))
+Surface = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 
 
 display_width, display_height = pygame.display.get_surface().get_size()
@@ -43,12 +43,12 @@ class Word:
     def __init__(self):
         self.font = pygame.font.Font(None, 48)
         self.word = random.choice(list(words_dict.keys()))
-        self.rendered_word = self.font.render(self.word, 1, (100,0,0))
+        self.rendered_word = self.font.render(self.word, 1, (255,0,0))
         self.rect = self.rendered_word.get_rect()
-        self.x = random.randint(left_border + self.rect.width,
-                                right_border - self.rect.width)
-        self.y = random.randint(top_border + self.rect.height,
-                                bottom_border - self.rect.height)
+        self.x = random.randint(int(left_border + self.rect.width),
+                                int(right_border - self.rect.width))
+        self.y = random.randint(int(top_border + self.rect.height),
+                                int(bottom_border - self.rect.height))
         self.speedx = 0.1*(random.random()+0.01)
         self.speedy = 0.1*(random.random()+0.01)
         self.shrink_level = 1
