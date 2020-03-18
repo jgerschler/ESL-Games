@@ -75,15 +75,10 @@ class BodyGameRuntime(object):
             "So, his expression meant that, when dealing with a problem, spending a small amount of time and effort early on is a good investment.",
             "It can save you more trouble in the end.",
             "Education officials and industry experts are debating the future of online learning.",
-            "The discussion is important because recently hundreds of universities in the United States have moved classes online because of the spread of the new coronavirus.",
-            "Colleges and universities worldwide have been looking for ways to provide high quality education off campus and outside of normal business hours.",
-            "The decision by many schools in the United States to suspend in-person classes during the recent coronavirus crisis has shown how important online teaching can be.",
             "And demand for such programs is increasing.",
-            "Pearson Education is one of a growing number of companies that have partnered with schools to create online study aids and full degree programs.",
             "Classes meet online through video conferencing.",
             "In this way, students are able to communicate with each other and their professors even when they are far away from school.",
-            "Online learning also permits older students, who work full-time and support families, to work on their education in their free time.",
-            "It can be helpful for people who might have difficulty coming to a college campus, such as disabled students or those who live far from any college or university."
+            "Online learning also permits older students, who work full-time and support families, to work on their education in their free time."
             ]
 
         self._frame_surface.fill((255, 255, 255))
