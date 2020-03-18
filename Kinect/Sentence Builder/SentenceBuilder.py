@@ -12,8 +12,7 @@ import pygame
 import random
 import sys
 
-
-TRACKING_COLOR = pygame.color.Color("purple")
+TRACKING_COLOR = pygame.color.Color("green")
 HIGHLIGHT_COLOR = pygame.color.Color("red")
 BG_COLOR = pygame.color.Color("white")
 GAME_TIME = 60# seconds
@@ -28,11 +27,9 @@ class BodyGameRuntime(object):
         self.buzz_sound = pygame.mixer.Sound('audio\\buzz.ogg')
         self.click_sound = pygame.mixer.Sound('audio\\click.ogg')
         self._infoObject = pygame.display.Info()
-        self._screen = pygame.display.set_mode((self._infoObject.current_w >> 1,
-                                                self._infoObject.current_h >> 1),
-                                               pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE, 32)
+        self._screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN, 32)
 
-        pygame.display.set_caption("Kinect Game Framework Test")
+        pygame.display.set_caption("Sentence Builder Game")
 
         self.finished = False
         self._clock = pygame.time.Clock()
@@ -83,7 +80,8 @@ class BodyGameRuntime(object):
         frag_list = [' '.join(words) for words in frag_list][0:3]
         return frag_list
 
-    def draw_ind_point(self, joints, jointPoints, color, highlight_color, rect0, rect1, rect2, joint0, frag_list):
+    def draw_ind_point(self, joints, jointPoints, color, highlight_color,
+                       rect0, rect1, rect2, joint0, frag_list):
         joint0State = joints[joint0].TrackingState;
         
         if (joint0State == PyKinectV2.TrackingState_NotTracked or
@@ -117,17 +115,43 @@ class BodyGameRuntime(object):
                 self.end_round(frag_list)
         else:
             try:
-                pygame.draw.circle(self._frame_surface, color, center, 20, 0)
+                pygame.draw.circle(self._frame_surface, color, center, 40, 0)
             except:
                 pass
+
+    def draw_ind_intro_point(self, joints, jointPoints, color, joint0):
+        joint0State = joints[joint0].TrackingState;
+        
+        if (joint0State == PyKinectV2.TrackingState_NotTracked or
+            joint0State == PyKinectV2.TrackingState_Inferred):
+            return
+
+        center = (int(jointPoints[joint0].x), int(jointPoints[joint0].y))
+
+        try:
+            pygame.draw.circle(self._frame_surface, color, center, 40, 0)
+        except:
+            pass
+
+    def update_intro_screen(self, joints, jointPoints, color):
+        self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
+        pygame.draw.rect(self._frame_surface, HIGHLIGHT_COLOR, (400, 300, 50, 50), 0)
+        pygame.draw.rect(self._frame_surface, HIGHLIGHT_COLOR, (self._frame_surface.get_width() / 2, 200, 50, 50), 0)
+        pygame.draw.rect(self._frame_surface, HIGHLIGHT_COLOR, (self._frame_surface.get_width() - 400, 300, 50, 50), 0)
+        # draw rects here as examples
+
+        self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_Head)
+        self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_WristLeft)
+        # may change PyKinectV2.JointType_WristRight to PyKinectV2.JointType_ElbowRight
+        self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_WristRight)
 
     def update_screen(self, joints, jointPoints, color, highlight_color, frag_list, seconds):
         self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
 
-        self.message_display(self.built_frag, (300, 900), 2)
-        rect0 = self.message_display(frag_list[0], (300, 300), 1)
-        rect1 = self.message_display(frag_list[1], (self._frame_surface.get_width() / 2, 100), 1)
-        rect2 = self.message_display(frag_list[2], (self._frame_surface.get_width() - 300, 300), 1)
+        self.message_display(self.built_frag, (300, 750), 2)
+        rect0 = self.message_display(frag_list[0], (400, 300), 1)
+        rect1 = self.message_display(frag_list[1], (self._frame_surface.get_width()/2, 200), 1)
+        rect2 = self.message_display(frag_list[2], (self._frame_surface.get_width() - 400, 300), 1)
         self.message_display(str(self.score), (self._frame_surface.get_width() / 2, 800), 1)
         self.message_display(str(seconds), (self._frame_surface.get_width() - 300, 800), 1)
 
@@ -142,7 +166,7 @@ class BodyGameRuntime(object):
     def end_round(self, frag_list):
         self._frame_surface.fill(BG_COLOR)
 
-        self.message_display(self.built_frag, (300, 900), 2)
+        self.message_display(self.built_frag, (300, 750), 2)
         rect0 = self.message_display(frag_list[0], (300, 300), 1)
         rect1 = self.message_display(frag_list[1], (self._frame_surface.get_width() / 2, 100), 1)
         rect2 = self.message_display(frag_list[2], (self._frame_surface.get_width() - 300, 300), 1)
@@ -168,7 +192,9 @@ class BodyGameRuntime(object):
         surface_to_draw = None
         pygame.display.update()
         pygame.time.delay(3000)
-        self.run()
+        self._kinect.close()
+        pygame.quit()
+        sys.exit()
 
     def new_round(self):
         self.sentence = random.sample(self.sentence_list, 1)[0]
@@ -178,13 +204,9 @@ class BodyGameRuntime(object):
         pygame.time.delay(500)
         
         while not self.finished:
-            seconds = GAME_TIME - int((pygame.time.get_ticks() - self.start_ticks)/1000)
+            seconds = int(GAME_TIME - (pygame.time.get_ticks() - self.start_ticks) / 1000)
             if seconds <= 0:
                 self.end_game()
-                
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.finished = True
                              
             if self._kinect.has_new_body_frame(): 
                 self._bodies = self._kinect.get_last_body_frame()
@@ -197,7 +219,8 @@ class BodyGameRuntime(object):
                     
                     joints = body.joints 
                     joint_points = self._kinect.body_joints_to_color_space(joints)
-                    self.update_screen(joints, joint_points, TRACKING_COLOR, HIGHLIGHT_COLOR, frag_list, seconds)
+                    self.update_screen(joints, joint_points, TRACKING_COLOR,
+                                       HIGHLIGHT_COLOR, frag_list, seconds)# check here
 
             h_to_w = float(self._frame_surface.get_height()) / self._frame_surface.get_width()
             target_height = int(h_to_w * self._screen.get_width())
@@ -208,20 +231,49 @@ class BodyGameRuntime(object):
             pygame.display.update()
 
             self._clock.tick(60)
-            
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.finished = True
+                if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+                    self.finished = True 
+
         self.end_game()
 
     def run(self):
         self.score = 0
         while not self.finished:
+            if self._kinect.has_new_body_frame(): 
+                self._bodies = self._kinect.get_last_body_frame()
+
+            if self._bodies is not None:
+                for i in range(0, self._kinect.max_body_count):
+                    body = self._bodies.bodies[i]
+                    if not body.is_tracked: 
+                        continue 
+                    
+                    joints = body.joints 
+                    joint_points = self._kinect.body_joints_to_color_space(joints)
+                    self.update_intro_screen(joints, joint_points, TRACKING_COLOR)
+
+            h_to_w = float(self._frame_surface.get_height()) / self._frame_surface.get_width()
+            target_height = int(h_to_w * self._screen.get_width())
+            surface_to_draw = pygame.transform.scale(self._frame_surface,
+                                                     (self._screen.get_width(), target_height));
+            self._screen.blit(surface_to_draw, (0,0))
+            surface_to_draw = None
+            pygame.display.update()
+
+            self._clock.tick(60)
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.finished = True
-                if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
                     self.finished = True
                 if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
                     self.start_ticks = pygame.time.get_ticks()
                     self.new_round()
+                if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+                    self.finished = True              
 
         self._kinect.close()
         pygame.quit()
