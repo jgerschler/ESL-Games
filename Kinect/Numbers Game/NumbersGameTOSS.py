@@ -19,14 +19,14 @@ GAME_TIME = 60# seconds
 class BodyGameRuntime(object):
     def __init__(self):
         pygame.init()
-        pygame.mixer.init()
+        pygame.mixer.init()      
 
         self.beep_sound = pygame.mixer.Sound('audio\\beep.ogg')
         self.buzz_sound = pygame.mixer.Sound('audio\\buzz.ogg')
         self._infoObject = pygame.display.Info()
         self._screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN, 32)
 
-        pygame.display.set_caption("Adjective Adverb Game")
+        pygame.display.set_caption("Numbers Game")
 
         self.finished = False
         self._clock = pygame.time.Clock()
@@ -38,42 +38,42 @@ class BodyGameRuntime(object):
 
         self.score = 0
 
-        self.vocab_dict = {"She liked the _____ cat.":("happy", "happily", "happy"),
-                      "He _____ ate his food.":("quick", "quickly", "quickly"),
-                      "That is a _____ puppy!":("cute", "cutely", "cute"),
-                      "The pozole smells _____.":("tasty", "tastily", "tasty"),
-                      "The dead fish looks _____.":("gross", "grossly", "gross"),
-                      "He speaks _____.":("slow", "slowly", "slowly"),
-                      "The girl moves _____.":("quick", "quickly", "quickly"),
-                      "I feel _____.":("angry", "angrily", "angry"),
-                      "The woman looked _____ at the paint stains.":("angry", "angrily", "angrily"),
-                      "Rosario feels _____ about the news.":("bad", "badly", "bad"),
-                      "Your nose is very senstive. You smell _____.":("good", "well", "well"),
-                      "Nice perfume! You smell _____.":("good", "well", "good"),
-                      "Concha seems _____. She broke up with her boyfriend.":("sad", "sadly", "sad"),
-                      "Elvia was nervous and spoke very _____.":("quick", "quickly", "quickly"),
-                      "Monse _____ swallowed the taco.":("rapid", "rapidly", "rapidly"),
-                      "Chivis _____ watched the new movie.":("excited", "excitedly", "excitedly"),
-                      "Tizoc _____ cut in line at the cafeteria.":("rude", "rudely", "rudely"),
-                      "We did a _____ job on our homework.":("good", "well", "good"),
-                      "Roberto feels _____.":("bad", "badly", "bad"),
-                      "This old sushi tastes _____.":("disgusting", "disgustingly", "disgusting"),
-                      "The gross man _____ spit on the floor.":("disgusting", "disgustingly", "disgustingly"),
-                      "Salma Hayek is a _____ actress.":("beautiful", "beautifully", "beautiful"),
-                      "Eugenio Derbez acts _____.":("beautiful", "beautifully", "beautifully"),
-                      "She is a _____ runner!":("slow", "slowly", "slow"),
-                      "She drinks _____.":("thirsty", "thirstily", "thirstily"),
-                      "Oliver _____ ate the burrito.":("hungry", "hungrily", "hungrily"),
-                      "Five fish swam _____.":("quick", "quickly", "quickly"),
-                      "The black crow squawks _____.":("loud", "loudly", "loudly"),
-                      "Race cars drive _____.":("careful", "carefully", "carefully"),
-                      "Jennifer _____ read her book.":("quiet", "quietly", "quietly"),
-                      "Luis is a _____ person.":("quiet", "quietly", "quiet"),
-                      "He is a _____ driver.":("safe", "safely", "safe"),
-                      "Your brother is so _____.":("kind", "kindly", "kind"),
-                      "I always work _____ during the week.":("hard", "hardly", "hard"),
-                      "Paco did _____ on his test.":("bad", "badly", "badly"),
-                      "It is natural to feel _____ before a job interview.":("nervous", "nervously", "nervous")}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         self._frame_surface.fill((255, 255, 255))
 
@@ -83,7 +83,7 @@ class BodyGameRuntime(object):
 
     def message_display(self, text, loc_tuple, loc_int):
         # loc_int: 1 center, 2 top left, 3 bottom left, 4 bottom right, 5 top right
-        text_surf, text_rect = self.text_objects(text, pygame.font.Font(None, 64))
+        text_surf, text_rect = self.text_objects(text, pygame.font.Font(None, 128))
         loc_dict = {1:'text_rect.center', 2:'text_rect.topleft', 3:'text_rect.bottomleft',
                     4:'text_rect.bottomright', 5:'text_rect.topright'}
         exec(loc_dict[loc_int] + ' = loc_tuple')
@@ -91,7 +91,7 @@ class BodyGameRuntime(object):
         return text_rect 
 
     def draw_ind_point(self, joints, jointPoints, color, highlight_color,
-                       rect0, rect1, rect2, joint0, selected_sentence):
+                       rect0, rect1, rect2, joint0, numbers, chosen_number):
         joint0State = joints[joint0].TrackingState;
         
         if (joint0State == PyKinectV2.TrackingState_NotTracked or
@@ -100,8 +100,8 @@ class BodyGameRuntime(object):
 
         center = (int(jointPoints[joint0].x), int(jointPoints[joint0].y))
 
-        if ((rect0.collidepoint(center) and self.vocab_dict[selected_sentence][0] == self.vocab_dict[selected_sentence][2]) or
-            (rect2.collidepoint(center) and self.vocab_dict[selected_sentence][1] == self.vocab_dict[selected_sentence][2])):
+        if ((rect0.collidepoint(center) and numbers[0] == chosen_number) or
+            (rect2.collidepoint(center) and numbers[2] == chosen_number)):
             self.score += 1
             self.beep_sound.play()
             pygame.time.delay(500)
@@ -112,7 +112,7 @@ class BodyGameRuntime(object):
                 self.score -= 1
                 self.buzz_sound.play()
                 pygame.time.delay(500)
-                self.new_round()            
+                self.new_round()
             except: # need to catch it due to possible invalid positions (with inf)
                 pass
         else:
@@ -147,22 +147,22 @@ class BodyGameRuntime(object):
         # may change PyKinectV2.JointType_WristRight to PyKinectV2.JointType_ElbowRight
         self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_WristRight)
 
-    def update_screen(self, joints, jointPoints, color, highlight_color, selected_sentence, seconds):
+    def update_screen(self, joints, jointPoints, color, highlight_color, numbers, chosen_number, seconds):
         self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
         # need to make these coordinates relative
-        rect0 = self.message_display(self.vocab_dict[selected_sentence][0], (400, 300), 1)
-        rect1 = self.message_display(selected_sentence, (self._frame_surface.get_width()/2, 200), 1)
-        rect2 = self.message_display(self.vocab_dict[selected_sentence][1], (self._frame_surface.get_width() - 400, 300), 1)
+        rect0 = self.message_display(numbers[0], (400, 300), 1)
+        rect1 = self.message_display(numbers[1], (self._frame_surface.get_width()/2, 200), 1)
+        rect2 = self.message_display(numbers[2], (self._frame_surface.get_width() - 400, 300), 1)
         self.message_display(str(self.score), (self._frame_surface.get_width() / 2, 800), 1)
         self.message_display(str(seconds), (self._frame_surface.get_width() - 300, 800), 1)
 
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, rect2, PyKinectV2.JointType_Head, selected_sentence)
+                            rect1, rect2, PyKinectV2.JointType_Head, numbers, chosen_number)
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, rect2, PyKinectV2.JointType_WristRight, selected_sentence)
+                            rect1, rect2, PyKinectV2.JointType_WristRight, numbers, chosen_number)
         # may change PyKinectV2.JointType_WristRight to PyKinectV2.JointType_ElbowRight
         self.draw_ind_point(joints, jointPoints, color, highlight_color, rect0,
-                            rect1, rect2, PyKinectV2.JointType_WristLeft, selected_sentence)
+                            rect1, rect2, PyKinectV2.JointType_WristLeft, numbers, chosen_number)
 
     def end_game(self):
         self._frame_surface.fill(BG_COLOR)
