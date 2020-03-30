@@ -153,7 +153,7 @@ class BodyGameRuntime(object):
         self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_WristLeft)
         # may change PyKinectV2.JointType_WristRight to PyKinectV2.JointType_ElbowRight
         self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_WristRight)
-
+## CONTINUE UPDATE BELOW
     def update_screen(self, joints, jointPoints, color, highlight_color, seconds):
         self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
 
