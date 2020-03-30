@@ -29,7 +29,7 @@ class BodyGameRuntime(object):
                                                 self._infoObject.current_h >> 1),
                                                pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE, 32)
 
-        pygame.display.set_caption("Kinect Game Framework Test")
+        pygame.display.set_caption("Things In Common Game")
 
         self.finished = False
         self._clock = pygame.time.Clock()
@@ -99,7 +99,8 @@ class BodyGameRuntime(object):
         self._frame_surface.blit(text_surf, text_rect)
         return text_rect 
 
-    def draw_ind_point(self, joints, jointPoints, color, highlight_color, rect0, rect1, rect2, joint0):
+    def draw_ind_point(self, joints, jointPoints, color, highlight_color,
+                        rect0, rect1, rect2, joint0):
         joint0State = joints[joint0].TrackingState;
         
         if (joint0State == PyKinectV2.TrackingState_NotTracked or
@@ -126,6 +127,32 @@ class BodyGameRuntime(object):
                 pygame.draw.circle(self._frame_surface, color, center, 20, 0)
             except:
                 pass
+
+    def draw_ind_intro_point(self, joints, jointPoints, color, joint0):
+        joint0State = joints[joint0].TrackingState;
+        
+        if (joint0State == PyKinectV2.TrackingState_NotTracked or
+            joint0State == PyKinectV2.TrackingState_Inferred):
+            return
+
+        center = (int(jointPoints[joint0].x), int(jointPoints[joint0].y))
+
+        try:
+            pygame.draw.circle(self._frame_surface, color, center, 40, 0)
+        except:
+            pass
+
+    def update_intro_screen(self, joints, jointPoints, color):
+        self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
+        pygame.draw.rect(self._frame_surface, HIGHLIGHT_COLOR, (400, 300, 50, 50), 0)
+        pygame.draw.rect(self._frame_surface, HIGHLIGHT_COLOR, (self._frame_surface.get_width() / 2, 200, 50, 50), 0)
+        pygame.draw.rect(self._frame_surface, HIGHLIGHT_COLOR, (self._frame_surface.get_width() - 400, 300, 50, 50), 0)
+        # draw rects here as examples
+
+        self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_Head)
+        self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_WristLeft)
+        # may change PyKinectV2.JointType_WristRight to PyKinectV2.JointType_ElbowRight
+        self.draw_ind_intro_point(joints, jointPoints, color, PyKinectV2.JointType_WristRight)
 
     def update_screen(self, joints, jointPoints, color, highlight_color, seconds):
         self._frame_surface.fill(BG_COLOR)# blank screen before drawing points
