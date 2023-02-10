@@ -32,7 +32,7 @@ circle_radius = 40
 center_width = display_width/2
 center_height = display_height/2
 
-PRETTY_BLUE = (0, 0, 128)
+PRETTY_BLUE = (255, 0, 0)
 BLUE = (0, 162, 232)
 
 Words = []
@@ -41,7 +41,7 @@ class Word:
     def __init__(self):
         self.font = pygame.font.Font(None, 48)
         self.word = random.choice(list(words_dict.keys()))
-        self.rendered_word = self.font.render(self.word, 1, (100,100,255))
+        self.rendered_word = self.font.render(self.word, 1, (255,100,0))
         self.rect = self.rendered_word.get_rect()
         self.x = random.randint(left_border + self.rect.width,
                                 right_border - self.rect.width)
@@ -56,6 +56,8 @@ class Word:
             self.font = pygame.font.Font(None, 32)
             self.rendered_word = self.font.render(self.word, 1, (255,255,000))
             self.shrink_level = 2
+            self.speedx+=0.2
+            self.speedy+=0.2
         elif self.shrink_level == 2:
             self.font = pygame.font.Font(None, 16)
             self.rendered_word = self.font.render(self.word, 1, (255,0,0))
@@ -112,16 +114,11 @@ def Move():
         
 def CollisionDetect():
     for Word in Words:
-        if (Word.x < left_border + Word.rect.width / 2 or
-            Word.x > right_border - Word.rect.width / 2):
+        if ((Word.x < left_border + Word.rect.width / 2) or
+            (Word.x > right_border - Word.rect.width / 2)):
             Word.speedx *= -1
         if (Word.y < top_border + Word.rect.height / 2 or
             Word.y > bottom_border - Word.rect.height / 2):
-            Word.speedy *= -1
-
-        if ((((Word.x + Word.rect.width / 2) > (center_width - circle_radius))  or ((Word.x - Word.rect.width / 2) < (center_width + circle_radius)))):
-            Word.speedx *= -1
-        if ((((Word.y + Word.rect.height / 2) > (center_height - circle_radius))  or ((Word.y - Word.rect.height / 2) < (center_height + circle_radius)))):
             Word.speedy *= -1
     
     for Word in Words:
