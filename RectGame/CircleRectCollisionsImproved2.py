@@ -65,7 +65,7 @@ class Word:
         else:
             del(Words[Words.index(self)])
 
-for x in range(10):
+for x in range(1):
     Words.append(Word())
 
 def WordCollide(C1,C2):
@@ -133,7 +133,9 @@ def CollisionDetect():
 def Draw(mouse_x, mouse_y, secs_remaining):
     Surface.fill((25,0,0))
     # draw tracking circle
-    pygame.draw.circle(Surface, BLUE, (center_width, center_height), circle_radius)
+    #pygame.draw.circle(Surface, BLUE, (center_width, center_height), circle_radius)
+    pygame.draw.rect(Surface, BLUE, pygame.Rect(center_width-circle_radius, center_height-circle_radius, 2*circle_radius, 2*circle_radius))
+    
 
     # draw score
     rendered_score = score_font.render(str(score), 1, (255, 0, 0))
