@@ -64,11 +64,7 @@ class PistolGame(object):
         def __init__(self):
             self.font = pygame.font.Font(None, 48)
             self.words_dict = {'father':'padre','mother':'madre','brother':'hermano','sister':'hermana',
-            'husband':'esposo','wife':'esposa','son':'hijo','daughter':'hija',
-            'great grandmother':'bisabuela','great grandfather':'bisabuelo','father-in-law':'suegro','grandfather':'abuelo',
-            'mother-in-law':'suegra','grandmother':'abuela','uncle':'tio','aunt':'tia','cousin':'primo',
-            'nephew':'sobrino','niece':'sobrina','brother-in-law':'cuñado','sister-in-law':'cuñada','stepfather':'padrastro',
-            'stepmother':'madrastra','stepbrother':'hermanastro','stepsister':'hermanastra','half brother':'medio hermano','half sister':'media hermana'}
+            'husband':'esposo'}
             self.word = random.choice(list(self.words_dict.keys()))
             self.rendered_word = self.font.render(self.word, 1, (255,100,0))
             self.rect = self.rendered_word.get_rect()
@@ -223,7 +219,14 @@ class PistolGame(object):
                     self.finished = True
                 if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
                     self.finished = True
-##                if event.type == pygame.KEYUP and event.key == pygame.K_a:
+                if event.type == pygame.KEYUP and event.key == pygame.K_a:
+                    for Word in self.Words:
+                        if Word.rect.collidepoint(int_x, int_y):
+                            if Word.words_dict[Word.word] == 'padre':
+                                self.sound_shot.play()
+                            else:
+                                self.sound_miss.play()
+                            
 ##                    # update to use dictionary here?
 ##                    if (rect0.collidepoint(int_x, int_y) and self.professions_list[0] == self.selected_profession):
 ##                        self.sound_shot.play()
