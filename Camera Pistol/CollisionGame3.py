@@ -25,8 +25,8 @@ class PistolGame(object):
         pygame.mixer.init()
         pygame.mouse.set_visible(0)
 
-        self.sound_shot = pygame.mixer.Sound('audio\\shot.ogg')
-        self.sound_wrong_shot = pygame.mixer.Sound('audio\\scream.ogg')
+        self.sound_right = pygame.mixer.Sound('audio\\right.ogg')
+        self.sound_wrong = pygame.mixer.Sound('audio\\wrong.ogg')
         self.sound_miss = pygame.mixer.Sound('audio\\ricochet.ogg')
         self.image_shot = pygame.image.load('images\\bang.png')
 
@@ -54,7 +54,7 @@ class PistolGame(object):
         self.circle_radius = 40
         self.tracking_rect = pygame.Rect(self.center_width-self.circle_radius, self.center_height-self.circle_radius, 2*self.circle_radius, 2*self.circle_radius)
 
-        for x in range(5):
+        for x in range(10):
             self.Words.append(self.Word())
         
         self.game_display.fill(PistolGame.WHITE)
@@ -70,8 +70,8 @@ class PistolGame(object):
             self.rect = self.rendered_word.get_rect()
             self.x = random.randint(100,800)
             self.y = random.randint(100,600)
-            self.speedx = 5*(random.random()+0.01)
-            self.speedy = 5*(random.random()+0.01)
+            self.speedx = 10*(random.random()+0.01)
+            self.speedy = 10*(random.random()+0.01)
             self.shrink_level = 1
 
         def shrink(self):
@@ -79,14 +79,15 @@ class PistolGame(object):
                 self.font = pygame.font.Font(None, 32)
                 self.rendered_word = self.font.render(self.word, 1, (255,255,000))
                 self.shrink_level = 2
-                self.speedx+=0.2
-                self.speedy+=0.2
+                self.speedx+=10
+                self.speedy+=10
             elif self.shrink_level == 2:
-                self.font = pygame.font.Font(None, 16)
+                self.font = pygame.font.Font(None, 24)
                 self.rendered_word = self.font.render(self.word, 1, (255,0,0))
                 self.shrink_level = 3
             else:
-                del(Words[Words.index(self)])
+                del(pg.Words[pg.Words.index(self)])
+                #pg.Words.remove(Word)
 
     def WordCollide(self,C1,C2):
         C1Speed = math.sqrt((C1.speedx**2)+(C1.speedy**2))
@@ -223,9 +224,12 @@ class PistolGame(object):
                     for Word in self.Words:
                         if Word.rect.collidepoint(int_x, int_y):
                             if Word.words_dict[Word.word] == 'padre':
-                                self.sound_shot.play()
+                                self.sound_right.play()
+                                self.Words.remove(Word)
                             else:
-                                self.sound_miss.play()
+                                self.sound_wrong.play()
+                                Word.shrink()
+                                #self.Words.remove(Word)
                             
 ##                    # update to use dictionary here?
 ##                    if (rect0.collidepoint(int_x, int_y) and self.professions_list[0] == self.selected_profession):
